@@ -1,0 +1,1233 @@
+2025-12-30 00:02:48.395 +03:00 [INF] Application is shutting down...
+2025-12-30 00:03:10.815 +03:00 [INF] User profile is available. Using 'C:\Users\PC\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-12-30 00:03:11.014 +03:00 [INF] Now listening on: http://localhost:5271
+2025-12-30 00:03:11.018 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-30 00:03:11.019 +03:00 [INF] Hosting environment: Development
+2025-12-30 00:03:11.020 +03:00 [INF] Content root path: C:\Users\PC\Desktop\ECommerce\src\Presentation\ECommerce.RestApi
+2025-12-30 00:06:45.480 +03:00 [INF] Application is shutting down...
+2025-12-30 00:07:35.042 +03:00 [INF] User profile is available. Using 'C:\Users\PC\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-12-30 00:07:35.264 +03:00 [INF] Now listening on: http://localhost:5271
+2025-12-30 00:07:35.271 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-30 00:07:35.273 +03:00 [INF] Hosting environment: Development
+2025-12-30 00:07:35.274 +03:00 [INF] Content root path: C:\Users\PC\Desktop\ECommerce\src\Presentation\ECommerce.RestApi
+2025-12-30 00:07:41.081 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5271/api/Auth/Register - application/json; charset=utf-8 438
+2025-12-30 00:07:41.232 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.AuthController.Register (ECommerce.RestApi)'
+2025-12-30 00:07:41.259 +03:00 [INF] Route matched with {action = "Register", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Register(ECommerce.Application.DTOs.Auth.RegisterDto) on controller ECommerce.RestApi.Controllers.AuthController (ECommerce.RestApi).
+2025-12-30 00:07:43.831 +03:00 [INF] Executed DbCommand (27ms) [Parameters=[@__dto_Email_0='?' (Size = 14)], CommandType='"Text"', CommandTimeout='30']
+SELECT "u"."Id", "u"."CompanyId", "u"."CreatedDate", "u"."Email", "u"."FirstName", "u"."IsDeleted", "u"."LastName", "u"."PasswordHash", "u"."Role", "u"."Status", "u"."UpdatedDate"
+FROM "Users" AS "u"
+WHERE "u"."Email" = @__dto_Email_0 AND NOT ("u"."IsDeleted")
+2025-12-30 00:07:44.998 +03:00 [INF] Executed DbCommand (5ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Guid), @p2='?' (DbType = DateTime), @p3='?' (Size = 14), @p4='?' (Size = 5), @p5='?' (DbType = Boolean), @p6='?' (Size = 6), @p7='?' (Size = 60), @p8='?' (Size = 8), @p9='?' (DbType = Boolean), @p10='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Users" ("Id", "CompanyId", "CreatedDate", "Email", "FirstName", "IsDeleted", "LastName", "PasswordHash", "Role", "Status", "UpdatedDate")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10);
+2025-12-30 00:07:45.021 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.Guid, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 00:07:45.072 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.AuthController.Register (ECommerce.RestApi) in 3805.2301ms
+2025-12-30 00:07:45.083 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.AuthController.Register (ECommerce.RestApi)'
+2025-12-30 00:07:45.094 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5271/api/Auth/Register - 200 null application/json; charset=utf-8 4014.4127ms
+2025-12-30 00:08:42.138 +03:00 [INF] Application is shutting down...
+2025-12-30 00:08:50.139 +03:00 [INF] User profile is available. Using 'C:\Users\PC\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-12-30 00:08:50.421 +03:00 [INF] Now listening on: http://localhost:5271
+2025-12-30 00:08:50.431 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-30 00:08:50.435 +03:00 [INF] Hosting environment: Development
+2025-12-30 00:08:50.436 +03:00 [INF] Content root path: C:\Users\PC\Desktop\ECommerce\src\Presentation\ECommerce.RestApi
+2025-12-30 00:09:17.427 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5271/api/Auth/Register - application/json; charset=utf-8 438
+2025-12-30 00:09:17.619 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.AuthController.Register (ECommerce.RestApi)'
+2025-12-30 00:09:17.649 +03:00 [INF] Route matched with {action = "Register", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Register(ECommerce.Application.DTOs.Auth.RegisterDto) on controller ECommerce.RestApi.Controllers.AuthController (ECommerce.RestApi).
+2025-12-30 00:09:19.524 +03:00 [INF] Executed DbCommand (20ms) [Parameters=[@__dto_Email_0='?' (Size = 14)], CommandType='"Text"', CommandTimeout='30']
+SELECT "u"."Id", "u"."CompanyId", "u"."CreatedDate", "u"."Email", "u"."FirstName", "u"."IsDeleted", "u"."LastName", "u"."PasswordHash", "u"."Role", "u"."Status", "u"."UpdatedDate"
+FROM "Users" AS "u"
+WHERE "u"."Email" = @__dto_Email_0 AND NOT ("u"."IsDeleted")
+2025-12-30 00:09:19.680 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.Guid, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 00:09:19.732 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.AuthController.Register (ECommerce.RestApi) in 2075.7648ms
+2025-12-30 00:09:19.740 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.AuthController.Register (ECommerce.RestApi)'
+2025-12-30 00:09:19.755 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5271/api/Auth/Register - 200 null application/json; charset=utf-8 2330.8136ms
+2025-12-30 00:09:56.273 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5271/api/Auth/Register - application/json; charset=utf-8 445
+2025-12-30 00:09:56.282 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.AuthController.Register (ECommerce.RestApi)'
+2025-12-30 00:09:56.284 +03:00 [INF] Route matched with {action = "Register", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Register(ECommerce.Application.DTOs.Auth.RegisterDto) on controller ECommerce.RestApi.Controllers.AuthController (ECommerce.RestApi).
+2025-12-30 00:09:56.385 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[@__dto_Email_0='?' (Size = 20)], CommandType='"Text"', CommandTimeout='30']
+SELECT "u"."Id", "u"."CompanyId", "u"."CreatedDate", "u"."Email", "u"."FirstName", "u"."IsDeleted", "u"."LastName", "u"."PasswordHash", "u"."Role", "u"."Status", "u"."UpdatedDate"
+FROM "Users" AS "u"
+WHERE "u"."Email" = @__dto_Email_0 AND NOT ("u"."IsDeleted")
+2025-12-30 00:09:57.056 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Guid), @p2='?' (DbType = DateTime), @p3='?' (Size = 20), @p4='?' (Size = 6), @p5='?' (DbType = Boolean), @p6='?' (Size = 6), @p7='?' (Size = 60), @p8='?' (Size = 8), @p9='?' (DbType = Boolean), @p10='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Users" ("Id", "CompanyId", "CreatedDate", "Email", "FirstName", "IsDeleted", "LastName", "PasswordHash", "Role", "Status", "UpdatedDate")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10);
+2025-12-30 00:09:57.071 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.Guid, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 00:09:57.073 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.AuthController.Register (ECommerce.RestApi) in 784.949ms
+2025-12-30 00:09:57.074 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.AuthController.Register (ECommerce.RestApi)'
+2025-12-30 00:09:57.076 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5271/api/Auth/Register - 200 null application/json; charset=utf-8 803.3857ms
+2025-12-30 10:03:42.859 +03:00 [INF] User profile is available. Using 'C:\Users\PC\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-12-30 10:03:43.119 +03:00 [INF] Now listening on: http://localhost:5271
+2025-12-30 10:03:43.126 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-30 10:03:43.127 +03:00 [INF] Hosting environment: Development
+2025-12-30 10:03:43.129 +03:00 [INF] Content root path: C:\Users\PC\Desktop\ECommerce\src\Presentation\ECommerce.RestApi
+2025-12-30 10:19:03.997 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5271/api/Auth/Login - application/json; charset=utf-8 54
+2025-12-30 10:19:04.294 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.AuthController.Login (ECommerce.RestApi)'
+2025-12-30 10:19:04.365 +03:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(ECommerce.Application.DTOs.Auth.LoginDto) on controller ECommerce.RestApi.Controllers.AuthController (ECommerce.RestApi).
+2025-12-30 10:19:08.225 +03:00 [INF] Executed DbCommand (40ms) [Parameters=[@__dto_Email_0='?' (Size = 21)], CommandType='"Text"', CommandTimeout='30']
+SELECT "u"."Id", "u"."CompanyId", "u"."CreatedDate", "u"."Email", "u"."FirstName", "u"."IsDeleted", "u"."LastName", "u"."PasswordHash", "u"."Role", "u"."Status", "u"."UpdatedDate"
+FROM "Users" AS "u"
+WHERE "u"."Email" = @__dto_Email_0 AND NOT ("u"."IsDeleted")
+2025-12-30 10:19:10.400 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 10:19:10.463 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.AuthController.Login (ECommerce.RestApi) in 6077.7455ms
+2025-12-30 10:19:10.481 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.AuthController.Login (ECommerce.RestApi)'
+2025-12-30 10:19:10.510 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5271/api/Auth/Login - 200 null application/json; charset=utf-8 6522.4881ms
+2025-12-30 14:45:17.184 +03:00 [INF] Application is shutting down...
+2025-12-30 14:49:28.228 +03:00 [INF] Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+2025-12-30 14:49:28.313 +03:00 [INF] Executed DbCommand (15ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsLock' AND "type" = 'table';
+2025-12-30 14:49:28.322 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT OR IGNORE INTO "__EFMigrationsLock"("Id", "Timestamp") VALUES(1, '2025-12-30 11:49:28.3192672+00:00');
+SELECT changes();
+2025-12-30 14:49:28.377 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE IF NOT EXISTS "__EFMigrationsHistory" (
+    "MigrationId" TEXT NOT NULL CONSTRAINT "PK___EFMigrationsHistory" PRIMARY KEY,
+    "ProductVersion" TEXT NOT NULL
+);
+2025-12-30 14:49:28.383 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2025-12-30 14:49:28.387 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2025-12-30 14:49:28.396 +03:00 [INF] Applying migration '20251230114910_InitialCreate7'.
+2025-12-30 14:49:28.418 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE "Companies" RENAME COLUMN "Address" TO "FullAddress";
+2025-12-30 14:49:28.420 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE "Companies" ADD "City" TEXT NOT NULL DEFAULT '';
+2025-12-30 14:49:28.421 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE "Companies" ADD "District" TEXT NOT NULL DEFAULT '';
+2025-12-30 14:49:28.422 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20251230114910_InitialCreate7', '9.0.10');
+2025-12-30 14:49:28.429 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "__EFMigrationsLock";
+2025-12-30 14:50:21.039 +03:00 [INF] User profile is available. Using 'C:\Users\PC\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-12-30 14:50:21.298 +03:00 [INF] Now listening on: http://localhost:5271
+2025-12-30 14:50:21.300 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-30 14:50:21.302 +03:00 [INF] Hosting environment: Development
+2025-12-30 14:50:21.302 +03:00 [INF] Content root path: C:\Users\PC\Desktop\ECommerce\src\Presentation\ECommerce.RestApi
+2025-12-30 14:51:10.418 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5271/api/Auth/Login - application/json; charset=utf-8 54
+2025-12-30 14:51:10.549 +03:00 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '30.12.2025 08:19:10', Current time (UTC): '30.12.2025 11:51:10'.
+   at Microsoft.IdentityModel.Tokens.ValidatorUtilities.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateTokenPayloadAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2025-12-30 14:51:10.568 +03:00 [INF] Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '30.12.2025 08:19:10', Current time (UTC): '30.12.2025 11:51:10'.
+2025-12-30 14:51:10.574 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.AuthController.Login (ECommerce.RestApi)'
+2025-12-30 14:51:10.591 +03:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(ECommerce.Application.DTOs.Auth.LoginDto) on controller ECommerce.RestApi.Controllers.AuthController (ECommerce.RestApi).
+2025-12-30 14:51:12.250 +03:00 [INF] Executed DbCommand (39ms) [Parameters=[@__dto_Email_0='?' (Size = 21)], CommandType='"Text"', CommandTimeout='30']
+SELECT "u"."Id", "u"."CompanyId", "u"."CreatedDate", "u"."Email", "u"."FirstName", "u"."IsDeleted", "u"."LastName", "u"."PasswordHash", "u"."Role", "u"."Status", "u"."UpdatedDate"
+FROM "Users" AS "u"
+WHERE "u"."Email" = @__dto_Email_0 AND NOT ("u"."IsDeleted")
+2025-12-30 14:51:12.801 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 14:51:12.818 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.AuthController.Login (ECommerce.RestApi) in 2219.7673ms
+2025-12-30 14:51:12.824 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.AuthController.Login (ECommerce.RestApi)'
+2025-12-30 14:51:12.834 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5271/api/Auth/Login - 200 null application/json; charset=utf-8 2417.4389ms
+2025-12-30 14:53:32.313 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5271/api/Auth/Register - application/json; charset=utf-8 528
+2025-12-30 14:53:32.343 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.AuthController.Register (ECommerce.RestApi)'
+2025-12-30 14:53:32.379 +03:00 [INF] Route matched with {action = "Register", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Register(RegisterCompanyDto) on controller ECommerce.RestApi.Controllers.AuthController (ECommerce.RestApi).
+2025-12-30 14:53:32.465 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__dto_Email_0='?' (Size = 13)], CommandType='"Text"', CommandTimeout='30']
+SELECT "u"."Id", "u"."CompanyId", "u"."CreatedDate", "u"."Email", "u"."FirstName", "u"."IsDeleted", "u"."LastName", "u"."PasswordHash", "u"."Role", "u"."Status", "u"."UpdatedDate"
+FROM "Users" AS "u"
+WHERE "u"."Email" = @__dto_Email_0 AND NOT ("u"."IsDeleted")
+2025-12-30 14:53:33.011 +03:00 [INF] Executed DbCommand (4ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (Size = 32), @p2='?' (Size = 6), @p3='?' (DbType = DateTime), @p4='?' (Size = 6), @p5='?' (Size = 60), @p6='?' (DbType = Boolean), @p7='?' (DbType = Boolean), @p8='?' (Size = 14), @p9='?', @p10='?' (DbType = Boolean), @p11='?' (Size = 11), @p12='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Companies" ("Id", "ApiKey", "City", "CreatedDate", "District", "FullAddress", "IsApproved", "IsDeleted", "Name", "Phone", "Status", "TaxNumber", "UpdatedDate")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12);
+2025-12-30 14:53:33.019 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Guid), @p2='?' (DbType = DateTime), @p3='?' (Size = 13), @p4='?' (Size = 4), @p5='?' (DbType = Boolean), @p6='?' (Size = 6), @p7='?' (Size = 60), @p8='?' (Size = 14), @p9='?' (DbType = Boolean), @p10='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Users" ("Id", "CompanyId", "CreatedDate", "Email", "FirstName", "IsDeleted", "LastName", "PasswordHash", "Role", "Status", "UpdatedDate")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10);
+2025-12-30 14:53:33.034 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.Guid, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 14:53:33.042 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.AuthController.Register (ECommerce.RestApi) in 661.3999ms
+2025-12-30 14:53:33.045 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.AuthController.Register (ECommerce.RestApi)'
+2025-12-30 14:53:33.047 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5271/api/Auth/Register - 200 null application/json; charset=utf-8 734.1408ms
+2025-12-30 14:53:53.639 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5271/api/Auth/Login - application/json; charset=utf-8 47
+2025-12-30 14:53:53.646 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.AuthController.Login (ECommerce.RestApi)'
+2025-12-30 14:53:53.648 +03:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(ECommerce.Application.DTOs.Auth.LoginDto) on controller ECommerce.RestApi.Controllers.AuthController (ECommerce.RestApi).
+2025-12-30 14:53:53.667 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__dto_Email_0='?' (Size = 14)], CommandType='"Text"', CommandTimeout='30']
+SELECT "u"."Id", "u"."CompanyId", "u"."CreatedDate", "u"."Email", "u"."FirstName", "u"."IsDeleted", "u"."LastName", "u"."PasswordHash", "u"."Role", "u"."Status", "u"."UpdatedDate"
+FROM "Users" AS "u"
+WHERE "u"."Email" = @__dto_Email_0 AND NOT ("u"."IsDeleted")
+2025-12-30 14:53:53.671 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 14:53:53.673 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.AuthController.Login (ECommerce.RestApi) in 23.8896ms
+2025-12-30 14:53:53.675 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.AuthController.Login (ECommerce.RestApi)'
+2025-12-30 14:53:53.678 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5271/api/Auth/Login - 200 null application/json; charset=utf-8 38.7808ms
+2025-12-30 14:54:03.210 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5271/api/Auth/Login - application/json; charset=utf-8 46
+2025-12-30 14:54:03.214 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.AuthController.Login (ECommerce.RestApi)'
+2025-12-30 14:54:03.217 +03:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(ECommerce.Application.DTOs.Auth.LoginDto) on controller ECommerce.RestApi.Controllers.AuthController (ECommerce.RestApi).
+2025-12-30 14:54:03.221 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__dto_Email_0='?' (Size = 13)], CommandType='"Text"', CommandTimeout='30']
+SELECT "u"."Id", "u"."CompanyId", "u"."CreatedDate", "u"."Email", "u"."FirstName", "u"."IsDeleted", "u"."LastName", "u"."PasswordHash", "u"."Role", "u"."Status", "u"."UpdatedDate"
+FROM "Users" AS "u"
+WHERE "u"."Email" = @__dto_Email_0 AND NOT ("u"."IsDeleted")
+2025-12-30 14:54:03.394 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 14:54:03.397 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.AuthController.Login (ECommerce.RestApi) in 178.85ms
+2025-12-30 14:54:03.399 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.AuthController.Login (ECommerce.RestApi)'
+2025-12-30 14:54:03.399 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5271/api/Auth/Login - 200 null application/json; charset=utf-8 189.4398ms
+2025-12-30 15:23:03.472 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5271/api/Auth/Register - application/json; charset=utf-8 480
+2025-12-30 15:23:03.501 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.AuthController.Register (ECommerce.RestApi)'
+2025-12-30 15:23:03.505 +03:00 [INF] Route matched with {action = "Register", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Register(RegisterCompanyDto) on controller ECommerce.RestApi.Controllers.AuthController (ECommerce.RestApi).
+2025-12-30 15:23:03.650 +03:00 [INF] Executed DbCommand (51ms) [Parameters=[@__dto_Email_0='?' (Size = 14)], CommandType='"Text"', CommandTimeout='30']
+SELECT "u"."Id", "u"."CompanyId", "u"."CreatedDate", "u"."Email", "u"."FirstName", "u"."IsDeleted", "u"."LastName", "u"."PasswordHash", "u"."Role", "u"."Status", "u"."UpdatedDate"
+FROM "Users" AS "u"
+WHERE "u"."Email" = @__dto_Email_0 AND NOT ("u"."IsDeleted")
+2025-12-30 15:23:03.869 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (Size = 32), @p2='?' (Size = 7), @p3='?' (DbType = DateTime), @p4='?' (Size = 9), @p5='?' (Size = 79), @p6='?' (DbType = Boolean), @p7='?' (DbType = Boolean), @p8='?' (Size = 12), @p9='?', @p10='?' (DbType = Boolean), @p11='?' (Size = 10), @p12='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Companies" ("Id", "ApiKey", "City", "CreatedDate", "District", "FullAddress", "IsApproved", "IsDeleted", "Name", "Phone", "Status", "TaxNumber", "UpdatedDate")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12);
+2025-12-30 15:23:03.872 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Guid), @p2='?' (DbType = DateTime), @p3='?' (Size = 14), @p4='?' (Size = 13), @p5='?' (DbType = Boolean), @p6='?' (Size = 5), @p7='?' (Size = 60), @p8='?' (Size = 14), @p9='?' (DbType = Boolean), @p10='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Users" ("Id", "CompanyId", "CreatedDate", "Email", "FirstName", "IsDeleted", "LastName", "PasswordHash", "Role", "Status", "UpdatedDate")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10);
+2025-12-30 15:23:03.877 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.Guid, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 15:23:03.879 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.AuthController.Register (ECommerce.RestApi) in 373.2864ms
+2025-12-30 15:23:03.881 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.AuthController.Register (ECommerce.RestApi)'
+2025-12-30 15:23:03.883 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5271/api/Auth/Register - 200 null application/json; charset=utf-8 413.5609ms
+2025-12-30 15:23:32.209 +03:00 [INF] Application is shutting down...
+2025-12-30 15:24:01.325 +03:00 [INF] User profile is available. Using 'C:\Users\PC\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-12-30 15:24:01.481 +03:00 [INF] Now listening on: http://localhost:5271
+2025-12-30 15:24:01.484 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-30 15:24:01.485 +03:00 [INF] Hosting environment: Development
+2025-12-30 15:24:01.486 +03:00 [INF] Content root path: C:\Users\PC\Desktop\ECommerce\src\Presentation\ECommerce.RestApi
+2025-12-30 15:27:19.487 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5271/api/Auth/Login - application/json; charset=utf-8 54
+2025-12-30 15:27:19.620 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.AuthController.Login (ECommerce.RestApi)'
+2025-12-30 15:27:19.644 +03:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(ECommerce.Application.DTOs.Auth.LoginDto) on controller ECommerce.RestApi.Controllers.AuthController (ECommerce.RestApi).
+2025-12-30 15:27:20.841 +03:00 [INF] Executed DbCommand (23ms) [Parameters=[@__dto_Email_0='?' (Size = 21)], CommandType='"Text"', CommandTimeout='30']
+SELECT "u"."Id", "u"."CompanyId", "u"."CreatedDate", "u"."Email", "u"."FirstName", "u"."IsDeleted", "u"."LastName", "u"."PasswordHash", "u"."Role", "u"."Status", "u"."UpdatedDate"
+FROM "Users" AS "u"
+WHERE "u"."Email" = @__dto_Email_0 AND NOT ("u"."IsDeleted")
+2025-12-30 15:27:21.169 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 15:27:21.188 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.AuthController.Login (ECommerce.RestApi) in 1535.583ms
+2025-12-30 15:27:21.195 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.AuthController.Login (ECommerce.RestApi)'
+2025-12-30 15:27:21.204 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5271/api/Auth/Login - 200 null application/json; charset=utf-8 1718.1872ms
+2025-12-30 16:39:55.734 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5271/api/Auth/Login - application/json; charset=utf-8 54
+2025-12-30 16:39:55.770 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.AuthController.Login (ECommerce.RestApi)'
+2025-12-30 16:39:55.774 +03:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(ECommerce.Application.DTOs.Auth.LoginDto) on controller ECommerce.RestApi.Controllers.AuthController (ECommerce.RestApi).
+2025-12-30 16:39:56.019 +03:00 [INF] Executed DbCommand (6ms) [Parameters=[@__dto_Email_0='?' (Size = 21)], CommandType='"Text"', CommandTimeout='30']
+SELECT "u"."Id", "u"."CompanyId", "u"."CreatedDate", "u"."Email", "u"."FirstName", "u"."IsDeleted", "u"."LastName", "u"."PasswordHash", "u"."Role", "u"."Status", "u"."UpdatedDate"
+FROM "Users" AS "u"
+WHERE "u"."Email" = @__dto_Email_0 AND NOT ("u"."IsDeleted")
+2025-12-30 16:39:56.496 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 16:39:56.500 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.AuthController.Login (ECommerce.RestApi) in 722.4355ms
+2025-12-30 16:39:56.502 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.AuthController.Login (ECommerce.RestApi)'
+2025-12-30 16:39:56.506 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5271/api/Auth/Login - 200 null application/json; charset=utf-8 779.3587ms
+2025-12-30 16:39:58.633 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Product/List - null null
+2025-12-30 16:39:58.661 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 16:39:58.679 +03:00 [INF] Route matched with {action = "GetAll", controller = "Product"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ECommerce.RestApi.Controllers.ProductController (ECommerce.RestApi).
+2025-12-30 16:39:58.755 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."BrandId", "p"."CategoryId", "p"."CompanyId", "p"."CreatedDate", "p"."Description", "p"."ImageUrl", "p"."IsDeleted", "p"."Name", "p"."Price", "p"."Status", "p"."Stock", "p"."UpdatedDate"
+FROM "Products" AS "p"
+WHERE NOT ("p"."IsDeleted")
+2025-12-30 16:39:58.852 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ECommerce.Application.DTOs.Product.ProductDto, ECommerce.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 16:39:58.898 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi) in 215.4557ms
+2025-12-30 16:39:58.901 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 16:39:58.902 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Product/List - 200 null application/json; charset=utf-8 269.0427ms
+2025-12-30 16:40:15.146 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Category/List - null null
+2025-12-30 16:40:15.155 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi)'
+2025-12-30 16:40:15.160 +03:00 [INF] Route matched with {action = "GetAll", controller = "Category"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ECommerce.RestApi.Controllers.CategoryController (ECommerce.RestApi).
+2025-12-30 16:40:15.181 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__ToString_0='?' (Size = 58)], CommandType='"Text"', CommandTimeout='30']
+SELECT "c"."Id", "c"."ApiKey", "c"."City", "c"."CreatedDate", "c"."District", "c"."FullAddress", "c"."IsApproved", "c"."IsDeleted", "c"."Name", "c"."Phone", "c"."Status", "c"."TaxNumber", "c"."UpdatedDate"
+FROM "Companies" AS "c"
+WHERE "c"."ApiKey" = @__ToString_0 AND "c"."IsApproved" AND NOT ("c"."IsDeleted")
+2025-12-30 16:40:15.186 +03:00 [INF] Executing ContentResult with HTTP Response ContentType of text/plain; charset=utf-8
+2025-12-30 16:40:15.191 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi) in 28.6436ms
+2025-12-30 16:40:15.193 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi)'
+2025-12-30 16:40:15.194 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Category/List - 403 38 text/plain; charset=utf-8 47.782ms
+2025-12-30 16:41:36.366 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Category/List - null null
+2025-12-30 16:41:36.374 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi)'
+2025-12-30 16:41:36.376 +03:00 [INF] Route matched with {action = "GetAll", controller = "Category"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ECommerce.RestApi.Controllers.CategoryController (ECommerce.RestApi).
+2025-12-30 16:41:36.382 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__ToString_0='?' (Size = 58)], CommandType='"Text"', CommandTimeout='30']
+SELECT "c"."Id", "c"."ApiKey", "c"."City", "c"."CreatedDate", "c"."District", "c"."FullAddress", "c"."IsApproved", "c"."IsDeleted", "c"."Name", "c"."Phone", "c"."Status", "c"."TaxNumber", "c"."UpdatedDate"
+FROM "Companies" AS "c"
+WHERE "c"."ApiKey" = @__ToString_0 AND "c"."IsApproved" AND NOT ("c"."IsDeleted")
+2025-12-30 16:41:36.387 +03:00 [INF] Executing ContentResult with HTTP Response ContentType of text/plain; charset=utf-8
+2025-12-30 16:41:36.390 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi) in 10.7772ms
+2025-12-30 16:41:36.392 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi)'
+2025-12-30 16:41:36.394 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Category/List - 403 38 text/plain; charset=utf-8 27.22ms
+2025-12-30 16:44:56.383 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Product/List - null null
+2025-12-30 16:44:56.390 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 16:44:56.391 +03:00 [INF] Route matched with {action = "GetAll", controller = "Product"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ECommerce.RestApi.Controllers.ProductController (ECommerce.RestApi).
+2025-12-30 16:44:56.396 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."BrandId", "p"."CategoryId", "p"."CompanyId", "p"."CreatedDate", "p"."Description", "p"."ImageUrl", "p"."IsDeleted", "p"."Name", "p"."Price", "p"."Status", "p"."Stock", "p"."UpdatedDate"
+FROM "Products" AS "p"
+WHERE NOT ("p"."IsDeleted")
+2025-12-30 16:44:56.399 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ECommerce.Application.DTOs.Product.ProductDto, ECommerce.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 16:44:56.400 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi) in 6.0855ms
+2025-12-30 16:44:56.401 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 16:44:56.402 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Product/List - 200 null application/json; charset=utf-8 18.9561ms
+2025-12-30 16:46:54.883 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Category/List - null null
+2025-12-30 16:46:54.889 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi)'
+2025-12-30 16:46:54.891 +03:00 [INF] Route matched with {action = "GetAll", controller = "Category"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ECommerce.RestApi.Controllers.CategoryController (ECommerce.RestApi).
+2025-12-30 16:46:54.898 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__ToString_0='?' (Size = 58)], CommandType='"Text"', CommandTimeout='30']
+SELECT "c"."Id", "c"."ApiKey", "c"."City", "c"."CreatedDate", "c"."District", "c"."FullAddress", "c"."IsApproved", "c"."IsDeleted", "c"."Name", "c"."Phone", "c"."Status", "c"."TaxNumber", "c"."UpdatedDate"
+FROM "Companies" AS "c"
+WHERE "c"."ApiKey" = @__ToString_0 AND "c"."IsApproved" AND NOT ("c"."IsDeleted")
+2025-12-30 16:46:54.902 +03:00 [INF] Executing ContentResult with HTTP Response ContentType of text/plain; charset=utf-8
+2025-12-30 16:46:54.903 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi) in 10.3803ms
+2025-12-30 16:46:54.905 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi)'
+2025-12-30 16:46:54.906 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Category/List - 403 38 text/plain; charset=utf-8 23.0701ms
+2025-12-30 16:48:36.756 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Category/List - null null
+2025-12-30 16:48:36.760 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi)'
+2025-12-30 16:48:36.762 +03:00 [INF] Route matched with {action = "GetAll", controller = "Category"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ECommerce.RestApi.Controllers.CategoryController (ECommerce.RestApi).
+2025-12-30 16:48:36.767 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__ToString_0='?' (Size = 58)], CommandType='"Text"', CommandTimeout='30']
+SELECT "c"."Id", "c"."ApiKey", "c"."City", "c"."CreatedDate", "c"."District", "c"."FullAddress", "c"."IsApproved", "c"."IsDeleted", "c"."Name", "c"."Phone", "c"."Status", "c"."TaxNumber", "c"."UpdatedDate"
+FROM "Companies" AS "c"
+WHERE "c"."ApiKey" = @__ToString_0 AND "c"."IsApproved" AND NOT ("c"."IsDeleted")
+2025-12-30 16:48:36.773 +03:00 [INF] Executing ContentResult with HTTP Response ContentType of text/plain; charset=utf-8
+2025-12-30 16:48:36.776 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi) in 9.9836ms
+2025-12-30 16:48:36.780 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi)'
+2025-12-30 16:48:36.782 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Category/List - 403 38 text/plain; charset=utf-8 26.7045ms
+2025-12-30 16:50:45.474 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5271/api/Auth/Login - application/json; charset=utf-8 45
+2025-12-30 16:50:45.480 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.AuthController.Login (ECommerce.RestApi)'
+2025-12-30 16:50:45.482 +03:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(ECommerce.Application.DTOs.Auth.LoginDto) on controller ECommerce.RestApi.Controllers.AuthController (ECommerce.RestApi).
+2025-12-30 16:50:45.489 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[@__dto_Email_0='?' (Size = 12)], CommandType='"Text"', CommandTimeout='30']
+SELECT "u"."Id", "u"."CompanyId", "u"."CreatedDate", "u"."Email", "u"."FirstName", "u"."IsDeleted", "u"."LastName", "u"."PasswordHash", "u"."Role", "u"."Status", "u"."UpdatedDate"
+FROM "Users" AS "u"
+WHERE "u"."Email" = @__dto_Email_0 AND NOT ("u"."IsDeleted")
+2025-12-30 16:50:45.663 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 16:50:45.666 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.AuthController.Login (ECommerce.RestApi) in 181.5873ms
+2025-12-30 16:50:45.667 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.AuthController.Login (ECommerce.RestApi)'
+2025-12-30 16:50:45.668 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5271/api/Auth/Login - 200 null application/json; charset=utf-8 193.617ms
+2025-12-30 16:50:48.409 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Product/List - null null
+2025-12-30 16:50:48.423 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 16:50:48.425 +03:00 [INF] Route matched with {action = "GetAll", controller = "Product"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ECommerce.RestApi.Controllers.ProductController (ECommerce.RestApi).
+2025-12-30 16:50:48.430 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."BrandId", "p"."CategoryId", "p"."CompanyId", "p"."CreatedDate", "p"."Description", "p"."ImageUrl", "p"."IsDeleted", "p"."Name", "p"."Price", "p"."Status", "p"."Stock", "p"."UpdatedDate"
+FROM "Products" AS "p"
+WHERE NOT ("p"."IsDeleted")
+2025-12-30 16:50:48.433 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ECommerce.Application.DTOs.Product.ProductDto, ECommerce.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 16:50:48.435 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi) in 6.5166ms
+2025-12-30 16:50:48.436 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 16:50:48.438 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Product/List - 200 null application/json; charset=utf-8 28.8906ms
+2025-12-30 16:50:50.321 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Category/List - null null
+2025-12-30 16:50:50.325 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi)'
+2025-12-30 16:50:50.328 +03:00 [INF] Route matched with {action = "GetAll", controller = "Category"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ECommerce.RestApi.Controllers.CategoryController (ECommerce.RestApi).
+2025-12-30 16:50:50.331 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__ToString_0='?' (Size = 58)], CommandType='"Text"', CommandTimeout='30']
+SELECT "c"."Id", "c"."ApiKey", "c"."City", "c"."CreatedDate", "c"."District", "c"."FullAddress", "c"."IsApproved", "c"."IsDeleted", "c"."Name", "c"."Phone", "c"."Status", "c"."TaxNumber", "c"."UpdatedDate"
+FROM "Companies" AS "c"
+WHERE "c"."ApiKey" = @__ToString_0 AND "c"."IsApproved" AND NOT ("c"."IsDeleted")
+2025-12-30 16:50:50.335 +03:00 [INF] Executing ContentResult with HTTP Response ContentType of text/plain; charset=utf-8
+2025-12-30 16:50:50.336 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi) in 6.5332ms
+2025-12-30 16:50:50.339 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi)'
+2025-12-30 16:50:50.340 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Category/List - 403 38 text/plain; charset=utf-8 18.6904ms
+2025-12-30 17:04:49.076 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Category/List - null null
+2025-12-30 17:04:49.087 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:04:49.089 +03:00 [INF] Route matched with {action = "GetAll", controller = "Category"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ECommerce.RestApi.Controllers.CategoryController (ECommerce.RestApi).
+2025-12-30 17:04:49.102 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[@__ToString_0='?' (Size = 58)], CommandType='"Text"', CommandTimeout='30']
+SELECT "c"."Id", "c"."ApiKey", "c"."City", "c"."CreatedDate", "c"."District", "c"."FullAddress", "c"."IsApproved", "c"."IsDeleted", "c"."Name", "c"."Phone", "c"."Status", "c"."TaxNumber", "c"."UpdatedDate"
+FROM "Companies" AS "c"
+WHERE "c"."ApiKey" = @__ToString_0 AND "c"."IsApproved" AND NOT ("c"."IsDeleted")
+2025-12-30 17:04:49.104 +03:00 [INF] Executing ContentResult with HTTP Response ContentType of text/plain; charset=utf-8
+2025-12-30 17:04:49.107 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi) in 16.6066ms
+2025-12-30 17:04:49.109 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:04:49.110 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Category/List - 403 38 text/plain; charset=utf-8 35.3032ms
+2025-12-30 17:04:50.732 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Product/List - null null
+2025-12-30 17:04:50.740 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:04:50.741 +03:00 [INF] Route matched with {action = "GetAll", controller = "Product"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ECommerce.RestApi.Controllers.ProductController (ECommerce.RestApi).
+2025-12-30 17:04:50.746 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."BrandId", "p"."CategoryId", "p"."CompanyId", "p"."CreatedDate", "p"."Description", "p"."ImageUrl", "p"."IsDeleted", "p"."Name", "p"."Price", "p"."Status", "p"."Stock", "p"."UpdatedDate"
+FROM "Products" AS "p"
+WHERE NOT ("p"."IsDeleted")
+2025-12-30 17:04:50.750 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ECommerce.Application.DTOs.Product.ProductDto, ECommerce.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 17:04:50.752 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi) in 9.8331ms
+2025-12-30 17:04:50.754 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:04:50.754 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Product/List - 200 null application/json; charset=utf-8 22.6185ms
+2025-12-30 17:05:02.049 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Product/List - null null
+2025-12-30 17:05:02.052 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:05:02.052 +03:00 [INF] Route matched with {action = "GetAll", controller = "Product"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ECommerce.RestApi.Controllers.ProductController (ECommerce.RestApi).
+2025-12-30 17:05:02.054 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."BrandId", "p"."CategoryId", "p"."CompanyId", "p"."CreatedDate", "p"."Description", "p"."ImageUrl", "p"."IsDeleted", "p"."Name", "p"."Price", "p"."Status", "p"."Stock", "p"."UpdatedDate"
+FROM "Products" AS "p"
+WHERE NOT ("p"."IsDeleted")
+2025-12-30 17:05:02.056 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ECommerce.Application.DTOs.Product.ProductDto, ECommerce.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 17:05:02.057 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi) in 3.8601ms
+2025-12-30 17:05:02.058 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:05:02.059 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Product/List - 200 null application/json; charset=utf-8 10.0977ms
+2025-12-30 17:05:22.501 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Product/List - null null
+2025-12-30 17:05:22.514 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:05:22.515 +03:00 [INF] Route matched with {action = "GetAll", controller = "Product"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ECommerce.RestApi.Controllers.ProductController (ECommerce.RestApi).
+2025-12-30 17:05:22.519 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."BrandId", "p"."CategoryId", "p"."CompanyId", "p"."CreatedDate", "p"."Description", "p"."ImageUrl", "p"."IsDeleted", "p"."Name", "p"."Price", "p"."Status", "p"."Stock", "p"."UpdatedDate"
+FROM "Products" AS "p"
+WHERE NOT ("p"."IsDeleted")
+2025-12-30 17:05:22.521 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ECommerce.Application.DTOs.Product.ProductDto, ECommerce.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 17:05:22.522 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi) in 4.0941ms
+2025-12-30 17:05:22.523 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:05:22.525 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Product/List - 200 null application/json; charset=utf-8 23.9689ms
+2025-12-30 17:05:25.889 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Product/List - null null
+2025-12-30 17:05:25.893 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:05:25.895 +03:00 [INF] Route matched with {action = "GetAll", controller = "Product"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ECommerce.RestApi.Controllers.ProductController (ECommerce.RestApi).
+2025-12-30 17:05:25.899 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."BrandId", "p"."CategoryId", "p"."CompanyId", "p"."CreatedDate", "p"."Description", "p"."ImageUrl", "p"."IsDeleted", "p"."Name", "p"."Price", "p"."Status", "p"."Stock", "p"."UpdatedDate"
+FROM "Products" AS "p"
+WHERE NOT ("p"."IsDeleted")
+2025-12-30 17:05:25.904 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ECommerce.Application.DTOs.Product.ProductDto, ECommerce.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 17:05:25.906 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi) in 8.4941ms
+2025-12-30 17:05:25.908 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:05:25.909 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Product/List - 200 null application/json; charset=utf-8 20.3922ms
+2025-12-30 17:05:26.059 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Product/List - null null
+2025-12-30 17:05:26.064 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:05:26.066 +03:00 [INF] Route matched with {action = "GetAll", controller = "Product"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ECommerce.RestApi.Controllers.ProductController (ECommerce.RestApi).
+2025-12-30 17:05:26.070 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."BrandId", "p"."CategoryId", "p"."CompanyId", "p"."CreatedDate", "p"."Description", "p"."ImageUrl", "p"."IsDeleted", "p"."Name", "p"."Price", "p"."Status", "p"."Stock", "p"."UpdatedDate"
+FROM "Products" AS "p"
+WHERE NOT ("p"."IsDeleted")
+2025-12-30 17:05:26.074 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ECommerce.Application.DTOs.Product.ProductDto, ECommerce.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 17:05:26.077 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi) in 8.9027ms
+2025-12-30 17:05:26.079 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:05:26.080 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Product/List - 200 null application/json; charset=utf-8 20.5812ms
+2025-12-30 17:05:26.229 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Product/List - null null
+2025-12-30 17:05:26.234 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:05:26.237 +03:00 [INF] Route matched with {action = "GetAll", controller = "Product"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ECommerce.RestApi.Controllers.ProductController (ECommerce.RestApi).
+2025-12-30 17:05:26.242 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."BrandId", "p"."CategoryId", "p"."CompanyId", "p"."CreatedDate", "p"."Description", "p"."ImageUrl", "p"."IsDeleted", "p"."Name", "p"."Price", "p"."Status", "p"."Stock", "p"."UpdatedDate"
+FROM "Products" AS "p"
+WHERE NOT ("p"."IsDeleted")
+2025-12-30 17:05:26.248 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ECommerce.Application.DTOs.Product.ProductDto, ECommerce.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 17:05:26.249 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi) in 9.5879ms
+2025-12-30 17:05:26.250 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:05:26.250 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Product/List - 200 null application/json; charset=utf-8 21.5383ms
+2025-12-30 17:05:26.402 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Product/List - null null
+2025-12-30 17:05:26.406 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:05:26.407 +03:00 [INF] Route matched with {action = "GetAll", controller = "Product"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ECommerce.RestApi.Controllers.ProductController (ECommerce.RestApi).
+2025-12-30 17:05:26.413 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."BrandId", "p"."CategoryId", "p"."CompanyId", "p"."CreatedDate", "p"."Description", "p"."ImageUrl", "p"."IsDeleted", "p"."Name", "p"."Price", "p"."Status", "p"."Stock", "p"."UpdatedDate"
+FROM "Products" AS "p"
+WHERE NOT ("p"."IsDeleted")
+2025-12-30 17:05:26.416 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ECommerce.Application.DTOs.Product.ProductDto, ECommerce.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 17:05:26.417 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi) in 5.7342ms
+2025-12-30 17:05:26.419 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:05:26.420 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Product/List - 200 null application/json; charset=utf-8 18.0727ms
+2025-12-30 17:05:26.579 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Product/List - null null
+2025-12-30 17:05:26.585 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:05:26.586 +03:00 [INF] Route matched with {action = "GetAll", controller = "Product"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ECommerce.RestApi.Controllers.ProductController (ECommerce.RestApi).
+2025-12-30 17:05:26.590 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."BrandId", "p"."CategoryId", "p"."CompanyId", "p"."CreatedDate", "p"."Description", "p"."ImageUrl", "p"."IsDeleted", "p"."Name", "p"."Price", "p"."Status", "p"."Stock", "p"."UpdatedDate"
+FROM "Products" AS "p"
+WHERE NOT ("p"."IsDeleted")
+2025-12-30 17:05:26.592 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ECommerce.Application.DTOs.Product.ProductDto, ECommerce.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 17:05:26.593 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi) in 4.8017ms
+2025-12-30 17:05:26.594 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:05:26.595 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Product/List - 200 null application/json; charset=utf-8 16.0676ms
+2025-12-30 17:05:26.708 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Product/List - null null
+2025-12-30 17:05:26.709 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:05:26.710 +03:00 [INF] Route matched with {action = "GetAll", controller = "Product"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ECommerce.RestApi.Controllers.ProductController (ECommerce.RestApi).
+2025-12-30 17:05:26.714 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."BrandId", "p"."CategoryId", "p"."CompanyId", "p"."CreatedDate", "p"."Description", "p"."ImageUrl", "p"."IsDeleted", "p"."Name", "p"."Price", "p"."Status", "p"."Stock", "p"."UpdatedDate"
+FROM "Products" AS "p"
+WHERE NOT ("p"."IsDeleted")
+2025-12-30 17:05:26.716 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ECommerce.Application.DTOs.Product.ProductDto, ECommerce.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 17:05:26.717 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi) in 4.222ms
+2025-12-30 17:05:26.719 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:05:26.720 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Product/List - 200 null application/json; charset=utf-8 12.1322ms
+2025-12-30 17:05:41.246 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5271/api/Auth/Login - application/json; charset=utf-8 45
+2025-12-30 17:05:41.248 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.AuthController.Login (ECommerce.RestApi)'
+2025-12-30 17:05:41.250 +03:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(ECommerce.Application.DTOs.Auth.LoginDto) on controller ECommerce.RestApi.Controllers.AuthController (ECommerce.RestApi).
+2025-12-30 17:05:41.257 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__dto_Email_0='?' (Size = 12)], CommandType='"Text"', CommandTimeout='30']
+SELECT "u"."Id", "u"."CompanyId", "u"."CreatedDate", "u"."Email", "u"."FirstName", "u"."IsDeleted", "u"."LastName", "u"."PasswordHash", "u"."Role", "u"."Status", "u"."UpdatedDate"
+FROM "Users" AS "u"
+WHERE "u"."Email" = @__dto_Email_0 AND NOT ("u"."IsDeleted")
+2025-12-30 17:05:41.458 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 17:05:41.460 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.AuthController.Login (ECommerce.RestApi) in 207.1037ms
+2025-12-30 17:05:41.463 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.AuthController.Login (ECommerce.RestApi)'
+2025-12-30 17:05:41.466 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5271/api/Auth/Login - 200 null application/json; charset=utf-8 220.2186ms
+2025-12-30 17:05:43.507 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Product/List - null null
+2025-12-30 17:05:43.512 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:05:43.514 +03:00 [INF] Route matched with {action = "GetAll", controller = "Product"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ECommerce.RestApi.Controllers.ProductController (ECommerce.RestApi).
+2025-12-30 17:05:43.518 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."BrandId", "p"."CategoryId", "p"."CompanyId", "p"."CreatedDate", "p"."Description", "p"."ImageUrl", "p"."IsDeleted", "p"."Name", "p"."Price", "p"."Status", "p"."Stock", "p"."UpdatedDate"
+FROM "Products" AS "p"
+WHERE NOT ("p"."IsDeleted")
+2025-12-30 17:05:43.520 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ECommerce.Application.DTOs.Product.ProductDto, ECommerce.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 17:05:43.522 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi) in 4.9248ms
+2025-12-30 17:05:43.523 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:05:43.525 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Product/List - 200 null application/json; charset=utf-8 17.2095ms
+2025-12-30 17:05:44.805 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Category/List - null null
+2025-12-30 17:05:44.809 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:05:44.810 +03:00 [INF] Route matched with {action = "GetAll", controller = "Category"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ECommerce.RestApi.Controllers.CategoryController (ECommerce.RestApi).
+2025-12-30 17:05:44.814 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__ToString_0='?' (Size = 58)], CommandType='"Text"', CommandTimeout='30']
+SELECT "c"."Id", "c"."ApiKey", "c"."City", "c"."CreatedDate", "c"."District", "c"."FullAddress", "c"."IsApproved", "c"."IsDeleted", "c"."Name", "c"."Phone", "c"."Status", "c"."TaxNumber", "c"."UpdatedDate"
+FROM "Companies" AS "c"
+WHERE "c"."ApiKey" = @__ToString_0 AND "c"."IsApproved" AND NOT ("c"."IsDeleted")
+2025-12-30 17:05:44.828 +03:00 [INF] Executing ContentResult with HTTP Response ContentType of text/plain; charset=utf-8
+2025-12-30 17:05:44.829 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi) in 16.3456ms
+2025-12-30 17:05:44.830 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:05:44.831 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Category/List - 403 38 text/plain; charset=utf-8 26.5039ms
+2025-12-30 17:06:59.275 +03:00 [INF] Application is shutting down...
+2025-12-30 17:07:05.896 +03:00 [INF] User profile is available. Using 'C:\Users\PC\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-12-30 17:07:06.052 +03:00 [INF] Now listening on: http://localhost:5271
+2025-12-30 17:07:06.057 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-30 17:07:06.059 +03:00 [INF] Hosting environment: Development
+2025-12-30 17:07:06.060 +03:00 [INF] Content root path: C:\Users\PC\Desktop\ECommerce\src\Presentation\ECommerce.RestApi
+2025-12-30 17:07:25.852 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Category/List - null null
+2025-12-30 17:07:25.981 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:07:25.996 +03:00 [INF] Route matched with {action = "GetAll", controller = "Category"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ECommerce.RestApi.Controllers.CategoryController (ECommerce.RestApi).
+2025-12-30 17:07:26.917 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__ToString_0='?' (Size = 58)], CommandType='"Text"', CommandTimeout='30']
+SELECT "c"."Id", "c"."ApiKey", "c"."City", "c"."CreatedDate", "c"."District", "c"."FullAddress", "c"."IsApproved", "c"."IsDeleted", "c"."Name", "c"."Phone", "c"."Status", "c"."TaxNumber", "c"."UpdatedDate"
+FROM "Companies" AS "c"
+WHERE "c"."ApiKey" = @__ToString_0 AND "c"."IsApproved" AND NOT ("c"."IsDeleted")
+2025-12-30 17:07:26.932 +03:00 [INF] Executing ContentResult with HTTP Response ContentType of text/plain; charset=utf-8
+2025-12-30 17:07:26.939 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi) in 938.7894ms
+2025-12-30 17:07:26.943 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:07:26.949 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Category/List - 403 38 text/plain; charset=utf-8 1098.1141ms
+2025-12-30 17:07:31.547 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Product/List - null null
+2025-12-30 17:07:31.556 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:07:31.560 +03:00 [INF] Route matched with {action = "GetAll", controller = "Product"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ECommerce.RestApi.Controllers.ProductController (ECommerce.RestApi).
+2025-12-30 17:07:31.627 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."BrandId", "p"."CategoryId", "p"."CompanyId", "p"."CreatedDate", "p"."Description", "p"."ImageUrl", "p"."IsDeleted", "p"."Name", "p"."Price", "p"."Status", "p"."Stock", "p"."UpdatedDate"
+FROM "Products" AS "p"
+WHERE NOT ("p"."IsDeleted")
+2025-12-30 17:07:31.717 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ECommerce.Application.DTOs.Product.ProductDto, ECommerce.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 17:07:31.794 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi) in 231.9796ms
+2025-12-30 17:07:31.796 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:07:31.798 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Product/List - 200 null application/json; charset=utf-8 251.5118ms
+2025-12-30 17:07:34.499 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Product/List - null null
+2025-12-30 17:07:34.505 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:07:34.507 +03:00 [INF] Route matched with {action = "GetAll", controller = "Product"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ECommerce.RestApi.Controllers.ProductController (ECommerce.RestApi).
+2025-12-30 17:07:34.529 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."BrandId", "p"."CategoryId", "p"."CompanyId", "p"."CreatedDate", "p"."Description", "p"."ImageUrl", "p"."IsDeleted", "p"."Name", "p"."Price", "p"."Status", "p"."Stock", "p"."UpdatedDate"
+FROM "Products" AS "p"
+WHERE NOT ("p"."IsDeleted")
+2025-12-30 17:07:34.535 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ECommerce.Application.DTOs.Product.ProductDto, ECommerce.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 17:07:34.537 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi) in 26.6625ms
+2025-12-30 17:07:34.538 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:07:34.538 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Product/List - 200 null application/json; charset=utf-8 39.9298ms
+2025-12-30 17:07:46.817 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5271/api/Auth/Login - application/json; charset=utf-8 45
+2025-12-30 17:07:46.819 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.AuthController.Login (ECommerce.RestApi)'
+2025-12-30 17:07:46.832 +03:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(ECommerce.Application.DTOs.Auth.LoginDto) on controller ECommerce.RestApi.Controllers.AuthController (ECommerce.RestApi).
+2025-12-30 17:07:46.891 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__dto_Email_0='?' (Size = 12)], CommandType='"Text"', CommandTimeout='30']
+SELECT "u"."Id", "u"."CompanyId", "u"."CreatedDate", "u"."Email", "u"."FirstName", "u"."IsDeleted", "u"."LastName", "u"."PasswordHash", "u"."Role", "u"."Status", "u"."UpdatedDate"
+FROM "Users" AS "u"
+WHERE "u"."Email" = @__dto_Email_0 AND NOT ("u"."IsDeleted")
+2025-12-30 17:07:47.473 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 17:07:47.478 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.AuthController.Login (ECommerce.RestApi) in 643.1498ms
+2025-12-30 17:07:47.479 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.AuthController.Login (ECommerce.RestApi)'
+2025-12-30 17:07:47.481 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5271/api/Auth/Login - 200 null application/json; charset=utf-8 664.3972ms
+2025-12-30 17:07:49.233 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Product/List - null null
+2025-12-30 17:07:49.237 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:07:49.239 +03:00 [INF] Route matched with {action = "GetAll", controller = "Product"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ECommerce.RestApi.Controllers.ProductController (ECommerce.RestApi).
+2025-12-30 17:07:49.246 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."BrandId", "p"."CategoryId", "p"."CompanyId", "p"."CreatedDate", "p"."Description", "p"."ImageUrl", "p"."IsDeleted", "p"."Name", "p"."Price", "p"."Status", "p"."Stock", "p"."UpdatedDate"
+FROM "Products" AS "p"
+WHERE NOT ("p"."IsDeleted")
+2025-12-30 17:07:49.249 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ECommerce.Application.DTOs.Product.ProductDto, ECommerce.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 17:07:49.250 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi) in 9.6512ms
+2025-12-30 17:07:49.252 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:07:49.255 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Product/List - 200 null application/json; charset=utf-8 22.1027ms
+2025-12-30 17:07:50.396 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Category/List - null null
+2025-12-30 17:07:50.403 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:07:50.406 +03:00 [INF] Route matched with {action = "GetAll", controller = "Category"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ECommerce.RestApi.Controllers.CategoryController (ECommerce.RestApi).
+2025-12-30 17:07:50.409 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__ToString_0='?' (Size = 58)], CommandType='"Text"', CommandTimeout='30']
+SELECT "c"."Id", "c"."ApiKey", "c"."City", "c"."CreatedDate", "c"."District", "c"."FullAddress", "c"."IsApproved", "c"."IsDeleted", "c"."Name", "c"."Phone", "c"."Status", "c"."TaxNumber", "c"."UpdatedDate"
+FROM "Companies" AS "c"
+WHERE "c"."ApiKey" = @__ToString_0 AND "c"."IsApproved" AND NOT ("c"."IsDeleted")
+2025-12-30 17:07:50.413 +03:00 [INF] Executing ContentResult with HTTP Response ContentType of text/plain; charset=utf-8
+2025-12-30 17:07:50.415 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi) in 7.9781ms
+2025-12-30 17:07:50.417 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:07:50.419 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Category/List - 403 38 text/plain; charset=utf-8 22.6184ms
+2025-12-30 17:09:30.852 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Product/List - null null
+2025-12-30 17:09:30.855 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:09:30.855 +03:00 [INF] Route matched with {action = "GetAll", controller = "Product"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ECommerce.RestApi.Controllers.ProductController (ECommerce.RestApi).
+2025-12-30 17:09:30.858 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."BrandId", "p"."CategoryId", "p"."CompanyId", "p"."CreatedDate", "p"."Description", "p"."ImageUrl", "p"."IsDeleted", "p"."Name", "p"."Price", "p"."Status", "p"."Stock", "p"."UpdatedDate"
+FROM "Products" AS "p"
+WHERE NOT ("p"."IsDeleted")
+2025-12-30 17:09:30.860 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ECommerce.Application.DTOs.Product.ProductDto, ECommerce.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 17:09:30.860 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi) in 4.1671ms
+2025-12-30 17:09:30.861 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:09:30.862 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Product/List - 200 null application/json; charset=utf-8 9.9068ms
+2025-12-30 17:09:32.783 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Category/List - null null
+2025-12-30 17:09:32.790 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:09:32.792 +03:00 [INF] Route matched with {action = "GetAll", controller = "Category"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ECommerce.RestApi.Controllers.CategoryController (ECommerce.RestApi).
+2025-12-30 17:09:32.796 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__ToString_0='?' (Size = 58)], CommandType='"Text"', CommandTimeout='30']
+SELECT "c"."Id", "c"."ApiKey", "c"."City", "c"."CreatedDate", "c"."District", "c"."FullAddress", "c"."IsApproved", "c"."IsDeleted", "c"."Name", "c"."Phone", "c"."Status", "c"."TaxNumber", "c"."UpdatedDate"
+FROM "Companies" AS "c"
+WHERE "c"."ApiKey" = @__ToString_0 AND "c"."IsApproved" AND NOT ("c"."IsDeleted")
+2025-12-30 17:09:32.798 +03:00 [INF] Executing ContentResult with HTTP Response ContentType of text/plain; charset=utf-8
+2025-12-30 17:09:32.798 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi) in 3.4354ms
+2025-12-30 17:09:32.799 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:09:32.800 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Category/List - 403 38 text/plain; charset=utf-8 17.017ms
+2025-12-30 17:27:21.667 +03:00 [INF] Application is shutting down...
+2025-12-30 17:34:06.059 +03:00 [INF] User profile is available. Using 'C:\Users\PC\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-12-30 17:34:06.192 +03:00 [INF] Now listening on: http://localhost:5271
+2025-12-30 17:34:06.196 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-30 17:34:06.198 +03:00 [INF] Hosting environment: Development
+2025-12-30 17:34:06.199 +03:00 [INF] Content root path: C:\Users\PC\Desktop\ECommerce\src\Presentation\ECommerce.RestApi
+2025-12-30 17:34:44.039 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5271/api/Auth/Login - application/json; charset=utf-8 45
+2025-12-30 17:34:44.126 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.AuthController.Login (ECommerce.RestApi)'
+2025-12-30 17:34:44.148 +03:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(ECommerce.Application.DTOs.Auth.LoginDto) on controller ECommerce.RestApi.Controllers.AuthController (ECommerce.RestApi).
+2025-12-30 17:34:45.447 +03:00 [INF] Executed DbCommand (17ms) [Parameters=[@__dto_Email_0='?' (Size = 12)], CommandType='"Text"', CommandTimeout='30']
+SELECT "u"."Id", "u"."CompanyId", "u"."CreatedDate", "u"."Email", "u"."FirstName", "u"."IsDeleted", "u"."LastName", "u"."PasswordHash", "u"."Role", "u"."Status", "u"."UpdatedDate"
+FROM "Users" AS "u"
+WHERE "u"."Email" = @__dto_Email_0 AND NOT ("u"."IsDeleted")
+2025-12-30 17:34:45.824 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 17:34:45.842 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.AuthController.Login (ECommerce.RestApi) in 1687.8287ms
+2025-12-30 17:34:45.849 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.AuthController.Login (ECommerce.RestApi)'
+2025-12-30 17:34:45.858 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5271/api/Auth/Login - 200 null application/json; charset=utf-8 1819.1288ms
+2025-12-30 17:34:47.708 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Product/List - null null
+2025-12-30 17:34:47.757 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:34:47.764 +03:00 [INF] Route matched with {action = "GetAll", controller = "Product"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ECommerce.RestApi.Controllers.ProductController (ECommerce.RestApi).
+2025-12-30 17:34:47.866 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."BrandId", "p"."CategoryId", "p"."CompanyId", "p"."CreatedDate", "p"."Description", "p"."ImageUrl", "p"."IsDeleted", "p"."Name", "p"."Price", "p"."Status", "p"."Stock", "p"."UpdatedDate", "c"."Id", "c"."CompanyId", "c"."CreatedDate", "c"."Description", "c"."ImageUrl", "c"."IsDeleted", "c"."Name", "c"."Status", "c"."UpdatedDate"
+FROM "Products" AS "p"
+INNER JOIN "Categories" AS "c" ON "p"."CategoryId" = "c"."Id"
+WHERE NOT ("p"."IsDeleted")
+2025-12-30 17:34:47.942 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ECommerce.Application.DTOs.Product.ProductDto, ECommerce.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 17:34:47.969 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi) in 202.9856ms
+2025-12-30 17:34:47.972 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:34:47.975 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Product/List - 200 null application/json; charset=utf-8 266.4508ms
+2025-12-30 17:35:35.863 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Category/List - null null
+2025-12-30 17:35:35.875 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:35:35.881 +03:00 [INF] Route matched with {action = "GetAll", controller = "Category"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ECommerce.RestApi.Controllers.CategoryController (ECommerce.RestApi).
+2025-12-30 17:35:35.923 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__ToString_0='?' (Size = 58)], CommandType='"Text"', CommandTimeout='30']
+SELECT "c"."Id", "c"."ApiKey", "c"."City", "c"."CreatedDate", "c"."District", "c"."FullAddress", "c"."IsApproved", "c"."IsDeleted", "c"."Name", "c"."Phone", "c"."Status", "c"."TaxNumber", "c"."UpdatedDate"
+FROM "Companies" AS "c"
+WHERE "c"."ApiKey" = @__ToString_0 AND "c"."IsApproved" AND NOT ("c"."IsDeleted")
+2025-12-30 17:35:35.928 +03:00 [INF] Executing ContentResult with HTTP Response ContentType of text/plain; charset=utf-8
+2025-12-30 17:35:35.930 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi) in 41.7435ms
+2025-12-30 17:35:35.931 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:35:35.932 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Category/List - 403 38 text/plain; charset=utf-8 69.0675ms
+2025-12-30 17:41:22.125 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Product/List - null null
+2025-12-30 17:41:22.132 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:41:22.133 +03:00 [INF] Route matched with {action = "GetAll", controller = "Product"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ECommerce.RestApi.Controllers.ProductController (ECommerce.RestApi).
+2025-12-30 17:41:22.141 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."BrandId", "p"."CategoryId", "p"."CompanyId", "p"."CreatedDate", "p"."Description", "p"."ImageUrl", "p"."IsDeleted", "p"."Name", "p"."Price", "p"."Status", "p"."Stock", "p"."UpdatedDate", "c"."Id", "c"."CompanyId", "c"."CreatedDate", "c"."Description", "c"."ImageUrl", "c"."IsDeleted", "c"."Name", "c"."Status", "c"."UpdatedDate"
+FROM "Products" AS "p"
+INNER JOIN "Categories" AS "c" ON "p"."CategoryId" = "c"."Id"
+WHERE NOT ("p"."IsDeleted")
+2025-12-30 17:41:22.145 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ECommerce.Application.DTOs.Product.ProductDto, ECommerce.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 17:41:22.147 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi) in 12.623ms
+2025-12-30 17:41:22.148 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:41:22.149 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Product/List - 200 null application/json; charset=utf-8 23.2064ms
+2025-12-30 17:41:35.323 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5271/api/Auth/Login - application/json; charset=utf-8 45
+2025-12-30 17:41:35.331 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.AuthController.Login (ECommerce.RestApi)'
+2025-12-30 17:41:35.332 +03:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(ECommerce.Application.DTOs.Auth.LoginDto) on controller ECommerce.RestApi.Controllers.AuthController (ECommerce.RestApi).
+2025-12-30 17:41:35.339 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__dto_Email_0='?' (Size = 12)], CommandType='"Text"', CommandTimeout='30']
+SELECT "u"."Id", "u"."CompanyId", "u"."CreatedDate", "u"."Email", "u"."FirstName", "u"."IsDeleted", "u"."LastName", "u"."PasswordHash", "u"."Role", "u"."Status", "u"."UpdatedDate"
+FROM "Users" AS "u"
+WHERE "u"."Email" = @__dto_Email_0 AND NOT ("u"."IsDeleted")
+2025-12-30 17:41:35.690 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 17:41:35.692 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.AuthController.Login (ECommerce.RestApi) in 357.8672ms
+2025-12-30 17:41:35.694 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.AuthController.Login (ECommerce.RestApi)'
+2025-12-30 17:41:35.696 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5271/api/Auth/Login - 200 null application/json; charset=utf-8 372.3529ms
+2025-12-30 17:41:37.718 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Product/List - null null
+2025-12-30 17:41:37.724 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:41:37.726 +03:00 [INF] Route matched with {action = "GetAll", controller = "Product"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ECommerce.RestApi.Controllers.ProductController (ECommerce.RestApi).
+2025-12-30 17:41:37.733 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."BrandId", "p"."CategoryId", "p"."CompanyId", "p"."CreatedDate", "p"."Description", "p"."ImageUrl", "p"."IsDeleted", "p"."Name", "p"."Price", "p"."Status", "p"."Stock", "p"."UpdatedDate", "c"."Id", "c"."CompanyId", "c"."CreatedDate", "c"."Description", "c"."ImageUrl", "c"."IsDeleted", "c"."Name", "c"."Status", "c"."UpdatedDate"
+FROM "Products" AS "p"
+INNER JOIN "Categories" AS "c" ON "p"."CategoryId" = "c"."Id"
+WHERE NOT ("p"."IsDeleted")
+2025-12-30 17:41:37.739 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ECommerce.Application.DTOs.Product.ProductDto, ECommerce.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 17:41:37.741 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi) in 12.3874ms
+2025-12-30 17:41:37.743 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:41:37.745 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Product/List - 200 null application/json; charset=utf-8 26.8019ms
+2025-12-30 17:44:54.602 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Category/List - null null
+2025-12-30 17:44:54.608 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:44:54.609 +03:00 [INF] Route matched with {action = "GetAll", controller = "Category"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ECommerce.RestApi.Controllers.CategoryController (ECommerce.RestApi).
+2025-12-30 17:44:54.614 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__ToString_0='?' (Size = 58)], CommandType='"Text"', CommandTimeout='30']
+SELECT "c"."Id", "c"."ApiKey", "c"."City", "c"."CreatedDate", "c"."District", "c"."FullAddress", "c"."IsApproved", "c"."IsDeleted", "c"."Name", "c"."Phone", "c"."Status", "c"."TaxNumber", "c"."UpdatedDate"
+FROM "Companies" AS "c"
+WHERE "c"."ApiKey" = @__ToString_0 AND "c"."IsApproved" AND NOT ("c"."IsDeleted")
+2025-12-30 17:44:54.616 +03:00 [INF] Executing ContentResult with HTTP Response ContentType of text/plain; charset=utf-8
+2025-12-30 17:44:54.617 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi) in 5.4902ms
+2025-12-30 17:44:54.619 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:44:54.620 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Category/List - 403 38 text/plain; charset=utf-8 17.4907ms
+2025-12-30 17:50:05.500 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Category/List - null null
+2025-12-30 17:50:05.507 +03:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2025-12-30 17:50:05.515 +03:00 [INF] AuthenticationScheme: Bearer was challenged.
+2025-12-30 17:50:05.516 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Category/List - 401 0 null 15.2566ms
+2025-12-30 17:50:29.114 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Category/List - null null
+2025-12-30 17:50:29.120 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:50:29.122 +03:00 [INF] Route matched with {action = "GetAll", controller = "Category"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ECommerce.RestApi.Controllers.CategoryController (ECommerce.RestApi).
+2025-12-30 17:50:29.131 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[@__ToString_0='?' (Size = 58)], CommandType='"Text"', CommandTimeout='30']
+SELECT "c"."Id", "c"."ApiKey", "c"."City", "c"."CreatedDate", "c"."District", "c"."FullAddress", "c"."IsApproved", "c"."IsDeleted", "c"."Name", "c"."Phone", "c"."Status", "c"."TaxNumber", "c"."UpdatedDate"
+FROM "Companies" AS "c"
+WHERE "c"."ApiKey" = @__ToString_0 AND "c"."IsApproved" AND NOT ("c"."IsDeleted")
+2025-12-30 17:50:29.134 +03:00 [INF] Executing ContentResult with HTTP Response ContentType of text/plain; charset=utf-8
+2025-12-30 17:50:29.136 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi) in 9.8688ms
+2025-12-30 17:50:29.137 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:50:29.138 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Category/List - 403 38 text/plain; charset=utf-8 23.7574ms
+2025-12-30 17:50:30.896 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Product/List - null null
+2025-12-30 17:50:30.899 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:50:30.901 +03:00 [INF] Route matched with {action = "GetAll", controller = "Product"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ECommerce.RestApi.Controllers.ProductController (ECommerce.RestApi).
+2025-12-30 17:50:30.904 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."BrandId", "p"."CategoryId", "p"."CompanyId", "p"."CreatedDate", "p"."Description", "p"."ImageUrl", "p"."IsDeleted", "p"."Name", "p"."Price", "p"."Status", "p"."Stock", "p"."UpdatedDate", "c"."Id", "c"."CompanyId", "c"."CreatedDate", "c"."Description", "c"."ImageUrl", "c"."IsDeleted", "c"."Name", "c"."Status", "c"."UpdatedDate"
+FROM "Products" AS "p"
+INNER JOIN "Categories" AS "c" ON "p"."CategoryId" = "c"."Id"
+WHERE NOT ("p"."IsDeleted")
+2025-12-30 17:50:30.907 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ECommerce.Application.DTOs.Product.ProductDto, ECommerce.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 17:50:30.911 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi) in 8.1829ms
+2025-12-30 17:50:30.913 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:50:30.916 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Product/List - 200 null application/json; charset=utf-8 20.0525ms
+2025-12-30 17:50:42.484 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5271/api/Auth/Login - application/json; charset=utf-8 45
+2025-12-30 17:50:42.488 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.AuthController.Login (ECommerce.RestApi)'
+2025-12-30 17:50:42.492 +03:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(ECommerce.Application.DTOs.Auth.LoginDto) on controller ECommerce.RestApi.Controllers.AuthController (ECommerce.RestApi).
+2025-12-30 17:50:42.499 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__dto_Email_0='?' (Size = 12)], CommandType='"Text"', CommandTimeout='30']
+SELECT "u"."Id", "u"."CompanyId", "u"."CreatedDate", "u"."Email", "u"."FirstName", "u"."IsDeleted", "u"."LastName", "u"."PasswordHash", "u"."Role", "u"."Status", "u"."UpdatedDate"
+FROM "Users" AS "u"
+WHERE "u"."Email" = @__dto_Email_0 AND NOT ("u"."IsDeleted")
+2025-12-30 17:50:42.682 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 17:50:42.683 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.AuthController.Login (ECommerce.RestApi) in 188.5522ms
+2025-12-30 17:50:42.684 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.AuthController.Login (ECommerce.RestApi)'
+2025-12-30 17:50:42.685 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5271/api/Auth/Login - 200 null application/json; charset=utf-8 201.0051ms
+2025-12-30 17:50:44.228 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Product/List - null null
+2025-12-30 17:50:44.232 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:50:44.235 +03:00 [INF] Route matched with {action = "GetAll", controller = "Product"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ECommerce.RestApi.Controllers.ProductController (ECommerce.RestApi).
+2025-12-30 17:50:44.239 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."BrandId", "p"."CategoryId", "p"."CompanyId", "p"."CreatedDate", "p"."Description", "p"."ImageUrl", "p"."IsDeleted", "p"."Name", "p"."Price", "p"."Status", "p"."Stock", "p"."UpdatedDate", "c"."Id", "c"."CompanyId", "c"."CreatedDate", "c"."Description", "c"."ImageUrl", "c"."IsDeleted", "c"."Name", "c"."Status", "c"."UpdatedDate"
+FROM "Products" AS "p"
+INNER JOIN "Categories" AS "c" ON "p"."CategoryId" = "c"."Id"
+WHERE NOT ("p"."IsDeleted")
+2025-12-30 17:50:44.241 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ECommerce.Application.DTOs.Product.ProductDto, ECommerce.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 17:50:44.246 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi) in 8.0126ms
+2025-12-30 17:50:44.248 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:50:44.249 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Product/List - 200 null application/json; charset=utf-8 21.1435ms
+2025-12-30 17:50:45.389 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Category/List - null null
+2025-12-30 17:50:45.404 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:50:45.408 +03:00 [INF] Route matched with {action = "GetAll", controller = "Category"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ECommerce.RestApi.Controllers.CategoryController (ECommerce.RestApi).
+2025-12-30 17:50:45.413 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__ToString_0='?' (Size = 58)], CommandType='"Text"', CommandTimeout='30']
+SELECT "c"."Id", "c"."ApiKey", "c"."City", "c"."CreatedDate", "c"."District", "c"."FullAddress", "c"."IsApproved", "c"."IsDeleted", "c"."Name", "c"."Phone", "c"."Status", "c"."TaxNumber", "c"."UpdatedDate"
+FROM "Companies" AS "c"
+WHERE "c"."ApiKey" = @__ToString_0 AND "c"."IsApproved" AND NOT ("c"."IsDeleted")
+2025-12-30 17:50:45.418 +03:00 [INF] Executing ContentResult with HTTP Response ContentType of text/plain; charset=utf-8
+2025-12-30 17:50:45.420 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi) in 9.661ms
+2025-12-30 17:50:45.421 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:50:45.422 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Category/List - 403 38 text/plain; charset=utf-8 32.9124ms
+2025-12-30 17:50:50.370 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Category/List - null null
+2025-12-30 17:50:50.374 +03:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2025-12-30 17:50:50.375 +03:00 [INF] AuthenticationScheme: Bearer was challenged.
+2025-12-30 17:50:50.376 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Category/List - 401 0 null 6.1585ms
+2025-12-30 17:50:50.926 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Category/List - null null
+2025-12-30 17:50:50.928 +03:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2025-12-30 17:50:50.930 +03:00 [INF] AuthenticationScheme: Bearer was challenged.
+2025-12-30 17:50:50.932 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Category/List - 401 0 null 6.0274ms
+2025-12-30 17:50:51.085 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Category/List - null null
+2025-12-30 17:50:51.086 +03:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2025-12-30 17:50:51.087 +03:00 [INF] AuthenticationScheme: Bearer was challenged.
+2025-12-30 17:50:51.088 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Category/List - 401 0 null 3.524ms
+2025-12-30 17:54:52.770 +03:00 [INF] Application is shutting down...
+2025-12-30 17:54:58.129 +03:00 [INF] User profile is available. Using 'C:\Users\PC\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-12-30 17:54:58.252 +03:00 [INF] Now listening on: http://localhost:5271
+2025-12-30 17:54:58.256 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-30 17:54:58.257 +03:00 [INF] Hosting environment: Development
+2025-12-30 17:54:58.258 +03:00 [INF] Content root path: C:\Users\PC\Desktop\ECommerce\src\Presentation\ECommerce.RestApi
+2025-12-30 17:55:14.820 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Product/List - null null
+2025-12-30 17:55:14.960 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:55:14.979 +03:00 [INF] Route matched with {action = "GetAll", controller = "Product"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ECommerce.RestApi.Controllers.ProductController (ECommerce.RestApi).
+2025-12-30 17:55:16.100 +03:00 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."BrandId", "p"."CategoryId", "p"."CompanyId", "p"."CreatedDate", "p"."Description", "p"."ImageUrl", "p"."IsDeleted", "p"."Name", "p"."Price", "p"."Status", "p"."Stock", "p"."UpdatedDate", "c"."Id", "c"."CompanyId", "c"."CreatedDate", "c"."Description", "c"."ImageUrl", "c"."IsDeleted", "c"."Name", "c"."Status", "c"."UpdatedDate"
+FROM "Products" AS "p"
+INNER JOIN "Categories" AS "c" ON "p"."CategoryId" = "c"."Id"
+WHERE NOT ("p"."IsDeleted")
+2025-12-30 17:55:16.271 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ECommerce.Application.DTOs.Product.ProductDto, ECommerce.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 17:55:16.338 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi) in 1353.0479ms
+2025-12-30 17:55:16.344 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:55:16.353 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Product/List - 200 null application/json; charset=utf-8 1534.2173ms
+2025-12-30 17:55:33.259 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5271/api/Auth/Login - application/json; charset=utf-8 45
+2025-12-30 17:55:33.269 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.AuthController.Login (ECommerce.RestApi)'
+2025-12-30 17:55:33.290 +03:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(ECommerce.Application.DTOs.Auth.LoginDto) on controller ECommerce.RestApi.Controllers.AuthController (ECommerce.RestApi).
+2025-12-30 17:55:33.456 +03:00 [INF] Executed DbCommand (5ms) [Parameters=[@__dto_Email_0='?' (Size = 12)], CommandType='"Text"', CommandTimeout='30']
+SELECT "u"."Id", "u"."CompanyId", "u"."CreatedDate", "u"."Email", "u"."FirstName", "u"."IsDeleted", "u"."LastName", "u"."PasswordHash", "u"."Role", "u"."Status", "u"."UpdatedDate"
+FROM "Users" AS "u"
+WHERE "u"."Email" = @__dto_Email_0 AND NOT ("u"."IsDeleted")
+2025-12-30 17:55:33.796 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 17:55:33.799 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.AuthController.Login (ECommerce.RestApi) in 502.3986ms
+2025-12-30 17:55:33.803 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.AuthController.Login (ECommerce.RestApi)'
+2025-12-30 17:55:33.804 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5271/api/Auth/Login - 200 null application/json; charset=utf-8 545.6658ms
+2025-12-30 17:55:35.739 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Product/List - null null
+2025-12-30 17:55:35.744 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:55:35.744 +03:00 [INF] Route matched with {action = "GetAll", controller = "Product"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ECommerce.RestApi.Controllers.ProductController (ECommerce.RestApi).
+2025-12-30 17:55:35.762 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."BrandId", "p"."CategoryId", "p"."CompanyId", "p"."CreatedDate", "p"."Description", "p"."ImageUrl", "p"."IsDeleted", "p"."Name", "p"."Price", "p"."Status", "p"."Stock", "p"."UpdatedDate", "c"."Id", "c"."CompanyId", "c"."CreatedDate", "c"."Description", "c"."ImageUrl", "c"."IsDeleted", "c"."Name", "c"."Status", "c"."UpdatedDate"
+FROM "Products" AS "p"
+INNER JOIN "Categories" AS "c" ON "p"."CategoryId" = "c"."Id"
+WHERE NOT ("p"."IsDeleted")
+2025-12-30 17:55:35.769 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ECommerce.Application.DTOs.Product.ProductDto, ECommerce.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 17:55:35.774 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi) in 28.3812ms
+2025-12-30 17:55:35.777 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:55:35.779 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Product/List - 200 null application/json; charset=utf-8 39.8449ms
+2025-12-30 17:55:37.175 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Category/List - null null
+2025-12-30 17:55:37.183 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:55:37.190 +03:00 [INF] Route matched with {action = "GetAll", controller = "Category"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ECommerce.RestApi.Controllers.CategoryController (ECommerce.RestApi).
+2025-12-30 17:55:37.203 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "c"."Id", "c"."CompanyId", "c"."CreatedDate", "c"."Description", "c"."ImageUrl", "c"."IsDeleted", "c"."Name", "c"."Status", "c"."UpdatedDate"
+FROM "Categories" AS "c"
+WHERE NOT ("c"."IsDeleted")
+2025-12-30 17:55:37.212 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ECommerce.Application.DTOs.Category.CategoryDto, ECommerce.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 17:55:37.232 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi) in 39.6393ms
+2025-12-30 17:55:37.233 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:55:37.235 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Category/List - 200 null application/json; charset=utf-8 59.261ms
+2025-12-30 17:55:53.433 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Product/List - null null
+2025-12-30 17:55:53.439 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:55:53.441 +03:00 [INF] Route matched with {action = "GetAll", controller = "Product"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ECommerce.RestApi.Controllers.ProductController (ECommerce.RestApi).
+2025-12-30 17:55:53.448 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."BrandId", "p"."CategoryId", "p"."CompanyId", "p"."CreatedDate", "p"."Description", "p"."ImageUrl", "p"."IsDeleted", "p"."Name", "p"."Price", "p"."Status", "p"."Stock", "p"."UpdatedDate", "c"."Id", "c"."CompanyId", "c"."CreatedDate", "c"."Description", "c"."ImageUrl", "c"."IsDeleted", "c"."Name", "c"."Status", "c"."UpdatedDate"
+FROM "Products" AS "p"
+INNER JOIN "Categories" AS "c" ON "p"."CategoryId" = "c"."Id"
+WHERE NOT ("p"."IsDeleted")
+2025-12-30 17:55:53.455 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ECommerce.Application.DTOs.Product.ProductDto, ECommerce.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 17:55:53.458 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi) in 14.0417ms
+2025-12-30 17:55:53.459 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:55:53.462 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Product/List - 200 null application/json; charset=utf-8 28.4937ms
+2025-12-30 17:55:54.791 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Category/List - null null
+2025-12-30 17:55:54.797 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:55:54.800 +03:00 [INF] Route matched with {action = "GetAll", controller = "Category"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ECommerce.RestApi.Controllers.CategoryController (ECommerce.RestApi).
+2025-12-30 17:55:54.806 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "c"."Id", "c"."CompanyId", "c"."CreatedDate", "c"."Description", "c"."ImageUrl", "c"."IsDeleted", "c"."Name", "c"."Status", "c"."UpdatedDate"
+FROM "Categories" AS "c"
+WHERE NOT ("c"."IsDeleted")
+2025-12-30 17:55:54.809 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ECommerce.Application.DTOs.Category.CategoryDto, ECommerce.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 17:55:54.813 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi) in 9.3947ms
+2025-12-30 17:55:54.815 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi)'
+2025-12-30 17:55:54.817 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Category/List - 200 null application/json; charset=utf-8 25.9002ms
+2025-12-30 18:12:49.280 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5271/api/Product/Create - application/json; charset=utf-8 259
+2025-12-30 18:12:49.323 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.ProductController.Create (ECommerce.RestApi)'
+2025-12-30 18:12:49.339 +03:00 [INF] Route matched with {action = "Create", controller = "Product"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Create(ECommerce.Application.DTOs.Product.ProductCreateDto) on controller ECommerce.RestApi.Controllers.ProductController (ECommerce.RestApi).
+2025-12-30 18:12:49.484 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[@__ToString_0='?' (Size = 58)], CommandType='"Text"', CommandTimeout='30']
+SELECT "c"."Id", "c"."ApiKey", "c"."City", "c"."CreatedDate", "c"."District", "c"."FullAddress", "c"."IsApproved", "c"."IsDeleted", "c"."Name", "c"."Phone", "c"."Status", "c"."TaxNumber", "c"."UpdatedDate"
+FROM "Companies" AS "c"
+WHERE "c"."ApiKey" = @__ToString_0 AND "c"."IsApproved" AND NOT ("c"."IsDeleted")
+2025-12-30 18:12:49.496 +03:00 [INF] Executing ContentResult with HTTP Response ContentType of text/plain; charset=utf-8
+2025-12-30 18:12:49.501 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.ProductController.Create (ECommerce.RestApi) in 159.7235ms
+2025-12-30 18:12:49.503 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.ProductController.Create (ECommerce.RestApi)'
+2025-12-30 18:12:49.507 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5271/api/Product/Create - 403 38 text/plain; charset=utf-8 227.8761ms
+2025-12-30 18:13:52.888 +03:00 [INF] Application is shutting down...
+2025-12-30 18:14:01.682 +03:00 [INF] User profile is available. Using 'C:\Users\PC\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-12-30 18:14:01.799 +03:00 [INF] Now listening on: http://localhost:5271
+2025-12-30 18:14:01.810 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-30 18:14:01.811 +03:00 [INF] Hosting environment: Development
+2025-12-30 18:14:01.812 +03:00 [INF] Content root path: C:\Users\PC\Desktop\ECommerce\src\Presentation\ECommerce.RestApi
+2025-12-30 18:14:25.265 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5271/api/Auth/Login - application/json; charset=utf-8 45
+2025-12-30 18:14:25.349 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.AuthController.Login (ECommerce.RestApi)'
+2025-12-30 18:14:25.367 +03:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(ECommerce.Application.DTOs.Auth.LoginDto) on controller ECommerce.RestApi.Controllers.AuthController (ECommerce.RestApi).
+2025-12-30 18:14:26.573 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__dto_Email_0='?' (Size = 12)], CommandType='"Text"', CommandTimeout='30']
+SELECT "u"."Id", "u"."CompanyId", "u"."CreatedDate", "u"."Email", "u"."FirstName", "u"."IsDeleted", "u"."LastName", "u"."PasswordHash", "u"."Role", "u"."Status", "u"."UpdatedDate"
+FROM "Users" AS "u"
+WHERE "u"."Email" = @__dto_Email_0 AND NOT ("u"."IsDeleted")
+2025-12-30 18:14:27.056 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 18:14:27.074 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.AuthController.Login (ECommerce.RestApi) in 1701.5661ms
+2025-12-30 18:14:27.083 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.AuthController.Login (ECommerce.RestApi)'
+2025-12-30 18:14:27.090 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5271/api/Auth/Login - 200 null application/json; charset=utf-8 1826.4535ms
+2025-12-30 18:14:29.749 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Product/List - null null
+2025-12-30 18:14:29.801 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 18:14:29.804 +03:00 [INF] Route matched with {action = "GetAll", controller = "Product"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ECommerce.RestApi.Controllers.ProductController (ECommerce.RestApi).
+2025-12-30 18:14:29.905 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."BrandId", "p"."CategoryId", "p"."CompanyId", "p"."CreatedDate", "p"."Description", "p"."ImageUrl", "p"."IsDeleted", "p"."Name", "p"."Price", "p"."Status", "p"."Stock", "p"."UpdatedDate", "c"."Id", "c"."CompanyId", "c"."CreatedDate", "c"."Description", "c"."ImageUrl", "c"."IsDeleted", "c"."Name", "c"."Status", "c"."UpdatedDate"
+FROM "Products" AS "p"
+INNER JOIN "Categories" AS "c" ON "p"."CategoryId" = "c"."Id"
+WHERE NOT ("p"."IsDeleted")
+2025-12-30 18:14:29.972 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ECommerce.Application.DTOs.Product.ProductDto, ECommerce.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 18:14:29.991 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi) in 184.8059ms
+2025-12-30 18:14:29.993 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 18:14:29.995 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Product/List - 200 null application/json; charset=utf-8 246.3593ms
+2025-12-30 18:14:31.465 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Category/List - null null
+2025-12-30 18:14:31.477 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi)'
+2025-12-30 18:14:31.483 +03:00 [INF] Route matched with {action = "GetAll", controller = "Category"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ECommerce.RestApi.Controllers.CategoryController (ECommerce.RestApi).
+2025-12-30 18:14:31.508 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__ToString_0='?' (Size = 58)], CommandType='"Text"', CommandTimeout='30']
+SELECT "c"."Id", "c"."ApiKey", "c"."City", "c"."CreatedDate", "c"."District", "c"."FullAddress", "c"."IsApproved", "c"."IsDeleted", "c"."Name", "c"."Phone", "c"."Status", "c"."TaxNumber", "c"."UpdatedDate"
+FROM "Companies" AS "c"
+WHERE "c"."ApiKey" = @__ToString_0 AND "c"."IsApproved" AND NOT ("c"."IsDeleted")
+2025-12-30 18:14:31.512 +03:00 [INF] Executing ContentResult with HTTP Response ContentType of text/plain; charset=utf-8
+2025-12-30 18:14:31.516 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi) in 29.6557ms
+2025-12-30 18:14:31.518 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi)'
+2025-12-30 18:14:31.519 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Category/List - 403 38 text/plain; charset=utf-8 54.049ms
+2025-12-30 18:17:47.386 +03:00 [INF] Application is shutting down...
+2025-12-30 18:17:53.571 +03:00 [INF] User profile is available. Using 'C:\Users\PC\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-12-30 18:17:53.686 +03:00 [INF] Now listening on: http://localhost:5271
+2025-12-30 18:17:53.690 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-30 18:17:53.691 +03:00 [INF] Hosting environment: Development
+2025-12-30 18:17:53.691 +03:00 [INF] Content root path: C:\Users\PC\Desktop\ECommerce\src\Presentation\ECommerce.RestApi
+2025-12-30 18:18:05.236 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Category/List - null null
+2025-12-30 18:18:05.403 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi)'
+2025-12-30 18:18:05.423 +03:00 [INF] Route matched with {action = "GetAll", controller = "Category"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ECommerce.RestApi.Controllers.CategoryController (ECommerce.RestApi).
+2025-12-30 18:18:06.563 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__ToString_0='?' (Size = 58)], CommandType='"Text"', CommandTimeout='30']
+SELECT "c"."Id", "c"."ApiKey", "c"."City", "c"."CreatedDate", "c"."District", "c"."FullAddress", "c"."IsApproved", "c"."IsDeleted", "c"."Name", "c"."Phone", "c"."Status", "c"."TaxNumber", "c"."UpdatedDate"
+FROM "Companies" AS "c"
+WHERE "c"."ApiKey" = @__ToString_0 AND "c"."IsApproved" AND NOT ("c"."IsDeleted")
+2025-12-30 18:18:06.582 +03:00 [INF] Executing ContentResult with HTTP Response ContentType of text/plain; charset=utf-8
+2025-12-30 18:18:06.592 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi) in 1161.8155ms
+2025-12-30 18:18:06.600 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi)'
+2025-12-30 18:18:06.609 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Category/List - 403 38 text/plain; charset=utf-8 1375.3959ms
+2025-12-30 18:18:17.484 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5271/api/Auth/Login - application/json; charset=utf-8 45
+2025-12-30 18:18:17.494 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.AuthController.Login (ECommerce.RestApi)'
+2025-12-30 18:18:17.505 +03:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(ECommerce.Application.DTOs.Auth.LoginDto) on controller ECommerce.RestApi.Controllers.AuthController (ECommerce.RestApi).
+2025-12-30 18:18:17.655 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__dto_Email_0='?' (Size = 12)], CommandType='"Text"', CommandTimeout='30']
+SELECT "u"."Id", "u"."CompanyId", "u"."CreatedDate", "u"."Email", "u"."FirstName", "u"."IsDeleted", "u"."LastName", "u"."PasswordHash", "u"."Role", "u"."Status", "u"."UpdatedDate"
+FROM "Users" AS "u"
+WHERE "u"."Email" = @__dto_Email_0 AND NOT ("u"."IsDeleted")
+2025-12-30 18:18:18.015 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 18:18:18.030 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.AuthController.Login (ECommerce.RestApi) in 522.6228ms
+2025-12-30 18:18:18.031 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.AuthController.Login (ECommerce.RestApi)'
+2025-12-30 18:18:18.033 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5271/api/Auth/Login - 200 null application/json; charset=utf-8 549.4986ms
+2025-12-30 18:18:20.585 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Product/List - null null
+2025-12-30 18:18:20.593 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 18:18:20.598 +03:00 [INF] Route matched with {action = "GetAll", controller = "Product"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ECommerce.RestApi.Controllers.ProductController (ECommerce.RestApi).
+2025-12-30 18:18:20.672 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."BrandId", "p"."CategoryId", "p"."CompanyId", "p"."CreatedDate", "p"."Description", "p"."ImageUrl", "p"."IsDeleted", "p"."Name", "p"."Price", "p"."Status", "p"."Stock", "p"."UpdatedDate", "c"."Id", "c"."CompanyId", "c"."CreatedDate", "c"."Description", "c"."ImageUrl", "c"."IsDeleted", "c"."Name", "c"."Status", "c"."UpdatedDate"
+FROM "Products" AS "p"
+INNER JOIN "Categories" AS "c" ON "p"."CategoryId" = "c"."Id"
+WHERE NOT ("p"."IsDeleted")
+2025-12-30 18:18:20.743 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ECommerce.Application.DTOs.Product.ProductDto, ECommerce.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 18:18:20.767 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi) in 166.1955ms
+2025-12-30 18:18:20.769 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 18:18:20.770 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Product/List - 200 null application/json; charset=utf-8 185.3878ms
+2025-12-30 18:18:26.398 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Category/List - null null
+2025-12-30 18:18:26.403 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi)'
+2025-12-30 18:18:26.404 +03:00 [INF] Route matched with {action = "GetAll", controller = "Category"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ECommerce.RestApi.Controllers.CategoryController (ECommerce.RestApi).
+2025-12-30 18:18:26.411 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__ToString_0='?' (Size = 58)], CommandType='"Text"', CommandTimeout='30']
+SELECT "c"."Id", "c"."ApiKey", "c"."City", "c"."CreatedDate", "c"."District", "c"."FullAddress", "c"."IsApproved", "c"."IsDeleted", "c"."Name", "c"."Phone", "c"."Status", "c"."TaxNumber", "c"."UpdatedDate"
+FROM "Companies" AS "c"
+WHERE "c"."ApiKey" = @__ToString_0 AND "c"."IsApproved" AND NOT ("c"."IsDeleted")
+2025-12-30 18:18:26.415 +03:00 [INF] Executing ContentResult with HTTP Response ContentType of text/plain; charset=utf-8
+2025-12-30 18:18:26.417 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi) in 11.4534ms
+2025-12-30 18:18:26.418 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi)'
+2025-12-30 18:18:26.419 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Category/List - 403 38 text/plain; charset=utf-8 21.4455ms
+2025-12-30 21:11:15.390 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Category/List - null null
+2025-12-30 21:11:15.406 +03:00 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '30.12.2025 16:18:17', Current time (UTC): '30.12.2025 18:11:15'.
+   at Microsoft.IdentityModel.Tokens.ValidatorUtilities.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateTokenPayloadAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2025-12-30 21:11:15.431 +03:00 [INF] Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '30.12.2025 16:18:17', Current time (UTC): '30.12.2025 18:11:15'.
+2025-12-30 21:11:15.436 +03:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2025-12-30 21:11:15.444 +03:00 [INF] AuthenticationScheme: Bearer was challenged.
+2025-12-30 21:11:15.447 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Category/List - 401 0 null 56.9263ms
+2025-12-30 21:11:44.777 +03:00 [INF] Application is shutting down...
+2025-12-30 21:11:55.018 +03:00 [INF] User profile is available. Using 'C:\Users\PC\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-12-30 21:11:55.197 +03:00 [INF] Now listening on: http://localhost:5271
+2025-12-30 21:11:55.199 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-30 21:11:55.201 +03:00 [INF] Hosting environment: Development
+2025-12-30 21:11:55.202 +03:00 [INF] Content root path: C:\Users\PC\Desktop\ECommerce\src\Presentation\ECommerce.RestApi
+2025-12-30 21:12:12.500 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5271/api/Auth/Login - application/json; charset=utf-8 45
+2025-12-30 21:12:12.589 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.AuthController.Login (ECommerce.RestApi)'
+2025-12-30 21:12:12.604 +03:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(ECommerce.Application.DTOs.Auth.LoginDto) on controller ECommerce.RestApi.Controllers.AuthController (ECommerce.RestApi).
+2025-12-30 21:12:14.033 +03:00 [INF] Executed DbCommand (23ms) [Parameters=[@__dto_Email_0='?' (Size = 12)], CommandType='"Text"', CommandTimeout='30']
+SELECT "u"."Id", "u"."CompanyId", "u"."CreatedDate", "u"."Email", "u"."FirstName", "u"."IsDeleted", "u"."LastName", "u"."PasswordHash", "u"."Role", "u"."Status", "u"."UpdatedDate"
+FROM "Users" AS "u"
+WHERE "u"."Email" = @__dto_Email_0 AND NOT ("u"."IsDeleted")
+2025-12-30 21:12:14.532 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 21:12:14.565 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.AuthController.Login (ECommerce.RestApi) in 1953.3738ms
+2025-12-30 21:12:14.573 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.AuthController.Login (ECommerce.RestApi)'
+2025-12-30 21:12:14.581 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5271/api/Auth/Login - 200 null application/json; charset=utf-8 2082.4227ms
+2025-12-30 21:12:35.488 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Product/List - null null
+2025-12-30 21:12:35.545 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 21:12:35.553 +03:00 [INF] Route matched with {action = "GetAll", controller = "Product"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ECommerce.RestApi.Controllers.ProductController (ECommerce.RestApi).
+2025-12-30 21:12:35.672 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."BrandId", "p"."CategoryId", "p"."CompanyId", "p"."CreatedDate", "p"."Description", "p"."ImageUrl", "p"."IsDeleted", "p"."Name", "p"."Price", "p"."Status", "p"."Stock", "p"."UpdatedDate", "c"."Id", "c"."CompanyId", "c"."CreatedDate", "c"."Description", "c"."ImageUrl", "c"."IsDeleted", "c"."Name", "c"."Status", "c"."UpdatedDate"
+FROM "Products" AS "p"
+INNER JOIN "Categories" AS "c" ON "p"."CategoryId" = "c"."Id"
+WHERE NOT ("p"."IsDeleted")
+2025-12-30 21:12:35.739 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ECommerce.Application.DTOs.Product.ProductDto, ECommerce.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 21:12:35.766 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi) in 209.4287ms
+2025-12-30 21:12:35.769 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 21:12:35.770 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Product/List - 200 null application/json; charset=utf-8 282.3679ms
+2025-12-30 21:12:38.435 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Category/List - null null
+2025-12-30 21:12:38.443 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi)'
+2025-12-30 21:12:38.447 +03:00 [INF] Route matched with {action = "GetAll", controller = "Category"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ECommerce.RestApi.Controllers.CategoryController (ECommerce.RestApi).
+2025-12-30 21:12:38.478 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__ToString_0='?' (Size = 58)], CommandType='"Text"', CommandTimeout='30']
+SELECT "c"."Id", "c"."ApiKey", "c"."City", "c"."CreatedDate", "c"."District", "c"."FullAddress", "c"."IsApproved", "c"."IsDeleted", "c"."Name", "c"."Phone", "c"."Status", "c"."TaxNumber", "c"."UpdatedDate"
+FROM "Companies" AS "c"
+WHERE "c"."ApiKey" = @__ToString_0 AND "c"."IsApproved" AND NOT ("c"."IsDeleted")
+2025-12-30 21:12:38.483 +03:00 [INF] Executing ContentResult with HTTP Response ContentType of text/plain; charset=utf-8
+2025-12-30 21:12:38.486 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi) in 35.7233ms
+2025-12-30 21:12:38.488 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi)'
+2025-12-30 21:12:38.490 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Category/List - 403 38 text/plain; charset=utf-8 54.7548ms
+2025-12-30 21:25:11.551 +03:00 [INF] Application is shutting down...
+2025-12-30 21:25:19.275 +03:00 [INF] User profile is available. Using 'C:\Users\PC\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-12-30 21:25:19.400 +03:00 [INF] Now listening on: http://localhost:5271
+2025-12-30 21:25:19.404 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-30 21:25:19.406 +03:00 [INF] Hosting environment: Development
+2025-12-30 21:25:19.407 +03:00 [INF] Content root path: C:\Users\PC\Desktop\ECommerce\src\Presentation\ECommerce.RestApi
+2025-12-30 21:25:24.327 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Category/List - null null
+2025-12-30 21:25:24.454 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi)'
+2025-12-30 21:25:24.467 +03:00 [INF] Route matched with {action = "GetAll", controller = "Category"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ECommerce.RestApi.Controllers.CategoryController (ECommerce.RestApi).
+2025-12-30 21:25:25.396 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "c"."Id", "c"."CompanyId", "c"."CreatedDate", "c"."Description", "c"."ImageUrl", "c"."IsDeleted", "c"."Name", "c"."Status", "c"."UpdatedDate"
+FROM "Categories" AS "c"
+WHERE NOT ("c"."IsDeleted")
+2025-12-30 21:25:25.484 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ECommerce.Application.DTOs.Category.CategoryDto, ECommerce.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 21:25:25.572 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi) in 1100.1861ms
+2025-12-30 21:25:25.581 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi)'
+2025-12-30 21:25:25.590 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Category/List - 200 null application/json; charset=utf-8 1263.9279ms
+2025-12-30 21:26:57.827 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5271/api/Product/Create - application/json; charset=utf-8 256
+2025-12-30 21:26:57.844 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.ProductController.Create (ECommerce.RestApi)'
+2025-12-30 21:26:57.858 +03:00 [INF] Route matched with {action = "Create", controller = "Product"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Create(ECommerce.Application.DTOs.Product.ProductCreateDto) on controller ECommerce.RestApi.Controllers.ProductController (ECommerce.RestApi).
+2025-12-30 21:26:57.983 +03:00 [INF] Executed DbCommand (4ms) [Parameters=[@__ToString_0='?' (Size = 58)], CommandType='"Text"', CommandTimeout='30']
+SELECT "c"."Id", "c"."ApiKey", "c"."City", "c"."CreatedDate", "c"."District", "c"."FullAddress", "c"."IsApproved", "c"."IsDeleted", "c"."Name", "c"."Phone", "c"."Status", "c"."TaxNumber", "c"."UpdatedDate"
+FROM "Companies" AS "c"
+WHERE "c"."ApiKey" = @__ToString_0 AND "c"."IsApproved" AND NOT ("c"."IsDeleted")
+2025-12-30 21:26:57.990 +03:00 [INF] Executing ContentResult with HTTP Response ContentType of text/plain; charset=utf-8
+2025-12-30 21:26:57.994 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.ProductController.Create (ECommerce.RestApi) in 132.335ms
+2025-12-30 21:26:57.996 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.ProductController.Create (ECommerce.RestApi)'
+2025-12-30 21:26:57.998 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5271/api/Product/Create - 403 38 text/plain; charset=utf-8 170.8962ms
+2025-12-30 21:27:13.927 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5271/api/Product/Create - application/json; charset=utf-8 256
+2025-12-30 21:27:13.933 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.ProductController.Create (ECommerce.RestApi)'
+2025-12-30 21:27:13.934 +03:00 [INF] Route matched with {action = "Create", controller = "Product"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Create(ECommerce.Application.DTOs.Product.ProductCreateDto) on controller ECommerce.RestApi.Controllers.ProductController (ECommerce.RestApi).
+2025-12-30 21:27:13.952 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__ToString_0='?' (Size = 58)], CommandType='"Text"', CommandTimeout='30']
+SELECT "c"."Id", "c"."ApiKey", "c"."City", "c"."CreatedDate", "c"."District", "c"."FullAddress", "c"."IsApproved", "c"."IsDeleted", "c"."Name", "c"."Phone", "c"."Status", "c"."TaxNumber", "c"."UpdatedDate"
+FROM "Companies" AS "c"
+WHERE "c"."ApiKey" = @__ToString_0 AND "c"."IsApproved" AND NOT ("c"."IsDeleted")
+2025-12-30 21:27:13.956 +03:00 [INF] Executing ContentResult with HTTP Response ContentType of text/plain; charset=utf-8
+2025-12-30 21:27:13.958 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.ProductController.Create (ECommerce.RestApi) in 21.5041ms
+2025-12-30 21:27:13.959 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.ProductController.Create (ECommerce.RestApi)'
+2025-12-30 21:27:13.962 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5271/api/Product/Create - 403 38 text/plain; charset=utf-8 34.921ms
+2025-12-30 21:27:34.198 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5271/api/Product/Create - application/json; charset=utf-8 256
+2025-12-30 21:27:34.203 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.ProductController.Create (ECommerce.RestApi)'
+2025-12-30 21:27:34.204 +03:00 [INF] Route matched with {action = "Create", controller = "Product"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Create(ECommerce.Application.DTOs.Product.ProductCreateDto) on controller ECommerce.RestApi.Controllers.ProductController (ECommerce.RestApi).
+2025-12-30 21:27:34.211 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__ToString_0='?' (Size = 58)], CommandType='"Text"', CommandTimeout='30']
+SELECT "c"."Id", "c"."ApiKey", "c"."City", "c"."CreatedDate", "c"."District", "c"."FullAddress", "c"."IsApproved", "c"."IsDeleted", "c"."Name", "c"."Phone", "c"."Status", "c"."TaxNumber", "c"."UpdatedDate"
+FROM "Companies" AS "c"
+WHERE "c"."ApiKey" = @__ToString_0 AND "c"."IsApproved" AND NOT ("c"."IsDeleted")
+2025-12-30 21:27:34.213 +03:00 [INF] Executing ContentResult with HTTP Response ContentType of text/plain; charset=utf-8
+2025-12-30 21:27:34.215 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.ProductController.Create (ECommerce.RestApi) in 7.8457ms
+2025-12-30 21:27:34.216 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.ProductController.Create (ECommerce.RestApi)'
+2025-12-30 21:27:34.218 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5271/api/Product/Create - 403 38 text/plain; charset=utf-8 20.8074ms
+2025-12-30 21:27:38.193 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Product/List - null null
+2025-12-30 21:27:38.198 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 21:27:38.203 +03:00 [INF] Route matched with {action = "GetAll", controller = "Product"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ECommerce.RestApi.Controllers.ProductController (ECommerce.RestApi).
+2025-12-30 21:27:38.276 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."BrandId", "p"."CategoryId", "p"."CompanyId", "p"."CreatedDate", "p"."Description", "p"."ImageUrl", "p"."IsDeleted", "p"."Name", "p"."Price", "p"."Status", "p"."Stock", "p"."UpdatedDate", "c"."Id", "c"."CompanyId", "c"."CreatedDate", "c"."Description", "c"."ImageUrl", "c"."IsDeleted", "c"."Name", "c"."Status", "c"."UpdatedDate"
+FROM "Products" AS "p"
+INNER JOIN "Categories" AS "c" ON "p"."CategoryId" = "c"."Id"
+WHERE NOT ("p"."IsDeleted")
+2025-12-30 21:27:38.326 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ECommerce.Application.DTOs.Product.ProductDto, ECommerce.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 21:27:38.337 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi) in 131.5953ms
+2025-12-30 21:27:38.338 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 21:27:38.339 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Product/List - 200 null application/json; charset=utf-8 146.6639ms
+2025-12-30 21:27:40.226 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Category/List - null null
+2025-12-30 21:27:40.231 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi)'
+2025-12-30 21:27:40.233 +03:00 [INF] Route matched with {action = "GetAll", controller = "Category"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ECommerce.RestApi.Controllers.CategoryController (ECommerce.RestApi).
+2025-12-30 21:27:40.237 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "c"."Id", "c"."CompanyId", "c"."CreatedDate", "c"."Description", "c"."ImageUrl", "c"."IsDeleted", "c"."Name", "c"."Status", "c"."UpdatedDate"
+FROM "Categories" AS "c"
+WHERE NOT ("c"."IsDeleted")
+2025-12-30 21:27:40.242 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ECommerce.Application.DTOs.Category.CategoryDto, ECommerce.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 21:27:40.245 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi) in 10.3261ms
+2025-12-30 21:27:40.248 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi)'
+2025-12-30 21:27:40.249 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Category/List - 200 null application/json; charset=utf-8 23.1462ms
+2025-12-30 21:28:02.336 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5271/api/Product/Create - application/json; charset=utf-8 239
+2025-12-30 21:28:02.339 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.ProductController.Create (ECommerce.RestApi)'
+2025-12-30 21:28:02.341 +03:00 [INF] Route matched with {action = "Create", controller = "Product"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Create(ECommerce.Application.DTOs.Product.ProductCreateDto) on controller ECommerce.RestApi.Controllers.ProductController (ECommerce.RestApi).
+2025-12-30 21:28:02.345 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__ToString_0='?' (Size = 58)], CommandType='"Text"', CommandTimeout='30']
+SELECT "c"."Id", "c"."ApiKey", "c"."City", "c"."CreatedDate", "c"."District", "c"."FullAddress", "c"."IsApproved", "c"."IsDeleted", "c"."Name", "c"."Phone", "c"."Status", "c"."TaxNumber", "c"."UpdatedDate"
+FROM "Companies" AS "c"
+WHERE "c"."ApiKey" = @__ToString_0 AND "c"."IsApproved" AND NOT ("c"."IsDeleted")
+2025-12-30 21:28:02.348 +03:00 [INF] Executing ContentResult with HTTP Response ContentType of text/plain; charset=utf-8
+2025-12-30 21:28:02.350 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.ProductController.Create (ECommerce.RestApi) in 6.2523ms
+2025-12-30 21:28:02.351 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.ProductController.Create (ECommerce.RestApi)'
+2025-12-30 21:28:02.352 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5271/api/Product/Create - 403 38 text/plain; charset=utf-8 16.605ms
+2025-12-30 21:48:25.014 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5271/api/Product/Create - application/json; charset=utf-8 239
+2025-12-30 21:48:25.024 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.ProductController.Create (ECommerce.RestApi)'
+2025-12-30 21:48:25.028 +03:00 [INF] Route matched with {action = "Create", controller = "Product"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Create(ECommerce.Application.DTOs.Product.ProductCreateDto) on controller ECommerce.RestApi.Controllers.ProductController (ECommerce.RestApi).
+2025-12-30 21:48:25.100 +03:00 [INF] Executed DbCommand (57ms) [Parameters=[@__ToString_0='?' (Size = 58)], CommandType='"Text"', CommandTimeout='30']
+SELECT "c"."Id", "c"."ApiKey", "c"."City", "c"."CreatedDate", "c"."District", "c"."FullAddress", "c"."IsApproved", "c"."IsDeleted", "c"."Name", "c"."Phone", "c"."Status", "c"."TaxNumber", "c"."UpdatedDate"
+FROM "Companies" AS "c"
+WHERE "c"."ApiKey" = @__ToString_0 AND "c"."IsApproved" AND NOT ("c"."IsDeleted")
+2025-12-30 21:48:25.104 +03:00 [INF] Executing ContentResult with HTTP Response ContentType of text/plain; charset=utf-8
+2025-12-30 21:48:25.106 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.ProductController.Create (ECommerce.RestApi) in 74.2007ms
+2025-12-30 21:48:25.108 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.ProductController.Create (ECommerce.RestApi)'
+2025-12-30 21:48:25.109 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5271/api/Product/Create - 403 38 text/plain; charset=utf-8 95.5235ms
+2025-12-30 21:48:32.037 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5271/api/Product/Create - application/json; charset=utf-8 239
+2025-12-30 21:48:32.040 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.ProductController.Create (ECommerce.RestApi)'
+2025-12-30 21:48:32.042 +03:00 [INF] Route matched with {action = "Create", controller = "Product"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Create(ECommerce.Application.DTOs.Product.ProductCreateDto) on controller ECommerce.RestApi.Controllers.ProductController (ECommerce.RestApi).
+2025-12-30 21:48:32.046 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__ToString_0='?' (Size = 58)], CommandType='"Text"', CommandTimeout='30']
+SELECT "c"."Id", "c"."ApiKey", "c"."City", "c"."CreatedDate", "c"."District", "c"."FullAddress", "c"."IsApproved", "c"."IsDeleted", "c"."Name", "c"."Phone", "c"."Status", "c"."TaxNumber", "c"."UpdatedDate"
+FROM "Companies" AS "c"
+WHERE "c"."ApiKey" = @__ToString_0 AND "c"."IsApproved" AND NOT ("c"."IsDeleted")
+2025-12-30 21:48:32.049 +03:00 [INF] Executing ContentResult with HTTP Response ContentType of text/plain; charset=utf-8
+2025-12-30 21:48:32.054 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.ProductController.Create (ECommerce.RestApi) in 10.7326ms
+2025-12-30 21:48:32.057 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.ProductController.Create (ECommerce.RestApi)'
+2025-12-30 21:48:32.058 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5271/api/Product/Create - 403 38 text/plain; charset=utf-8 20.7189ms
+2025-12-30 21:48:54.615 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5271/api/Auth/Login - application/json; charset=utf-8 45
+2025-12-30 21:48:54.620 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.AuthController.Login (ECommerce.RestApi)'
+2025-12-30 21:48:54.630 +03:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(ECommerce.Application.DTOs.Auth.LoginDto) on controller ECommerce.RestApi.Controllers.AuthController (ECommerce.RestApi).
+2025-12-30 21:48:54.664 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__dto_Email_0='?' (Size = 12)], CommandType='"Text"', CommandTimeout='30']
+SELECT "u"."Id", "u"."CompanyId", "u"."CreatedDate", "u"."Email", "u"."FirstName", "u"."IsDeleted", "u"."LastName", "u"."PasswordHash", "u"."Role", "u"."Status", "u"."UpdatedDate"
+FROM "Users" AS "u"
+WHERE "u"."Email" = @__dto_Email_0 AND NOT ("u"."IsDeleted")
+2025-12-30 21:48:55.061 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 21:48:55.063 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.AuthController.Login (ECommerce.RestApi) in 425.607ms
+2025-12-30 21:48:55.064 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.AuthController.Login (ECommerce.RestApi)'
+2025-12-30 21:48:55.065 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5271/api/Auth/Login - 200 null application/json; charset=utf-8 449.5284ms
+2025-12-30 21:48:57.152 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Product/List - null null
+2025-12-30 21:48:57.156 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 21:48:57.157 +03:00 [INF] Route matched with {action = "GetAll", controller = "Product"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ECommerce.RestApi.Controllers.ProductController (ECommerce.RestApi).
+2025-12-30 21:48:57.166 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."BrandId", "p"."CategoryId", "p"."CompanyId", "p"."CreatedDate", "p"."Description", "p"."ImageUrl", "p"."IsDeleted", "p"."Name", "p"."Price", "p"."Status", "p"."Stock", "p"."UpdatedDate", "c"."Id", "c"."CompanyId", "c"."CreatedDate", "c"."Description", "c"."ImageUrl", "c"."IsDeleted", "c"."Name", "c"."Status", "c"."UpdatedDate"
+FROM "Products" AS "p"
+INNER JOIN "Categories" AS "c" ON "p"."CategoryId" = "c"."Id"
+WHERE NOT ("p"."IsDeleted")
+2025-12-30 21:48:57.169 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ECommerce.Application.DTOs.Product.ProductDto, ECommerce.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 21:48:57.172 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi) in 9.8532ms
+2025-12-30 21:48:57.174 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 21:48:57.175 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Product/List - 200 null application/json; charset=utf-8 23.2253ms
+2025-12-30 21:48:59.007 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Category/List - null null
+2025-12-30 21:48:59.009 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi)'
+2025-12-30 21:48:59.010 +03:00 [INF] Route matched with {action = "GetAll", controller = "Category"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ECommerce.RestApi.Controllers.CategoryController (ECommerce.RestApi).
+2025-12-30 21:48:59.015 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "c"."Id", "c"."CompanyId", "c"."CreatedDate", "c"."Description", "c"."ImageUrl", "c"."IsDeleted", "c"."Name", "c"."Status", "c"."UpdatedDate"
+FROM "Categories" AS "c"
+WHERE NOT ("c"."IsDeleted")
+2025-12-30 21:48:59.021 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ECommerce.Application.DTOs.Category.CategoryDto, ECommerce.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 21:48:59.026 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi) in 14.2978ms
+2025-12-30 21:48:59.027 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi)'
+2025-12-30 21:48:59.029 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Category/List - 200 null application/json; charset=utf-8 22.1785ms
+2025-12-30 21:53:42.746 +03:00 [INF] Application is shutting down...
+2025-12-30 21:53:54.432 +03:00 [INF] User profile is available. Using 'C:\Users\PC\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-12-30 21:53:54.586 +03:00 [INF] Now listening on: http://localhost:5271
+2025-12-30 21:53:54.590 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-30 21:53:54.591 +03:00 [INF] Hosting environment: Development
+2025-12-30 21:53:54.592 +03:00 [INF] Content root path: C:\Users\PC\Desktop\ECommerce\src\Presentation\ECommerce.RestApi
+2025-12-30 21:53:58.460 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/index.html - null null
+2025-12-30 21:53:58.603 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/index.html - 200 null text/html;charset=utf-8 143.8676ms
+2025-12-30 21:53:58.631 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/swagger-ui-standalone-preset.js - null null
+2025-12-30 21:53:58.631 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/swagger-ui-bundle.js - null null
+2025-12-30 21:53:58.631 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/index.css - null null
+2025-12-30 21:53:58.632 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/index.js - null null
+2025-12-30 21:53:58.632 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/swagger-ui.css - null null
+2025-12-30 21:53:58.652 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/index.js - 200 null application/javascript;charset=utf-8 19.9462ms
+2025-12-30 21:53:58.667 +03:00 [INF] Sending file. Request path: '/swagger-ui-standalone-preset.js'. Physical path: 'N/A'
+2025-12-30 21:53:58.667 +03:00 [INF] Sending file. Request path: '/index.css'. Physical path: 'N/A'
+2025-12-30 21:53:58.672 +03:00 [INF] Sending file. Request path: '/swagger-ui.css'. Physical path: 'N/A'
+2025-12-30 21:53:58.681 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/swagger-ui-standalone-preset.js - 200 230007 text/javascript 49.5143ms
+2025-12-30 21:53:58.682 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/index.css - 200 202 text/css 52.19ms
+2025-12-30 21:53:58.683 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/swagger-ui.css - 200 152035 text/css 50.4652ms
+2025-12-30 21:53:58.695 +03:00 [INF] Sending file. Request path: '/swagger-ui-bundle.js'. Physical path: 'N/A'
+2025-12-30 21:53:58.697 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/swagger-ui-bundle.js - 200 1426050 text/javascript 65.6685ms
+2025-12-30 21:53:58.940 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/swagger/v1/swagger.json - null null
+2025-12-30 21:53:59.158 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 218.4115ms
+2025-12-30 21:54:10.454 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Category/List - null null
+2025-12-30 21:54:10.564 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi)'
+2025-12-30 21:54:10.585 +03:00 [INF] Route matched with {action = "GetAll", controller = "Category"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ECommerce.RestApi.Controllers.CategoryController (ECommerce.RestApi).
+2025-12-30 21:54:11.848 +03:00 [INF] Executed DbCommand (14ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "c"."Id", "c"."CompanyId", "c"."CreatedDate", "c"."Description", "c"."ImageUrl", "c"."IsDeleted", "c"."Name", "c"."Status", "c"."UpdatedDate"
+FROM "Categories" AS "c"
+WHERE NOT ("c"."IsDeleted")
+2025-12-30 21:54:11.953 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ECommerce.Application.DTOs.Category.CategoryDto, ECommerce.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 21:54:11.996 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi) in 1403.1482ms
+2025-12-30 21:54:11.997 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi)'
+2025-12-30 21:54:12.007 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Category/List - 200 null application/json; charset=utf-8 1552.7062ms
+2025-12-30 21:54:28.290 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5271/api/Auth/Login - application/json; charset=utf-8 45
+2025-12-30 21:54:28.297 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.AuthController.Login (ECommerce.RestApi)'
+2025-12-30 21:54:28.310 +03:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(ECommerce.Application.DTOs.Auth.LoginDto) on controller ECommerce.RestApi.Controllers.AuthController (ECommerce.RestApi).
+2025-12-30 21:54:28.442 +03:00 [INF] Executed DbCommand (6ms) [Parameters=[@__dto_Email_0='?' (Size = 12)], CommandType='"Text"', CommandTimeout='30']
+SELECT "u"."Id", "u"."CompanyId", "u"."CreatedDate", "u"."Email", "u"."FirstName", "u"."IsDeleted", "u"."LastName", "u"."PasswordHash", "u"."Role", "u"."Status", "u"."UpdatedDate"
+FROM "Users" AS "u"
+WHERE "u"."Email" = @__dto_Email_0 AND NOT ("u"."IsDeleted")
+2025-12-30 21:54:28.873 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 21:54:28.876 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.AuthController.Login (ECommerce.RestApi) in 560.1029ms
+2025-12-30 21:54:28.878 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.AuthController.Login (ECommerce.RestApi)'
+2025-12-30 21:54:28.880 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5271/api/Auth/Login - 200 null application/json; charset=utf-8 590.0544ms
+2025-12-30 21:54:30.209 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Product/List - null null
+2025-12-30 21:54:30.218 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 21:54:30.221 +03:00 [INF] Route matched with {action = "GetAll", controller = "Product"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ECommerce.RestApi.Controllers.ProductController (ECommerce.RestApi).
+2025-12-30 21:54:30.284 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."BrandId", "p"."CategoryId", "p"."CompanyId", "p"."CreatedDate", "p"."Description", "p"."ImageUrl", "p"."IsDeleted", "p"."Name", "p"."Price", "p"."Status", "p"."Stock", "p"."UpdatedDate", "c"."Id", "c"."CompanyId", "c"."CreatedDate", "c"."Description", "c"."ImageUrl", "c"."IsDeleted", "c"."Name", "c"."Status", "c"."UpdatedDate"
+FROM "Products" AS "p"
+INNER JOIN "Categories" AS "c" ON "p"."CategoryId" = "c"."Id"
+WHERE NOT ("p"."IsDeleted")
+2025-12-30 21:54:30.341 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ECommerce.Application.DTOs.Product.ProductDto, ECommerce.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 21:54:30.353 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi) in 129.1467ms
+2025-12-30 21:54:30.354 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.ProductController.GetAll (ECommerce.RestApi)'
+2025-12-30 21:54:30.355 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Product/List - 200 null application/json; charset=utf-8 146.0431ms
+2025-12-30 21:54:31.733 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5271/api/Category/List - null null
+2025-12-30 21:54:31.738 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi)'
+2025-12-30 21:54:31.739 +03:00 [INF] Route matched with {action = "GetAll", controller = "Category"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller ECommerce.RestApi.Controllers.CategoryController (ECommerce.RestApi).
+2025-12-30 21:54:31.744 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "c"."Id", "c"."CompanyId", "c"."CreatedDate", "c"."Description", "c"."ImageUrl", "c"."IsDeleted", "c"."Name", "c"."Status", "c"."UpdatedDate"
+FROM "Categories" AS "c"
+WHERE NOT ("c"."IsDeleted")
+2025-12-30 21:54:31.747 +03:00 [INF] Executing OkObjectResult, writing value of type 'ECommerce.Application.Responses.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[ECommerce.Application.DTOs.Category.CategoryDto, ECommerce.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-12-30 21:54:31.748 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi) in 7.637ms
+2025-12-30 21:54:31.749 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.CategoryController.GetAll (ECommerce.RestApi)'
+2025-12-30 21:54:31.750 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5271/api/Category/List - 200 null application/json; charset=utf-8 17.3703ms
+2025-12-30 21:55:11.442 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5271/api/Product/Create - application/json; charset=utf-8 253
+2025-12-30 21:55:11.448 +03:00 [INF] Executing endpoint 'ECommerce.RestApi.Controllers.ProductController.Create (ECommerce.RestApi)'
+2025-12-30 21:55:11.453 +03:00 [INF] Route matched with {action = "Create", controller = "Product"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Create(ECommerce.Application.DTOs.Product.ProductCreateDto) on controller ECommerce.RestApi.Controllers.ProductController (ECommerce.RestApi).
+2025-12-30 21:55:11.618 +03:00 [ERR] Failed executing DbCommand (11ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Guid), @p2='?' (DbType = Guid), @p3='?' (DbType = Guid), @p4='?' (DbType = DateTime), @p5='?' (Size = 16), @p6='?', @p7='?' (DbType = Boolean), @p8='?' (Size = 9), @p9='?' (DbType = Decimal), @p10='?' (DbType = Boolean), @p11='?' (DbType = Int32), @p12='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Products" ("Id", "BrandId", "CategoryId", "CompanyId", "CreatedDate", "Description", "ImageUrl", "IsDeleted", "Name", "Price", "Status", "Stock", "UpdatedDate")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12);
+2025-12-30 21:55:11.678 +03:00 [ERR] An exception occurred in the database while saving changes for context type 'ECommerce.Infrastructure.Data.AppDbContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'FOREIGN KEY constraint failed'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'FOREIGN KEY constraint failed'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2025-12-30 21:55:11.707 +03:00 [INF] Executed action ECommerce.RestApi.Controllers.ProductController.Create (ECommerce.RestApi) in 249.4687ms
+2025-12-30 21:55:11.709 +03:00 [INF] Executed endpoint 'ECommerce.RestApi.Controllers.ProductController.Create (ECommerce.RestApi)'
+2025-12-30 21:55:11.722 +03:00 [ERR] Unhandled exception: SQLite Error 19: 'FOREIGN KEY constraint failed'. | Path: /api/Product/Create | IP: ::1 | Agent:  | Type: Microsoft.EntityFrameworkCore.DbUpdateException
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'FOREIGN KEY constraint failed'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at ECommerce.Infrastructure.Repositories.UnitOfWork.SaveChangesAsync() in C:\Users\PC\Desktop\ECommerce\src\Infrastructure\ECommerce.Infrastructure\Repositories\UnitOfWork.cs:line 48
+   at ECommerce.Infrastructure.Services.ProductService.CreateAsync(ProductCreateDto dto) in C:\Users\PC\Desktop\ECommerce\src\Infrastructure\ECommerce.Infrastructure\Services\ProductService.cs:line 61
+   at ECommerce.RestApi.Controllers.ProductController.Create(ProductCreateDto dto) in C:\Users\PC\Desktop\ECommerce\src\Presentation\ECommerce.RestApi\Controllers\ProductController.cs:line 57
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at ECommerce.RestApi.Middleware.GlobalExceptionHandler.InvokeAsync(HttpContext context) in C:\Users\PC\Desktop\ECommerce\src\Presentation\ECommerce.RestApi\Middleware\GlobalExceptionHandler.cs:line 27
+2025-12-30 21:55:11.789 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5271/api/Product/Create - 400 null application/json 347.0064ms

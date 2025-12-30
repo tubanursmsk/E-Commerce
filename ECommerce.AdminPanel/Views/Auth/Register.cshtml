@@ -1,0 +1,235 @@
+@model RegisterCompanyViewModel
+@{
+    Layout = "_AuthLayout"; //
+    ViewData["Title"] = "Şirket Kaydı";
+}
+
+<div class="auth-card wide">
+    <div class="auth-header">
+        <div class="logo">
+            <i class="fas fa-building"></i>
+        </div>
+        <h1>Şirket Hesabı Oluştur</h1>
+        <p>E-ticaret platformumuza şirketinizi kaydedin</p>
+    </div>
+
+    <div class="auth-body p-0">
+        @if (!string.IsNullOrEmpty(ViewBag.Error))
+        {
+            <div class="alert alert-danger m-3 d-flex align-items-center" role="alert">
+                <i class="fas fa-exclamation-circle me-2"></i>
+                <span>@ViewBag.Error</span>
+            </div>
+        }
+
+        <form asp-action="Register" method="post" id="registerForm">
+            <div class="row g-0">
+                <!-- Sol Kolon - Kişisel Bilgiler -->
+                <div class="col-lg-6 register-section" style="background: #fafbfc;">
+                    <h6 class="register-section-title">
+                        <i class="fas fa-user me-2"></i>Kişisel Bilgiler
+                    </h6>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="input-group-icon form-floating">
+                                <i class="fas fa-user input-icon"></i>
+                                <input type="text" class="form-control" id="FirstName" name="FirstName"
+                                       placeholder="Ad" value="@Model?.FirstName" required>
+                                <label for="FirstName">Ad</label>
+                            </div>
+                            <span asp-validation-for="FirstName" class="field-validation-error"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="input-group-icon form-floating">
+                                <i class="fas fa-user input-icon"></i>
+                                <input type="text" class="form-control" id="LastName" name="LastName"
+                                       placeholder="Soyad" value="@Model?.LastName" required>
+                                <label for="LastName">Soyad</label>
+                            </div>
+                            <span asp-validation-for="LastName" class="field-validation-error"></span>
+                        </div>
+                    </div>
+
+                    <div class="input-group-icon form-floating">
+                        <i class="fas fa-envelope input-icon"></i>
+                        <input type="email" class="form-control" id="Email" name="Email"
+                               placeholder="Email" value="@Model?.Email" required>
+                        <label for="Email">Email Adresi</label>
+                    </div>
+                    <span asp-validation-for="Email" class="field-validation-error"></span>
+
+                    <div class="input-group-icon form-floating">
+                        <i class="fas fa-phone input-icon"></i>
+                        <input type="phone" class="form-control" id="Phone" name="Phone"
+                               placeholder="Telefon" value="@Model?.Phone" required>
+                        <label for="Phone">Telefon Numarası</label>
+                    </div>
+                    <span asp-validation-for="Phone" class="field-validation-error"></span>
+
+                    <div class="input-group-icon form-floating">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" class="form-control" id="Password" name="Password"
+                               placeholder="Şifre" required>
+                        <label for="Password">Şifre</label>
+                        <button type="button" class="password-toggle" tabindex="-1">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <span asp-validation-for="Password" class="field-validation-error"></span>
+
+                    <div class="input-group-icon form-floating">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" class="form-control" id="ConfirmPassword" name="ConfirmPassword"
+                               placeholder="Şifre Tekrar" required>
+                        <label for="ConfirmPassword">Şifre Tekrar</label>
+                        <button type="button" class="password-toggle" tabindex="-1">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <span asp-validation-for="ConfirmPassword" class="field-validation-error"></span>
+
+                    <!-- Password Strength Indicator -->
+                    <div class="password-strength mt-2 mb-3" id="passwordStrength" style="display: none;">
+                        <div class="d-flex gap-1 mb-1">
+                            <div class="strength-bar flex-grow-1"></div>
+                            <div class="strength-bar flex-grow-1"></div>
+                            <div class="strength-bar flex-grow-1"></div>
+                            <div class="strength-bar flex-grow-1"></div>
+                        </div>
+                        <small class="strength-text text-muted"></small>
+                    </div>
+                </div>
+
+                <!-- Sağ Kolon - Şirket Bilgileri -->
+                <div class="col-lg-6 register-section">
+                    <h6 class="register-section-title">
+                        <i class="fas fa-building me-2"></i>Şirket Bilgileri
+                    </h6>
+
+                    <div class="input-group-icon form-floating">
+                        <i class="fas fa-building input-icon"></i>
+                        <input type="text" class="form-control" id="CompanyName" name="CompanyName"
+                               placeholder="Şirket Adı" value="@Model?.CompanyName" required>
+                        <label for="CompanyName">Şirket Adı</label>
+                    </div>
+                    <span asp-validation-for="CompanyName" class="field-validation-error"></span>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="input-group-icon form-floating">
+                                <i class="fas fa-file-invoice input-icon"></i>
+                                <input type="text" class="form-control" id="TaxNumber" name="TaxNumber"
+                                       placeholder="Vergi No" value="@Model?.TaxNumber" required maxlength="11">
+                                <label for="TaxNumber">Vergi No</label>
+                            </div>
+                            <span asp-validation-for="TaxNumber" class="field-validation-error"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="input-group-icon form-floating">
+                                <i class="fas fa-landmark input-icon"></i>
+                                <input type="text" class="form-control" id="TaxOffice" name="TaxOffice"
+                                       placeholder="Vergi Dairesi" value="@Model?.TaxOffice" required>
+                                <label for="TaxOffice">Vergi Dairesi</label>
+                            </div>
+                            <span asp-validation-for="TaxOffice" class="field-validation-error"></span>
+                        </div>
+                    </div>
+
+                    <h6 class="register-section-title mt-3">
+                        <i class="fas fa-map-marker-alt me-2"></i>Adres Bilgileri
+                    </h6>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="input-group-icon form-floating">
+                                <i class="fas fa-city input-icon"></i>
+                                <input type="text" class="form-control" id="City" name="City"
+                                       placeholder="İl" value="@Model?.City" required>
+                                <label for="City">İl</label>
+                            </div>
+                            <span asp-validation-for="City" class="field-validation-error"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="input-group-icon form-floating">
+                                <i class="fas fa-map input-icon"></i>
+                                <input type="text" class="form-control" id="District" name="District"
+                                       placeholder="İlçe" value="@Model?.District" required>
+                                <label for="District">İlçe</label>
+                            </div>
+                            <span asp-validation-for="District" class="field-validation-error"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="input-group-icon form-floating">
+                                <i class="fas fa-road input-icon"></i>
+                                <input type="text" class="form-control" id="Street" name="Street"
+                                       placeholder="Sokak/Cadde" value="@Model?.Street" required>
+                                <label for="Street">Sokak/Cadde</label>
+                            </div>
+                            <span asp-validation-for="Street" class="field-validation-error"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="input-group-icon form-floating">
+                                <i class="fas fa-mail-bulk input-icon"></i>
+                                <input type="text" class="form-control" id="ZipCode" name="ZipCode"
+                                       placeholder="Posta Kodu" value="@Model?.ZipCode" required maxlength="5">
+                                <label for="ZipCode">Posta Kodu</label>
+                            </div>
+                            <span asp-validation-for="ZipCode" class="field-validation-error"></span>
+                        </div>
+                    </div>
+
+                    <div class="input-group-icon form-floating">
+                        <i class="fas fa-map-marked-alt input-icon" style="top: 25%;"></i>
+                        <textarea class="form-control" id="FullAddress" name="FullAddress"
+                                  placeholder="Tam Adres" style="height: 80px;" required>@Model?.FullAddress</textarea>
+                        <label for="FullAddress">Tam Adres</label>
+                    </div>
+                    <span asp-validation-for="FullAddress" class="field-validation-error"></span>
+                </div>
+            </div>
+
+            <!-- Alt Bölüm -->
+            <div class="register-section border-top">
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" id="termsCheck" required>
+                    <label class="form-check-label" for="termsCheck">
+                        <a href="#" class="text-decoration-none" style="color: #667eea;">Kullanım Koşulları</a> ve
+                        <a href="#" class="text-decoration-none" style="color: #667eea;">Gizlilik Politikası</a>'nı okudum, kabul ediyorum.
+                    </label>
+                </div>
+
+                <div class="row align-items-center">
+                    <div class="col-md-6 mb-3 mb-md-0">
+                        <p class="text-muted mb-0">
+                            Zaten hesabınız var mı?
+                            <a asp-action="Login" class="text-decoration-none" style="color: #667eea; font-weight: 500;">Giriş Yapın</a>
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <button type="submit" class="btn btn-primary-gradient w-100" id="registerBtn">
+                            <span class="btn-text">
+                                <i class="fas fa-building me-2"></i>Şirket Hesabı Oluştur
+                            </span>
+                            <span class="btn-loading d-none">
+                                <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+                                Kaydediliyor...
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+
+    <script>
+        initFormLoading('registerForm', 'registerBtn');
+    </script>
+}
