@@ -19,14 +19,29 @@ public class ProductService : IProductService
         _mapper = mapper;
     }
 
+    /*public async Task<ApiResponse<IEnumerable<ProductDto>>> GetAllAsync()
+  {
+
+      //var products = await _unitOfWork.Products.GetAllAsync();
+      //var dtos = _mapper.Map<IEnumerable<ProductDto>>(products);
+      //return ApiResponse<IEnumerable<ProductDto>>.SuccessResult(dtos);
+      var all = await _unitOfWork.Products.GetAllWithCategoryAsync();
+      //var brandAll = await _unitOfWork.Products.GetAllWithBrandAsync();
+      return ApiResponse<IEnumerable<ProductDto>>.SuccessResult(_mapper.Map<IEnumerable<ProductDto>>(all));
+}
+      */
+
     public async Task<ApiResponse<IEnumerable<ProductDto>>> GetAllAsync()
     {
-        //var products = await _unitOfWork.Products.GetAllAsync();
-        //var dtos = _mapper.Map<IEnumerable<ProductDto>>(products);
-        //return ApiResponse<IEnumerable<ProductDto>>.SuccessResult(dtos);
-        var all = await _unitOfWork.Products.GetAllWithCategoryAsync();
-        return ApiResponse<IEnumerable<ProductDto>>.SuccessResult(_mapper.Map<IEnumerable<ProductDto>>(all));
+        // Veritabanından hem Category hem de Brand bilgilerini tek seferde çekiyoruz
+        var products = await _unitOfWork.Products.GetAllWithCategoryAndBrandAsync();
+
+        // Mapper zaten Product içindeki Category ve Brand nesnelerini ProductDto'ya eşleyecektir
+        var dtos = _mapper.Map<IEnumerable<ProductDto>>(products);
+
+        return ApiResponse<IEnumerable<ProductDto>>.SuccessResult(dtos);
     }
+
 
     public async Task<ApiResponse<ProductDto>> GetByIdAsync(Guid id)
     {

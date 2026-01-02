@@ -1,6 +1,7 @@
 using ECommerce.AdminPanel.Models;
 using ECommerce.AdminPanel.Models.Products; // Kendi namespace'ine göre güncelle
 using ECommerce.AdminPanel.Services;
+using ECommerce.Application.DTOs.Brand;
 using ECommerce.Application.DTOs.Category;
 using ECommerce.Application.DTOs.Product;
 using Microsoft.AspNetCore.Authorization;
@@ -26,7 +27,7 @@ public class ProductController : Controller
         // Not: API tarafındaki GetAll metodun sayfalama desteklemiyorsa düz liste çekebiliriz
         // Şablonun beklediği 'ProductListViewModel' yapısını dolduruyoruz
         var response = await _apiService.GetAsync<IEnumerable<ProductDto>>("Product/List");
-        
+
         var model = new ProductListViewModel
         {
             Products = new PagedResult<ProductDto> // Şablondaki yapıya uygun sarmalıyoruz
@@ -42,34 +43,28 @@ public class ProductController : Controller
     }
 
     [HttpGet]
-public async Task<IActionResult> Create()
-{
-    try
+    public async Task<IActionResult> Create()
     {
-        // Kategori listesini çek
+        // 1. Kategorileri Çek API'den veri gelmezse boş liste gönder ki View patlamasın
         var categoryResponse = await _apiService.GetAsync<IEnumerable<CategoryDto>>("Category/List");
-        
-        if (categoryResponse == null || !categoryResponse.Success)
+        ViewBag.AllCategories = categoryResponse?.Data?.ToList() ?? new List<CategoryDto>();
+
+        // 2. Markaları Çek (Eksik olan kısım burasıydı)
+        var brandResponse = await _apiService.GetAsync<IEnumerable<BrandDto>>("Brand/List"); // API endpoint'inin doğruluğundan emin ol
+        ViewBag.AllBrands = brandResponse?.Data?.ToList() ?? new List<BrandDto>();
+
+        if ((categoryResponse != null && !categoryResponse.Success) || (brandResponse != null && !brandResponse.Success))
         {
-            // Hata mesajını göster
-            TempData["ErrorMessage"] = categoryResponse?.Message ?? "Kategoriler yüklenemedi.";
-            ViewBag.AllCategories = new List<CategoryDto>();
+            TempData["ErrorMessage"] = "Veriler yüklenirken bir sorun oluştu.";
         }
-        else
-        {
-            ViewBag.AllCategories = categoryResponse.Data?.ToList() ?? new List<CategoryDto>();
-        }
-        
-        var model = new CreateProductViewModel {};
+
+        // CompanyId'yi Claims veya Session'dan alıp modele ekliyoruz
+        var companyIdStr = User.FindFirst("CompanyId")?.Value ?? HttpContext.Session.GetString("CompanyId");
+        Guid.TryParse(companyIdStr, out var companyId);
+
+        var model = new CreateProductViewModel { CompanyId = companyId };
         return View(model);
     }
-    catch (Exception ex)
-    {
-        TempData["ErrorMessage"] = $"Hata: {ex.Message}";
-        ViewBag.AllCategories = new List<CategoryDto>();
-        return View(new CreateProductViewModel());
-    }
-}
 
     // YENİ ÜRÜN OLUŞTURMA (POST)
     [HttpPost]
@@ -80,9 +75,11 @@ public async Task<IActionResult> Create()
         {
             var categoryResponse = await _apiService.GetAsync<IEnumerable<CategoryDto>>("Category/List");
             ViewBag.AllCategories = categoryResponse?.Data?.ToList();
+            var brandResponse = await _apiService.GetAsync<IEnumerable<BrandDto>>("Brand/List");
+            ViewBag.AllBrands = brandResponse?.Data?.ToList();
+
             return View(model);
         }
-
         // MVC Modelini API'nin beklediği DTO'ya map ediyoruz
         var productDto = new ProductCreateDto
         {
@@ -91,19 +88,22 @@ public async Task<IActionResult> Create()
             Price = model.Price,
             Stock = model.Stock,
             CategoryId = model.CategoryId,
-            // Şirket ID'sini JWT Claim'den veya Session'dan alıyoruz (Kritik!)
-            CompanyId = Guid.Parse(User.FindFirstValue("CompanyId") ?? Guid.Empty.ToString())
+            BrandId = model.BrandId,
+            CompanyId = model.CompanyId
         };
 
         var response = await _apiService.PostAsync<ProductCreateDto, Guid>("Product/Create", productDto);
-
         if (response != null && response.Success)
         {
             TempData["SuccessMessage"] = "Ürün başarıyla eklendi.";
             return RedirectToAction(nameof(Index));
         }
-
-        ViewBag.Error = response?.Message ?? "Ürün eklenirken bir hata oluştu.";
+        // Hata durumunda kategorileri tekrar yükle
+        var cats = await _apiService.GetAsync<IEnumerable<CategoryDto>>("Category/List");
+        ViewBag.AllCategories = cats?.Data?.ToList() ?? new List<CategoryDto>();
+        var brands = await _apiService.GetAsync<IEnumerable<BrandDto>>("Brand/List");
+        ViewBag.AllBrands = brands?.Data?.ToList() ?? new List<BrandDto>();
+        ViewBag.Error = response?.Message ?? "API tarafında bir hata oluştu.";
         return View(model);
     }
 

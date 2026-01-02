@@ -21,7 +21,9 @@ public class AutoMapperProfiles : Profile
         // Product Mappings
         CreateMap<Product, ProductDto>()
         .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name))
-        .ForMember(dest => dest.BrandName, opt => opt.MapFrom(src => src.Brand.Name)); //ProductDto içinde CategoryName diye bir alan var ama Product entity'sinde bu yok (orada sadece Category nesnesi var). .ForMember(...) satırı ile AutoMapper'a: "Category nesnesinin içindeki Name'i al, DTO'daki CategoryName'e yaz" demiş oluyoruz.
+        .ForMember(dest => dest.BrandName, opt => opt.MapFrom(src => src.Brand.Name)) //ProductDto içinde CategoryName diye bir alan var ama Product entity'sinde bu yok (orada sadece Category nesnesi var). .ForMember(...) satırı ile AutoMapper'a: "Category nesnesinin içindeki Name'i al, DTO'daki CategoryName'e yaz" demiş oluyoruz.
+        .ForMember(dest => dest.CompanyName, opt => opt.MapFrom(src => src.Company.Name));
+        CreateMap<ProductDto, Product>();
         CreateMap<ProductCreateDto, Product>();
         CreateMap<ProductUpdateDto, Product>();
         CreateMap<ProductDeleteDto, Product>();

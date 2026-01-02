@@ -8,7 +8,7 @@ namespace ECommerce.RestApi.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-[ApiKey] // X-Api-Key Header'ı zorunlu
+//[ApiKey] // X-Api-Key Header'ı zorunlu
 [Authorize] // Geçerli JWT Token zorunlu
 public class BrandController : ControllerBase
 {

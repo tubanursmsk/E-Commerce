@@ -14,6 +14,12 @@ public class CreateProductViewModel
     [Required(ErrorMessage = "Lütfen bir kategori seçin.")]
     public Guid CategoryId { get; set; }
 
+    [Required(ErrorMessage = "Lütfen bir marka seçin.")]
+    public Guid BrandId { get; set; }
+
+    [Required(ErrorMessage = "Şirket ID zorunludur.")]
+    public Guid CompanyId { get; set; }
+
     [Required(ErrorMessage = "Fiyat zorunludur.")]
     [Range(0.01, double.MaxValue, ErrorMessage = "Fiyat 0'dan büyük olmalıdır.")]
     public decimal Price { get; set; }
