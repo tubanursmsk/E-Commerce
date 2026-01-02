@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "uqvh4R2YhrU=",
+  "dgSpecHash": "twQ0E1RhwQw=",
   "success": true,
   "projectFilePath": "C:\\Users\\PC\\Documents\\E-Commerce\\src\\Core\\ECommerce.Domain\\ECommerce.Domain.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\PC\\.nuget\\packages\\microsoft.net.sdk.compilers.toolset\\9.0.306\\microsoft.net.sdk.compilers.toolset.9.0.306.nupkg.sha512"
+  ],
   "logs": []
 }

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "tQ6p0nlprNM=",
+  "dgSpecHash": "f2NJs0J0bIs=",
   "success": true,
   "projectFilePath": "C:\\Users\\PC\\Documents\\E-Commerce\\src\\Presentation\\ECommerce.RestApi\\ECommerce.RestApi.csproj",
   "expectedPackageFiles": [
@@ -85,7 +85,8 @@
     "C:\\Users\\PC\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
     "C:\\Users\\PC\\.nuget\\packages\\system.text.encodings.web\\10.0.0\\system.text.encodings.web.10.0.0.nupkg.sha512",
     "C:\\Users\\PC\\.nuget\\packages\\system.text.json\\10.0.0\\system.text.json.10.0.0.nupkg.sha512",
-    "C:\\Users\\PC\\.nuget\\packages\\system.threading.channels\\7.0.0\\system.threading.channels.7.0.0.nupkg.sha512"
+    "C:\\Users\\PC\\.nuget\\packages\\system.threading.channels\\7.0.0\\system.threading.channels.7.0.0.nupkg.sha512",
+    "C:\\Users\\PC\\.nuget\\packages\\microsoft.net.sdk.compilers.toolset\\9.0.306\\microsoft.net.sdk.compilers.toolset.9.0.306.nupkg.sha512"
   ],
   "logs": []
 }
