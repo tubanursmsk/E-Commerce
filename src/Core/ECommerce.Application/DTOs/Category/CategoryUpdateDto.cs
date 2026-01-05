@@ -10,6 +10,6 @@ public class CategoryUpdateDto
     [MaxLength(200, ErrorMessage = "Açıklama en fazla 200 karakter olabilir.")]
     public string? Description { get; set; }
 
-    [MaxLength(200, ErrorMessage = "Resim URL'si en fazla 200 karakter olabilir.")]
-    public string? ImageUrl { get; set; }
+    public Guid CompanyId { get; set; }
+    
 }

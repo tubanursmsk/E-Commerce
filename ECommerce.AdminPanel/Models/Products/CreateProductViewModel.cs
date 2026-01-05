@@ -17,7 +17,7 @@ public class CreateProductViewModel
     [Required(ErrorMessage = "Lütfen bir marka seçin.")]
     public Guid BrandId { get; set; }
 
-    [Required(ErrorMessage = "Şirket ID zorunludur.")]
+    [Required]
     public Guid CompanyId { get; set; }
 
     [Required(ErrorMessage = "Fiyat zorunludur.")]

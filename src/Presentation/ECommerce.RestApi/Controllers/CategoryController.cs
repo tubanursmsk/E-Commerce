@@ -1,5 +1,7 @@
+using System.Security.Claims;
 using ECommerce.Application.DTOs.Category;
 using ECommerce.Application.Interfaces;
+using ECommerce.Application.Responses;
 using ECommerce.RestApi.Filters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -19,12 +21,47 @@ public class CategoryController : ControllerBase
         _categoryService = categoryService;
     }
 
-    [HttpGet("List")]
+    /*[HttpGet("List")]
     public async Task<IActionResult> GetAll()
     {
         var result = await _categoryService.GetAllAsync();
         return Ok(result);
+    }*/
+
+    [HttpGet("List")]
+    public async Task<IActionResult> GetAll()
+
+    {
+// 1. Kullanıcının rolünü alalım
+    var userRole = User.FindFirstValue(ClaimTypes.Role);
+    
+    // 2. Eğer kullanıcı Admin ise tüm ürünleri getir
+    if (userRole == "Admin")
+    {
+        var result = await _categoryService.GetAllAsync();
+        return Ok(result);
     }
+     // 3. Eğer CompanyManager ise Token içindeki CompanyId'ye göre filtrele
+    var companyIdStr = User.FindFirstValue("companyId");
+    if (Guid.TryParse(companyIdStr, out Guid companyId))
+    {
+        var result = await _categoryService.GetByCompanyIdAsync(companyId);
+        return Ok(result);
+    }
+
+    // 4. Giriş yapmamış veya yetkisiz biri ise boş liste veya hata dönebilirsin
+    return Ok(ApiResponse<IEnumerable<CategoryDto>>.SuccessResult(new List<CategoryDto>()));
+        
+    }
+
+    [HttpGet("GetById/{id}")]
+    [AllowAnonymous]
+    public async Task<IActionResult> GetById(Guid id)
+    {
+        var result = await _categoryService.GetByIdAsync(id);
+        return result.Success ? Ok(result) : NotFound(result);
+    }
+
 
     [HttpGet("Company/{companyId}")]
     [Authorize(Policy = "CompanyIsolation")] // Başkasının kategorilerini görmeyi engeller
@@ -35,7 +72,7 @@ public class CategoryController : ControllerBase
     }
 
     [HttpPost("Create")]
-    [Authorize(Roles = "Admin")] // Sadece Admin kategori ekleyebilir
+    [Authorize(Roles = "Admin,CompanyManager")] 
     public async Task<IActionResult> Create(CategoryCreateDto dto)
     {
         var result = await _categoryService.CreateAsync(dto);
@@ -43,7 +80,7 @@ public class CategoryController : ControllerBase
     }
 
     [HttpPost("Update/{id}")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,CompanyManager")]
     public async Task<IActionResult> Update(Guid id, CategoryUpdateDto dto)
     {
         var result = await _categoryService.UpdateAsync(id, dto);
@@ -51,7 +88,7 @@ public class CategoryController : ControllerBase
     }
 
     [HttpDelete("Delete/{id}")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,CompanyManager")]
     public async Task<IActionResult> Delete(Guid id)
     {
         var result = await _categoryService.DeleteAsync(id);

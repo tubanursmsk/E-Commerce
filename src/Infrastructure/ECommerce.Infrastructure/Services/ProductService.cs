@@ -19,18 +19,6 @@ public class ProductService : IProductService
         _mapper = mapper;
     }
 
-    /*public async Task<ApiResponse<IEnumerable<ProductDto>>> GetAllAsync()
-  {
-
-      //var products = await _unitOfWork.Products.GetAllAsync();
-      //var dtos = _mapper.Map<IEnumerable<ProductDto>>(products);
-      //return ApiResponse<IEnumerable<ProductDto>>.SuccessResult(dtos);
-      var all = await _unitOfWork.Products.GetAllWithCategoryAsync();
-      //var brandAll = await _unitOfWork.Products.GetAllWithBrandAsync();
-      return ApiResponse<IEnumerable<ProductDto>>.SuccessResult(_mapper.Map<IEnumerable<ProductDto>>(all));
-}
-      */
-
     public async Task<ApiResponse<IEnumerable<ProductDto>>> GetAllAsync()
     {
         // Veritabanından hem Category hem de Brand bilgilerini tek seferde çekiyoruz
@@ -69,6 +57,7 @@ public class ProductService : IProductService
         var dtos = _mapper.Map<IEnumerable<ProductDto>>(products);
         return ApiResponse<IEnumerable<ProductDto>>.SuccessResult(dtos);
     }
+
     public async Task<ApiResponse<Guid>> CreateAsync(ProductCreateDto dto)
     {
         var product = _mapper.Map<Product>(dto);
@@ -105,9 +94,10 @@ public class ProductService : IProductService
 
     public async Task<ApiResponse<IEnumerable<ProductDto>>> GetByCompanyIdAsync(Guid companyId)
     {
-        // IProductRepository içinde özel metod yazılabilirdi ama şimdilik FindAsync ile çözelim
-        var products = await _unitOfWork.Products.FindAsync(x => x.CompanyId == companyId);
+        // Veritabanından hem Category hem de Brand bilgilerini tek seferde çekiyoruz
+        var products = await _unitOfWork.Products.GetByCompanyIdListAsync(companyId); //repostoryde metodu overide ettik
         var dtos = _mapper.Map<IEnumerable<ProductDto>>(products);
         return ApiResponse<IEnumerable<ProductDto>>.SuccessResult(dtos);
     }
+
 }

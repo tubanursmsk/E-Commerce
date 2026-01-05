@@ -66,4 +66,11 @@ public class BrandService : IBrandService
         
         return ApiResponse<bool>.SuccessResult(true, "Marka silindi.");
     }
+
+    public async Task<ApiResponse<IEnumerable<BrandDto>>> GetByCompanyIdAsync(Guid companyId)
+    {
+        var brands = await _unitOfWork.Brands.FindAsync(x => x.CompanyId == companyId);
+        var dtos = _mapper.Map<IEnumerable<BrandDto>>(brands);
+        return ApiResponse<IEnumerable<BrandDto>>.SuccessResult(dtos);
+    }
 }

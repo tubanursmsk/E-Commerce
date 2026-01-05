@@ -59,7 +59,7 @@
                             </td>
                             <td class="text-center">
                                 <div class="btn-group">
-                                    <a asp-action="Edit" asp-route-id="@product.Id" class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i></a>
+                                    <a asp-action="Update" asp-route-id="@product.Id" class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i></a>
                                     <form asp-action="Delete" asp-route-id="@product.Id" method="post" onsubmit="return confirm('Emin misiniz?')">
                                         <button type="submit" class="btn btn-sm btn-outline-danger ms-1"><i class="fas fa-trash"></i></button>
                                     </form>

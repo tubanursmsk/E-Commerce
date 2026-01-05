@@ -22,6 +22,10 @@ public class ProductDto
     [Range(0, int.MaxValue, ErrorMessage = "Stok negatif olamaz.")]
     public int Stock { get; set; }
     public string? ImageUrl { get; set; }
+
+    public Guid CategoryId { get; set; }
+    public Guid BrandId { get; set; }
+    public Guid CompanyId { get; set; }
     
     // İlişkili tablodan sadece isim çekiyoruz (Performans dostu)
 

@@ -10,7 +10,6 @@ public class CategoryCreateDto
 
     [MaxLength(200, ErrorMessage = "Açıklama en fazla 200 karakter olabilir.")]
     public string? Description { get; set; }
-    public string? ImageUrl { get; set; }
 
     [Required(ErrorMessage = "Şirket ID zorunludur.")]
     public Guid CompanyId { get; set; }

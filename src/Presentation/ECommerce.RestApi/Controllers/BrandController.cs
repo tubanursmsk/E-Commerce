@@ -1,5 +1,7 @@
+using System.Security.Claims;
 using ECommerce.Application.DTOs.Brand;
 using ECommerce.Application.Interfaces;
+using ECommerce.Application.Responses;
 using ECommerce.RestApi.Filters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -19,15 +21,41 @@ public class BrandController : ControllerBase
         _brandService = brandService;
     }
 
-    [HttpGet("List")]
+    /*[HttpGet("List")]
     [AllowAnonymous] // Markaları herkes görebilsin (Katalog amaçlı)
     public async Task<IActionResult> GetAll()
     {
         var result = await _brandService.GetAllAsync();
         return Ok(result);
+    }*/
+
+    [HttpGet("List")]
+    public async Task<IActionResult> GetAll()
+
+    {
+        // 1. Kullanıcının rolünü alalım
+        var userRole = User.FindFirstValue(ClaimTypes.Role);
+
+        // 2. Eğer kullanıcı Admin ise tüm ürünleri getir
+        if (userRole == "Admin")
+        {
+            var result = await _brandService.GetAllAsync();
+            return Ok(result);
+        }
+        // 3. Eğer CompanyManager ise Token içindeki CompanyId'ye göre filtrele
+        var companyIdStr = User.FindFirstValue("companyId");
+        if (Guid.TryParse(companyIdStr, out Guid companyId))
+        {
+            var result = await _brandService.GetByCompanyIdAsync(companyId);
+            return Ok(result);
+        }
+
+        // 4. Giriş yapmamış veya yetkisiz biri ise boş liste veya hata dönebilirsin
+        return Ok(ApiResponse<IEnumerable<BrandDto>>.SuccessResult(new List<BrandDto>()));
+
     }
 
-    [HttpGet("{id}")]
+    [HttpGet("GetById/{id}")]
     public async Task<IActionResult> GetById(Guid id)
     {
         var result = await _brandService.GetByIdAsync(id);
@@ -35,7 +63,7 @@ public class BrandController : ControllerBase
     }
 
     [HttpPost("Create")]
-    [Authorize(Roles = "Admin")] // Sadece Admin yeni marka ekleyebilir
+    [Authorize(Roles = "Admin,CompanyManager")] // Sadece Admin yeni marka ekleyebilir
     public async Task<IActionResult> Create(BrandCreateDto dto)
     {
         var result = await _brandService.CreateAsync(dto);
@@ -43,7 +71,7 @@ public class BrandController : ControllerBase
     }
 
     [HttpPut("Update/{id}")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,CompanyManager")]
     public async Task<IActionResult> Update(Guid id, BrandUpdateDto dto)
     {
         var result = await _brandService.UpdateAsync(id, dto);
@@ -51,7 +79,7 @@ public class BrandController : ControllerBase
     }
 
     [HttpDelete("Delete/{id}")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,CompanyManager")]
     public async Task<IActionResult> Delete(Guid id)
     {
         var result = await _brandService.DeleteAsync(id);

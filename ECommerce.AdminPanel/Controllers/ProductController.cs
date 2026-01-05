@@ -1,5 +1,5 @@
 using ECommerce.AdminPanel.Models;
-using ECommerce.AdminPanel.Models.Products; // Kendi namespace'ine göre güncelle
+using ECommerce.AdminPanel.Models.Products; 
 using ECommerce.AdminPanel.Services;
 using ECommerce.Application.DTOs.Brand;
 using ECommerce.Application.DTOs.Category;
@@ -14,14 +14,45 @@ namespace ECommerce.AdminPanel.Controllers;
 public class ProductController : Controller
 {
     private readonly BaseApiService _apiService;
-
     public ProductController(BaseApiService apiService)
     {
         _apiService = apiService;
     }
 
-    // ÜRÜN LİSTESİ
-    [HttpGet]
+    
+
+/*[HttpGet] //ürünler listelenirken companyıd ile filtrleme bu işlemi restapi tarafında(daha güvenli) yaptığımız için bu yöntem askıda
+public async Task<IActionResult> Index(int page = 1, int pageSize = 10)
+{
+    var companyIdStr =
+        User.FindFirst("CompanyId")?.Value
+        ?? HttpContext.Session.GetString("CompanyId");
+    if (!Guid.TryParse(companyIdStr, out var companyId) || companyId == Guid.Empty)
+    {
+        // CompanyId yoksa login/şirket seçimi akışına yönlendir
+        TempData["ErrorMessage"] = "Company bilgisi bulunamadı. Lütfen tekrar giriş yapın.";
+        return RedirectToAction("Login", "Auth");
+    }
+    // DİKKAT: {companyId} yazmıyoruz, gerçek değeri koyuyoruz
+    var endpoint = $"Product/List/{companyId}";
+    var response = await _apiService.GetAsync<IEnumerable<ProductDto>>(endpoint);
+    var items = response?.Data?.ToList() ?? new List<ProductDto>();
+    var model = new ProductListViewModel
+    {
+        Products = new PagedResult<ProductDto>
+        {
+            Items = items,
+            TotalCount = items.Count,
+            PageNumber = page,
+            PageSize = pageSize
+        },
+        CompanyId = companyId
+    };
+    return View(model);
+}*/
+
+// ÜRÜN LİSTESİ
+ [HttpGet]
     public async Task<IActionResult> Index(int page = 1, int pageSize = 10)
     {
         // Not: API tarafındaki GetAll metodun sayfalama desteklemiyorsa düz liste çekebiliriz
@@ -41,6 +72,7 @@ public class ProductController : Controller
 
         return View(model);
     }
+
 
     [HttpGet]
     public async Task<IActionResult> Create()
@@ -107,21 +139,90 @@ public class ProductController : Controller
         return View(model);
     }
 
-    // ÜRÜN SİLME
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Delete(Guid id)
+// ÜRÜN DÜZENLEME (GET)
+[HttpGet]
+public async Task<IActionResult> Update(Guid id)
+{
+    // 1. Ürün bilgilerini API'den getir
+    var productResponse = await _apiService.GetAsync<ProductDto>($"Product/GetById/{id}");
+    if (productResponse == null || !productResponse.Success) 
     {
-        // API tarafında Delete metodu genellikle DELETE HTTP fiiliyle çalışır
-        // BaseApiService'e DeleteAsync eklemediysek PostAsync ile 'Product/Delete/id' çağrılabilir
-        // Şimdilik simüle ediyoruz:
-        var response = await _apiService.PostAsync<object, bool>($"Product/Delete/{id}", new { });
-
-        if (response != null && response.Success)
-            TempData["SuccessMessage"] = "Ürün başarıyla silindi.";
-        else
-            TempData["ErrorMessage"] = response?.Message ?? "Ürün silinemedi.";
-
+        TempData["ErrorMessage"] = "Ürün bulunamadı.";
         return RedirectToAction(nameof(Index));
     }
+
+    var product = productResponse.Data;
+
+    // 2. Kategori ve Marka listelerini yükle
+    var categoryResponse = await _apiService.GetAsync<IEnumerable<CategoryDto>>("Category/List");
+    var brandResponse = await _apiService.GetAsync<IEnumerable<BrandDto>>("Brand/List");
+
+    ViewBag.AllCategories = categoryResponse?.Data?.ToList() ?? new List<CategoryDto>();
+    ViewBag.AllBrands = brandResponse?.Data?.ToList() ?? new List<BrandDto>();
+
+    // 3. DTO'yu ViewModel'e eşle
+    var model = new UpdateProductViewModel
+    {
+        Id = product.Id,
+        Name = product.Name,
+        Description = product.Description ?? string.Empty,
+        Price = product.Price,
+        Stock = product.Stock,
+        CategoryId = product.CategoryId,
+        BrandId = product.BrandId,
+        CompanyId = product.CompanyId
+    };
+
+    return View(model);
+}
+
+// ÜRÜN DÜZENLEME (POST)
+[HttpPost]
+[ValidateAntiForgeryToken]
+public async Task<IActionResult> Update(UpdateProductViewModel model)
+{
+    if (!ModelState.IsValid)
+        return View(model);
+
+
+    var updateDto = new ProductUpdateDto
+    {
+        Name = model.Name,
+        Description = model.Description,
+        Price = model.Price,
+        Stock = model.Stock,
+        CategoryId = model.CategoryId,
+        BrandId = model.BrandId,
+        CompanyId = model.CompanyId // ✔ modelden geliyor
+    };
+
+    var response = await _apiService.PutAsync<ProductUpdateDto, bool>($"Product/Update/{model.Id}", updateDto);//Buraya id ekledik(ve cshtml de hidden input ekledik)
+       
+    if (response.Success)
+        return RedirectToAction("Index");
+
+ViewBag.Error = response?.Message ?? "Güncelleme sırasında hata oluştu.";
+    return View(model);
+}
+
+// ÜRÜN SİLME
+[HttpPost] // View'dan gelen form isteği POST'tur
+[ValidateAntiForgeryToken]
+public async Task<IActionResult> Delete(Guid id)
+{
+    // API'ye DELETE isteği gönderiyoruz
+    // BaseApiService içindeki DeleteAsync metodunu çağırmalıyız
+    var response = await _apiService.DeleteAsync($"Product/Delete/{id}");
+
+    if (response != null && response.Success)
+    {
+        TempData["SuccessMessage"] = "Ürün başarıyla silindi.";
+    }
+    else
+    {
+        TempData["ErrorMessage"] = response?.Message ?? "Ürün silinemedi.";
+    }
+
+    return RedirectToAction(nameof(Index));
+}
 }

@@ -6,6 +6,8 @@ namespace ECommerce.Domain.Interfaces
     {
          Task<IEnumerable<Product>> GetAllWithCategoryAndBrandAsync();
 
+         Task<IEnumerable<Product>> GetByCompanyIdListAsync(Guid companyId);
+
         // Task<IEnumerable<Product>> GetAllWithBrandAsync();
     }
 }

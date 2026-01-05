@@ -1,0 +1,62 @@
+@model ECommerce.AdminPanel.Models.Categories.CategoryViewModel
+@{
+    ViewData["Title"] = "Yeni Kategori";
+}
+
+<div class="page-header mb-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-action="Index">Kategoriler</a></li>
+            <li class="breadcrumb-item active">Yeni Kategori</li>
+        </ol>
+    </nav>
+    <h1 class="page-title">Yeni Kategori Oluştur</h1>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card shadow-sm border-0 p-4" style="border-radius: 15px;">
+            @if (ViewBag.Error != null)
+            {
+                <div class="alert alert-danger">@ViewBag.Error</div>
+            }
+
+            <form asp-action="Create" method="post">
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label fw-bold"></label>
+                    <input asp-for="Name" class="form-control" placeholder="Örn: Elektronik">
+                    <span asp-validation-for="Name" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label asp-for="Description" class="form-label fw-bold"></label>
+                    <textarea asp-for="Description" class="form-control" rows="3" placeholder="Kategori hakkında kısa bilgi..."></textarea>
+                    <span asp-validation-for="Description" class="text-danger small"></span>
+                </div>
+
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <a asp-action="Index" class="btn btn-light px-4">Vazgeç</a>
+                    <button type="submit" class="btn btn-primary px-4" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border:none;">
+                        <i class="fas fa-save me-2"></i>Kategoriyi Kaydet
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card border-0 bg-light p-3" style="border-radius: 15px;">
+            <div class="card-body">
+                <h6 class="text-primary"><i class="fas fa-info-circle me-2"></i>Kategori Bilgisi</h6>
+                <p class="small text-muted mb-0">
+                    Oluşturduğunuz kategoriler ürünlerinizi gruplandırmak için kullanılır. 
+                    Bu kategoriler sadece sizin şirketinize özel olacaktır.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

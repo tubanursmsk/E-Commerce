@@ -17,10 +17,10 @@ public class UnitOfWork : IUnitOfWork
         Orders = new OrderRepository(_context);
         Customers = new CustomerRepository(_context);
         Companies = new CompanyRepository(_context);
-        
+        Categories = new GenericRepository<Category>(_context);
         
         // Özel sınıfı olmayan, genel işlemleri kullananlar
-        Categories = new GenericRepository<Category>(_context);
+       
         Brands = new GenericRepository<Brand>(_context);
         Reviews = new GenericRepository<Review>(_context);
         Banners = new GenericRepository<Banner>(_context);

@@ -26,5 +26,6 @@ public class ProductUpdateDto
 
     [Required(ErrorMessage = "Marka ID zorunludur.")]
     public Guid BrandId { get; set; }
+    
     public string? ImageUrl { get; set; }
 }
