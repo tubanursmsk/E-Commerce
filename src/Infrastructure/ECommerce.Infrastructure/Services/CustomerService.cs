@@ -26,32 +26,47 @@ public class CustomerService : ICustomerService
         return ApiResponse<Guid>.SuccessResult(customer.Id, "Müşteri profili oluşturuldu.");
     }
 
-    public async Task<ApiResponse<IEnumerable<CustomerDto>>> GetAllAsync()
+    // Interface ile tam uyumlu hale getirildi
+    public async Task<ApiResponse<IEnumerable<CustomerDto>>> GetAllAsync(Guid? currentCompanyId, string role)
     {
-        var customers = await _unitOfWork.Customers.GetAllAsync();
-        return ApiResponse<IEnumerable<CustomerDto>>.SuccessResult(_mapper.Map<IEnumerable<CustomerDto>>(customers));
+        IEnumerable<Customer> customers;
+
+        if (role == "Admin")
+        {
+            customers = await _unitOfWork.Customers.GetAllWithUserAsync();
+        }
+        else if (role == "CompanyManager" && currentCompanyId.HasValue)
+        {
+            customers = await _unitOfWork.Customers.GetCustomersByCompanyIdAsync(currentCompanyId.Value);
+        }
+        else
+        {
+            return ApiResponse<IEnumerable<CustomerDto>>.SuccessResult(new List<CustomerDto>());
+        }
+
+        var dtos = _mapper.Map<IEnumerable<CustomerDto>>(customers);
+        return ApiResponse<IEnumerable<CustomerDto>>.SuccessResult(dtos);
     }
 
     public async Task<ApiResponse<IEnumerable<CustomerDto>>> SearchAsync(string keyword)
-{
-    if (string.IsNullOrWhiteSpace(keyword))
     {
-        var all = await _unitOfWork.Customers.GetAllWithUserAsync();
-        return ApiResponse<IEnumerable<CustomerDto>>.SuccessResult(_mapper.Map<IEnumerable<CustomerDto>>(all));
+        if (string.IsNullOrWhiteSpace(keyword))
+        {
+            var all = await _unitOfWork.Customers.GetAllWithUserAsync();
+            return ApiResponse<IEnumerable<CustomerDto>>.SuccessResult(_mapper.Map<IEnumerable<CustomerDto>>(all));
+        }
+
+        var customers = await _unitOfWork.Customers.FindWithUserAsync(c =>
+            c.User.FirstName.ToLower().Contains(keyword.ToLower()) ||
+            c.User.LastName.ToLower().Contains(keyword.ToLower()) ||
+            c.PhoneNumber.Contains(keyword));
+
+        if (customers == null || !customers.Any())
+        {
+            return ApiResponse<IEnumerable<CustomerDto>>.SuccessResult(new List<CustomerDto>(), "Müşteri bulunamadı.");
+        }
+
+        var dtos = _mapper.Map<IEnumerable<CustomerDto>>(customers);
+        return ApiResponse<IEnumerable<CustomerDto>>.SuccessResult(dtos);
     }
-
-    // Yeni yazdığımız 'WithUser' metodunu çağırıyoruz
-    var customers = await _unitOfWork.Customers.FindWithUserAsync(c => 
-        c.User.FirstName.ToLower().Contains(keyword.ToLower()) || 
-        c.User.LastName.ToLower().Contains(keyword.ToLower()) ||
-        c.PhoneNumber.Contains(keyword));
-
-    if (customers == null || !customers.Any())
-    {
-        return ApiResponse<IEnumerable<CustomerDto>>.SuccessResult(new List<CustomerDto>(), "Müşteri bulunamadı.");
-    }
-
-    var dtos = _mapper.Map<IEnumerable<CustomerDto>>(customers);
-    return ApiResponse<IEnumerable<CustomerDto>>.SuccessResult(dtos);
-}
 }

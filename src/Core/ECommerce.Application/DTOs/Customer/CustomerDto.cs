@@ -24,7 +24,6 @@ public class CustomerDto
 
     [Required(ErrorMessage = "Şehir zorunludur.")]
     public string City { get; set; } = string.Empty;
-
     public Guid UserId { get; set; }
 
     // BaseEntity

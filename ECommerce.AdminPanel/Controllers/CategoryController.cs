@@ -88,40 +88,61 @@ public class CategoryController : Controller
         return View(model);
     }
 
-[HttpPost]
-[ValidateAntiForgeryToken]
-public async Task<IActionResult> Update(UpdateCategoryViewModel model)
-{
-    // CompanyId'yi sadece Session'dan al
-    var companyIdStr = HttpContext.Session.GetString("companyId");
-
-    if (string.IsNullOrWhiteSpace(companyIdStr) || !Guid.TryParse(companyIdStr, out Guid companyId))
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Update(UpdateCategoryViewModel model)
     {
-        TempData["ErrorMessage"] = "Firma bilgisi bulunamadı. Lütfen tekrar giriş yapın.";
-        return RedirectToAction("Login", "Auth");
+        // CompanyId'yi sadece Session'dan al
+        var companyIdStr = HttpContext.Session.GetString("companyId");
+
+        if (string.IsNullOrWhiteSpace(companyIdStr) || !Guid.TryParse(companyIdStr, out Guid companyId))
+        {
+            TempData["ErrorMessage"] = "Firma bilgisi bulunamadı. Lütfen tekrar giriş yapın.";
+            return RedirectToAction("Login", "Auth");
+        }
+
+        model.CompanyId = companyId;
+
+        if (!ModelState.IsValid)
+            return View(model);
+
+        var updateDto = new CategoryUpdateDto
+        {
+            Name = model.Name,
+            Description = model.Description,
+            CompanyId = model.CompanyId
+        };
+
+        var response = await _apiService.PostAsync<CategoryUpdateDto, bool>($"Category/Update/{model.Id}", updateDto);
+
+        if (response is { Success: true })
+        {
+            TempData["SuccessMessage"] = "Kategori başarıyla güncellendi.";
+            return RedirectToAction(nameof(Index));
+        }
+
+        ViewBag.Error = response?.Message ?? "Güncelleme sırasında hata oluştu.";
+        return View(model);
     }
 
-    model.CompanyId = companyId;
-
-    if (!ModelState.IsValid)
-        return View(model);
-
-    var updateDto = new CategoryUpdateDto
+    // ÜRÜN SİLME
+    [HttpPost] // View'dan gelen form isteği POST'tur
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Delete(Guid id)
     {
-        Name = model.Name,
-        Description = model.Description,
-        CompanyId = model.CompanyId
-    };
+        // API'ye DELETE isteği gönderiyoruz
+        // BaseApiService içindeki DeleteAsync metodunu çağırmalıyız
+        var response = await _apiService.DeleteAsync($"Category/Delete/{id}");
 
-    var response = await _apiService.PostAsync<CategoryUpdateDto, bool>($"Category/Update/{model.Id}", updateDto);
+        if (response != null && response.Success)
+        {
+            TempData["SuccessMessage"] = "Ürün başarıyla silindi.";
+        }
+        else
+        {
+            TempData["ErrorMessage"] = response?.Message ?? "Ürün silinemedi.";
+        }
 
-    if (response is { Success: true })
-    {
-        TempData["SuccessMessage"] = "Kategori başarıyla güncellendi.";
         return RedirectToAction(nameof(Index));
     }
-
-    ViewBag.Error = response?.Message ?? "Güncelleme sırasında hata oluştu.";
-    return View(model);
-}
 }

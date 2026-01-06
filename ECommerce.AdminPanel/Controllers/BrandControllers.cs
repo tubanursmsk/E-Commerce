@@ -1,6 +1,6 @@
 using ECommerce.AdminPanel.Models;
 using ECommerce.AdminPanel.Models.Brands;
-using ECommerce.AdminPanel.Models.Products; 
+using ECommerce.AdminPanel.Models.Products;
 using ECommerce.AdminPanel.Services;
 using ECommerce.Application.DTOs.Brand;
 using ECommerce.Application.DTOs.Product;
@@ -85,40 +85,61 @@ public class BrandController : Controller
         return View(model);
     }
 
-[HttpPost]
-[ValidateAntiForgeryToken]
-public async Task<IActionResult> Update(UpdateBrandViewModel model)
-{
-    // CompanyId'yi sadece Session'dan al
-    var companyIdStr = HttpContext.Session.GetString("companyId");
-
-    if (string.IsNullOrWhiteSpace(companyIdStr) || !Guid.TryParse(companyIdStr, out Guid companyId))
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Update(UpdateBrandViewModel model)
     {
-        TempData["ErrorMessage"] = "Firma bilgisi bulunamadı. Lütfen tekrar giriş yapın.";
-        return RedirectToAction("Login", "Auth");
+        // CompanyId'yi sadece Session'dan al
+        var companyIdStr = HttpContext.Session.GetString("companyId");
+
+        if (string.IsNullOrWhiteSpace(companyIdStr) || !Guid.TryParse(companyIdStr, out Guid companyId))
+        {
+            TempData["ErrorMessage"] = "Firma bilgisi bulunamadı. Lütfen tekrar giriş yapın.";
+            return RedirectToAction("Login", "Auth");
+        }
+
+        model.CompanyId = companyId;
+
+        if (!ModelState.IsValid)
+            return View(model);
+
+        var updateDto = new BrandUpdateDto
+        {
+            Name = model.Name,
+            LogoUrl = model.LogoUrl,
+            CompanyId = model.CompanyId //modelden aldık (BrandUpdateDto)
+        };
+
+        var response = await _apiService.PutAsync<BrandUpdateDto, bool>($"Brand/Update/{model.Id}", updateDto);
+
+        if (response is { Success: true })
+        {
+            TempData["SuccessMessage"] = "Marka başarıyla güncellendi.";
+            return RedirectToAction(nameof(Index));
+        }
+
+        ViewBag.Error = response?.Message ?? "Güncelleme sırasında hata oluştu.";
+        return View(model);
     }
 
-    model.CompanyId = companyId;
-
-    if (!ModelState.IsValid)
-        return View(model);
-
-    var updateDto = new BrandUpdateDto
+    // ÜRÜN SİLME
+    [HttpPost] // View'dan gelen form isteği POST'tur
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Delete(Guid id)
     {
-        Name = model.Name,
-        LogoUrl = model.LogoUrl,
-        CompanyId = model.CompanyId //modelden aldık (BrandUpdateDto)
-    };
+        // API'ye DELETE isteği gönderiyoruz
+        // BaseApiService içindeki DeleteAsync metodunu çağırmalıyız
+        var response = await _apiService.DeleteAsync($"Brand/Delete/{id}");
 
-    var response = await _apiService.PutAsync<BrandUpdateDto, bool>($"Brand/Update/{model.Id}", updateDto);
+        if (response != null && response.Success)
+        {
+            TempData["SuccessMessage"] = "Ürün başarıyla silindi.";
+        }
+        else
+        {
+            TempData["ErrorMessage"] = response?.Message ?? "Ürün silinemedi.";
+        }
 
-    if (response is { Success: true })
-    {
-        TempData["SuccessMessage"] = "Marka başarıyla güncellendi.";
         return RedirectToAction(nameof(Index));
     }
-
-    ViewBag.Error = response?.Message ?? "Güncelleme sırasında hata oluştu.";
-    return View(model);
-}
 }

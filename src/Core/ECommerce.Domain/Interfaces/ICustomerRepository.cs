@@ -10,4 +10,6 @@ public interface ICustomerRepository : IGenericRepository<Customer>
 
     // Filtreleme yaparak User verisiyle birlikte müşterileri getirir (Arama için)
     Task<IEnumerable<Customer>> FindWithUserAsync(Expression<Func<Customer, bool>> predicate);
+
+    Task<IEnumerable<Customer>> GetCustomersByCompanyIdAsync(Guid companyId);
 }

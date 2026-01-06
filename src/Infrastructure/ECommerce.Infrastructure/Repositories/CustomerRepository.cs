@@ -31,4 +31,14 @@ public class CustomerRepository : GenericRepository<Customer>, ICustomerReposito
             .Where(c => !c.IsDeleted)
             .ToListAsync();
     }
+
+    // ECommerce.Infrastructure/Repositories/CustomerRepository.cs
+    public async Task<IEnumerable<Customer>> GetCustomersByCompanyIdAsync(Guid companyId)
+    {
+        return await _context.Customers
+            .Include(c => c.User)
+            .Where(c => c.Orders.Any(o => o.CompanyId == companyId && !o.IsDeleted))
+            .AsNoTracking()
+            .ToListAsync();
+    }
 }

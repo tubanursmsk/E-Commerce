@@ -12,6 +12,7 @@ public class Company : BaseEntity
     public string ApiKey { get; set; } = Guid.NewGuid().ToString("N");
     public bool IsApproved { get; set; } = false;
 
+
     // Navigation Properties (İlişkiler)
     public ICollection<Product> Products { get; set; } = new List<Product>();
     public ICollection<Category> Categories { get; set; } = new List<Category>();

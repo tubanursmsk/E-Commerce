@@ -17,12 +17,12 @@
         <i class="fas fa-building me-2"></i>Şirket ID: <strong>@Model.CompanyId</strong>
         <input type="hidden" asp-for="CompanyId" />
     </div>
-   
+
 
     <div class="row g-4">
         <div class="col-lg-8">
             <div class="card shadow-sm border-0 p-4" style="border-radius: 15px;">
-                
+
                 <div class="mb-3">
                     <label asp-for="Name" class="form-label fw-bold">Ürün Adı</label>
                     <input asp-for="Name" class="form-control form-control-lg">
@@ -38,7 +38,8 @@
                     <div class="col-md-6 mb-3">
                         <label class="form-label fw-bold">Marka</label>
                         <select asp-for="BrandId" class="form-select">
-                            @foreach(var bra in allBrands) {
+                            @foreach (var bra in allBrands)
+                            {
                                 <option value="@bra.Id">@bra.Name</option>
                             }
                         </select>
@@ -46,7 +47,8 @@
                     <div class="col-md-6 mb-3">
                         <label class="form-label fw-bold">Kategori</label>
                         <select asp-for="CategoryId" class="form-select">
-                            @foreach(var cat in allCategories) {
+                            @foreach (var cat in allCategories)
+                            {
                                 <option value="@cat.Id">@cat.Name</option>
                             }
                         </select>
@@ -69,7 +71,8 @@
             </div>
 
             <div class="d-grid gap-2">
-                <button type="submit" class="btn btn-primary btn-lg" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border:none;">
+                <button type="submit" class="btn btn-primary btn-lg"
+                    style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border:none;">
                     <i class="fas fa-save me-2"></i>Değişiklikleri Kaydet
                 </button>
                 <a asp-action="Index" class="btn btn-light btn-lg text-muted">Vazgeç</a>
