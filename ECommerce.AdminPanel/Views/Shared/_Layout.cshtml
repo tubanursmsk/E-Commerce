@@ -128,12 +128,13 @@
         </nav>
 
         <div class="sidebar-footer">
-            <div class="user-info">
+            <a asp-controller="User" asp-action="Profile" class="user-info text-decoration-none" style="cursor: pointer;">
                 <div class="user-avatar">@initials</div>
                 <div class="user-details">
                     <div class="user-name">@userName</div>
                     <div class="user-role">@(string.IsNullOrEmpty(companyId) ? "Sistem Admin" : "Şirket Yöneticisi")</div>
                 </div>
+                </a>
             </div>
         </div>
     </aside>

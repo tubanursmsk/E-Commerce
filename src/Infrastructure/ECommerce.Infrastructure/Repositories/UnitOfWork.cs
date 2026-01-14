@@ -17,12 +17,12 @@ public class UnitOfWork : IUnitOfWork
         Orders = new OrderRepository(_context);
         Customers = new CustomerRepository(_context);
         Companies = new CompanyRepository(_context);
-        Categories = new GenericRepository<Category>(_context);
-        
+        Reviews = new ReviewRepository(_context);
+
         // Özel sınıfı olmayan, genel işlemleri kullananlar
-       
+
         Brands = new GenericRepository<Brand>(_context);
-        Reviews = new GenericRepository<Review>(_context);
+        Categories = new GenericRepository<Category>(_context);
         Banners = new GenericRepository<Banner>(_context);
         Users = new GenericRepository<User>(_context);
         Roles = new GenericRepository<Role>(_context);
@@ -34,9 +34,9 @@ public class UnitOfWork : IUnitOfWork
     public IOrderRepository Orders { get; }
     public ICustomerRepository Customers { get; }
     public ICompanyRepository Companies { get; }
+    public IReviewRepository Reviews { get; }
     public IGenericRepository<Category> Categories { get; }
     public IGenericRepository<Brand> Brands { get; }
-    public IGenericRepository<Review> Reviews { get; }
     public IGenericRepository<Banner> Banners { get; }
     public IGenericRepository<User> Users { get; }
     public IGenericRepository<Role> Roles { get; }

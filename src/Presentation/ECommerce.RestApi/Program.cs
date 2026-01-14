@@ -75,7 +75,7 @@ builder.Services.AddSingleton<Microsoft.AspNetCore.Authorization.IAuthorizationH
 
 
 // Application & Infrastructure Services
-builder.Services.AddInfrastructureServices(builder.Configuration); // Infrastructure katmanındaki yazdığımız AddInfrastructureServices metodunu çağırıyoruz
+builder.Services.AddInfrastructureServices(builder.Configuration); // Infrastructure katmanındaki DependencyInjection.cd'de yazdığımız AddInfrastructureServices metodunu çağırıyoruz
 builder.Services.AddApplicationServices();// Application katmanındaki tüm servisleri tek satırla ekliyoruz yani AddAutoMapper ile yaptığımız iş
 builder.Services.AddHttpContextAccessor(); // Handler içinde HttpContext'e erişmek için şart.
 builder.Services.AddOpenApi();

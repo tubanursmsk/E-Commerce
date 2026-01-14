@@ -1,20 +1,18 @@
+using System.Security.Claims;
 using ECommerce.Application.DTOs.Order;
 using ECommerce.Application.Interfaces;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
+using ECommerce.Infrastructure.Services;
 using ECommerce.RestApi.Filters;
-
-namespace ECommerce.RestApi.Controllers;
-
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
 [Route("api/[controller]")]
 [Authorize] // Sipariş işlemleri için giriş zorunlu
-[ApiKey]    // X-Api-Key zorunlu
+//[ApiKey]    // X-Api-Key zorunlu
 public class OrderController : ControllerBase
 {
     private readonly IOrderService _orderService;
-
     public OrderController(IOrderService orderService)
     {
         _orderService = orderService;
@@ -23,7 +21,19 @@ public class OrderController : ControllerBase
     [HttpGet("List")]
     public async Task<IActionResult> GetAll()
     {
-        var result = await _orderService.GetAllAsync();
+        var role = User.FindFirstValue(ClaimTypes.Role);
+        var companyIdStr = User.FindFirstValue("companyId");
+        Guid? companyId = string.IsNullOrEmpty(companyIdStr) ? null : Guid.Parse(companyIdStr);
+
+        // OrderService içinde yeni bir metot veya filtreleme ekleyelim
+        var result = await _orderService.GetAllFilteredAsync(companyId, role ?? "");
+        return Ok(result);
+    }
+
+    [HttpPost("Create")]
+    public async Task<IActionResult> Create(OrderCreateDto dto)
+    {
+        var result = await _orderService.CreateOrderAsync(dto);
         return result.Success ? Ok(result) : BadRequest(result);
     }
 
@@ -34,25 +44,29 @@ public class OrderController : ControllerBase
         return result.Success ? Ok(result) : NotFound(result);
     }
 
-    [HttpGet("Search")]
-public async Task<IActionResult> SearchByNumber([FromQuery] string orderNumber)
-{
-    var result = await _orderService.SearchByOrderNumberAsync(orderNumber);
-    return Ok(result);
-}
-
-    [HttpPost("Create")]
-    public async Task<IActionResult> Create(OrderCreateDto dto)
-    {
-        var result = await _orderService.CreateOrderAsync(dto);
-        return result.Success ? Ok(result) : BadRequest(result);
-    }
-
     [HttpPatch("UpdateStatus/{id}")]
     [Authorize(Roles = "Admin")] // Sadece Admin sipariş durumunu değiştirebilir
     public async Task<IActionResult> UpdateStatus(Guid id, ECommerce.Domain.Enums.OrderStatus status)
     {
         var result = await _orderService.UpdateStatusAsync(id, status);
         return result.Success ? Ok(result) : BadRequest(result);
+    }
+
+    [HttpGet("Search")]
+    public async Task<IActionResult> SearchByNumber([FromQuery] string orderNumber)
+    {
+        var result = await _orderService.SearchByOrderNumberAsync(orderNumber);
+        return Ok(result);
+    }
+
+    [HttpGet("ByCustomer/{customerId}")]
+    public async Task<IActionResult> GetByCustomer(Guid customerId)
+    {
+        var role = User.FindFirstValue(ClaimTypes.Role);
+        var companyIdStr = User.FindFirstValue("companyId");
+        Guid? companyId = string.IsNullOrEmpty(companyIdStr) ? null : Guid.Parse(companyIdStr);
+
+        var result = await _orderService.GetByCustomerIdAsync(customerId, companyId, role ?? "");
+        return Ok(result);
     }
 }

@@ -5,6 +5,7 @@ namespace ECommerce.Application.Interfaces;
 
 public interface ICustomerService
 {
+    Task<ApiResponse<CustomerDto>> GetByIdAsync(Guid id);
     Task<ApiResponse<Guid>> CreateAsync(CustomerCreateDto dto);
     
     Task<ApiResponse<IEnumerable<CustomerDto>>> GetAllAsync(Guid? currentCompanyId, string role);

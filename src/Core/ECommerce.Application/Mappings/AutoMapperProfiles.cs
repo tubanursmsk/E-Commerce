@@ -1,6 +1,7 @@
 using AutoMapper;
 using ECommerce.Domain.Entities;
 using ECommerce.Application.DTOs;
+using ECommerce.Application.DTOs.User;
 using ECommerce.Application.DTOs.Auth;
 using ECommerce.Application.DTOs.Category;
 using ECommerce.Application.DTOs.Company;
@@ -47,14 +48,12 @@ public class AutoMapperProfiles : Profile
         CreateMap<User, AuthResponseDto>();
 
         //User -Admin- Role Mappings
-        CreateMap<User, UserDto>();
-        CreateMap<User, UserDto>()
-            .ForMember(dest => dest.Role, opt => opt.MapFrom(src => new List<string> { src.Role }));
+        CreateMap<User, DTOs.User.UserDto>().ReverseMap();
 
         // Order Mappings
-        CreateMap<Order, OrderSummaryDto>()
-            .ForMember(dest => dest.CustomerFullName, opt => opt.MapFrom(src => $"{src.Customer.User.FirstName} {src.Customer.User.LastName}"));
-        CreateMap<OrderDto, Order>().ReverseMap(); // Hem Order -> OrderDto hem de tersini yapar
+        CreateMap<Order, OrderDto>()
+            .ForMember(dest => dest.CustomerFullName, opt => opt.MapFrom(src => $"{src.Customer.User.FirstName} {src.Customer.User.LastName}"))
+            .ForMember(dest => dest.TotalAmount, opt => opt.MapFrom(src => src.TotalAmount));
         CreateMap<OrderItem, OrderItemDto>().ReverseMap(); // Sipariş kalemleri için de gerekli
         CreateMap<OrderCreateDto, Order>();
         CreateMap<OrderItemCreateDto, OrderItem>();
@@ -79,7 +78,8 @@ public class AutoMapperProfiles : Profile
         CreateMap<CustomerDeleteDto, Customer>();
 
         // Cargo Mappings
-        CreateMap<Cargo, CargoDto>().ReverseMap();
+
+        CreateMap<Cargo, CargoDto>();
         CreateMap<CargoCreateDto, Cargo>();
         CreateMap<CargoUpdateDto, Cargo>();
         CreateMap<CargoDeleteDto, Cargo>();
@@ -91,15 +91,11 @@ public class AutoMapperProfiles : Profile
         CreateMap<BannerDeleteDto, Banner>();
 
         // Review Mappings
-        CreateMap<Review, ReviewDto>().ReverseMap();
+        CreateMap<Review, ReviewDto>()
+          .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.Product.Name))
+          .ForMember(dest => dest.CustomerName, opt => opt.MapFrom(src => src.Customer != null && src.Customer.User != null ? $"{src.Customer.User.FirstName} {src.Customer.User.LastName}" : "Anonim")).ReverseMap();
         CreateMap<ReviewCreateDto, Review>();
         CreateMap<ReviewUpdateDto, Review>();
         CreateMap<ReviewDeleteDto, Review>();
-
-
-
-        // devamı eklenecek
-
-
     }
 }

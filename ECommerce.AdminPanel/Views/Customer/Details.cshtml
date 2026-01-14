@@ -1,0 +1,96 @@
+@model ECommerce.Application.DTOs.Customer.CustomerDto
+@{
+    ViewData["Title"] = "Müşteri Detayı";
+    // ViewBag'den gelen veriyi güvenli bir şekilde alıyoruz
+    var orders = ViewBag.Orders as IEnumerable<ECommerce.Application.DTOs.Order.OrderDto> ?? new List<ECommerce.Application.DTOs.Order.OrderDto>();
+
+    // Null hatasını önlemek için güvenli baş harf oluşturma
+    string initials = "??";
+    if (Model != null && !string.IsNullOrEmpty(Model.FirstName) && !string.IsNullOrEmpty(Model.LastName))
+    {
+        initials = (Model.FirstName[0].ToString() + Model.LastName[0].ToString()).ToUpper();
+    }
+}
+
+@if (Model == null)
+{
+    <div class="alert alert-danger">Müşteri verisi yüklenemedi.</div>
+}
+else
+{
+    <div class="row g-4">
+        <div class="col-lg-4">
+            <div class="card shadow-sm border-0 h-100" style="border-radius: 20px;">
+                <div class="card-body text-center pt-5">
+                    <div class="avatar-lg bg-primary bg-opacity-10 text-primary rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 80px; height: 80px; font-size: 2rem;">
+                        @initials
+                    </div>
+                    <h4 class="mb-1 fw-bold">@Model.FirstName @Model.LastName</h4>
+                    <p class="text-muted small">@Model.Email</p>
+                    <hr>
+                    <div class="text-start mt-4">
+                        <p class="mb-2"><strong><i class="fas fa-phone me-2 text-muted"></i>Telefon:</strong> @(Model.PhoneNumber ?? "-")</p>
+                        <p class="mb-2"><strong><i class="fas fa-map-marker-alt me-2 text-muted"></i>Şehir:</strong> @(Model.City ?? "-")</p>
+                        <p class="mb-0"><strong><i class="fas fa-home me-2 text-muted"></i>Adres:</strong> @(Model.Address ?? "-")</p>
+                    </div>
+                    <div class="mt-4">
+                        <a asp-action="Index" class="btn btn-outline-secondary btn-sm w-100">Listeye Geri Dön</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-0" style="border-radius: 20px;">
+                <div class="card-header bg-transparent border-0 pt-4 px-4 d-flex justify-content-between align-items-center">
+                    <h5 class="fw-bold mb-0">Sipariş Geçmişi</h5>
+                    <span class="badge bg-primary bg-opacity-10 text-primary">@orders.Count() Toplam Sipariş</span>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="bg-light">
+                                <tr>
+                                    <th class="ps-4">Sipariş No</th>
+                                    <th>Tarih</th>
+                                    <th>Tutar</th>
+                                    <th>Durum</th>
+                                    <th class="text-center">İşlem</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (!orders.Any())
+                                {
+                                    <tr>
+                                        <td colspan="5" class="text-center py-4 text-muted">Bu müşteriye ait sipariş bulunamadı.</td>
+                                    </tr>
+                                }
+                                else
+                                {
+                                    foreach (var order in orders)
+                                    {
+                                        <tr>
+                                            <td class="ps-4"><code>#@order.OrderNumber</code></td>
+                                            <td>@order.CreatedDate.ToString("dd.MM.yyyy")</td>
+                                            <td class="fw-bold text-success">@order.TotalAmount.ToString("N2") ₺</td>
+                                            <td>
+                                                <span class="badge rounded-pill bg-info bg-opacity-10 text-info">
+                                                    @order.Status
+                                                </span>
+                                            </td>
+                                            <td class="text-center">
+                                                <a href="#" class="btn btn-sm btn-light rounded-circle shadow-sm" title="Detaylar">
+                                                    <i class="fas fa-search"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

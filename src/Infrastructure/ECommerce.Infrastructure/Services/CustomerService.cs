@@ -18,6 +18,16 @@ public class CustomerService : ICustomerService
         _mapper = mapper;
     }
 
+    public async Task<ApiResponse<CustomerDto>> GetByIdAsync(Guid id)
+    {
+        // User tablosunu dahil eden repository metodunu çağırıyoruz
+        var customer = await _unitOfWork.Customers.GetByIdWithUserAsync(id);
+
+        if (customer == null) return ApiResponse<CustomerDto>.ErrorResult("Müşteri bulunamadı.");
+
+        return ApiResponse<CustomerDto>.SuccessResult(_mapper.Map<CustomerDto>(customer));
+    }
+
     public async Task<ApiResponse<Guid>> CreateAsync(CustomerCreateDto dto)
     {
         var customer = _mapper.Map<Customer>(dto);
@@ -30,7 +40,6 @@ public class CustomerService : ICustomerService
     public async Task<ApiResponse<IEnumerable<CustomerDto>>> GetAllAsync(Guid? currentCompanyId, string role)
     {
         IEnumerable<Customer> customers;
-
         if (role == "Admin")
         {
             customers = await _unitOfWork.Customers.GetAllWithUserAsync();
@@ -43,7 +52,6 @@ public class CustomerService : ICustomerService
         {
             return ApiResponse<IEnumerable<CustomerDto>>.SuccessResult(new List<CustomerDto>());
         }
-
         var dtos = _mapper.Map<IEnumerable<CustomerDto>>(customers);
         return ApiResponse<IEnumerable<CustomerDto>>.SuccessResult(dtos);
     }

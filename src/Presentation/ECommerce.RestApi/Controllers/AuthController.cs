@@ -2,6 +2,7 @@ using ECommerce.Application.DTOs.Auth;
 using ECommerce.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using ECommerce.Infrastructure.Services;
+using System.Security.Claims;
 
 namespace ECommerce.RestApi.Controllers;
 
@@ -28,9 +29,19 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("Register")]
-    public async Task<IActionResult> Register(RegisterCompanyDto userRegisterdto)
+    public async Task<IActionResult> Register(RegisterCompanyDto userRegisterCompanyDto)
     {
-        var user = await _authService.RegisterWithCompanyAsync(userRegisterdto);
+        var user = await _authService.RegisterWithCompanyAsync(userRegisterCompanyDto);
         return Ok(user);
     }
+
+
+    [HttpPost("UserRegister")]
+    public async Task<IActionResult> UserRegister(RegisterDto userRegisterDto)
+    {
+        var companyId = Guid.Parse(User.FindFirstValue("companyId"));
+        var user = await _authService.RegisterForCompanyAsync(userRegisterDto, companyId);
+        return Ok(user);
+    }
+
 }

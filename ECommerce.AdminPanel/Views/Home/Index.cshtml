@@ -1,3 +1,126 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model ECommerce.Application.DTOs.Dashboard.DashboardStatsDto
+@{
+    ViewData["Title"] = "Dashboard";
 }
+
+<div class="container-fluid p-0">
+    <h1 class="h3 mb-3 fw-bold">Genel Bakış</h1>
+
+    <div class="row g-4 mb-4">
+        <div class="col-sm-6 col-xl-3">
+            <div class="card shadow-sm border-0 bg-primary text-white p-3 h-100" style="border-radius: 15px;">
+                <div class="d-flex align-items-center">
+                    <div class="flex-shrink-0 me-3">
+                        <i class="fas fa-lira-sign fa-2x opacity-50"></i>
+                    </div>
+                    <div>
+                        <h6 class="card-title text-white-50 mb-1">Aylık Satış</h6>
+                        <h3 class="mb-0">@Model.MonthlyTotalSales.ToString("N2") ₺</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="card shadow-sm border-0 bg-warning text-dark p-3 h-100" style="border-radius: 15px;">
+                <div class="d-flex align-items-center">
+                    <div class="flex-shrink-0 me-3">
+                        <i class="fas fa-shopping-cart fa-2x opacity-50"></i>
+                    </div>
+                    <div>
+                        <h6 class="card-title text-black-50 mb-1">Bekleyen Sipariş</h6>
+                        <h3 class="mb-0">@Model.PendingOrdersCount</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="card shadow-sm border-0 bg-danger text-white p-3 h-100" style="border-radius: 15px;">
+                <div class="d-flex align-items-center">
+                    <div class="flex-shrink-0 me-3">
+                        <i class="fas fa-exclamation-triangle fa-2x opacity-50"></i>
+                    </div>
+                    <div>
+                        <h6 class="card-title text-white-50 mb-1">Kritik Stok</h6>
+                        <h3 class="mb-0">@Model.CriticalStockCount</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="card shadow-sm border-0 bg-info text-white p-3 h-100" style="border-radius: 15px;">
+                <div class="d-flex align-items-center">
+                    <div class="flex-shrink-0 me-3">
+                        <i class="fas fa-users fa-2x opacity-50"></i>
+                    </div>
+                    <div>
+                        <h6 class="card-title text-white-50 mb-1">Toplam Müşteri</h6>
+                        <h3 class="mb-0">@Model.TotalCustomersCount</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-12 col-lg-8">
+            <div class="card shadow-sm border-0 p-4" style="border-radius: 15px;">
+                <h5 class="fw-bold mb-4">Satış Performansı (En Çok Satanlar)</h5>
+                <canvas id="topProductsChart" height="150"></canvas>
+            </div>
+        </div>
+        <div class="col-12 col-lg-4">
+            <div class="card shadow-sm border-0 p-4 h-100" style="border-radius: 15px;">
+                <h5 class="fw-bold mb-4">Hızlı İşlemler</h5>
+                <div class="d-grid gap-3">
+                    <a asp-controller="Product" asp-action="Create" class="btn btn-outline-primary py-2 text-start">
+                        <i class="fas fa-plus me-2"></i> Yeni Ürün Ekle
+                    </a>
+                    <a asp-controller="Order" asp-action="Index" class="btn btn-outline-secondary py-2 text-start">
+                        <i class="fas fa-list me-2"></i> Siparişleri Yönet
+                    </a>
+                    <a asp-controller="Review" asp-action="Index" class="btn btn-outline-info py-2 text-start">
+                        <i class="fas fa-comment me-2"></i> Yorumları Onayla
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // API'den gelen TopProducts verilerini JavaScript'e aktarıyoruz
+        const productLabels = @Html.Raw(Json.Serialize(Model.TopProducts.Select(p => p.ProductName)));
+        const productSales = @Html.Raw(Json.Serialize(Model.TopProducts.Select(p => p.TotalSold)));
+
+        const ctx = document.getElementById('topProductsChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar', // Pasta dilimi istersen 'doughnut' yapabilirsin
+            data: {
+                labels: productLabels.length > 0 ? productLabels : ["Veri Yok"],
+                datasets: [{
+                    label: 'Satış Adedi',
+                    data: productSales.length > 0 ? productSales : [0],
+                    backgroundColor: 'rgba(75, 108, 183, 0.6)',
+                    borderColor: 'rgba(75, 108, 183, 1)',
+                    borderWidth: 1,
+                    borderRadius: 5
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+    </script>
+}
+
+
+<!--Mülakat İçin Kritik Bilgi: Html.Raw ve Json.Serialize Bu sayfada en can alıcı nokta, C# tarafındaki 
+listeyi JavaScript grafik kütüphanesine (Chart.js) nasıl aktardığındır. "C# nesnelerini JavaScript 
+dizilerine dönüştürmek için  --- Html.Raw Json.Serialize(...))
+ yöntemini kullandım. Bu sayede APIden gelen veriler, sayfa yüklenirken doğrudan grafik motoruna besleniyor.
+  Bu, Server-Side Rendering (SSR) yani sunucu tarafında işleme ile dinamik görselleştirmenin en hızlı yoludur  -->

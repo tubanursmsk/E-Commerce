@@ -32,7 +32,7 @@ public class CustomerRepository : GenericRepository<Customer>, ICustomerReposito
             .ToListAsync();
     }
 
-    // ECommerce.Infrastructure/Repositories/CustomerRepository.cs
+
     public async Task<IEnumerable<Customer>> GetCustomersByCompanyIdAsync(Guid companyId)
     {
         return await _context.Customers
@@ -40,5 +40,13 @@ public class CustomerRepository : GenericRepository<Customer>, ICustomerReposito
             .Where(c => c.Orders.Any(o => o.CompanyId == companyId && !o.IsDeleted))
             .AsNoTracking()
             .ToListAsync();
+    }
+
+
+    public async Task<Customer?> GetByIdWithUserAsync(Guid id)
+    {
+        return await _context.Customers
+            .Include(c => c.User) // ✅ İşte bu satır ismi getirir
+            .FirstOrDefaultAsync(c => c.Id == id);
     }
 }

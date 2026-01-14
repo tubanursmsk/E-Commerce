@@ -24,29 +24,32 @@ public class OrderService : IOrderService
 
     public async Task<ApiResponse<OrderDto>> GetByIdAsync(Guid id)
     {
-        var order = await _unitOfWork.Orders.GetByIdAsync(id);
+        // YENİ KOD: İlişkili verilerle birlikte çekiyoruz
+        var order = await _unitOfWork.Orders.GetByIdWithDetailsAsync(id);
+
         if (order == null) return ApiResponse<OrderDto>.ErrorResult("Sipariş bulunamadı.");
         return ApiResponse<OrderDto>.SuccessResult(_mapper.Map<OrderDto>(order));
     }
 
+
     public async Task<ApiResponse<IEnumerable<OrderDto>>> SearchByOrderNumberAsync(string orderNumber)
-{
-    if (string.IsNullOrWhiteSpace(orderNumber))
-        return await GetAllAsync();
-
-    // Sadece OrderNumber içinde (Büyük/Küçük harf duyarsız) arama yapar
-    // Önemli: DTO'da OrderItems listesinin dolu gelmesi için Repository'de Include(x => x.OrderItems) yapılmalıdır.
-    var orders = await _unitOfWork.Orders.FindAsync(o => 
-        o.OrderNumber.ToLower().Contains(orderNumber.ToLower()));
-
-    if (orders == null || !orders.Any())
     {
-        return ApiResponse<IEnumerable<OrderDto>>.SuccessResult(new List<OrderDto>(), $"'{orderNumber}' numaralı sipariş kaydı bulunamadı.");
-    }
+        if (string.IsNullOrWhiteSpace(orderNumber))
+            return await GetAllAsync();
 
-    var dtos = _mapper.Map<IEnumerable<OrderDto>>(orders);
-    return ApiResponse<IEnumerable<OrderDto>>.SuccessResult(dtos);
-}
+        // Sadece OrderNumber içinde (Büyük/Küçük harf duyarsız) arama yapar
+        // Önemli: DTO'da OrderItems listesinin dolu gelmesi için Repository'de Include(x => x.OrderItems) yapılmalıdır.
+        var orders = await _unitOfWork.Orders.FindAsync(o =>
+            o.OrderNumber.ToLower().Contains(orderNumber.ToLower()));
+
+        if (orders == null || !orders.Any())
+        {
+            return ApiResponse<IEnumerable<OrderDto>>.SuccessResult(new List<OrderDto>(), $"'{orderNumber}' numaralı sipariş kaydı bulunamadı.");
+        }
+
+        var dtos = _mapper.Map<IEnumerable<OrderDto>>(orders);
+        return ApiResponse<IEnumerable<OrderDto>>.SuccessResult(dtos);
+    }
 
     public async Task<ApiResponse<Guid>> CreateOrderAsync(OrderCreateDto dto)
     {
@@ -63,6 +66,12 @@ public class OrderService : IOrderService
             {
                 return ApiResponse<Guid>.ErrorResult($"{product?.Name ?? "Ürün"} için yetersiz stok!");
             }
+
+            // Fiyatı o anki güncel ürün fiyatından al (Güvenlik için önemli)
+            item.Price = product.Price;
+
+            // Ara toplamı genel toplama ekle: (Fiyat * Miktar)
+            order.TotalAmount += (item.Price * item.Quantity);
 
             // Stok düşürme işlemi
             product.Stock -= item.Quantity;
@@ -88,9 +97,61 @@ public class OrderService : IOrderService
         return ApiResponse<bool>.SuccessResult(true, "Sipariş durumu güncellendi.");
     }
 
+    public async Task<ApiResponse<IEnumerable<OrderDto>>> GetByCustomerIdAsync(Guid customerId, Guid? companyId, string? role)
+    {
+        // Admin ise companyId göndermiyoruz (null), manager ise gönderiyoruz
+        Guid? filterCompanyId = role == "Admin" ? null : companyId;
+
+        var orders = await _unitOfWork.Orders.GetByCustomerIdWithDetailsAsync(customerId, filterCompanyId);
+
+        // AutoMapper artık Order.Customer.User yolunu takip edip ismi doldurabilecek
+        var dtos = _mapper.Map<IEnumerable<OrderDto>>(orders);
+
+        return ApiResponse<IEnumerable<OrderDto>>.SuccessResult(dtos);
+    }
 
 
+    /*
+    public async Task<ApiResponse<IEnumerable<OrderDto>>> GetAllFilteredAsync(Guid? companyId, string role)
+    {
+        IEnumerable<Order> orders;
+
+        // BURASI ÇOK KRİTİK: Sadece yazdığımız detaylı metod çağrılmalı
+        if (role == "Admin")
+        {
+            // Admin her şeyi görür, companyId null gönderiyoruz
+            orders = await _unitOfWork.Orders.GetAllWithDetailsAsync(null);
+        }
+        else
+        {
+            // Manager sadece kendi şirketini görür
+            orders = await _unitOfWork.Orders.GetAllWithDetailsAsync(companyId);
+        }
+
+        var dtos = _mapper.Map<IEnumerable<OrderDto>>(orders);
+        return ApiResponse<IEnumerable<OrderDto>>.SuccessResult(dtos);
+    }*/
 
 
+    public async Task<ApiResponse<IEnumerable<OrderDto>>> GetAllFilteredAsync(Guid? companyId, string role)
+    {
+        Guid? filterId = role == "Admin" ? null : companyId;
+
+        // Repository'den detaylı (Include'lu) veriyi çekiyoruz
+        var orders = await _unitOfWork.Orders.GetAllWithDetailsAsync(filterId);
+
+        var dtos = _mapper.Map<IEnumerable<OrderDto>>(orders).ToList();
+
+        // Veritabanındaki eski 0 değerli kayıtları düzeltmek için:
+        foreach (var orderDto in dtos)
+        {
+            if (orderDto.TotalAmount <= 0 && orderDto.OrderItems.Any())
+            {
+                orderDto.TotalAmount = orderDto.OrderItems.Sum(x => x.Price * x.Quantity);
+            }
+        }
+
+        return ApiResponse<IEnumerable<OrderDto>>.SuccessResult(dtos);
+    }
 }
 

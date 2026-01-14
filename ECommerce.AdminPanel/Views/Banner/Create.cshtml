@@ -1,0 +1,85 @@
+@model ECommerce.AdminPanel.Models.Banner.CreateBannerViewModel
+@{
+    ViewData["Title"] = "Yeni Banner Ekle";
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card shadow-sm border-0" style="border-radius: 15px;">
+            <div class="card-header bg-transparent border-0 pt-4 px-4">
+                <h3 class="fw-bold mb-0 text-primary">Yeni Reklam Alanı Oluştur</h3>
+                <p class="text-muted small">Kampanya veya duyuru banner bilgilerini giriniz.</p>
+            </div>
+            <div class="card-body p-4">
+                <form asp-action="Create" method="post">
+                    @* Önemli: CompanyId'yi mutlaka gizli (hidden) olarak taşıyoruz *@
+                    <input type="hidden" asp-for="CompanyId" />
+                    <div class="row g-3">
+                        <div class="col-md-12">
+                            <label asp-for="Title" class="form-label fw-bold"></label>
+                            <input asp-for="Title" class="form-control" placeholder="Örn: Yaz İndirimleri Başladı!">
+                            <span asp-validation-for="Title" class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-8">
+                            <label asp-for="ImageUrl" class="form-label fw-bold"></label>
+                            <input asp-for="ImageUrl" id="imageUrlInput" class="form-control"
+                                placeholder="https://resim-adresi.com/banner.jpg">
+                            <span asp-validation-for="ImageUrl" class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label asp-for="Order" class="form-label fw-bold"></label>
+                            <input asp-for="Order" type="number" class="form-control">
+                        </div>
+
+                        <div class="col-md-12">
+                            <label asp-for="TargetUrl" class="form-label fw-bold"></label>
+                            <input asp-for="TargetUrl" class="form-control"
+                                placeholder="Tıklandığında gidilecek kategori veya ürün linki">
+                        </div>
+
+                        <div class="col-12 mt-4">
+                            <div class="p-3 bg-light rounded text-center border border-dashed">
+                                <p class="text-muted small mb-2">Resim Önizleme</p>
+                                <img id="previewImage" src="#" alt="Önizleme"
+                                    style="max-height: 200px; display: none; border-radius: 10px;"
+                                    class="shadow-sm mx-auto">
+                                <div id="noPreview" class="py-4 text-muted">URL girildiğinde burada görünecek</div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 mt-4 d-flex gap-2">
+                            <button type="submit" class="btn btn-primary px-4 py-2 flex-grow-1"
+                                style="background: linear-gradient(135deg, #4b6cb7 0%, #182848 100%); border:none;">
+                                <i class="fas fa-save me-2"></i>Banner Yayınla
+                            </button>
+                            <a asp-action="Index" class="btn btn-light px-4 py-2 border">İptal</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        // URL girildiğinde resmi anında gösteren JS
+        document.getElementById('imageUrlInput').addEventListener('input', function () {
+            const preview = document.getElementById('previewImage');
+            const placeholder = document.getElementById('noPreview');
+            const url = this.value;
+
+            if (url && url.length > 5) {
+                preview.src = url;
+                preview.style.display = 'block';
+                placeholder.style.display = 'none';
+            } else {
+                preview.style.display = 'none';
+                placeholder.style.display = 'block';
+            }
+        });
+    </script>
+}

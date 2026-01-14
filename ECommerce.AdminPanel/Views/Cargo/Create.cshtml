@@ -1,0 +1,51 @@
+@model ECommerce.AdminPanel.Models.Cargo.CargoViewModel
+@{
+    ViewData["Title"] = "Yeni Kargo Firması";
+}
+
+<div class="page-header mb-4">
+    <h1 class="page-title">Yeni Kargo Firması Ekle</h1>
+    <p class="text-muted">Sisteme yeni bir kargo/lojistik firması tanımlayın.</p>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <div class="card shadow-sm border-0" style="border-radius: 15px;">
+            <div class="card-body p-4">
+                <form asp-action="Create" method="post">
+                  @* Önemli: CompanyId'yi mutlaka gizli (hidden) olarak taşıyoruz *@
+                <input type="hidden" asp-for="CompanyId" />
+
+                    <div class="mb-3">
+                        <label asp-for="Name" class="form-label fw-bold">Firma Adı</label>
+                        <input asp-for="Name" class="form-control form-control-lg" placeholder="Örn: Aras Kargo">
+                        <span asp-validation-for="Name" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="BasePrice" class="form-label fw-bold">Sabit Gönderim Ücreti (₺)</label>
+                        <input asp-for="BasePrice" type="number" step="0.01" class="form-control">
+                        <span asp-validation-for="BasePrice" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="TrackingUrlPrefix" class="form-label fw-bold">Takip URL Ön Eki</label>
+                        <input asp-for="TrackingUrlPrefix" class="form-control" placeholder="https://kargotakip.com?id=">
+                        <div class="form-text text-muted">Müşterinin kargo takip numarası bu URL'in sonuna eklenecektir.</div>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg" style="background: linear-gradient(135deg, #4b6cb7 0%, #182848 100%); border:none;">
+                            <i class="fas fa-save me-2"></i>Kaydet
+                        </button>
+                        <a asp-action="Index" class="btn btn-light btn-lg text-muted">İptal</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

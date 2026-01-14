@@ -2,3 +2,6 @@
 
 # CS8602: Olası bir null başvurunun başvurma işlemi.
 dotnet_diagnostic.CS8602.severity = none
+
+# CS8604: Olası null başvuru bağımsız değişkeni.
+dotnet_diagnostic.CS8604.severity = none

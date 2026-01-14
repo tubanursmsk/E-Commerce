@@ -21,9 +21,15 @@ public class CargoService : ICargoService
     public async Task<ApiResponse<IEnumerable<CargoDto>>> GetAllAsync()
     {
         var cargoes = await _unitOfWork.Cargoes.GetAllAsync();
-        return ApiResponse<IEnumerable<CargoDto>>.SuccessResult(_mapper.Map<IEnumerable<CargoDto>>(cargoes));
+        var dtos = _mapper.Map<IEnumerable<CargoDto>>(cargoes);
+        return ApiResponse<IEnumerable<CargoDto>>.SuccessResult(dtos);
     }
-
+    public async Task<ApiResponse<IEnumerable<CargoDto>>> GetByCompanyIdAsync(Guid companyId)
+    {
+        var cargoes = await _unitOfWork.Cargoes.FindAsync(x => x.CompanyId == companyId);
+        var dtos = _mapper.Map<IEnumerable<CargoDto>>(cargoes);
+        return ApiResponse<IEnumerable<CargoDto>>.SuccessResult(dtos);
+    }
     public async Task<ApiResponse<CargoDto>> GetByIdAsync(Guid id)
     {
         var cargo = await _unitOfWork.Cargoes.GetByIdAsync(id);
@@ -59,4 +65,7 @@ public class CargoService : ICargoService
         await _unitOfWork.SaveChangesAsync();
         return ApiResponse<bool>.SuccessResult(true, "Kargo firması silindi.");
     }
+
+
+    
 }

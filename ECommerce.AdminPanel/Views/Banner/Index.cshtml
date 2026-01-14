@@ -1,0 +1,43 @@
+@model IEnumerable<ECommerce.Application.DTOs.Banner.BannerDto>
+
+<div class="page-header d-flex justify-content-between align-items-center mb-4">
+    <h1 class="page-title">Reklam ve Banner Yönetimi</h1>
+    <a asp-action="Create" class="btn btn-primary shadow-sm">
+        <i class="fas fa-plus me-2"></i>Yeni Reklam Ekle
+    </a>
+</div>
+
+<div class="row g-4">
+    @foreach (var banner in Model)
+    {
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow-sm border-0 h-100" style="border-radius: 15px; overflow: hidden;">
+                @if (!string.IsNullOrEmpty(banner.ImageUrl))
+                {
+                    <img src="@banner.ImageUrl" class="card-img-top" style="height: 180px; object-fit: cover;" alt="@banner.Title">
+                }
+                else
+                {
+                    <div class="bg-light d-flex align-items-center justify-content-center" style="height: 180px;">
+                        <i class="fas fa-image fa-3x text-muted"></i>
+                    </div>
+                }
+                <div class="card-body">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="badge bg-secondary">Sıra: @banner.Order</span>
+                        <span class="badge @(banner.Status ? "bg-success" : "bg-danger")">@(banner.Status ? "Aktif" : "Pasif")</span>
+                    </div>
+                    <h5 class="fw-bold text-truncate">@banner.Title</h5>
+                    <p class="text-muted small text-truncate">@banner.TargetUrl</p>
+                    
+                    <div class="d-flex gap-2 mt-3">
+                        <a asp-action="Update" asp-route-id="@banner.Id" class="btn btn-sm btn-outline-primary flex-grow-1">Düzenle</a>
+                        <form asp-action="Delete" asp-route-id="@banner.Id" method="post" onsubmit="return confirm('Silmek istiyor musunuz?')">
+                            <button type="submit" class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

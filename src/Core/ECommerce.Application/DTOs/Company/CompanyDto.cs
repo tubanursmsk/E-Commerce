@@ -7,6 +7,8 @@ public class CompanyDto
     public Guid Id { get; set; }
     public string Name { get; set; } = string.Empty;
     public string Phone { get; set; } = string.Empty;
+    public string FullAddress { get; set; } = string.Empty;
+    public string TaxNumber { get; set; } = string.Empty;
     
      // Güvenlik: Bunu her yerde göstermeyebilirsin (admin'e özel yapman daha doğru)
     public string ApiKey { get; set; } = string.Empty; // Yönergedeki API Key gereksinimi için

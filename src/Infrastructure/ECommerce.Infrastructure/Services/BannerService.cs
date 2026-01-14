@@ -17,12 +17,32 @@ public class BannerService : IBannerService
         _unitOfWork = unitOfWork;
         _mapper = mapper;
     }
-
-    public async Task<ApiResponse<IEnumerable<BannerDto>>> GetAllAsync()
+    
+      
+    public async Task<ApiResponse<IEnumerable<BannerDto>>> GetAllAsync(Guid? companyId, string role)
     {
-        var banners = await _unitOfWork.Banners.GetAllAsync();
+        IEnumerable<Banner> banners;
+
+        if (role == "Admin")
+        {
+            // Admin her şeyi görür
+            banners = await _unitOfWork.Banners.GetAllAsync();
+        }
+        else
+        {
+            // Şirket yöneticisi sadece kendi şirketinin reklamlarını görür
+            banners = await _unitOfWork.Banners.FindAsync(x => x.CompanyId == companyId);
+        }
+
         var dtos = _mapper.Map<IEnumerable<BannerDto>>(banners.OrderBy(x => x.Order));
         return ApiResponse<IEnumerable<BannerDto>>.SuccessResult(dtos);
+    }
+
+    public async Task<ApiResponse<BannerDto>> GetByIdAsync(Guid id)
+    {
+        var banner = await _unitOfWork.Banners.GetByIdAsync(id);
+        if (banner == null) return ApiResponse<BannerDto>.ErrorResult("Banner bulunamadı.");
+        return ApiResponse<BannerDto>.SuccessResult(_mapper.Map<BannerDto>(banner));
     }
 
     public async Task<ApiResponse<Guid>> CreateAsync(BannerCreateDto dto)

@@ -1,0 +1,148 @@
+@model ECommerce.Application.DTOs.Order.OrderDto
+
+@{
+    ViewData["Title"] = "Sipariş Detayı";
+}
+
+<div class="page-header d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-2">
+                <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Dashboard</a></li>
+                <li class="breadcrumb-item"><a asp-controller="Order" asp-action="Index">Siparişler</a></li>
+                <li class="breadcrumb-item active">#@Model.OrderNumber</li>
+            </ol>
+        </nav>
+        <h1 class="page-title">Sipariş Detayı</h1>
+    </div>
+    <div>
+        <a asp-action="Index" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left me-2"></i>Listeye Dön
+        </a>
+    </div>
+</div>
+
+<div class="row g-4">
+    <!-- Sol Kolon: Ürünler -->
+    <div class="col-lg-8">
+        <div class="card shadow-sm border-0 mb-4" style="border-radius: 15px;">
+            <div class="card-header bg-transparent border-0 pt-4 px-4">
+                <h5 class="fw-bold mb-0">Sipariş İçeriği</h5>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="bg-light">
+                            <tr>
+                                <th class="ps-4">Ürün</th>
+                                <th class="text-center">Birim Fiyat</th>
+                                <th class="text-center">Adet</th>
+                                <th class="text-end pe-4">Toplam</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.OrderItems != null && Model.OrderItems.Any())
+                            {
+                                foreach (var item in Model.OrderItems)
+                                {
+                                    <tr>
+                                        <td class="ps-4">
+                                            <div class="d-flex align-items-center">
+                                                <div class="bg-primary bg-opacity-10 rounded p-2 me-3 text-primary">
+                                                    <i class="fas fa-box"></i>
+                                                </div>
+                                                <span class="fw-medium">@item.ProductName</span>
+                                            </div>
+                                        </td>
+                                        <td class="text-center">@item.Price.ToString("N2") ₺</td>
+                                        <td class="text-center">@item.Quantity</td>
+                                        <td class="text-end pe-4 fw-bold">@((item.Price * item.Quantity).ToString("N2")) ₺</td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="4" class="text-center py-4 text-muted">Bu siparişe ait ürün bulunamadı.
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot class="bg-light">
+                            <tr>
+                                <td colspan="3" class="text-end fw-bold py-3">Genel Toplam:</td>
+                                <td class="text-end pe-4 fw-bold text-success py-3 fs-5">
+                                    @if (Model.TotalAmount > 0)
+                                    {
+                                        @Model.TotalAmount.ToString("N2")
+                                    }
+                                    else
+                                    {
+                                        @Model.OrderItems.Sum(x => x.Price * x.Quantity).ToString("N2")
+                                    }
+ ₺
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sağ Kolon: Bilgiler -->
+    <div class="col-lg-4">
+        <!-- Sipariş Durumu -->
+        <div class="card shadow-sm border-0 mb-4" style="border-radius: 15px;">
+            <div class="card-body">
+                <h6 class="card-title fw-bold mb-3">Sipariş Bilgileri</h6>
+
+                <div class="mb-3">
+                    <label class="text-muted small d-block">Sipariş No</label>
+                    <span class="fw-bold fs-5">#@Model.OrderNumber</span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="text-muted small d-block">Oluşturulma Tarihi</label>
+                    <span class="fw-medium">@Model.CreatedDate.ToString("dd.MM.yyyy HH:mm")</span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="text-muted small d-block mb-2">Sipariş Durumu</label>
+                    @switch (Model.Status)
+                    {
+                        case ECommerce.Domain.Enums.OrderStatus.Pending:
+                            <span class="badge bg-warning text-dark w-100 p-2">Beklemede</span>
+                            break;
+                        case ECommerce.Domain.Enums.OrderStatus.Completed:
+                            <span class="badge bg-success w-100 p-2">Tamamlandı</span>
+                            break;
+                        case ECommerce.Domain.Enums.OrderStatus.Cancelled:
+                            <span class="badge bg-danger w-100 p-2">İptal Edildi</span>
+                            break;
+                        default:
+                            <span class="badge bg-secondary w-100 p-2">@Model.Status</span>
+                            break;
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Müşteri Kartı -->
+        <div class="card shadow-sm border-0" style="border-radius: 15px;">
+            <div class="card-body">
+                <h6 class="card-title fw-bold mb-3">Müşteri Bilgileri</h6>
+                <div class="d-flex align-items-center">
+                    <div class="avatar-md bg-info bg-opacity-10 text-info rounded-circle d-flex align-items-center justify-content-center me-3"
+                        style="width: 45px; height: 45px; font-size: 1.2rem;">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div>
+                        <h6 class="mb-0 fw-bold">@Model.CustomerFullName</h6>
+                        <small class="text-muted">Müşteri</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -116,8 +116,8 @@ C:\Users\PC\Desktop\ECommerce\ECommerce.AdminPanel\obj\Debug\net9.0\compressed\p
 C:\Users\PC\Desktop\ECommerce\ECommerce.AdminPanel\obj\Debug\net9.0\compressed\mtarub4o6l-pi4gfuiftj.gz
 C:\Users\PC\Documents\E-Commerce\ECommerce.AdminPanel\bin\Debug\net9.0\appsettings.Development.json
 C:\Users\PC\Documents\E-Commerce\ECommerce.AdminPanel\bin\Debug\net9.0\appsettings.json
-C:\Users\PC\Documents\E-Commerce\ECommerce.AdminPanel\bin\Debug\net9.0\ECommerce.AdminPanel.staticwebassets.endpoints.json
 C:\Users\PC\Documents\E-Commerce\ECommerce.AdminPanel\bin\Debug\net9.0\ECommerce.AdminPanel.staticwebassets.runtime.json
+C:\Users\PC\Documents\E-Commerce\ECommerce.AdminPanel\bin\Debug\net9.0\ECommerce.AdminPanel.staticwebassets.endpoints.json
 C:\Users\PC\Documents\E-Commerce\ECommerce.AdminPanel\bin\Debug\net9.0\ECommerce.AdminPanel.exe
 C:\Users\PC\Documents\E-Commerce\ECommerce.AdminPanel\bin\Debug\net9.0\ECommerce.AdminPanel.deps.json
 C:\Users\PC\Documents\E-Commerce\ECommerce.AdminPanel\bin\Debug\net9.0\ECommerce.AdminPanel.runtimeconfig.json

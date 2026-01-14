@@ -6,6 +6,7 @@ namespace ECommerce.Application.Interfaces;
 public interface ICargoService 
 {
     Task<ApiResponse<IEnumerable<CargoDto>>> GetAllAsync();
+    Task<ApiResponse<IEnumerable<CargoDto>>> GetByCompanyIdAsync(Guid companyId);
     Task<ApiResponse<CargoDto>> GetByIdAsync(Guid id);
     Task<ApiResponse<Guid>> CreateAsync(CargoCreateDto dto);
     Task<ApiResponse<bool>> UpdateAsync(Guid id, CargoUpdateDto dto);

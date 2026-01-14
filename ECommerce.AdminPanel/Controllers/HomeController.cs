@@ -1,24 +1,28 @@
-using System.Diagnostics;
+using ECommerce.AdminPanel.Services;
+using ECommerce.Application.DTOs.Dashboard;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ECommerce.AdminPanel.Models;
 
 namespace ECommerce.AdminPanel.Controllers;
 
+[Authorize]
 public class HomeController : Controller
 {
-    public IActionResult Index()
+    private readonly BaseApiService _apiService;
+
+    public HomeController(BaseApiService apiService)
     {
-        return View();
+        _apiService = apiService;
     }
 
-    public IActionResult Privacy()
+    public async Task<IActionResult> Index()
     {
-        return View();
-    }
-
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        // API'den Dashboard istatistiklerini çekiyoruz
+        var response = await _apiService.GetAsync<DashboardStatsDto>("Dashboard/Stats");
+        
+        // Veri gelmezse boş bir model gönderiyoruz ki sayfa patlamasın
+        var model = response?.Data ?? new DashboardStatsDto();
+        
+        return View(model);
     }
 }

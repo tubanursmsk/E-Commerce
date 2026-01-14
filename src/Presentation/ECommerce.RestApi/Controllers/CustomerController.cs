@@ -15,8 +15,6 @@ public class CustomerController : ControllerBase
     private readonly ICustomerService _customerService;
     public CustomerController(ICustomerService customerService) => _customerService = customerService;
 
-
-
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
@@ -24,7 +22,14 @@ public class CustomerController : ControllerBase
         var companyIdStr = User.FindFirstValue("companyId");
         Guid? companyId = string.IsNullOrEmpty(companyIdStr) ? null : Guid.Parse(companyIdStr);
 
-        var result = await _customerService.GetAllAsync(companyId, role);
+        var result = await _customerService.GetAllAsync(companyId, role ?? "");
+        return Ok(result);
+    }
+
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetById(Guid id)
+    {
+        var result = await _customerService.GetByIdAsync(id);
         return Ok(result);
     }
 

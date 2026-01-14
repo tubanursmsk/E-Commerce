@@ -1,0 +1,113 @@
+@model ECommerce.AdminPanel.Models.Company.CompanyUpdateViewModel
+@{
+    ViewData["Title"] = "Şirket Bilgilerim";
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <div class="page-header mb-4">
+            <h1 class="page-title">Şirket Profil Yönetimi</h1>
+            <p class="text-muted">Mağaza bilgilerinizi güncelleyebilirsiniz.
+            </p>
+        </div>
+
+        <div class="card shadow-sm border-0" style="border-radius: 15px;">
+            <div class="card-body p-5">
+                <form asp-action="Update" method="post">
+                    <input type="hidden" asp-for="Id" />
+
+                    <div class="row g-4">
+                        <div class="col-12 border-bottom pb-3 mb-2">
+                            <h5 class="fw-bold text-primary"><i class="fas fa-building me-2"></i>Kurumsal Bilgiler</h5>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="Name" class="form-label fw-bold"></label>
+                            <input asp-for="Name" class="form-control form-control-lg bg-light"
+                                placeholder="Şirket Tam Adı">
+                            <span asp-validation-for="Name" class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="TaxNumber" class="form-label fw-bold"></label>
+                            <div class="input-group">
+                                <input asp-for="TaxNumber" class="form-control form-control-lg bg-light text-muted"
+                                    readonly>
+                                <span class="input-group-text bg-light border-start-0">
+                                    <i class="fas fa-lock text-muted" title="Bu alan değiştirilemez"></i>
+                                </span>
+                            </div>
+                            <span asp-validation-for="TaxNumber" class="text-danger small"></span>
+                            <small class="text-muted italic">Güvenlik nedeniyle vergi numarası sadece sistem yöneticisi
+                                tarafından değiştirilebilir.</small>
+                        </div>
+
+                        <div class="col-12 border-bottom pb-3 mt-5 mb-2">
+                            <h5 class="fw-bold text-primary"><i class="fas fa-map-marker-alt me-2"></i>İletişim ve Adres
+                            </h5>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="Phone" class="form-label fw-bold"></label>
+                            <input asp-for="Phone" class="form-control form-control-lg" placeholder="05XX XXX XX XX">
+                            <span asp-validation-for="Phone" class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-12">
+                            <label asp-for="FullAddress" class="form-label fw-bold"></label>
+                            <textarea asp-for="FullAddress" class="form-control" rows="3"
+                                placeholder="Sokak, Mahalle, Bina No..."></textarea>
+                            <span asp-validation-for="FullAddress" class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-12 border-bottom pb-3 mt-5 mb-2">
+                            <h5 class="fw-bold text-primary"><i class="fas fa-key me-2"></i>Onay Durumu</h5>
+                        </div>
+
+                        <div class="col-12 mt-5">
+                            @if (Model.IsApproved)
+                            {
+                                <div class="alert alert-success d-flex align-items-center" role="alert">
+                                    <i class="fas fa-check-circle me-3 fa-2x"></i>
+                                    <div>
+                                        <strong>Hesap Durumu:</strong> Şirketiniz sistem yöneticisi tarafından
+                                        onaylanmıştır.
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="alert alert-warning d-flex align-items-center" role="alert">
+                                    <i class="fas fa-clock me-3 fa-2x"></i>
+                                    <div>
+                                        <strong>Hesap Durumu:</strong> Şirketiniz onay beklemektedir. Bazı özellikler
+                                        kısıtlı olabilir.
+                                    </div>
+                                </div>
+                            }
+                        </div>
+
+                        <div class="col-12 mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg px-5 shadow"
+                                style="background: linear-gradient(135deg, #4b6cb7 0%, #182848 100%); border:none;">
+                                <i class="fas fa-save me-2"></i>Bilgileri Güncelle
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        function copyApiKey() {
+            var copyText = document.getElementById("ApiKey");
+            copyText.select();
+            document.execCommand("copy");
+            alert("API Anahtarı panoya kopyalandı!");
+        }
+    </script>
+}

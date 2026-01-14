@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using ECommerce.Application.DTOs.Review;
 using ECommerce.Application.Interfaces;
 using ECommerce.RestApi.Filters;
@@ -17,6 +18,19 @@ public class ReviewController : ControllerBase
         _reviewService = reviewService;
     }
 
+    [HttpGet("ListAll")]
+    [Authorize(Roles = "Admin,CompanyManager")]
+    public async Task<IActionResult> GetAllWithDetails()
+    {
+        var role = User.FindFirstValue(ClaimTypes.Role);
+        var companyIdStr = User.FindFirstValue("companyId");
+        Guid? companyId = string.IsNullOrEmpty(companyIdStr) ? null : Guid.Parse(companyIdStr);
+
+        // Yeni yazdığımız repository metodunu çağıran servis metodunu kullanacağız
+        var result = await _reviewService.GetAllWithDetailsAsync(companyId, role);
+        return Ok(result);
+    }
+
     [HttpGet("Product/{productId}")]
     [AllowAnonymous] // Yorumları herkes okuyabilir
     public async Task<IActionResult> GetByProduct(Guid productId)
@@ -30,8 +44,8 @@ public class ReviewController : ControllerBase
     {
         return Ok(await _reviewService.CreateAsync(dto));
     }
-     
-     [HttpPost("Update/{id}")]
+
+    [HttpPost("Update/{id}")]
     [Authorize] // Sadece giriş yapmış kullanıcılar yorum yapabilir
     public async Task<IActionResult> Update(Guid id, ReviewUpdateDto dto)
     {

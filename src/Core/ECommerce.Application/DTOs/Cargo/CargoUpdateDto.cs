@@ -15,6 +15,5 @@ public class CargoUpdateDto
 
     [Required]
     public Guid CompanyId { get; set; }
-    public Guid OrderId { get; set; }
     public bool Status { get; set; } = true;
 }

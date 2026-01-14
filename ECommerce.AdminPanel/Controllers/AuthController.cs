@@ -40,16 +40,20 @@ public class AuthController : Controller
             var userName = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name || c.Type == "unique_name")?.Value ?? model.EmailOrUserName;
             var companyId = jwtToken.Claims.FirstOrDefault(c => c.Type == "companyId")?.Value;
             var role = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+            var userId = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            
 
             // 1. Session Set Et (Layout'taki @Context.Session.GetString kodları için)
             HttpContext.Session.SetString("UserName", userName);
             if (companyId != null) HttpContext.Session.SetString("companyId", companyId);
 
             // 2. Cookie Auth (Yetkilendirme için)
-            var claims = new List<Claim> {
+            var claims = new List<Claim> {    
             new Claim(ClaimTypes.Name, userName),
             new Claim(ClaimTypes.Role, role ?? "Customer"),
-            new Claim("companyId", companyId ?? string.Empty) // CompanyId'yi Cookie'ye ekliyoruz
+            new Claim("companyId", companyId ?? string.Empty), // CompanyId'yi Cookie'ye ekliyoruz
+            new Claim(ClaimTypes.NameIdentifier, userId ?? string.Empty)
+            
         };
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));

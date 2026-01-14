@@ -16,4 +16,6 @@ public class OrderItemCreateDto
 
     [Required]
     public decimal Price { get; set; } // O anki satış fiyatı
+
+    public decimal TotalAmount { get; set; }
 }

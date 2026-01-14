@@ -17,7 +17,20 @@ public class ReviewService : IReviewService
         _unitOfWork = unitOfWork;
         _mapper = mapper;
     }
-    
+
+    public async Task<ApiResponse<IEnumerable<ReviewDto>>> GetAllWithDetailsAsync(Guid? companyId, string role)
+    {
+        // Admin her şeyi, Manager sadece kendi ürünlerinin yorumlarını görür
+        Guid? filterId = role == "Admin" ? null : companyId;
+
+        // Repository'deki Include'lu metodu çağırıyoruz
+        var reviews = await _unitOfWork.Reviews.GetAllWithDetailsAsync(filterId);
+
+        // AutoMapper üzerinden isimleri otomatik dolduruyoruz
+        var dtos = _mapper.Map<IEnumerable<ReviewDto>>(reviews);
+        return ApiResponse<IEnumerable<ReviewDto>>.SuccessResult(dtos);
+    }
+
     public async Task<ApiResponse<IEnumerable<ReviewDto>>> GetByProductIdAsync(Guid productId)
     {
         // Belirli bir ürüne ait silinmemiş yorumları getir

@@ -8,11 +8,11 @@ public interface IUnitOfWork
     IOrderRepository Orders { get; }
     ICustomerRepository Customers { get; }
     ICompanyRepository Companies { get; }
+    IReviewRepository Reviews { get; }
     
     // Özel repository gerektirmeyenler için Generic Repository kullanabiliriz
     IGenericRepository<Category> Categories { get; }
     IGenericRepository<Brand> Brands { get; }
-    IGenericRepository<Review> Reviews { get; }
     IGenericRepository<Banner> Banners { get; }
     IGenericRepository<User> Users { get; }
     IGenericRepository<Role> Roles { get; }

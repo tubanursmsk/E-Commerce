@@ -17,7 +17,7 @@ public class CargoDto
     public decimal BasePrice { get; set; }
 
     public Guid CompanyId { get; set; }
-
+    
     public Guid OrderId { get; set; }
 
     // BaseEntity

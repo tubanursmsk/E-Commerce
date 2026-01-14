@@ -13,7 +13,7 @@ namespace ECommerce.Application.DTOs.User;
         public string Email { get; set; } = string.Empty;
 
         // Basit rolde string var
-        public string Role { get; set; } = "Customer";
+        public string Role { get; set; } = "Staff";
 
         public Guid? CompanyId { get; set; }
 

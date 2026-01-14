@@ -32,26 +32,26 @@ public class CategoryController : ControllerBase
     public async Task<IActionResult> GetAll()
 
     {
-// 1. Kullanıcının rolünü alalım
-    var userRole = User.FindFirstValue(ClaimTypes.Role);
-    
-    // 2. Eğer kullanıcı Admin ise tüm ürünleri getir
-    if (userRole == "Admin")
-    {
-        var result = await _categoryService.GetAllAsync();
-        return Ok(result);
-    }
-     // 3. Eğer CompanyManager ise Token içindeki CompanyId'ye göre filtrele
-    var companyIdStr = User.FindFirstValue("companyId");
-    if (Guid.TryParse(companyIdStr, out Guid companyId))
-    {
-        var result = await _categoryService.GetByCompanyIdAsync(companyId);
-        return Ok(result);
-    }
+        // 1. Kullanıcının rolünü alalım
+        var userRole = User.FindFirstValue(ClaimTypes.Role);
 
-    // 4. Giriş yapmamış veya yetkisiz biri ise boş liste veya hata dönebilirsin
-    return Ok(ApiResponse<IEnumerable<CategoryDto>>.SuccessResult(new List<CategoryDto>()));
-        
+        // 2. Eğer kullanıcı Admin ise tüm ürünleri getir
+        if (userRole == "Admin")
+        {
+            var result = await _categoryService.GetAllAsync();
+            return Ok(result);
+        }
+        // 3. Eğer CompanyManager ise Token içindeki CompanyId'ye göre filtrele
+        var companyIdStr = User.FindFirstValue("companyId");
+        if (Guid.TryParse(companyIdStr, out Guid companyId))
+        {
+            var result = await _categoryService.GetByCompanyIdAsync(companyId);
+            return Ok(result);
+        }
+
+        // 4. Giriş yapmamış veya yetkisiz biri ise boş liste veya hata dönebilirsin
+        return Ok(ApiResponse<IEnumerable<CategoryDto>>.SuccessResult(new List<CategoryDto>()));
+
     }
 
     [HttpGet("GetById/{id}")]
@@ -72,7 +72,7 @@ public class CategoryController : ControllerBase
     }
 
     [HttpPost("Create")]
-    [Authorize(Roles = "Admin,CompanyManager")] 
+    [Authorize(Roles = "Admin,CompanyManager")]
     public async Task<IActionResult> Create(CategoryCreateDto dto)
     {
         var result = await _categoryService.CreateAsync(dto);

@@ -18,7 +18,7 @@ namespace ECommerce.Application.DTOs.User;
         public string Password { get; set; } = string.Empty; // hashlenip PasswordHash'e yazılacak
 
         [Required]
-        public string Role { get; set; } = "Customer";
+        public string Role { get; set; } = "Staff";
 
         public Guid? CompanyId { get; set; }
     }

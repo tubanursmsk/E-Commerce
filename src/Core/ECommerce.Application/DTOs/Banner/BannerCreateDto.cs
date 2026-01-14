@@ -19,6 +19,7 @@ namespace ECommerce.Application.DTOs.Banner
 
         [Required]
         public Guid CompanyId { get; set; }
+        public bool Status { get; set; }
     }
 
 }
