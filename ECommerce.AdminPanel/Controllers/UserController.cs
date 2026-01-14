@@ -9,7 +9,7 @@ using System.Security.Claims;
 
 namespace ECommerce.AdminPanel.Controllers;
 
-[Authorize(Roles = "Admin,CompanyManager")]
+[Authorize]
 public class UserController : Controller
 {
     private readonly BaseApiService _apiService;
@@ -32,6 +32,7 @@ public class UserController : Controller
     }
 
     [HttpGet]
+    [Authorize(Roles = "Admin,CompanyManager")]
     public IActionResult Create() => View(new UserCreateViewModel());
 
     [HttpPost]
@@ -68,56 +69,88 @@ public class UserController : Controller
         return View(model);
     }
 
-
-
-[HttpGet]
-public async Task<IActionResult> Profile()
-{
-    // Giriş yapan kullanıcının ID'sini alıyoruz
-    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-    if (string.IsNullOrEmpty(userId)) return RedirectToAction("Login", "Auth");
-
-    var response = await _apiService.GetAsync<UserDto>($"User/{userId}");
-    
-    if (response == null || !response.Success) return NotFound();
-
-    var model = new UserProfileViewModel
+    [HttpGet]
+    public async Task<IActionResult> Profile()
     {
-        Id = response.Data.Id,
-        FirstName = response.Data.FirstName,
-        LastName = response.Data.LastName,
-        Email = response.Data.Email,
-        Role = response.Data.Role
-    };
+        // Giriş yapan kullanıcının ID'sini alıyoruz
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (string.IsNullOrEmpty(userId)) return RedirectToAction("Login", "Auth");
 
-    return View(model);
-}
+        var response = await _apiService.GetAsync<UserDto>($"User/{userId}");
 
-[HttpPost]
-[ValidateAntiForgeryToken]
-public async Task<IActionResult> Profile(UserProfileViewModel model)
-{
-    if (!ModelState.IsValid) return View(model);
+        if (response == null || !response.Success) return NotFound();
 
-    var dto = new UserUpdateDto
-    {
-        Id = model.Id,
-        FirstName = model.FirstName,
-        LastName = model.LastName,
-        Email = model.Email,
-        Role = model.Role, // Rolü değiştirmemesine rağmen DTO'da gerekli olabilir
-        Status = true
-    };
+        var model = new UserProfileViewModel
+        {
+            Id = response.Data.Id,
+            FirstName = response.Data.FirstName,
+            LastName = response.Data.LastName,
+            Email = response.Data.Email,
+            Role = response.Data.Role
+        };
 
-    var response = await _apiService.PutAsync<UserUpdateDto, bool>($"User/UpdateProfile/{model.Id}", dto);
-
-    if (response != null && response.Success)
-    {
-        TempData["SuccessMessage"] = "Profil bilgileriniz başarıyla güncellendi.";
-        return RedirectToAction(nameof(Profile));
+        return View(model);
     }
 
-    ViewBag.Error = response?.Message;
-    return View(model);
-}
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Profile(UserProfileViewModel model)
+    {
+        if (!ModelState.IsValid) return View(model);
+
+        var dto = new UserUpdateDto
+        {
+            Id = model.Id,
+            FirstName = model.FirstName,
+            LastName = model.LastName,
+            Email = model.Email,
+            Role = model.Role ?? "Staff", // Boş gitmemesi için default değer
+            Status = true
+        };
+
+        var response = await _apiService.PutAsync<UserUpdateDto, bool>($"User/UpdateProfile/{model.Id}", dto);
+
+        if (response != null && response.Success)
+        {
+            // Session güncellenerek Layout'taki ismin hemen değişmesi sağlanır.
+            HttpContext.Session.SetString("UserName", $"{model.FirstName} {model.LastName}");
+            TempData["SuccessMessage"] = "Profil bilgileriniz başarıyla güncellendi.";
+            return RedirectToAction(nameof(Profile));
+        }
+
+        ViewBag.Error = response?.Message ?? "Güncelleme sırasında bir hata oluştu.";
+        return View(model);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+    {
+        if (!ModelState.IsValid)
+        {
+            TempData["ErrorMessage"] = "Lütfen formdaki hataları düzeltin.";
+            return RedirectToAction(nameof(Profile));
+        }
+
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        var dto = new
+        {
+            UserId = userId,
+            CurrentPassword = model.CurrentPassword,
+            NewPassword = model.NewPassword
+        };
+
+        // API'deki "Auth/ChangePassword" yoluna istek atıyoruz
+        var response = await _apiService.PostAsync<object, bool>("Auth/ChangePassword", dto);
+
+        if (response != null && response.Success)
+        {
+            TempData["SuccessMessage"] = "Şifreniz başarıyla değiştirildi.";
+            return RedirectToAction(nameof(Profile));
+        }
+
+        TempData["ErrorMessage"] = response?.Message ?? "İşlem başarısız.";
+        return RedirectToAction(nameof(Profile));
+    }
 }

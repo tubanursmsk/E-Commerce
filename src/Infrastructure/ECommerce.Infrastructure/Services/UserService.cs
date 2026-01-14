@@ -1,5 +1,6 @@
 using AutoMapper;
 using ECommerce.Application.DTOs.User;
+using ECommerce.Application.Helpers;
 using ECommerce.Application.Interfaces;
 using ECommerce.Application.Responses;
 using ECommerce.Domain.Entities;
@@ -88,5 +89,25 @@ public class UserService : IUserService
         return ApiResponse<UserDto>.SuccessResult(userDto);
     }
 
-    
+    public async Task<ApiResponse<bool>> ChangePasswordAsync(Guid userId, string currentPassword, string newPassword)
+    {
+        var user = await _unitOfWork.Users.GetByIdAsync(userId);
+        if (user == null) return ApiResponse<bool>.ErrorResult("Kullanıcı bulunamadı.");
+
+        // 1. Mevcut şifreyi doğrula
+        if (!PasswordHasher.VerifyPassword(currentPassword, user.PasswordHash))
+        {
+            return ApiResponse<bool>.ErrorResult("Mevcut şifreniz hatalı.");
+        }
+
+        // 2. Yeni şifreyi hash'le ve kaydet
+        user.PasswordHash = PasswordHasher.HashPassword(newPassword);
+        user.UpdatedDate = DateTime.UtcNow;
+
+        _unitOfWork.Users.Update(user);
+        await _unitOfWork.SaveChangesAsync();
+
+        return ApiResponse<bool>.SuccessResult(true, "Şifre başarıyla değiştirildi.");
+    }
+
 }

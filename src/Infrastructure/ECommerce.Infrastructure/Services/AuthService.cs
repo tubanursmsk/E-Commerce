@@ -109,4 +109,27 @@ public class AuthService : IAuthService
 
         return ApiResponse<Guid>.SuccessResult(user.Id, "Şirket personeli kaydı başarılı.");
     }
+
+    // ECommerce.Infrastructure / Services / AuthService.cs
+
+public async Task<ApiResponse<bool>> ChangePasswordAsync(ChangePasswordDto dto)
+{
+    var user = await _unitOfWork.Users.GetByIdAsync(dto.UserId);
+    if (user == null) return ApiResponse<bool>.ErrorResult("Kullanıcı bulunamadı.");
+
+    // 1. Mevcut şifreyi doğrula (DB'deki Hash ile girilen şifreyi karşılaştır)
+    if (!PasswordHasher.VerifyPassword(dto.CurrentPassword, user.PasswordHash))
+    {
+        return ApiResponse<bool>.ErrorResult("Mevcut şifreniz hatalı.");
+    }
+
+    // 2. Yeni şifreyi hash'le ve kaydet
+    user.PasswordHash = PasswordHasher.HashPassword(dto.NewPassword);
+    user.UpdatedDate = DateTime.UtcNow;
+
+    _unitOfWork.Users.Update(user);
+    await _unitOfWork.SaveChangesAsync();
+
+    return ApiResponse<bool>.SuccessResult(true, "Şifreniz başarıyla güncellendi.");
+}
 }

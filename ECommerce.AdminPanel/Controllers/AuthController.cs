@@ -100,6 +100,8 @@ public class AuthController : Controller
         return View(model);
     }
 
+    
+
 }
 /* 
 

@@ -11,7 +11,6 @@ namespace ECommerce.RestApi.Controllers;
 public class AuthController : ControllerBase
 {
     private readonly IAuthService _authService;
-
     public AuthController(IAuthService authService)
     {
         _authService = authService;
@@ -35,13 +34,23 @@ public class AuthController : ControllerBase
         return Ok(user);
     }
 
-
     [HttpPost("UserRegister")]
     public async Task<IActionResult> UserRegister(RegisterDto userRegisterDto)
     {
         var companyId = Guid.Parse(User.FindFirstValue("companyId"));
         var user = await _authService.RegisterForCompanyAsync(userRegisterDto, companyId);
         return Ok(user);
+    }
+
+    [HttpPost("ChangePassword")]
+    public async Task<IActionResult> ChangePassword(ChangePasswordDto dto)
+    {
+        // Token'daki kullanıcı ID'si ile DTO'daki ID'nin eşleştiğinden emin olalım (Güvenlik)
+        var currentUserId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+        if (dto.UserId != currentUserId) return Forbid();
+
+        var result = await _authService.ChangePasswordAsync(dto);
+        return Ok(result);
     }
 
 }

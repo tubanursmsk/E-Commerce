@@ -9,5 +9,6 @@ public interface IAuthService {
     Task<ApiResponse<string>> LoginAsync(LoginDto dto);
     Task<ApiResponse<Guid>> RegisterWithCompanyAsync(RegisterCompanyDto dto);
     Task<ApiResponse<Guid>> RegisterForCompanyAsync(RegisterDto dto, Guid companyId);
+    Task<ApiResponse<bool>> ChangePasswordAsync(ChangePasswordDto dto);
    
 }
