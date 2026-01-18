@@ -19,7 +19,7 @@ public class ReviewController : ControllerBase
     }
 
     [HttpGet("ListAll")]
-    [Authorize(Roles = "Admin,CompanyManager")]
+    [AllowAnonymous]
     public async Task<IActionResult> GetAllWithDetails()
     {
         var role = User.FindFirstValue(ClaimTypes.Role);

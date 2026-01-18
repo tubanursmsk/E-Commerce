@@ -1,0 +1,91 @@
+
+<nav class="navbar navbar-expand-lg sticky-top bg-white border-bottom py-3">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center gap-2" routerLink="/">
+      <div class="brand-icon-box">
+        <i class="bi bi-bag-heart-fill"></i>
+      </div>
+      <span class="brand-text">MultiStoreCenter</span>
+    </a>
+
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+      <i class="bi bi-list fs-1"></i>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarContent">
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-lg-3">
+         <li class="nav-item"><a class="nav-link fw-medium" routerLink="/" routerLinkActive="text-primary">Ana Sayfa</a></li>
+        <li class="nav-item"><a class="nav-link fw-medium" routerLink="/products" routerLinkActive="text-primary">Ürünler</a></li>
+        <li class="nav-item"><a class="nav-link fw-medium" routerLink="/categories" routerLinkActive="text-primary">Kategoriler</a></li>
+      </ul>
+
+      <div class="d-flex align-items-center gap-3">
+        <div class="search-box d-none d-md-flex">
+          <i class="bi bi-search"></i>
+          <input type="text" placeholder="Ürün ara...">
+        </div>
+        
+        <!--<a routerLink="/cart" class="nav-icon-link position-relative">
+          <i class="bi bi-cart3"></i>
+          <span class="badge-cart">3</span>
+        </a>
+
+        <a routerLink="/auth/login" class="btn btn-login">
+          <i class="bi bi-person me-2"></i>Giriş Yap
+        -->
+
+          <a routerLink="/cart" class="text-dark fs-5 position-relative">
+          <i class="bi bi-cart3"></i>
+          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary" style="font-size: 0.6rem;">0</span>
+        </a>
+
+        <a routerLink="/login" class="btn btn-light rounded-pill px-4 fw-bold">
+          <i class="bi bi-person me-2"></i>Giriş Yap
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+
+
+<!-- 
+gemini önerisi :
+
+<nav class="navbar navbar-expand-lg sticky-top bg-white border-bottom py-3">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center gap-2" routerLink="/">
+      <div class="brand-icon-box bg-primary text-white p-2 rounded">
+        <i class="bi bi-bag-heart-fill"></i>
+      </div>
+      <span class="fw-bold fs-4">MultiStoreCenter</span>
+    </a>
+
+    <div class="collapse navbar-collapse" id="navbarContent">
+      <ul class="navbar-nav mx-auto gap-3">
+        <li class="nav-item"><a class="nav-link fw-medium" routerLink="/" routerLinkActive="text-primary">Ana Sayfa</a></li>
+        <li class="nav-item"><a class="nav-link fw-medium" routerLink="/products" routerLinkActive="text-primary">Ürünler</a></li>
+        <li class="nav-item"><a class="nav-link fw-medium" routerLink="/categories" routerLinkActive="text-primary">Kategoriler</a></li>
+      </ul>
+
+      <div class="d-flex align-items-center gap-3">
+        <div class="input-group input-group-sm rounded-pill bg-light px-2">
+          <span class="input-group-text bg-transparent border-0"><i class="bi bi-search"></i></span>
+          <input type="text" class="form-control bg-transparent border-0" placeholder="Ürün ara...">
+        </div>
+        
+        <a routerLink="/cart" class="text-dark fs-5 position-relative">
+          <i class="bi bi-cart3"></i>
+          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary" style="font-size: 0.6rem;">0</span>
+        </a>
+
+        <a routerLink="/login" class="btn btn-light rounded-pill px-4 fw-bold">
+          <i class="bi bi-person me-2"></i>Giriş Yap
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+-->

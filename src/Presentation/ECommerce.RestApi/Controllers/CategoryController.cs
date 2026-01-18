@@ -11,7 +11,6 @@ namespace ECommerce.RestApi.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 //[ApiKey] // Her istekte X-Api-Key zorunlu
-[Authorize] // Her istekte geçerli JWT Token zorunlu
 public class CategoryController : ControllerBase
 {
     private readonly ICategoryService _categoryService;
@@ -29,6 +28,7 @@ public class CategoryController : ControllerBase
     }*/
 
     [HttpGet("List")]
+    [AllowAnonymous] // Kategorileri herkes görebilsin (Katalog amaçlı)
     public async Task<IActionResult> GetAll()
 
     {
@@ -64,6 +64,7 @@ public class CategoryController : ControllerBase
 
 
     [HttpGet("Company/{companyId}")]
+    [Authorize]
     [Authorize(Policy = "CompanyIsolation")] // Başkasının kategorilerini görmeyi engeller
     public async Task<IActionResult> GetByCompany(Guid companyId)
     {

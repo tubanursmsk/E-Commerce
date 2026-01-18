@@ -1,0 +1,10 @@
+.app-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1; // Sayfa içeriği az olsa bile footer'ı aşağıya iter
+  min-height: 70vh;
+}

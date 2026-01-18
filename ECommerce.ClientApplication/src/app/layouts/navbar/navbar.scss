@@ -1,0 +1,70 @@
+.brand-icon-box {
+  width: 40px;
+  height: 40px;
+  background: var(--gradient-primary);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.25rem;
+}
+
+.brand-text {
+  font-weight: 800;
+  font-size: 1.5rem;
+  letter-spacing: -0.5px;
+  color: var(--color-dark);
+}
+
+.nav-link {
+  font-weight: 500;
+  color: var(--color-gray-600);
+  transition: var(--transition-base);
+  &:hover, &.active {
+    color: var(--color-primary);
+  }
+}
+
+.search-box {
+  background: var(--color-bg-tertiary);
+  padding: 8px 15px;
+  border-radius: 50px;
+  align-items: center;
+  gap: 10px;
+  i { color: var(--color-gray-500); }
+  input {
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 0.9rem;
+    width: 150px;
+  }
+}
+
+.nav-icon-link {
+  font-size: 1.4rem;
+  color: var(--color-dark);
+  .badge-cart {
+    position: absolute;
+    top: -5px;
+    right: -8px;
+    background: var(--color-danger);
+    color: white;
+    font-size: 0.7rem;
+    padding: 2px 6px;
+    border-radius: 50px;
+    border: 2px solid white;
+  }
+}
+
+.btn-login {
+  background: var(--color-bg-tertiary);
+  color: var(--color-dark);
+  font-weight: 600;
+  padding: 8px 20px;
+  border-radius: 50px;
+  &:hover {
+    background: var(--color-gray-200);
+  }
+}

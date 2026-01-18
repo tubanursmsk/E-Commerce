@@ -30,6 +30,7 @@ public class BrandController : ControllerBase
     }*/
 
     [HttpGet("List")]
+    [AllowAnonymous] // Markaları herkes görebilsin (Katalog amaçlı)
     public async Task<IActionResult> GetAll()
 
     {

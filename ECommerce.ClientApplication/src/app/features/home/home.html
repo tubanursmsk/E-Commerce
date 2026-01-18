@@ -1,0 +1,31 @@
+<section class="hero-slider mb-4">
+  @if (banners && banners.length > 0) {
+    <div id="heroCarousel" class="carousel slide carousel-fade shadow-sm" data-bs-ride="carousel" style="border-radius: 12px; overflow: hidden;">
+      
+      <div class="carousel-indicators mb-1">
+        @for (banner of banners; track banner.id; let i = $index) {
+          <button type="button" data-bs-target="#heroCarousel" 
+                  [attr.data-bs-slide-to]="i" [class.active]="i === 0"
+                  style="width: 8px; height: 8px; border-radius: 50%; margin: 0 4px;"></button>
+        }
+      </div>
+
+      <div class="carousel-inner">
+  @for (banner of banners; track banner.id; let i = $index) {
+    <div class="carousel-item" [class.active]="i === 0" data-bs-interval="3000">
+      <a [href]="banner.targetUrl || '#'" class="d-block banner-link">
+        <img [src]="banner.imageUrl" class="d-block w-100 banner-img" [alt]="banner.title">
+      </a>
+    </div>
+  }
+</div>
+
+      <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon p-2 bg-dark bg-opacity-25 rounded-circle"></span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon p-2 bg-dark bg-opacity-25 rounded-circle"></span>
+      </button>
+    </div>
+  }
+</section>

@@ -4,6 +4,8 @@ using ECommerce.Application.Interfaces;
 using ECommerce.Application.Responses;
 using ECommerce.Domain.Entities;
 using ECommerce.Domain.Interfaces;
+using Microsoft.EntityFrameworkCore; // ToListAsync için gerekli (Eğer EF Core kullanıyorsan)
+using System.Linq; // OrderBy ve filtreleme için
 
 namespace ECommerce.Infrastructure.Services;
 
@@ -17,24 +19,45 @@ public class BannerService : IBannerService
         _unitOfWork = unitOfWork;
         _mapper = mapper;
     }
-    
-      
-    public async Task<ApiResponse<IEnumerable<BannerDto>>> GetAllAsync(Guid? companyId, string role)
+
+
+    /* public async Task<ApiResponse<IEnumerable<BannerDto>>> GetAllAsync(Guid? companyId, string role)
+     {
+         IEnumerable<Banner> banners;
+
+         if (role == "Admin")
+         {
+             // Admin her şeyi görür
+             banners = await _unitOfWork.Banners.GetAllAsync();
+         }
+         else
+         {
+             // Şirket yöneticisi sadece kendi şirketinin reklamlarını görür
+             banners = await _unitOfWork.Banners.FindAsync(x => x.CompanyId == companyId);
+         }
+
+         var dtos = _mapper.Map<IEnumerable<BannerDto>>(banners.OrderBy(x => x.Order));
+         return ApiResponse<IEnumerable<BannerDto>>.SuccessResult(dtos);
+     }*/
+
+    public async Task<ApiResponse<IEnumerable<BannerDto>>> GetAllAsync(Guid? companyId, string? role)
     {
-        IEnumerable<Banner> banners;
+        // 1. Önce tüm bannerları çekelim (veya IsDeleted kontrolü ile)
+        var allBanners = await _unitOfWork.Banners.GetAllAsync();
 
-        if (role == "Admin")
+        // 2. IQueryable yerine veriyi bellek üzerinde (In-Memory) filtreleyelim (Hataları önlemek için)
+        var query = allBanners.Where(b => !b.IsDeleted && b.Status);
+
+        // 3. Eğer kişi Admin değilse ve bir companyId gelmişse filtrele
+        // Giriş yapmayan (Anonymous) kullanıcılar her şeyi (tüm aktif bannerları) görebilir
+        if (companyId.HasValue && role != "Admin")
         {
-            // Admin her şeyi görür
-            banners = await _unitOfWork.Banners.GetAllAsync();
-        }
-        else
-        {
-            // Şirket yöneticisi sadece kendi şirketinin reklamlarını görür
-            banners = await _unitOfWork.Banners.FindAsync(x => x.CompanyId == companyId);
+            query = query.Where(b => b.CompanyId == companyId.Value);
         }
 
-        var dtos = _mapper.Map<IEnumerable<BannerDto>>(banners.OrderBy(x => x.Order));
+        var result = query.OrderBy(b => b.Order).ToList();
+
+        var dtos = _mapper.Map<IEnumerable<BannerDto>>(result);
         return ApiResponse<IEnumerable<BannerDto>>.SuccessResult(dtos);
     }
 
