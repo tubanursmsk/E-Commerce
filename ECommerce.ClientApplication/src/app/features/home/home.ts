@@ -1,8 +1,9 @@
-
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+/*import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BannerService } from '../../core/services/bannerService';
 import { Banner } from '../../core/models/banner';
+import { ProductService } from '../../core/services/productService';
+import { Product } from '../../core/models/product';
 
 declare var bootstrap: any; // Bootstrap'i global tanımlıyoruz
 
@@ -15,6 +16,7 @@ declare var bootstrap: any; // Bootstrap'i global tanımlıyoruz
 })
 export class HomeComponent implements OnInit, AfterViewInit {
     banners: Banner[] = [];
+   products: Product[] = [];
 
     constructor(private bannerService: BannerService) { }
 
@@ -41,4 +43,66 @@ export class HomeComponent implements OnInit, AfterViewInit {
     ngAfterViewInit(): void {
         // Sayfa ilk yüklendiğinde de deneyelim
     }
+}*/
+
+
+import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { BannerService } from '../../core/services/bannerService'; // Dosya isminizle eşleştiğinden emin olun
+import { ProductService } from '../../core/services/productService'; 
+import { Banner } from '../../core/models/banner';
+import { Product } from '../../core/models/product';
+
+declare var bootstrap: any;
+
+@Component({
+    selector: 'app-home',
+    standalone: true,
+    imports: [CommonModule],
+    templateUrl: './home.html',
+    styleUrls: ['./home.scss']
+})
+export class HomeComponent implements OnInit, AfterViewInit {
+    banners: Banner[] = [];
+    products: Product[] = [];
+
+    constructor(
+        private bannerService: BannerService,
+        private productService: ProductService) { }
+
+    ngOnInit(): void {
+        // Ürünleri Çek 
+        this.productService.getFeaturedProducts().subscribe({
+            next: (data) => {
+                console.log("API'den gelen Ürün verisi:", data);
+                this.products = data;
+            },
+            error: (err) => console.error("Ürün servisi hatası:", err)
+        });
+
+        // Bannerları Çek
+        this.bannerService.getBanners().subscribe({
+            next: (data) => {
+                this.banners = data;
+                this.initCarousel(); // Ayrı bir metoda aldık
+            },
+            error: (err) => console.error("Banner servisi hatası:", err)
+        });
+    }
+
+    private initCarousel() {
+        setTimeout(() => {
+            const carouselElement = document.querySelector('#heroCarousel');
+            if (carouselElement && typeof bootstrap !== 'undefined') {
+                const carousel = new bootstrap.Carousel(carouselElement, {
+                    interval: 3000,
+                    ride: 'carousel',
+                    pause: 'hover'
+                });
+                carousel.cycle(); // Manuel olarak döngüyü başlat
+            }
+        }, 300); // Süreyi biraz artırdık ki DOM tam yerleşsin
+    }
+
+    ngAfterViewInit(): void { }
 }

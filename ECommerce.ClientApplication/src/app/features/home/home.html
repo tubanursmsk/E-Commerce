@@ -1,31 +1,146 @@
-<section class="hero-slider mb-4">
-  @if (banners && banners.length > 0) {
-    <div id="heroCarousel" class="carousel slide carousel-fade shadow-sm" data-bs-ride="carousel" style="border-radius: 12px; overflow: hidden;">
-      
-      <div class="carousel-indicators mb-1">
-        @for (banner of banners; track banner.id; let i = $index) {
-          <button type="button" data-bs-target="#heroCarousel" 
-                  [attr.data-bs-slide-to]="i" [class.active]="i === 0"
-                  style="width: 8px; height: 8px; border-radius: 50%; margin: 0 4px;"></button>
-        }
-      </div>
+<!---------------------Üst Kategoriler-------------------------->
 
-      <div class="carousel-inner">
-  @for (banner of banners; track banner.id; let i = $index) {
-    <div class="carousel-item" [class.active]="i === 0" data-bs-interval="3000">
-      <a [href]="banner.targetUrl || '#'" class="d-block banner-link">
-        <img [src]="banner.imageUrl" class="d-block w-100 banner-img" [alt]="banner.title">
+<section class="quick-categories mb-4">
+  <div class="container">
+    <div
+      class="d-flex justify-content-between align-items-center bg-white shadow-sm py-3 px-2 rounded-4 overflow-x-auto no-scrollbar"
+    >
+      <a href="#" class="cat-item text-center text-decoration-none">
+        <div class="cat-icon-wrapper mb-2">
+          <i class="bi bi-phone"></i>
+        </div>
+        <span class="cat-name">Telefon</span>
+      </a>
+
+      <a href="#" class="cat-item text-center text-decoration-none">
+        <div class="cat-icon-wrapper mb-2">
+          <i class="bi bi-laptop"></i>
+        </div>
+        <span class="cat-name">Bilgisayar</span>
+      </a>
+
+      <a href="#" class="cat-item text-center text-decoration-none">
+        <div class="cat-icon-wrapper mb-2">
+          <i class="bi bi-watch"></i>
+        </div>
+        <span class="cat-name">Tv,Görüntü ve Ses</span>
+      </a>
+
+      <a href="#" class="cat-item text-center text-decoration-none">
+        <div class="cat-icon-wrapper mb-2">
+          <i class="bi bi-camera"></i>
+        </div>
+        <span class="cat-name">Ev Aletleri</span>
+      </a>
+
+      <a href="#" class="cat-item text-center text-decoration-none">
+        <div class="cat-icon-wrapper mb-2">
+          <i class="bi bi-fan"></i>
+        </div>
+        <span class="cat-name">Soğutma & Isıtma</span>
+      </a>
+
+      <a href="#" class="cat-item text-center text-decoration-none">
+        <div class="cat-icon-wrapper mb-2">
+          <i class="bi bi-outlet"></i>
+        </div>
+        <span class="cat-name">Outlet</span>
+      </a>
+
+      <a href="#" class="cat-item text-center text-decoration-none">
+        <div class="cat-icon-wrapper mb-2 text-danger">
+          <i class="bi bi-lightning-charge"></i>
+        </div>
+        <span class="cat-name fw-bold text-danger">Fırsatlar</span>
       </a>
     </div>
-  }
-</div>
+  </div>
+</section>
 
-      <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon p-2 bg-dark bg-opacity-25 rounded-circle"></span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
-        <span class="carousel-control-next-icon p-2 bg-dark bg-opacity-25 rounded-circle"></span>
-      </button>
+<!---------------------Banner-------------------------->
+
+<section class="hero-slider mb-4">
+  @if (banners && banners.length > 0) {
+  <div
+    id="heroCarousel"
+    class="carousel slide carousel-fade shadow-sm"
+    data-bs-ride="carousel"
+    style="border-radius: 12px; overflow: hidden"
+  >
+    <div class="carousel-indicators mb-1">
+      @for (banner of banners; track banner.id; let i = $index) {
+      <button
+        type="button"
+        data-bs-target="#heroCarousel"
+        [attr.data-bs-slide-to]="i"
+        [class.active]="i === 0"
+        style="width: 8px; height: 8px; border-radius: 50%; margin: 0 4px"
+      ></button>
+      }
     </div>
+
+    <div class="carousel-inner">
+      @for (banner of banners; track banner.id; let i = $index) {
+      <div class="carousel-item" [class.active]="i === 0" data-bs-interval="3000">
+        <a [href]="banner.targetUrl || '#'" class="d-block banner-link">
+          <img [src]="banner.imageUrl" class="d-block w-100 banner-img" [alt]="banner.title" />
+        </a>
+      </div>
+      }
+    </div>
+
+    <button
+      class="carousel-control-prev"
+      type="button"
+      data-bs-target="#heroCarousel"
+      data-bs-slide="prev"
+    >
+      <span class="carousel-control-prev-icon p-2 bg-dark bg-opacity-25 rounded-circle"></span>
+    </button>
+    <button
+      class="carousel-control-next"
+      type="button"
+      data-bs-target="#heroCarousel"
+      data-bs-slide="next"
+    >
+      <span class="carousel-control-next-icon p-2 bg-dark bg-opacity-25 rounded-circle"></span>
+    </button>
+  </div>
   }
 </section>
+
+
+<!---------------------Günün Fırsatları-------------------------->
+<div class="container mt-4">
+  <h4 class="fw-bold mb-4">Günün Fırsatları</h4>
+  <div class="row g-4">
+    @for (product of products; track product.id) {
+      <div class="col-6 col-md-4 col-lg-3">
+        <div class="product-card border-0 shadow-sm h-100 p-3 bg-white position-relative">
+          <div class="position-absolute top-0 start-0 p-2 d-flex flex-column gap-1" style="z-index: 2;">
+            <span class="badge bg-success" style="font-size: 0.65rem;">Kargo Bedava</span>
+          </div>
+
+          <div class="text-center mb-3">
+            <img [src]="product.imageUrl" class="img-fluid" [alt]="product.name" 
+                 style="height: 160px; object-fit: contain;">
+          </div>
+
+          <div class="product-info">
+            <h6 class="text-truncate-2 mb-2" style="font-size: 0.85rem; height: 38px;">{{ product.name }}</h6>
+            <div class="price-box">
+              <div class="text-muted text-decoration-line-through" style="font-size: 0.75rem;">
+                {{ product.price + 500 | number:'1.2-2' }} TL
+              </div>
+              <div class="text-primary fw-bold fs-5">
+                {{ product.price | number:'1.2-2' }} TL
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    } @empty {
+      <p class="text-muted">Şu an gösterilecek fırsat ürünü bulunmuyor.</p>
+    }
+  </div>
+</div>
