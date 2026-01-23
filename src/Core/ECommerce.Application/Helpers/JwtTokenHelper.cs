@@ -15,7 +15,7 @@ namespace ECommerce.Application.Helpers
         private static readonly string Audience = "ECommerceUsers"; //izleyici
 
         // Token üret
-        public static string GenerateToken(Guid userId, string email, string fullName, Guid companyId, List<string> roles, int expireMinutes = 60)
+        public static string GenerateToken(Guid userId, string email, string fullName, Guid companyId, List<string> roles, int expireMinutes = 1440)
         {
             var claims = new List<Claim>
             {

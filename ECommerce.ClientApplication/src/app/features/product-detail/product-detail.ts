@@ -1,10 +1,12 @@
-import { Component, OnInit,ChangeDetectionStrategy, ChangeDetectorRef  } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from '../../core/models/product';
 import { ProductService } from '../../core/services/productService';
 import { ReviewService } from '../../core/services/reviewService';
 import { Review } from '../../core/models/review';
+import { CartService } from '../../core/services/cartService';
+import { FavoriteService } from '../../core/services/favoriteService';
 
 @Component({
   selector: 'app-product-detail',
@@ -14,6 +16,7 @@ import { Review } from '../../core/models/review';
   styleUrls: ['./product-detail.scss'],
   changeDetection: ChangeDetectionStrategy.Default
 })
+
 export class ProductDetail implements OnInit {
   product?: Product;
   reviews: Review[] = []; // Yorumları tutacak dizi
@@ -24,6 +27,8 @@ export class ProductDetail implements OnInit {
     private route: ActivatedRoute,
     private productService: ProductService,
     private reviewService: ReviewService, // Servisi inject ettik
+     private cartService: CartService,         // Inject et
+    public favoriteService: FavoriteService,  // HTML'den erişmek için Public Inject et
     private cdr: ChangeDetectorRef
   ) {}
 
@@ -73,9 +78,7 @@ export class ProductDetail implements OnInit {
     return Array(rating).fill(0);
   }
 
-  // product-detail.component.ts içine ekle:
-
-scrollToTabs() {
+  scrollToTabs() {
   const tabElement = document.getElementById('comments-tab');
   const commentsSection = document.getElementById('comments');
   
@@ -87,4 +90,17 @@ scrollToTabs() {
     tabElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 }
+ addToCart() {
+    if (this.product) {
+      this.cartService.addToCart(this.product);
+      alert("Ürün sepete eklendi!"); // Şimdilik basit alert, sonra Toast ekleriz
+    }
+  }
+
+  // FAVORİ EKLE/ÇIKAR METODU
+  toggleFav() {
+    if (this.product) {
+      this.favoriteService.toggleFavorite(this.product);
+    }
+  }
 }

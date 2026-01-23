@@ -67,7 +67,7 @@ public class CustomerService : ICustomerService
         var customers = await _unitOfWork.Customers.FindWithUserAsync(c =>
             c.User.FirstName.ToLower().Contains(keyword.ToLower()) ||
             c.User.LastName.ToLower().Contains(keyword.ToLower()) ||
-            c.PhoneNumber.Contains(keyword));
+            c.Phone.Contains(keyword));
 
         if (customers == null || !customers.Any())
         {
@@ -77,4 +77,77 @@ public class CustomerService : ICustomerService
         var dtos = _mapper.Map<IEnumerable<CustomerDto>>(customers);
         return ApiResponse<IEnumerable<CustomerDto>>.SuccessResult(dtos);
     }
+
+    public async Task<ApiResponse<bool>> UpdateProfileAsync(CustomerUpdateDto dto)
+{
+    // 1. Önce User tablosundaki Ad, Soyad ve Email'i güncelle
+    var user = await _unitOfWork.Users.GetByIdAsync(dto.UserId);
+    if (user == null) return ApiResponse<bool>.ErrorResult("Kullanıcı bulunamadı.");
+
+    user.FirstName = dto.FirstName;
+    user.LastName = dto.LastName;
+    user.Email = dto.Email; // Email değiştirmek genelde ekstra doğrulama ister, şimdilik kapalı tutabiliriz veya açabiliriz.
+    
+    _unitOfWork.Users.Update(user);
+
+    // 2. Şimdi Customer tablosundaki Telefon, Adres, Şehir bilgilerini güncelle
+    // Kullanıcının ID'sine bağlı bir Müşteri kaydı var mı diye bakıyoruz
+    var customer = (await _unitOfWork.Customers.FindAsync(c => c.UserId == dto.UserId)).FirstOrDefault();
+
+    if (customer == null)
+    {
+        // Eğer müşteri kaydı yoksa (İlk kez profil dolduruyor), YENİ OLUŞTUR
+        customer = new Customer
+        {
+            Id = Guid.NewGuid(),
+            UserId = dto.UserId,
+            Phone = dto.Phone,
+            Address = dto.Address,
+            City = dto.City,
+            Status = true,
+            CreatedDate = DateTime.UtcNow
+        };
+        await _unitOfWork.Customers.AddAsync(customer);
+    }
+    else
+    {
+        // Varsa GÜNCELLE
+        customer.Phone = dto.Phone;
+        customer.Address = dto.Address;
+        customer.City = dto.City;
+        customer.UpdatedDate = DateTime.UtcNow;
+        _unitOfWork.Customers.Update(customer);
+    }
+
+    await _unitOfWork.SaveChangesAsync();
+    return ApiResponse<bool>.SuccessResult(true, "Profil bilgileri başarıyla güncellendi.");
+}
+
+// Profil sayfasını açtığında verileri doldurmak için:
+public async Task<ApiResponse<CustomerDto>> GetProfileByUserIdAsync(Guid userId)
+{
+    // Kullanıcıya ait müşteri kaydını bul
+    var customer = (await _unitOfWork.Customers.GetByIdWithUserAsync(userId)); // Repository'de UserId'ye göre getiren metod yoksa FindAsync kullanacağız:
+    
+    // Eğer repository'de özel metod yoksa:
+    // var customer = (await _unitOfWork.Customers.FindWithUserAsync(c => c.UserId == userId)).FirstOrDefault();
+    
+    if (customer == null)
+    {
+        // Müşteri kaydı yoksa bile User bilgilerini dönmeliyiz ki form dolsun
+        var user = await _unitOfWork.Users.GetByIdAsync(userId);
+        if(user == null) return ApiResponse<CustomerDto>.ErrorResult("Kullanıcı bulunamadı");
+
+        return ApiResponse<CustomerDto>.SuccessResult(new CustomerDto 
+        { 
+            FirstName = user.FirstName, 
+            LastName = user.LastName, 
+            Email = user.Email,
+            UserId = user.Id
+            // Telefon ve Adres boş dönecek
+        });
+    }
+
+    return ApiResponse<CustomerDto>.SuccessResult(_mapper.Map<CustomerDto>(customer));
+}
 }

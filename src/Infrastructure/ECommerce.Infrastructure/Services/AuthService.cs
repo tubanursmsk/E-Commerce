@@ -1,5 +1,6 @@
 using AutoMapper;
 using ECommerce.Application.DTOs.Auth;
+using ECommerce.Application.DTOs.Customer;
 using ECommerce.Application.Helpers;
 using ECommerce.Application.Interfaces;
 using ECommerce.Application.Responses;
@@ -157,4 +158,6 @@ public class AuthService : IAuthService
 
     return ApiResponse<Guid>.SuccessResult(user.Id, "Kayıt başarılı.");
 }
+
+
 }

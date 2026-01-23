@@ -78,4 +78,8 @@ export class AuthService {
     // Backend'de yeni açtığımız endpoint'e gidiyor
     return this.baseService.post<ApiResponse<string>>('Auth/RegisterCustomer', user);
   }
+
+  updateProfile(userDto: any) {
+    return this.baseService.post<ApiResponse<boolean>>('Auth/UpdateProfile', userDto);
+  }
 }

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using ECommerce.Infrastructure.Services;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using ECommerce.Application.DTOs.Customer;
 
 namespace ECommerce.RestApi.Controllers;
 
@@ -62,5 +63,8 @@ public class AuthController : ControllerBase
         var result = await _authService.RegisterCustomerAsync(dto);
         return Ok(result);
     }
+
+    
+    
 
 }

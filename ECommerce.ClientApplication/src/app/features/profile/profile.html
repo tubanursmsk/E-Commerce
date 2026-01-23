@@ -1,0 +1,93 @@
+<div class="container py-5">
+  <div class="row">
+    
+    <div class="col-lg-3 mb-4">
+      <div class="list-group list-group-flush border-0">
+        <a routerLink="/profile" class="list-group-item list-group-item-action active fw-bold border-0 rounded-3 mb-1">
+          Üyelik Bilgilerim
+        </a>
+        <a routerLink="/orders" class="list-group-item list-group-item-action border-0 rounded-3 mb-1">
+          Siparişlerim
+        </a>
+        <a routerLink="/favorites" class="list-group-item list-group-item-action border-0 rounded-3 mb-1">
+          Favorilerim
+        </a>
+        <a routerLink="/messages" class="list-group-item list-group-item-action border-0 rounded-3 mb-1">
+          Mesajlarım
+        </a>
+        <a routerLink="/change-password" class="list-group-item list-group-item-action border-0 rounded-3 mb-1">
+          Şifre Değiştirme
+        </a>
+        <button (click)="onLogout()" class="list-group-item list-group-item-action border-0 rounded-3 mb-1 text-danger fw-bold">
+          Çıkış Yap <i class="bi bi-box-arrow-right ms-2"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="col-lg-9">
+      <h3 class="fw-bold mb-4">Üyelik Bilgilerim</h3>
+      <p class="text-muted small mb-4">
+        Üyelik bilgilerinizi görüntülemek ve güncellemek için aşağıdaki formu kullanabilirsiniz. 
+        (<span class="text-danger">*</span> ile işaretlenmiş alanların doldurulması zorunludur.)
+      </p>
+
+      <div class="card border-0 p-4 shadow-sm rounded-4">
+        <form (ngSubmit)="onSave()">
+          
+          <div class="row g-4">
+            <div class="col-md-6">
+              <label class="form-label fw-bold small text-muted">İsim <span class="text-danger">*</span></label>
+              <input type="text" [(ngModel)]="user.firstName" name="firstName" class="form-control form-control-lg bg-light border-0 mb-2" placeholder="Adınız">
+              <label class="form-label fw-bold small text-muted mt-2">Soyisim <span class="text-danger">*</span></label>
+              <input type="text" [(ngModel)]="user.lastName" name="lastName" class="form-control form-control-lg bg-light border-0" placeholder="Soyadınız">
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label fw-bold small text-muted">Email</label>
+              <input type="email" [(ngModel)]="user.email" name="email" class="form-control form-control-lg bg-light border-0">
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label fw-bold small text-muted">Adres</label>
+              <input type="email" [(ngModel)]="user.address" name="address" class="form-control form-control-lg bg-light border-0">
+            </div>
+
+             <div class="col-md-6">
+              <label class="form-label fw-bold small text-muted">Şehir</label>
+              <input type="email" [(ngModel)]="user.city" name="city" class="form-control form-control-lg bg-light border-0">
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label fw-bold small text-muted">Cep Telefonu</label>
+              <div class="input-group">
+                <input type="text" [(ngModel)]="user.phone" name="phone" class="form-control form-control-lg bg-light border-0" placeholder="(5xx) xxx xx xx">
+                <button class="btn btn-secondary" type="button">Doğrula</button>
+              </div>
+            </div>
+
+            <div class="col-12 mt-4">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="marketingConsent" [(ngModel)]="user.marketingConsent" name="marketingConsent">
+                <label class="form-check-label small text-muted" for="marketingConsent">
+                  MultiStoreCenter tarafından tarafıma <span class="text-primary fw-bold" style="cursor: pointer;">iletişim izni</span> kapsamında e-posta ile ticari elektronik ileti göndermesine izin veriyorum.
+                </label>
+              </div>
+            </div>
+
+            <div class="col-12 mt-4 d-flex justify-content-between align-items-center">
+              <button type="submit" class="btn btn-primary-dark px-5 py-3 rounded-3 fw-bold text-uppercase">
+                Bilgilerimi Kaydet
+              </button>
+              
+              <button type="button" class="btn btn-secondary btn-sm px-3 rounded-3">
+                Üyeliğimi İptal Et
+              </button>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>

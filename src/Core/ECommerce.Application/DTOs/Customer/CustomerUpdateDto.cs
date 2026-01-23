@@ -17,18 +17,14 @@ public class CustomerUpdateDto
     public string Email { get; set; } = string.Empty;
 
     [Required(ErrorMessage = "Telefon numarası zorunludur.")]
-    public string PhoneNumber { get; set; } = string.Empty;
+    public string Phone { get; set; } = string.Empty;
 
     [Required(ErrorMessage = "Adres zorunludur.")]
     public string? Address { get; set; }
 
     [Required(ErrorMessage = "Şehir zorunludur.")]
     public string City { get; set; } = string.Empty;
-
-    // İş kuralına göre değişebilir: müşteri başka user'a bağlanacak mı?
-    [Required]
     public Guid UserId { get; set; }
-
     public bool Status { get; set; } = true;
 
 }

@@ -2,6 +2,7 @@ using ECommerce.Application.DTOs;
 using ECommerce.Application.DTOs.Auth;
 using ECommerce.Application.DTOs.Brand;
 using ECommerce.Application.DTOs.Category;
+using ECommerce.Application.DTOs.Customer;
 using ECommerce.Application.Responses;
 
 namespace ECommerce.Application.Interfaces;

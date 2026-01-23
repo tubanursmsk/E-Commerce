@@ -67,14 +67,23 @@
           <p class="text-muted small mb-0">KDV Dahil fiyattır.</p>
         </div>
 
-        <div class="actions d-grid gap-3">
-          <button class="btn btn-primary btn-lg rounded-pill py-3 fw-bold shadow">
-            <i class="bi bi-cart-plus me-2"></i>Sepete Ekle
-          </button>
-          <button class="btn btn-outline-secondary btn-lg rounded-pill py-3 fw-bold">
-            <i class="bi bi-heart me-2"></i>Favorilerime Ekle
-          </button>
-        </div>
+       <div class="actions d-grid gap-3">
+  <button (click)="addToCart()" class="btn btn-primary btn-lg rounded-pill py-3 fw-bold shadow transition-btn">
+    <i class="bi bi-cart-plus me-2"></i>Sepete Ekle
+  </button>
+
+  <button (click)="toggleFav()" 
+          class="btn btn-lg rounded-pill py-3 fw-bold transition-btn"
+          [class.btn-outline-danger]="favoriteService.isFavorite(product.id)"
+          [class.btn-outline-secondary]="!favoriteService.isFavorite(product.id)">
+    
+    @if (favoriteService.isFavorite(product.id)) {
+      <i class="bi bi-heart-fill me-2"></i>Favorilerimden Çıkar
+    } @else {
+      <i class="bi bi-heart me-2"></i>Favorilerime Ekle
+    }
+  </button>
+</div>
         <hr class="my-5 opacity-5" />
       </div>
     </div>
@@ -236,21 +245,6 @@
                     <td>World</td>
                     <td>6 Taksit</td>
                     <td>{{ (product?.price || 0) / 6 | number : '1.2-3' }} TL</td>
-                  </tr>
-                  <tr>
-                    <td>Axess</td>
-                    <td>9 Taksit</td>
-                    <td>{{ (product?.price || 0) / 9 | number : '1.2-3' }} TL</td>
-                  </tr>
-                  <tr>
-                    <td>Maximum</td>
-                    <td>12 Taksit</td>
-                    <td>{{ (product?.price || 0) / 12 | number : '1.2-3' }} TL</td>
-                  </tr>
-                  <tr>
-                    <td>Paraf</td>
-                    <td>18 Taksit</td>
-                    <td>{{ (product?.price || 0) / 18 | number : '1.2-3' }} TL</td>
                   </tr>
                 </table>
               </div>
