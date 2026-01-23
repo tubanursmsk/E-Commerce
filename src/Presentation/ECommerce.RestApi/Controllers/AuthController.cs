@@ -3,6 +3,7 @@ using ECommerce.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using ECommerce.Infrastructure.Services;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ECommerce.RestApi.Controllers;
 
@@ -50,6 +51,15 @@ public class AuthController : ControllerBase
         if (dto.UserId != currentUserId) return Forbid();
 
         var result = await _authService.ChangePasswordAsync(dto);
+        return Ok(result);
+    }
+
+    [HttpPost("RegisterCustomer")]
+    [AllowAnonymous]
+    public async Task<IActionResult> RegisterCustomer(RegisterDto dto)
+    {
+        // RegisterForCompanyAsync yerine yeni bir metod yazıyoruz
+        var result = await _authService.RegisterCustomerAsync(dto);
         return Ok(result);
     }
 

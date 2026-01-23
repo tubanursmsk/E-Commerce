@@ -135,4 +135,26 @@ public class AuthService : IAuthService
 
         return ApiResponse<bool>.SuccessResult(true, "Şifreniz başarıyla güncellendi.");
     }
+
+    public async Task<ApiResponse<Guid>> RegisterCustomerAsync(RegisterDto dto)
+{
+    var existingUser = await _unitOfWork.Users.FindAsync(u => u.Email == dto.Email);
+    if (existingUser.Any()) return ApiResponse<Guid>.ErrorResult("Email zaten kayıtlı.");
+
+    var user = new User
+    {
+        Id = Guid.NewGuid(),
+        FirstName = dto.FirstName,
+        LastName = dto.LastName,
+        Email = dto.Email,
+        PasswordHash = PasswordHasher.HashPassword(dto.Password),
+        Role = "Customer", // Rolü Müşteri yapıyoruz
+        CompanyId = null // Bireysel müşteri olduğu için şirket yok
+    };
+
+    await _unitOfWork.Users.AddAsync(user);
+    await _unitOfWork.SaveChangesAsync();
+
+    return ApiResponse<Guid>.SuccessResult(user.Id, "Kayıt başarılı.");
+}
 }

@@ -25,10 +25,10 @@ export class AuthService {
       tap(response => {
         if (response.success && response.data) {
           const token = response.data;
-          
+
           // 1. Token'ı sakla
           localStorage.setItem('token', token);
-          
+
           // 2. Token'ı çöz ve kullanıcıyı sinyale ata
           this.setUserFromToken(token);
         }
@@ -72,5 +72,10 @@ export class AuthService {
       console.error('Token çözülemedi:', error);
       this.logout();
     }
+  }
+
+  register(user: any) {
+    // Backend'de yeni açtığımız endpoint'e gidiyor
+    return this.baseService.post<ApiResponse<string>>('Auth/RegisterCustomer', user);
   }
 }

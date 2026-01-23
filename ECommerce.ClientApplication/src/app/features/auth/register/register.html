@@ -1,0 +1,54 @@
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+      <div class="card border-0 shadow-lg rounded-4 p-4">
+        
+        <div class="text-center mb-4">
+          <h3 class="fw-bold">Aramıza Katıl</h3>
+          <p class="text-muted small">Fırsatları kaçırmamak için hemen üye olun.</p>
+        </div>
+
+        <form (ngSubmit)="onRegister()">
+          
+          <div class="row mb-3">
+            <div class="col-6">
+              <label class="form-label fw-medium">Ad</label>
+              <input type="text" [(ngModel)]="registerObj.firstName" name="firstName" 
+                     class="form-control form-control-lg bg-light border-0" placeholder="Adınız" required>
+            </div>
+            <div class="col-6">
+              <label class="form-label fw-medium">Soyad</label>
+              <input type="text" [(ngModel)]="registerObj.lastName" name="lastName" 
+                     class="form-control form-control-lg bg-light border-0" placeholder="Soyadınız" required>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-medium">E-Posta Adresi</label>
+            <input type="email" [(ngModel)]="registerObj.email" name="email" 
+                   class="form-control form-control-lg bg-light border-0" placeholder="ornek@email.com" required>
+          </div>
+          
+          <div class="mb-4">
+            <label class="form-label fw-medium">Şifre</label>
+            <input type="password" [(ngModel)]="registerObj.password" name="password" 
+                   class="form-control form-control-lg bg-light border-0" placeholder="******" required>
+            <div class="form-text small mt-2">
+              <i class="bi bi-info-circle me-1"></i>Şifreniz en az 6 karakter olmalıdır.
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary w-100 btn-lg rounded-pill fw-bold shadow-sm mb-3">
+            Üye Ol
+          </button>
+          
+          <div class="text-center small">
+            Zaten hesabınız var mı? 
+            <a routerLink="/login" class="text-primary fw-bold text-decoration-none">Giriş Yap</a>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
