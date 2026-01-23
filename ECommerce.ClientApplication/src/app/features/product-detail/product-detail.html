@@ -67,23 +67,25 @@
           <p class="text-muted small mb-0">KDV Dahil fiyattır.</p>
         </div>
 
-       <div class="actions d-grid gap-3">
-  <button (click)="addToCart()" class="btn btn-primary btn-lg rounded-pill py-3 fw-bold shadow transition-btn">
-    <i class="bi bi-cart-plus me-2"></i>Sepete Ekle
-  </button>
+        <div class="actions d-grid gap-3">
+          <button
+            (click)="addToCart()"
+            class="btn btn-primary btn-lg rounded-pill py-3 fw-bold shadow transition-btn"
+          >
+            <i class="bi bi-cart-plus me-2"></i>Sepete Ekle
+          </button>
 
-  <button (click)="toggleFav()" 
-          class="btn btn-lg rounded-pill py-3 fw-bold transition-btn"
-          [class.btn-outline-danger]="favoriteService.isFavorite(product.id)"
-          [class.btn-outline-secondary]="!favoriteService.isFavorite(product.id)">
-    
-    @if (favoriteService.isFavorite(product.id)) {
-      <i class="bi bi-heart-fill me-2"></i>Favorilerimden Çıkar
-    } @else {
-      <i class="bi bi-heart me-2"></i>Favorilerime Ekle
-    }
-  </button>
-</div>
+          <button
+            (click)="toggleFav()"
+            class="btn btn-lg rounded-pill py-3 fw-bold transition-btn"
+            [class.btn-outline-danger]="favoriteService.isFavorite(product.id)"
+            [class.btn-outline-secondary]="!favoriteService.isFavorite(product.id)"
+          >
+            @if (favoriteService.isFavorite(product.id)) {
+            <i class="bi bi-heart-fill me-2"></i>Favorilerimden Çıkar } @else {
+            <i class="bi bi-heart me-2"></i>Favorilerime Ekle }
+          </button>
+        </div>
         <hr class="my-5 opacity-5" />
       </div>
     </div>
