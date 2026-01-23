@@ -6,6 +6,8 @@ public class User : BaseEntity
     public string LastName { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;
     public string PasswordHash { get; set; } = string.Empty;
+    public string FullAddress { get; set; } = string.Empty;
+    public string Phone { get; set; } = string.Empty;
     
     // Role-Based Auth için
     public string Role { get; set; } = "Customer"; // Admin, CompanyManager, Customer

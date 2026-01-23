@@ -15,12 +15,14 @@ namespace ECommerce.Application.Helpers
         private static readonly string Audience = "ECommerceUsers"; //izleyici
 
         // Token üret
-        public static string GenerateToken(Guid userId, string username, Guid companyId, List<string> roles, int expireMinutes = 60)
+        public static string GenerateToken(Guid userId, string email, string fullName, Guid companyId, List<string> roles, int expireMinutes = 60)
         {
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
-                new Claim(ClaimTypes.Name, username),
+                //new Claim(ClaimTypes.Name, username),
+                new Claim(ClaimTypes.Name, email), // Email'i Name claim'inde tutmaya devam edelim
+                new Claim("fullName", fullName),   // YENİ: Tam Adı buraya ekliyoruz
                 new Claim("companyId", companyId.ToString())
             };
 

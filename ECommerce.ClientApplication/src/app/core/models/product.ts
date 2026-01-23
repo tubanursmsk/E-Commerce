@@ -4,6 +4,8 @@ export interface Product {
   description: string;
   price: number;
   discountPrice?: number; // İndirimli fiyat varsa
+  isFreeShipping: boolean; 
+  isFastDelivery: boolean;
   imageUrl: string;
   stock: number;
   categoryId: string;

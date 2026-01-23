@@ -8,11 +8,17 @@ import { ApiResponse } from '../models/apiResponse';
   providedIn: 'root'
 })
 export class ProductService {
-  constructor(private baseService: BaseService) { }
+  constructor(private baseService: BaseService) {}
 
   // Ana sayfa için en yeni veya öne çıkan ürünleri getir
   getFeaturedProducts(): Observable<Product[]> {
-    return this.baseService.get<ApiResponse<Product[]>>('Product/List').pipe(
+    return this.baseService.get<ApiResponse<Product[]>>('Product/Featured').pipe(
+      map(response => response.data)
+    );
+  }
+
+  getProductById(id: string): Observable<Product> {
+    return this.baseService.get<ApiResponse<Product>>(`Product/GetById/${id}`).pipe(
       map(response => response.data)
     );
   }

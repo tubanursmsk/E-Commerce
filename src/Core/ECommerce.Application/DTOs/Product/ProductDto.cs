@@ -22,6 +22,8 @@ public class ProductDto
     [Range(0, int.MaxValue, ErrorMessage = "Stok negatif olamaz.")]
     public int Stock { get; set; }
     public string? ImageUrl { get; set; }
+    public bool IsFreeShipping { get; set; }
+    public bool IsFastDelivery { get; set; }
 
     public Guid CategoryId { get; set; }
     public Guid BrandId { get; set; }

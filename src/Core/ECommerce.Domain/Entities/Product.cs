@@ -9,6 +9,10 @@ public class Product : BaseEntity
     public decimal Price { get; set; }
     public int Stock { get; set; }
     public string? ImageUrl { get; set; }
+     public bool IsFeatured { get; set; } = true;
+    public decimal? DiscountPrice { get; set; } // İndirimli fiyat
+    public bool IsFreeShipping { get; set; } // Ücretsiz kargo
+    public bool IsFastDelivery { get; set; } // Hızlı teslimat
 
     // İlişkiler
     public Guid CategoryId { get; set; }

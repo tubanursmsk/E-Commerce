@@ -99,5 +99,12 @@ public class ProductService : IProductService
         var dtos = _mapper.Map<IEnumerable<ProductDto>>(products);
         return ApiResponse<IEnumerable<ProductDto>>.SuccessResult(dtos);
     }
+    
+    public async Task<ApiResponse<IEnumerable<ProductDto>>> GetFeaturedProductsAsync()
+    {
+        var products = await _unitOfWork.Products.FindAsync(x => x.IsFeatured && !x.IsDeleted);
+        var dtos = _mapper.Map<IEnumerable<ProductDto>>(products);
+        return ApiResponse<IEnumerable<ProductDto>>.SuccessResult(dtos);
+    }
 
 }
