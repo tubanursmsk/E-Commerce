@@ -8,8 +8,8 @@
 ## 🎯 Proje Amacı
 
 - Kurumsal düzeyde **Admin Panel (Company Management)** geliştirmek  
-- Modern standartlara uygun **REST API** üretmek (JWT, Role Based, Swagger, DTO, AutoMapper, Validation, Logging) :contentReference[oaicite:2]{index=2}  
-- **Angular** ile kullanıcıya yönelik **storefront** geliştirmek (auth guard, interceptor, lazy loading, search, pagination, responsive) :contentReference[oaicite:3]{index=3}  
+- Modern standartlara uygun **REST API** üretmek (JWT, Role Based, Swagger, DTO, AutoMapper, Validation, Logging) 
+- **Angular** ile kullanıcıya yönelik **storefront** geliştirmek (auth guard, interceptor, lazy loading, search, pagination, responsive) 
 - **Clean / Layered Architecture** yaklaşımını tek projede uçtan uca deneyimlemek
 
 ---
@@ -22,7 +22,7 @@ Bu repo 3 ana parçadan oluşur:
 2. **Admin Panel** → Şirketlerin ürün, kategori, marka, sipariş, müşteri vb. yönetimi  
 3. **Client Application (Angular)** → Müşterinin alışveriş yaptığı storefront
 
-📌 **Tek veri kapısı REST API’dir.** Admin Panel ve Angular Client doğrudan veritabanına bağlanmaz; yalnızca API tüketir. :contentReference[oaicite:4]{index=4}
+📌 **Tek veri kapısı REST API’dir.** Admin Panel ve Angular Client doğrudan veritabanına bağlanmaz; yalnızca API tüketir. 
 
 ---
 
