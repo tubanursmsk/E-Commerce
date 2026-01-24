@@ -150,7 +150,7 @@ Bu yaklaşım; güvenlik, ölçeklenebilirlik ve bakım kolaylığı sağlar.
 | Katman | Teknoloji |
 |------|-----------|
 | Backend | .NET 9 |
-| UI | Razor Pages |
+| UI | .Net 9 MVC |
 | ORM | Entity Framework Core |
 | Veritabanı | SQLite |
 | Mapping | AutoMapper |
