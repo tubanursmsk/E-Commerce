@@ -16,7 +16,7 @@ Bu projenin temel amacı:
 - CRUD işlemlerini **Service katmanı** üzerinden yönetmek  
 - UI, iş mantığı ve veri erişimini **net şekilde ayırmak**
 
-
+---
 
 ## 🧠 Mimari Yaklaşım
 
@@ -27,7 +27,7 @@ Bu proje, REST API’yi merkez alan, istemcilerin (Admin Panel + Angular Client)
 Proje **katmanlı mimari (layered architecture)** prensiplerine uygun olarak geliştirilmiştir.
 ```
 E-Commerce/
-├── Search/                       → REST API (Sistemin çekirdeği / köprü)
+├── ECommerce_RestApi/                       → REST API (Sistemin çekirdeği / köprü)
 │   └── src/
 │       ├── Core/
 │       │   ├── ECommerce.Application/      → UseCase’ler, DTO, Interfaces, Helpers, Mappings, JWT
@@ -35,7 +35,7 @@ E-Commerce/
 │       ├── Infrastructure/                → DbContext, Migration, Repository, Service Implementations
 │       └── Presentation/                  → Controllers, Filters, Middlewares, Attributes, Swagger, Config
 │
-├── MultiStoreCenter_AdminPanel/  → Admin UI (ASP.NET Core / Razor Pages veya MVC UI)
+├── ECommerce_AdminPanel/  → Admin UI (ASP.NET Core / Razor Pages veya MVC UI)
 │   ├── Pages/Views/Controllers   → UI katmanı
 │   ├── Services                  → API tüketen servisler / UI business
 │   └── ...                       → Layout, static, helpers
@@ -149,7 +149,7 @@ Bu yaklaşım; güvenlik, ölçeklenebilirlik ve bakım kolaylığı sağlar.
 
 | Katman | Teknoloji |
 |------|-----------|
-| Backend | .NET 8 |
+| Backend | .NET 9 |
 | UI | Razor Pages |
 | ORM | Entity Framework Core |
 | Veritabanı | SQLite |
@@ -176,7 +176,6 @@ dotnet ef database update
 # Uygulamayı çalıştır
 dotnet run
 ```
----
 
 ```arduino
 http://localhost:5294
@@ -243,7 +242,8 @@ MIT License © 2025 — tubanursmsk
 
 `.NET Razor Pages Entity Framework Core SQLite`
 `Admin Panel E-Commerce Multi-Tenant CRUD`
-`Layered Architecture Bootstrap Backend Development`
+`Layered Architecture Bootstrap Backend Development` `C#`
+`Console App` `Katmanlı Mimari` `ASP.Net Core`
 
 
 
