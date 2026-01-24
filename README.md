@@ -178,7 +178,7 @@ dotnet run
 ```
 
 ```arduino
-http://localhost:5294
+http://localhost:5271
 ```
 
 ## 🗄️ Veritabanı
