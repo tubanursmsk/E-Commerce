@@ -16,7 +16,7 @@ Bu projenin temel amacı:
 - CRUD işlemlerini **Service katmanı** üzerinden yönetmek  
 - UI, iş mantığı ve veri erişimini **net şekilde ayırmak**
 
----
+
 
 ## 🧠 Mimari Yaklaşım
 
