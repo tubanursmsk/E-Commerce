@@ -1,7 +1,7 @@
-# 🛒 MultiStore E-Commerce Admin Panel
+# 🛒 MultiStoreCenter
 
-> **MultiStore E-Commerce Admin Panel**, .NET 8 ve Razor Pages kullanılarak geliştirilmiş,  
-> **multi-tenant (çoklu kullanıcı)** yapıya sahip, modern ve ölçeklenebilir bir **e-ticaret yönetim panelidir**.  
+> **MultiStoreCenter E-Commerce Projesi**, ASP.NET Core ve Angular kullanılarak geliştirilmiş,  
+> **multi-tenant (çoklu kullanıcı)** yapıya sahip, modern ve ölçeklenebilir bir **e-ticaret platformudur**.  
 > Proje; gerçek hayata uygun **admin panel mimarisi**, **katmanlı yapı** ve **servis tabanlı CRUD** yaklaşımıyla tasarlanmıştır.
 
 ---
@@ -10,11 +10,12 @@
 
 Bu projenin temel amacı:
 
-- Gerçek hayatta kullanılan **e-ticaret admin panellerine benzer** bir yapı kurmak  
-- **Razor Pages** mimarisini doğru routing & handler mantığıyla uygulamak  
+- Gerçek hayatta kullanılan **e-ticaret platformanlarına benzer katmanlı** bir yapı kurmak  
+- **ASP.NET Core MVC** mimarisini doğru routing & handler mantığıyla uygulamak  
 - Kullanıcı bazlı **veri izolasyonu (multi-tenant)** sağlamak  
 - CRUD işlemlerini **Service katmanı** üzerinden yönetmek  
 - UI, iş mantığı ve veri erişimini **net şekilde ayırmak**
+- UI/UX: Angular Material / Bootstrap ile modern ve responsive tasarım.
 
 ---
 
@@ -108,11 +109,11 @@ Bu yaklaşım; güvenlik, ölçeklenebilirlik ve bakım kolaylığı sağlar.
 
 ---
 
-## 🔐 Kimlik Doğrulama & Güvenlik
+## 🔐 Kimlik Doğrulama & Güvenlik (Admin Panel Tarafı)
 
 - Cookie tabanlı authentication
 - `ClaimTypes.NameIdentifier` ile kullanıcı tanımlama
-- Kullanıcı yalnızca **kendi markalarını, kategorilerini ve ürünlerini** görür
+- Şirket sahibi veya personel yalnızca **kendi markalarını, kategorilerini ve ürünlerini** görür
 - Multi-tenant veri izolasyonu
 
 ---
