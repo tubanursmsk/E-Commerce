@@ -122,29 +122,29 @@ public class CustomerService : ICustomerService
     await _unitOfWork.SaveChangesAsync();
     return ApiResponse<bool>.SuccessResult(true, "Profil bilgileri başarıyla güncellendi.");
 }
-
-// Profil sayfasını açtığında verileri doldurmak için:
 public async Task<ApiResponse<CustomerDto>> GetProfileByUserIdAsync(Guid userId)
 {
-    // Kullanıcıya ait müşteri kaydını bul
-    var customer = (await _unitOfWork.Customers.GetByIdWithUserAsync(userId)); // Repository'de UserId'ye göre getiren metod yoksa FindAsync kullanacağız:
+    // ESKİ HATALI KOD: GetByIdWithUserAsync(userId) -> Yanlış! Bu CustomerId bekler.
     
-    // Eğer repository'de özel metod yoksa:
-    // var customer = (await _unitOfWork.Customers.FindWithUserAsync(c => c.UserId == userId)).FirstOrDefault();
-    
+    // YENİ DOĞRU KOD: FindWithUserAsync ile UserId'ye göre arıyoruz.
+    var customers = await _unitOfWork.Customers.FindWithUserAsync(c => c.UserId == userId);
+    var customer = customers.FirstOrDefault();
+
     if (customer == null)
     {
-        // Müşteri kaydı yoksa bile User bilgilerini dönmeliyiz ki form dolsun
+        // Müşteri kaydı yoksa (User var ama Customer tablosuna henüz kayıt düşmemiş)
+        // User bilgilerini çekip dönüyoruz ki form dolsun.
         var user = await _unitOfWork.Users.GetByIdAsync(userId);
-        if(user == null) return ApiResponse<CustomerDto>.ErrorResult("Kullanıcı bulunamadı");
+        if (user == null) return ApiResponse<CustomerDto>.ErrorResult("Kullanıcı bulunamadı");
 
-        return ApiResponse<CustomerDto>.SuccessResult(new CustomerDto 
-        { 
-            FirstName = user.FirstName, 
-            LastName = user.LastName, 
+        return ApiResponse<CustomerDto>.SuccessResult(new CustomerDto
+        {
+            // Frontend'de kontrol ederken ID'nin boş gelmesi önemli
+            // Id = Guid.Empty, 
+            FirstName = user.FirstName,
+            LastName = user.LastName,
             Email = user.Email,
             UserId = user.Id
-            // Telefon ve Adres boş dönecek
         });
     }
 

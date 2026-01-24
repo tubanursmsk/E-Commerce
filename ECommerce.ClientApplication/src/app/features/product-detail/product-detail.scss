@@ -54,3 +54,20 @@
 }
 
 .rounded-tl-0 { border-top-left-radius: 0 !important; }
+
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.transition-icon {
+  transition: transform 0.2s ease, color 0.2s ease;
+  &:hover {
+    transform: scale(1.2);
+  }
+}
+
+// Modal arka planını biraz daha şık yapalım
+.modal-content {
+  overflow: hidden;
+}

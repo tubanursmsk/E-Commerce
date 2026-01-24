@@ -27,25 +27,17 @@
         <div class="d-flex align-items-center gap-2 mb-4">
           <div class="text-warning small">
             @for (star of [1,2,3,4,5]; track star) {
-            <i
-              class="bi"
-              [class.bi-star-fill]="star <= averageRating"
+            <i class="bi" [class.bi-star-fill]="star <= averageRating"
               [class.bi-star-half]="star > averageRating && star - 1 < averageRating"
-              [class.bi-star]="star > averageRating + 0.5"
-            >
+              [class.bi-star]="star > averageRating + 0.5">
             </i>
             }
           </div>
 
           <span class="fw-bold small ms-1">{{ averageRating | number : '1.1-1' }}</span>
-
           <span class="text-muted small mx-1">|</span>
 
-          <a
-            (click)="scrollToTabs()"
-            style="cursor: pointer"
-            class="text-decoration-none small text-primary fw-medium"
-          >
+          <a (click)="scrollToTabs()" style="cursor: pointer" class="text-decoration-none small text-primary fw-medium">
             ({{ reviews.length }}) Yorum & Soru-Cevap
           </a>
         </div>
@@ -68,19 +60,13 @@
         </div>
 
         <div class="actions d-grid gap-3">
-          <button
-            (click)="addToCart()"
-            class="btn btn-primary btn-lg rounded-pill py-3 fw-bold shadow transition-btn"
-          >
+          <button (click)="addToCart()" class="btn btn-primary btn-lg rounded-pill py-3 fw-bold shadow transition-btn">
             <i class="bi bi-cart-plus me-2"></i>Sepete Ekle
           </button>
 
-          <button
-            (click)="toggleFav()"
-            class="btn btn-lg rounded-pill py-3 fw-bold transition-btn"
+          <button (click)="toggleFav()" class="btn btn-lg rounded-pill py-3 fw-bold transition-btn"
             [class.btn-outline-danger]="favoriteService.isFavorite(product.id)"
-            [class.btn-outline-secondary]="!favoriteService.isFavorite(product.id)"
-          >
+            [class.btn-outline-secondary]="!favoriteService.isFavorite(product.id)">
             @if (favoriteService.isFavorite(product.id)) {
             <i class="bi bi-heart-fill me-2"></i>Favorilerimden Çıkar } @else {
             <i class="bi bi-heart me-2"></i>Favorilerime Ekle }
@@ -94,66 +80,39 @@
       <div class="col-12">
         <ul class="nav nav-tabs border-bottom-0 gap-2" id="productTab" role="tablist">
           <li class="nav-item">
-            <button
-              class="nav-link active rounded-top-4 px-4 py-3 fw-bold"
-              id="desc-tab"
-              data-bs-toggle="tab"
-              data-bs-target="#desc"
-              type="button"
-            >
+            <button class="nav-link active rounded-top-4 px-4 py-3 fw-bold" id="desc-tab" data-bs-toggle="tab"
+              data-bs-target="#desc" type="button">
               Ürün Açıklaması
             </button>
           </li>
           <li class="nav-item">
-            <button
-              class="nav-link rounded-top-4 px-4 py-3 fw-bold"
-              id="comments-tab"
-              data-bs-toggle="tab"
-              data-bs-target="#comments"
-              type="button"
-            >
+            <button class="nav-link rounded-top-4 px-4 py-3 fw-bold" id="comments-tab" data-bs-toggle="tab"
+              data-bs-target="#comments" type="button">
               Yorumlar ve Değerlendirmeler
             </button>
           </li>
           <li class="nav-item">
-            <button
-              class="nav-link rounded-top-4 px-4 py-3 fw-bold"
-              id="payment-tab"
-              data-bs-toggle="tab"
-              data-bs-target="#payment"
-              type="button"
-            >
+            <button class="nav-link rounded-top-4 px-4 py-3 fw-bold" id="payment-tab" data-bs-toggle="tab"
+              data-bs-target="#payment" type="button">
               Ödeme Seçenekleri
             </button>
           </li>
           <li class="nav-item">
-            <button
-              class="nav-link rounded-top-4 px-4 py-3 fw-bold"
-              id="return-tab"
-              data-bs-toggle="tab"
-              data-bs-target="#return"
-              type="button"
-            >
+            <button class="nav-link rounded-top-4 px-4 py-3 fw-bold" id="return-tab" data-bs-toggle="tab"
+              data-bs-target="#return" type="button">
               Teslimat ve İade
             </button>
           </li>
           <li class="nav-item">
-            <button
-              class="nav-link rounded-top-4 px-4 py-3 fw-bold"
-              id="return-tab"
-              data-bs-toggle="tab"
-              data-bs-target="#return"
-              type="button"
-            >
+            <button class="nav-link rounded-top-4 px-4 py-3 fw-bold" id="report-tab" data-bs-toggle="tab"
+              data-bs-target="#report" type="button">
               Hata Bildir
             </button>
           </li>
         </ul>
 
-        <div
-          class="tab-content bg-white p-5 rounded-4 rounded-tl-0 shadow-sm"
-          id="productTabContent"
-        >
+        <div class="tab-content bg-white p-5 rounded-4 rounded-tl-0 shadow-sm" id="productTabContent">
+          
           <div class="tab-pane fade show active" id="desc" role="tabpanel">
             <h5 class="fw-bold mb-4">Ürün Hakkında</h5>
             <div class="lh-lg text-muted">
@@ -169,14 +128,11 @@
                 <div class="d-flex align-items-center gap-2">
                   <span class="text-warning fw-bold fs-5">{{
                     averageRating | number : '1.1-1'
-                  }}</span>
+                    }}</span>
                   <div class="text-warning small">
                     @for (star of [1,2,3,4,5]; track star) {
-                    <i
-                      class="bi"
-                      [class.bi-star-fill]="star <= averageRating"
-                      [class.bi-star]="star > averageRating"
-                    ></i>
+                    <i class="bi" [class.bi-star-fill]="star <= averageRating"
+                      [class.bi-star]="star > averageRating"></i>
                     }
                   </div>
                   <span class="text-muted small">({{ reviews.length }} yorum)</span>
@@ -187,17 +143,27 @@
                 </p>
                 }
               </div>
-              <button
-                class="btn btn-primary rounded-pill px-4 shadow-sm"
-                data-bs-toggle="modal"
-                data-bs-target="#reviewModal"
-              >
+              
+              <button class="btn btn-primary rounded-pill px-4 shadow-sm" data-bs-toggle="modal"
+                data-bs-target="#reviewModal" (click)="isEditing = false; newReview = {rating: 5, comment: ''}">
                 Yorum Yap
               </button>
             </div>
 
             @for (review of reviews; track review.id) {
-            <div class="comment-item border-bottom pb-4 mb-4">
+            <div class="comment-item border-bottom pb-4 mb-4 position-relative">
+              
+              @if (currentCustomerId === review.customerId) {
+              <div class="position-absolute top-0 end-0">
+                <button (click)="openEditModal(review)" class="btn btn-sm text-primary me-2" title="Düzenle">
+                  <i class="bi bi-pencil-square fs-5"></i>
+                </button>
+                <button (click)="deleteReview(review.id)" class="btn btn-sm text-danger" title="Sil">
+                  <i class="bi bi-trash fs-5"></i>
+                </button>
+              </div>
+              }
+
               <div class="d-flex gap-1 text-warning mb-2 small">
                 @for (star of getStarArray(review.rating); track $index) {
                 <i class="bi bi-star-fill"></i>
@@ -226,6 +192,7 @@
             </div>
             }
           </div>
+
           <div class="tab-pane fade" id="payment" role="tabpanel">
             <div class="row">
               <div class="col-md-6">
@@ -262,7 +229,7 @@
             </p>
           </div>
 
-          <div class="tab-pane fade" id="return" role="tabpanel">
+          <div class="tab-pane fade" id="report" role="tabpanel">
             <h6 class="fw-bold mb-3">
               <i class="bi bi-shield-check me-2"></i>Hatalı olduğunu düşündüğünüz ürün için bizimle
               iletişime geçebilirsiniz.
@@ -276,4 +243,58 @@
   } @else {
   <div class="alert alert-danger rounded-4">Ürün bulunamadı.</div>
   }
+</div>
+
+<div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content rounded-4 border-0 shadow">
+
+      <div class="modal-header border-bottom-0 pb-0">
+        <h5 class="modal-title fw-bold" id="reviewModalLabel">
+          {{ isEditing ? 'Yorumu Düzenle' : 'Ürünü Değerlendir' }}
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+          id="closeModalBtn"></button>
+      </div>
+
+      <div class="modal-body pt-0">
+        <div class="text-center py-4">
+          <p class="text-muted mb-2">Bu ürüne kaç puan verirsiniz?</p>
+
+          <div class="rating-stars mb-3">
+            @for (star of [1,2,3,4,5]; track star) {
+            <i class="bi fs-2 cursor-pointer transition-icon" [class.bi-star-fill]="star <= newReview.rating"
+              [class.bi-star]="star > newReview.rating" [class.text-warning]="star <= newReview.rating"
+              [class.text-muted]="star > newReview.rating" (click)="setRating(star)"
+              style="cursor: pointer; margin: 0 2px;">
+            </i>
+            }
+          </div>
+
+          <div class="fw-bold text-primary">{{ newReview.rating }} / 5</div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label fw-medium text-muted small">Yorumunuz</label>
+          <textarea [(ngModel)]="newReview.comment" class="form-control bg-light border-0" rows="4"
+            placeholder="Ürün hakkındaki deneyimlerinizi paylaşın... (En az 10 karakter)"></textarea>
+        </div>
+      </div>
+
+      <div class="modal-footer border-top-0 pt-0">
+        <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Vazgeç</button>
+        
+        <button type="button" class="btn btn-primary rounded-pill px-4 fw-bold" (click)="submitReview()"
+          [disabled]="isSubmitting">
+          @if (isSubmitting) {
+          <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+          Gönderiliyor...
+          } @else {
+          {{ isEditing ? 'Güncelle' : 'Yorumu Gönder' }}
+          }
+        </button>
+      </div>
+
+    </div>
+  </div>
 </div>

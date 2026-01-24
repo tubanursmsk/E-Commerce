@@ -12,7 +12,6 @@ namespace ECommerce.RestApi.Controllers;
 public class ReviewController : ControllerBase
 {
     private readonly IReviewService _reviewService;
-
     public ReviewController(IReviewService reviewService)
     {
         _reviewService = reviewService;
@@ -53,7 +52,7 @@ public class ReviewController : ControllerBase
     }
 
     [HttpDelete("Delete/{id}")]
-    [Authorize(Roles = "Admin")] // Yorumları sadece Admin silebilir (Moderatör mantığı)
+    [Authorize] // Sadece giriş yapmış kullanıcılar yorum silebilir
     public async Task<IActionResult> Delete(Guid id)
     {
         return Ok(await _reviewService.DeleteAsync(id));

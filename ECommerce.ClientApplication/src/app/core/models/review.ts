@@ -1,4 +1,5 @@
 export interface Review {
+customerId: any;
     id: string;
     comment: string;
     rating: number; // 1-5 arası

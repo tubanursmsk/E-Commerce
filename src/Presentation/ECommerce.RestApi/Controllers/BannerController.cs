@@ -43,7 +43,6 @@ public class BannerController : ControllerBase
     */
 
     [HttpGet("List")]
-    [AllowAnonymous] // Giriş yapmayan herkes görebilsin
     public async Task<IActionResult> GetAll()
     {
         // Giriş yapılmadığında bunlar null dönecek ve servis her şeyi getirecek
