@@ -1,3 +1,7 @@
+// interceptors dosyası ne işe yarar: Interceptor: Her isteğe Token eklemekle
+// uğraşmamak için bir "Araya Giren" (Interceptor) yazdık. Token varsa otomatik header'a ekleniyor.
+
+
 import { HttpInterceptorFn } from '@angular/common/http';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
