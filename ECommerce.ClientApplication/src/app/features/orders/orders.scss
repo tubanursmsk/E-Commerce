@@ -1,0 +1,20 @@
+.order-card {
+  border-color: #e5e5e5 !important;
+  background-color: #fff;
+  
+  &:hover {
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.08) !important;
+    border-color: var(--color-primary) !important; // Mavi çerçeve efekti
+    transform: translateY(-2px);
+  }
+
+  // Mobil uyumluluk için sınır çizgisini ayarla
+  @media (max-width: 768px) {
+    .border-start-md {
+      border-left: none !important;
+      border-top: 1px solid #eee;
+      padding-top: 1rem;
+      margin-top: 0.5rem;
+    }
+  }
+}

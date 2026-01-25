@@ -294,7 +294,13 @@
           }
         </button>
       </div>
-
     </div>
   </div>
 </div>
+
+<!-- submitReview fonksiyonu çalışırken isEditing hep false olduğu için yeni kayıt oluşturuyor.
+✅ Çözüm: Gizli Tetikleyici (Hidden Trigger)
+Bu çakışmayı önlemek için modalı açmak üzere gizli butonu ekleyeceğiz ve "Düzenle" fonksiyonunda o
+ gizli butona tıklatacağız. Bu buton sadece TypeScript tarafından tıklanmak için orada duracak -->
+<button id="hiddenModalTrigger" type="button" class="d-none" data-bs-toggle="modal" data-bs-target="#reviewModal"></button>
+<div class="modal fade" id="reviewModal" ...>

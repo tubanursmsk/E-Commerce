@@ -7,6 +7,9 @@ import { Register } from './features/auth/register/register';
 import { Favorites } from './features/favorites/favorites';
 import { Cart } from './features/cart/cart';
 import { Profile } from './features/profile/profile';
+import { CheckoutComponent } from './features/checkout/checkout';
+import { OrdersComponent } from './features/orders/orders';
+import { OrdersDetail } from './features/orders-detail/orders-detail';
 
 
 export const routes: Routes = [
@@ -18,4 +21,7 @@ export const routes: Routes = [
     { path: 'cart', component: Cart },
     { path: 'favorites', component: Favorites },
     { path: 'profile', component: Profile },
+    { path: 'checkout', component: CheckoutComponent },
+    { path: 'orders', component: OrdersComponent },
+    { path: 'orders/:id', component: OrdersDetail } // Belirli bir siparişin detayları için
 ];

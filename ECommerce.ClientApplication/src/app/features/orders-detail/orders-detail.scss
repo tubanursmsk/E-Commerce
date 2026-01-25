@@ -1,0 +1,22 @@
+.step-circle {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  z-index: 2;
+  position: relative;
+}
+
+.step-item {
+  width: 25%;
+  opacity: 0.5;
+  transition: all 0.3s ease;
+
+  &.active {
+    opacity: 1;
+    .step-circle {
+      background-color: #d1e7dd !important; // Açık yeşil arka plan
+      border-color: #198754 !important;
+    }
+  }
+}

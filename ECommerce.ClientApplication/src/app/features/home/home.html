@@ -1,6 +1,6 @@
 <!---------------------Banner-------------------------->
 
-<section class="hero-slider mb-4">
+<section class="hero-slider mb-5 mt-4">
   @if (banners && banners.length > 0) {
   <div
     id="heroCarousel"
@@ -50,57 +50,138 @@
   }
 </section>
 
-
 <!---------------------Günün Fırsatları-------------------------->
-
-  <div class="container mt-4">
+<div class="container mt-5">
   <h4 class="fw-bold mb-4">Günün Fırsatları</h4>
   <div class="row g-4">
     @for (product of products; track product.id) {
-      <div class="col-6 col-md-4 col-lg-3">
-        <div class="product-card border-0 shadow-sm h-100 p-3 bg-white position-relative">
-          
-   <div class="badges position-absolute top-0 start-0 p-2 z-1 d-flex flex-column gap-1">
-  
-  @if (product.isFreeShipping) {
-    <span class="badge bg-success text-white py-1 px-2" style="font-size: 0.65rem;">
-      <i class="bi bi-truck me-1"></i>Kargo Bedava
-    </span>
-  }
-  
-  @if (product.isFastDelivery) {
-    <span class="badge bg-warning text-dark py-1 px-2" style="font-size: 0.65rem;">
-      <i class="bi bi-lightning-fill me-1"></i>Hızlı Gönderi
-    </span>
-  }
-</div>
+    <div class="col-6 col-md-4 col-lg-3">
+      <div class="product-card border-0 shadow-sm h-100 p-3 bg-white position-relative">
+        <div class="badges position-absolute top-0 start-0 p-2 z-1 d-flex flex-column gap-1">
+          @if (product.isFreeShipping) {
+          <span class="badge bg-success text-white py-1 px-2" style="font-size: 0.65rem">
+            <i class="bi bi-truck me-1"></i>Kargo Bedava
+          </span>
+          } @if (product.isFastDelivery) {
+          <span class="badge bg-warning text-dark py-1 px-2" style="font-size: 0.65rem">
+            <i class="bi bi-lightning-fill me-1"></i>Hızlı Gönderi
+          </span>
+          }
+        </div>
 
-          <div [routerLink]="['/product', product.id]" style="cursor: pointer;" class="product-img-wrapper mb-3 text-center" style="cursor: pointer;">
-            <img [src]="product.imageUrl" class="img-fluid" [alt]="product.name" 
-                 style="height: 160px; object-fit: contain;">
-          </div>
+        <div
+          [routerLink]="['/product', product.id]"
+          style="cursor: pointer"
+          class="product-img-wrapper mb-3 text-center"
+          style="cursor: pointer"
+        >
+          <img
+            [src]="product.imageUrl"
+            class="img-fluid"
+            [alt]="product.name"
+            style="height: 160px; object-fit: contain"
+          />
+        </div>
 
-          <div class="product-info">
-            <h6 class="product-title text-truncate-2 mb-2" style="font-size: 0.85rem; height: 38px;">
-              {{ product.name }}
-            </h6>
-            <div class="price-box mt-2">
-              <span class="new-price text-primary fw-bold fs-5">
-                {{ product.price }} TL
-              </span>
-            </div>
-          </div>
-
-          <div class="product-action mt-3">
-            <button (click)="addToCart(product)" class="btn btn-primary btn-sm w-100 rounded-pill py-2" style="font-size: 0.8rem;">
-              Sepete Ekle
-            </button>
+        <div class="product-info">
+          <h6 class="product-title text-truncate-2 mb-2" style="font-size: 0.85rem; height: 38px">
+            {{ product.name }}
+          </h6>
+          <div class="price-box mt-2">
+            <span class="new-price text-primary fw-bold fs-5"> {{ product.price }} TL </span>
           </div>
         </div>
+
+        <div class="product-action mt-3">
+          <button
+            (click)="addToCart(product)"
+            class="btn btn-primary btn-sm w-100 rounded-pill py-2"
+            style="font-size: 0.8rem"
+          >
+            Sepete Ekle
+          </button>
+        </div>
       </div>
+    </div>
     }
   </div>
 </div>
 
+<!---------------------Üst Kategoriler-------------------------->
+<section class="quick-categories mb-4 mt-5">
+  <div class="container">
+    <div
+      class="d-flex justify-content-between align-items-center bg-white shadow-sm py-3 px-2 rounded-4 overflow-x-auto no-scrollbar"
+    >
+      <a href="#" class="cat-item text-center text-decoration-none">
+        <div class="cat-icon-wrapper mb-2">
+          <i class="bi bi-phone"></i>
+        </div>
+        <span class="cat-name">Telefon</span>
+      </a>
 
+      <a href="#" class="cat-item text-center text-decoration-none">
+        <div class="cat-icon-wrapper mb-2">
+          <i class="bi bi-laptop"></i>
+        </div>
+        <span class="cat-name">Bilgisayar</span>
+      </a>
 
+      <a href="#" class="cat-item text-center text-decoration-none">
+        <div class="cat-icon-wrapper mb-2">
+          <i class="bi bi-watch"></i>
+        </div>
+        <span class="cat-name">Tv,Görüntü ve Ses</span>
+      </a>
+
+      <a href="#" class="cat-item text-center text-decoration-none">
+        <div class="cat-icon-wrapper mb-2">
+          <i class="bi bi-camera"></i>
+        </div>
+        <span class="cat-name">Ev Aletleri</span>
+      </a>
+
+      <a href="#" class="cat-item text-center text-decoration-none">
+        <div class="cat-icon-wrapper mb-2">
+          <i class="bi bi-fan"></i>
+        </div>
+        <span class="cat-name">Soğutma & Isıtma</span>
+      </a>
+
+      <a href="#" class="cat-item text-center text-decoration-none">
+        <div class="cat-icon-wrapper mb-2">
+          <i class="bi bi-outlet"></i>
+        </div>
+        <span class="cat-name">Outlet</span>
+      </a>
+
+      <a href="#" class="cat-item text-center text-decoration-none">
+        <div class="cat-icon-wrapper mb-2 text-danger">
+          <i class="bi bi-lightning-charge"></i>
+        </div>
+        <span class="cat-name fw-bold text-danger">Fırsatlar</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="brand-slider-section py-4 bg-light border-top">
+  <div class="container">
+    <h5 class="fw-bold mb-3 ps-2 border-start border-4 border-primary">Popüler Markalar</h5>
+    
+    <div class="brands-wrapper overflow-hidden position-relative">
+      <div class="brands-track d-flex align-items-center">
+        @for (brand of brands; track $index) {
+          <div class="brand-item px-4">
+            <img [src]="brand.logo" [alt]="brand.name" class="img-fluid" style="max-height: 40px; opacity: 0.7; filter: grayscale(100%); transition: all 0.3s;">
+          </div>
+        }
+        @for (brand of brands; track $index) {
+          <div class="brand-item px-4">
+            <img [src]="brand.logo" [alt]="brand.name" class="img-fluid" style="max-height: 40px; opacity: 0.7; filter: grayscale(100%); transition: all 0.3s;">
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</section>

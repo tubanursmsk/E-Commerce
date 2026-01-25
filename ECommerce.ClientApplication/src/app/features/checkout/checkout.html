@@ -1,0 +1,101 @@
+<div class="container py-5">
+  <div class="row g-5">
+    
+    <div class="col-lg-8">
+      
+      <h4 class="fw-bold mb-3">Teslimat Adresi</h4>
+      <div class="card border-0 shadow-sm p-4 mb-5 rounded-4">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label text-muted small fw-bold">Adres Başlığı</label>
+            <input type="text" [(ngModel)]="address.title" class="form-control bg-light border-0" placeholder="Ev, İş...">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label text-muted small fw-bold">Şehir</label>
+            <input type="text" [(ngModel)]="address.city" class="form-control bg-light border-0">
+          </div>
+          <div class="col-12">
+            <label class="form-label text-muted small fw-bold">Açık Adres</label>
+            <textarea [(ngModel)]="address.fullAddress" class="form-control bg-light border-0" rows="3"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <h4 class="fw-bold mb-3">Ödeme Yöntemi</h4>
+      <div class="card border-0 shadow-sm p-4 rounded-4">
+        
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <span class="fw-bold text-primary"><i class="bi bi-credit-card-2-front me-2"></i>Kredi / Banka Kartı</span>
+          <div class="d-flex gap-2 opacity-50">
+            <i class="bi bi-credit-card fs-4"></i>
+            <i class="bi bi-wallet2 fs-4"></i>
+          </div>
+        </div>
+
+        <div class="row g-3">
+          <div class="col-12">
+            <label class="form-label text-muted small fw-bold">Kart Üzerindeki İsim</label>
+            <input type="text" [(ngModel)]="card.holderName" class="form-control form-control-lg bg-light border-0" placeholder="AD SOYAD">
+          </div>
+          <div class="col-12">
+            <label class="form-label text-muted small fw-bold">Kart Numarası</label>
+            <div class="input-group">
+              <span class="input-group-text bg-light border-0"><i class="bi bi-credit-card"></i></span>
+              <input type="text" [(ngModel)]="card.number" maxlength="19" class="form-control form-control-lg bg-light border-0" placeholder="0000 0000 0000 0000">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label text-muted small fw-bold">Son Kullanma Tarihi</label>
+            <input type="text" [(ngModel)]="card.expiry" class="form-control form-control-lg bg-light border-0" placeholder="AA / YY">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label text-muted small fw-bold">CVV</label>
+            <input type="text" [(ngModel)]="card.cvv" maxlength="3" class="form-control form-control-lg bg-light border-0" placeholder="123">
+          </div>
+        </div>
+
+        <div class="form-check mt-4">
+          <input class="form-check-input" type="checkbox" id="saveCard">
+          <label class="form-check-label small text-muted" for="saveCard">
+            Kartımı sonraki alışverişlerim için sakla (Güvenli Ödeme Altyapısı)
+          </label>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-lg-4">
+      <div class="card border-0 shadow rounded-4 p-4 position-sticky" style="top: 100px;">
+        <h5 class="fw-bold mb-4">Sipariş Özeti</h5>
+        
+        @for (item of cartService.cartItems(); track item.product.id) {
+          <div class="d-flex justify-content-between mb-2 small">
+            <span class="text-truncate me-2" style="max-width: 200px;">{{ item.product.name }} (x{{ item.quantity }})</span>
+            <span class="fw-bold">{{ (item.product.price * item.quantity) | number:'1.2-2' }} TL</span>
+          </div>
+        }
+        
+        <hr>
+
+        <div class="d-flex justify-content-between mb-4">
+          <span class="fs-5 fw-bold">Toplam Tutar</span>
+          <span class="fs-4 fw-bold text-primary">{{ cartService.totalPrice() | number:'1.2-2' }} TL</span>
+        </div>
+
+        <button (click)="completeOrder()" [disabled]="isLoading" class="btn btn-primary w-100 btn-lg rounded-pill fw-bold shadow transition-btn">
+          @if (isLoading) {
+            <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+            Ödeme İşleniyor...
+          } @else {
+            Siparişi Tamamla
+          }
+        </button>
+        
+        <div class="text-center mt-3 small text-muted">
+          <i class="bi bi-shield-lock-fill text-success me-1"></i> 256 Bit SSL ile Güvenli Ödeme
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

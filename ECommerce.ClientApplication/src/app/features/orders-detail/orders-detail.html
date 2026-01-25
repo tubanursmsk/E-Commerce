@@ -1,0 +1,162 @@
+<div class="container py-5">
+  @if (loading) {
+  <div class="text-center py-5">
+    <div class="spinner-border text-primary"></div>
+  </div>
+  } @else if (order) {
+
+  <div class="d-flex align-items-center gap-3 mb-4">
+    <a routerLink="/orders" class="btn btn-light rounded-circle shadow-sm border">
+      <i class="bi bi-arrow-left"></i>
+    </a>
+    <div>
+      <h4 class="fw-bold mb-0">Sipariş Detayı</h4>
+      <span class="text-muted small">Sipariş No: {{ order.orderNumber }}</span>
+    </div>
+  </div>
+
+  <div class="card border-0 shadow-sm rounded-4 mb-4 overflow-hidden">
+    <div class="card-body p-4 p-md-5">
+      <div class="position-relative">
+        <div
+          class="progress"
+          style="height: 4px; position: absolute; top: 15px; left: 0; right: 0; z-index: 0"
+        >
+          <div
+            class="progress-bar bg-success"
+            role="progressbar"
+            [style.width.%]="(order.status + 1) * 33.3"
+          ></div>
+        </div>
+
+        <div class="d-flex justify-content-between position-relative" style="z-index: 1">
+          <div class="text-center step-item" [class.active]="order.status >= 0">
+            <div
+              class="step-circle bg-white border border-2 mx-auto d-flex align-items-center justify-content-center mb-2"
+              [class.border-success]="order.status >= 0"
+              [class.text-success]="order.status >= 0"
+            >
+              @if (order.status >= 0) {
+              <i class="bi bi-check-lg"></i>
+              }
+            </div>
+            <span class="fw-bold small d-none d-md-block">Sipariş Alındı</span>
+          </div>
+
+          <div class="text-center step-item" [class.active]="order.status >= 1">
+            <div
+              class="step-circle bg-white border border-2 mx-auto d-flex align-items-center justify-content-center mb-2"
+              [class.border-success]="order.status >= 1"
+              [class.text-success]="order.status >= 1"
+            >
+              @if (order.status >= 1) {
+              <i class="bi bi-box-seam"></i>
+              }
+            </div>
+            <span class="fw-bold small d-none d-md-block">Hazırlanıyor</span>
+          </div>
+
+          <div class="text-center step-item" [class.active]="order.status >= 2">
+            <div
+              class="step-circle bg-white border border-2 mx-auto d-flex align-items-center justify-content-center mb-2"
+              [class.border-success]="order.status >= 2"
+              [class.text-success]="order.status >= 2"
+            >
+              @if (order.status >= 2) {
+              <i class="bi bi-truck"></i>
+              }
+            </div>
+            <span class="fw-bold small d-none d-md-block">Kargoya Verildi</span>
+          </div>
+
+          <div class="text-center step-item" [class.active]="order.status >= 3">
+            <div
+              class="step-circle bg-white border border-2 mx-auto d-flex align-items-center justify-content-center mb-2"
+              [class.border-success]="order.status >= 3"
+              [class.text-success]="order.status >= 3"
+            >
+              @if (order.status >= 3) {
+              <i class="bi bi-house-door"></i>
+              }
+            </div>
+            <span class="fw-bold small d-none d-md-block">Teslim Edildi</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-lg-8">
+      <div class="card border-0 shadow-sm rounded-4 mb-4">
+        <div class="card-header bg-white border-bottom py-3">
+          <h6 class="fw-bold mb-0">Teslimat Kapsamı</h6>
+        </div>
+        <div class="card-body p-0">
+          @for (item of order.orderItems; track item.id) {
+          <div class="d-flex align-items-center p-3 border-bottom">
+            <div class="border rounded-3 p-2 me-3" style="width: 80px; height: 80px">
+              <img
+                [src]="item.productImageUrl || 'assets/placeholder.png'"
+                class="w-100 h-100 object-fit-contain"
+              />
+            </div>
+            <div class="flex-grow-1">
+              <h6 class="fw-bold mb-1">{{ item.productName }}</h6>
+              <div class="text-muted small">Adet: {{ item.quantity }}</div>
+              <div class="text-primary fw-bold mt-1">{{ item.price | number : '1.2-3' }} TL</div>
+            </div>
+            <a
+              [routerLink]="['/product', item.productId]"
+              class="btn btn-sm btn-outline-primary rounded-pill"
+            >
+              Ürünü Değerlendir
+            </a>
+          </div>
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="card border-0 shadow-sm rounded-4 mb-3">
+        <div class="card-body">
+          <h6 class="fw-bold mb-3">
+            <i class="bi bi-geo-alt me-2 text-primary"></i>Teslimat Adresi
+          </h6>
+          <p class="mb-1 fw-bold small">{{ order.customerFullName }}</p>
+          <p class="text-muted small mb-1">{{ order.shippingAddress }}</p>
+          <p class="text-muted small">{{ order.shippingCity }}</p>
+          <p class="text-muted small">
+            <i class="bi bi-telephone me-1"></i>{{ order.shippingPhone }}
+          </p>
+        </div>
+      </div>
+
+      <div class="card border-0 shadow-sm rounded-4">
+        <div class="card-body">
+          <h6 class="fw-bold mb-3">Ödeme Bilgileri</h6>
+          <div class="d-flex justify-content-between mb-2 small">
+            <span class="text-muted">Ara Toplam</span>
+            <span class="fw-bold">{{ order.totalAmount | number : '1.2-3' }} TL</span>
+          </div>
+          <div class="d-flex justify-content-between mb-3 small">
+            <span class="text-muted">Kargo</span>
+            <span class="text-success fw-bold">Bedava</span>
+          </div>
+          <hr />
+          <div class="d-flex justify-content-between">
+            <span class="fw-bold">Toplam</span>
+            <span class="fw-bold text-primary fs-5"
+              >{{ order.totalAmount | number : '1.2-3' }} TL</span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  } @else {
+  <div class="alert alert-danger">Sipariş bilgisi bulunamadı.</div>
+  }
+</div>

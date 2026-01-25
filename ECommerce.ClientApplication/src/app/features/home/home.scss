@@ -122,3 +122,115 @@
     overflow: hidden; 
   }
 }
+
+//---------------category-----------------------
+.quick-categories {
+  .cat-item {
+    min-width: 90px;
+    transition: transform 0.2s ease;
+    
+    .cat-icon-wrapper {
+      width: 55px;
+      height: 55px;
+      background-color: var(--color-bg-tertiary); // Çok hafif gri/mavi ton
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+      font-size: 1.4rem;
+      color: var(--color-primary);
+      transition: all 0.3s ease;
+    }
+
+    .cat-name {
+      font-size: 0.85rem;
+      color: var(--color-dark);
+      font-weight: 500;
+    }
+
+    &:hover {
+      transform: translateY(-5px);
+      .cat-icon-wrapper {
+        background-color: var(--color-primary);
+        color: white;
+      }
+    }
+  }
+}
+// Mobil kaydırma için scrollbar gizleme
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+
+.dropdown-menu {
+  animation: fadeIn 0.2s ease;
+  top: 110%; /* Navbar'dan biraz aşağıda dursun */
+  
+  .dropdown-item {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--color-gray-600);
+    &:hover {
+      background-color: var(--color-bg-tertiary);
+      color: var(--color-primary);
+    }
+  }
+}
+
+/* Ok işaretini (caret) gizle, biz kendimiz ekledik */
+.dropdown-toggle.no-arrow::after {
+  display: none;
+}
+
+.btn-login-effect {
+  transition: all 0.3s ease;
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(var(--color-primary-rgb), 0.3) !important;
+  }
+}
+
+.hover-effect:hover {
+  background-color: var(--color-bg-tertiary);
+  border-radius: 50px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- MARKA SLIDER (Infinite Scroll) --- */
+.brands-wrapper {
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.brands-track {
+  width: max-content;
+  animation: scroll 40s linear infinite;
+  
+  &:hover {
+    animation-play-state: paused; // Üzerine gelince durur
+  }
+}
+
+.brand-item {
+  img {
+    filter: grayscale(100%);
+    opacity: 0.6;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      filter: grayscale(0%);
+      opacity: 1;
+      transform: scale(1.1);
+    }
+  }
+}
+
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); } /* Yarısına kadar kaydır (çünkü 2 set var) */
+}

@@ -1,0 +1,27 @@
+
+/* --- FOOTER LINKLERI --- */
+
+.brand-icon-box {
+  width: 40px;
+  height: 40px;
+  background: var(--gradient-primary);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.25rem;
+}
+
+.hover-primary {
+  transition: color 0.2s ease;
+  &:hover {
+    color: var(--color-primary) !important;
+    text-decoration: underline !important;
+  }
+}
+
+.footer {
+  // Footer'ın sayfanın en altında kalmasını garantilemek için (Sticky Footer)
+  margin-top: auto; 
+}

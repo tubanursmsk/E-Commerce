@@ -7,8 +7,9 @@ public class OrderItemDto
     public Guid OrderId { get; set; }
     public Guid ProductId { get; set; }
 
-     [Required(ErrorMessage = "Ürün adını yazınız.")]
+    [Required(ErrorMessage = "Ürün adını yazınız.")]
     public string ProductName { get; set; } = null!;
+    public string ProductImageUrl { get; set; } = null!;
 
     [Required(ErrorMessage = "Miktar zorunludur.")]
     public int Quantity { get; set; }

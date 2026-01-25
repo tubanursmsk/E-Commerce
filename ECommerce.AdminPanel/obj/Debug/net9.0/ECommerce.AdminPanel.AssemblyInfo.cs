@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ECommerce.AdminPanel")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+aed3140d639bce27d8d0873c91173d732c4527d0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e2b4cdb302394aedf4414ef727a3fe923c8a6139")]
 [assembly: System.Reflection.AssemblyProductAttribute("ECommerce.AdminPanel")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ECommerce.AdminPanel")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

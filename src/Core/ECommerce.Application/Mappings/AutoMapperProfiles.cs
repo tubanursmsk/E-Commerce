@@ -53,8 +53,13 @@ public class AutoMapperProfiles : Profile
         // Order Mappings
         CreateMap<Order, OrderDto>()
             .ForMember(dest => dest.CustomerFullName, opt => opt.MapFrom(src => $"{src.Customer.User.FirstName} {src.Customer.User.LastName}"))
-            .ForMember(dest => dest.TotalAmount, opt => opt.MapFrom(src => src.TotalAmount));
-        CreateMap<OrderItem, OrderItemDto>().ReverseMap(); // Sipariş kalemleri için de gerekli
+            .ForMember(dest => dest.TotalAmount, opt => opt.MapFrom(src => src.TotalAmount))
+            .ForMember(dest => dest.ShippingAddress, opt => opt.MapFrom(src => src.Customer.Address)) // Adresi eşle
+            .ForMember(dest => dest.ShippingCity, opt => opt.MapFrom(src => src.Customer.City))       // Şehri eşle
+            .ForMember(dest => dest.ShippingPhone, opt => opt.MapFrom(src => src.Customer.Phone)); // Telefonu eşle
+        CreateMap<OrderItem, OrderItemDto>()
+            .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.Product.Name))
+            .ForMember(dest => dest.ProductImageUrl, opt => opt.MapFrom(src => src.Product.ImageUrl));
         CreateMap<OrderCreateDto, Order>();
         CreateMap<OrderItemCreateDto, OrderItem>();
         CreateMap<OrderUpdateDto, Order>();

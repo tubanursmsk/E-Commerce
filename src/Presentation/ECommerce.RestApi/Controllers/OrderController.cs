@@ -66,6 +66,11 @@ public class OrderController : ControllerBase
         var companyIdStr = User.FindFirstValue("companyId");
         Guid? companyId = string.IsNullOrEmpty(companyIdStr) ? null : Guid.Parse(companyIdStr);
 
+        // Müşteri kendi siparişlerine bakıyorsa CompanyId filtresini kaldırıyoruz
+        if (role == "Customer")
+        {
+            companyId = null;
+        }
         var result = await _orderService.GetByCustomerIdAsync(customerId, companyId, role ?? "");
         return Ok(result);
     }
