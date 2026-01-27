@@ -62,7 +62,7 @@ export class ProductList implements OnInit {
   loadCategories() {
     this.categoryService.getCategories().subscribe(res => {
       this.categories = res.data || [];
-        this.cdr.detectChanges();
+      this.cdr.detectChanges();
     });
   }
 
@@ -84,7 +84,7 @@ export class ProductList implements OnInit {
         this.loading = false;
       }
     });
-      this.cdr.detectChanges();
+    this.cdr.detectChanges();
   }
 
   // --- FİLTRE OLAYLARI ---

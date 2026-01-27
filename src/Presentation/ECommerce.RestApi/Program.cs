@@ -85,7 +85,8 @@ builder.Services.AddOpenApi();
 var app = builder.Build();
 
 
-// --- DATA SEEDING (ektra görsellik için dummy Veri Ekleme) ---
+// --- DATA SEEDING (ektra görsellik için seed data ekleme) ---
+
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;

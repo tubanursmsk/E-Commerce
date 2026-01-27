@@ -30,3 +30,37 @@
   background-color: #ddd;
   border-radius: 4px;
 }
+
+.product-card {
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  border: 1px solid transparent !important; // Varsayılan kenarlık yok
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1) !important;
+    border-color: #e0e0e0 !important; // Hover'da hafif kenarlık
+    
+    // Resim Efekti
+    .transition-transform {
+      transform: scale(1.08);
+    }
+  }
+}
+
+.transition-transform {
+  transition: transform 0.4s ease;
+}
+
+// Pagination Aktif Rengi
+.page-item.active .page-link {
+  background-color: var(--color-primary) !important;
+  color: white;
+}
+
+.page-link {
+  color: var(--color-primary);
+  &:hover {
+    background-color: #f8f9fa;
+    color: var(--color-primary);
+  }
+}

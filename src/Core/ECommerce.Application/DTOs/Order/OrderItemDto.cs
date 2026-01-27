@@ -9,7 +9,7 @@ public class OrderItemDto
 
     [Required(ErrorMessage = "Ürün adını yazınız.")]
     public string ProductName { get; set; } = null!;
-    public string ProductImageUrl { get; set; } = null!;
+    public string ProductImageUrl { get; set; } = string.Empty;
 
     [Required(ErrorMessage = "Miktar zorunludur.")]
     public int Quantity { get; set; }

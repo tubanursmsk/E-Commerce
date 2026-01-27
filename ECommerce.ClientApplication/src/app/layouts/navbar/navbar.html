@@ -19,6 +19,7 @@
     <!-- Navbar İçerik -->
     <div class="collapse navbar-collapse" id="navbarContent">
       <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-lg-3">
+       
         <li class="nav-item">
           <a class="nav-link fw-medium" routerLink="/" routerLinkActive="text-primary">Ana Sayfa</a>
         </li>
@@ -32,7 +33,7 @@
             >Kategoriler</a
           >
         </li>
-      </ul>
+     </ul>
 
       <div class="d-flex align-items-center gap-3">
         <div class="search-box d-none d-xl-flex">
@@ -72,8 +73,8 @@
               {{ authService.currentUser()?.name?.charAt(0) }}
             </div>
             <span class="d-none d-md-block">Hesabım</span>
-            <i class="bi bi-chevron-down small text-muted"></i>
-          </button>
+            
+        </button>
 
           <ul
             class="dropdown-menu dropdown-menu-end shadow-lg border-0 rounded-4 p-2 mt-2"
@@ -124,3 +125,5 @@
     </div>
   </div>
 </nav>
+
+

@@ -18,3 +18,6 @@ public interface IProductService
     Task<ApiResponse<IEnumerable<ProductDto>>> GetFeaturedProductsAsync();
     Task<ApiResponse<ProductListResponseDto>> GetFilteredProductsAsync(ProductFilterDto filter);
     }
+
+
+

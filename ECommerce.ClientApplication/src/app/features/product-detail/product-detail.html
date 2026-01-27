@@ -55,7 +55,7 @@
         </div>
 
         <div class="price-section bg-light p-4 rounded-4 mb-4">
-          <div class="display-5 fw-bold text-primary mb-1">{{ product.price }} TL</div>
+          <div class="display-5 fw-bold text-primary mb-1">{{ product.price.toLocaleString('tr-TR') }} TL</div>
           <p class="text-muted small mb-0">KDV Dahil fiyattır.</p>
         </div>
 
@@ -116,7 +116,7 @@
           <div class="tab-pane fade show active" id="desc" role="tabpanel">
             <h5 class="fw-bold mb-4">Ürün Hakkında</h5>
             <div class="lh-lg text-muted">
-              {{ product.description }}
+              {{ product?.description }}
             </div>
           </div>
 

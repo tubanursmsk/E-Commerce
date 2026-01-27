@@ -88,7 +88,7 @@
             {{ product.name }}
           </h6>
           <div class="price-box mt-2">
-            <span class="new-price text-primary fw-bold fs-5"> {{ product.price }} TL </span>
+            <span class="new-price text-primary fw-bold fs-5"> {{ product.price.toLocaleString('tr-TR') }} TL </span>
           </div>
         </div>
 
@@ -185,3 +185,7 @@
     </div>
   </div>
 </section>
+
+
+
+

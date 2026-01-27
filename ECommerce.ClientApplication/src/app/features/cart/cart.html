@@ -17,7 +17,7 @@
                 <div class="flex-grow-1">
                   <h6 class="fw-bold mb-1">{{ item.product.name }}</h6>
                   <div class="text-muted small mb-2">Tahmini Teslimat: 3 Gün İçinde</div>
-                  <div class="text-primary fw-bold">{{ item.product.price | number:'1.2-2' }} TL</div>
+                  <div class="text-primary fw-bold">{{ item.product.price .toLocaleString('tr-TR') }} TL</div>
                 </div>
 
                 <div class="quantity-control d-flex align-items-center border rounded-pill px-2 py-1">
@@ -45,7 +45,7 @@
           
           <div class="d-flex justify-content-between mb-2">
             <span class="text-muted">Ürünler Toplamı</span>
-            <span class="fw-bold">{{ cartService.totalPrice() | number:'1.2-3' }} TL</span>
+            <span class="fw-bold">{{ cartService.totalPrice() .toLocaleString('tr-TR') }} TL</span>
           </div>
           
           <div class="d-flex justify-content-between mb-3">
@@ -57,7 +57,7 @@
 
           <div class="d-flex justify-content-between mb-4">
             <span class="fs-5 fw-bold">Ödenecek Tutar</span>
-            <span class="fs-4 fw-bold text-primary">{{ cartService.totalPrice() | number:'1.2-3' }} TL</span>
+            <span class="fs-4 fw-bold text-primary">{{ cartService.totalPrice() .toLocaleString('tr-TR') }} TL</span>
           </div>
 
           <button routerLink="/checkout" class="btn btn-primary w-100 btn-lg rounded-pill fw-bold shadow">

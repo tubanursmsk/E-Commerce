@@ -1,92 +1,122 @@
 <div class="container py-4">
-  
   <nav aria-label="breadcrumb" class="mb-4">
     <ol class="breadcrumb small">
-      <li class="breadcrumb-item"><a routerLink="/" class="text-decoration-none text-muted">Anasayfa</a></li>
+      <li class="breadcrumb-item">
+        <a routerLink="/" class="text-decoration-none text-muted">Anasayfa</a>
+      </li>
       <li class="breadcrumb-item active" aria-current="page">Ürünler</li>
     </ol>
   </nav>
 
   <div class="row g-4">
-    
     <div class="col-lg-3">
       <div class="filter-sidebar bg-white p-4 rounded-4 shadow-sm border">
-        
         <div class="d-flex justify-content-between align-items-center mb-3">
           <h6 class="fw-bold mb-0">Filtreler</h6>
-          <button (click)="clearFilters()" class="btn btn-sm btn-link text-decoration-none text-danger p-0" style="font-size: 0.8rem;">Temizle</button>
+          <button
+            (click)="clearFilters()"
+            class="btn btn-sm btn-link text-decoration-none text-danger p-0"
+            style="font-size: 0.8rem"
+          >
+            Temizle
+          </button>
         </div>
-        <hr class="my-3 opacity-10">
+        <hr class="my-3 opacity-10" />
 
         <div class="mb-4">
           <h6 class="fw-bold mb-2 small text-uppercase text-muted">Kategoriler</h6>
           <ul class="list-unstyled small d-flex flex-column gap-2">
             <li>
-              <a (click)="onCategoryChange(null)" 
-                 [class.fw-bold]="!filter.categoryId"
-                 [class.text-primary]="!filter.categoryId"
-                 class="text-decoration-none text-dark cursor-pointer d-flex justify-content-between">
-                 Tüm Ürünler
+              <a
+                (click)="onCategoryChange(null)"
+                [class.fw-bold]="!filter.categoryId"
+                [class.text-primary]="!filter.categoryId"
+                class="text-decoration-none text-dark cursor-pointer d-flex justify-content-between"
+              >
+                Tüm Ürünler
               </a>
             </li>
             @for (cat of categories; track cat.id) {
-              <li>
-                <a (click)="onCategoryChange(cat.id)" 
-                   [class.fw-bold]="filter.categoryId === cat.id"
-                   [class.text-primary]="filter.categoryId === cat.id"
-                   class="text-decoration-none text-dark cursor-pointer d-flex justify-content-between">
-                   {{ cat.name }}
-                   <i class="bi bi-chevron-right text-muted" style="font-size: 0.7rem;"></i>
-                </a>
-              </li>
+            <li>
+              <a
+                (click)="onCategoryChange(cat.id)"
+                [class.fw-bold]="filter.categoryId === cat.id"
+                [class.text-primary]="filter.categoryId === cat.id"
+                class="text-decoration-none text-dark cursor-pointer d-flex justify-content-between"
+              >
+                {{ cat.name }}
+                <i class="bi bi-chevron-right text-muted" style="font-size: 0.7rem"></i>
+              </a>
+            </li>
             }
           </ul>
         </div>
 
-        <hr class="my-4 opacity-10">
+        <hr class="my-4 opacity-10" />
 
         <div class="mb-4">
           <h6 class="fw-bold mb-2 small text-uppercase text-muted">Markalar</h6>
-          <div class="brand-list" style="max-height: 200px; overflow-y: auto;">
+          <div class="brand-list" style="max-height: 200px; overflow-y: auto">
             @for (brand of availableBrands; track brand.id) {
-              <div class="form-check mb-2">
-                <input class="form-check-input" type="checkbox" 
-                       [value]="brand.id" 
-                       [id]="'brand-'+brand.id"
-                       (change)="toggleBrand(brand.id, $event)">
-                <label class="form-check-label small d-flex justify-content-between w-100 pe-2" [for]="'brand-'+brand.id">
-                  <span>{{ brand.name }}</span>
-                  <span class="text-muted" style="font-size: 0.75rem;">({{ brand.count }})</span>
-                </label>
-              </div>
+            <div class="form-check mb-2">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                [value]="brand.id"
+                [id]="'brand-' + brand.id"
+                (change)="toggleBrand(brand.id, $event)"
+              />
+              <label
+                class="form-check-label small d-flex justify-content-between w-100 pe-2"
+                [for]="'brand-' + brand.id"
+              >
+                <span>{{ brand.name }}</span>
+                <span class="text-muted" style="font-size: 0.75rem">({{ brand.count }})</span>
+              </label>
+            </div>
             } @empty {
-              <span class="text-muted small">Marka bulunamadı.</span>
+            <span class="text-muted small">Marka bulunamadı.</span>
             }
           </div>
         </div>
 
-        <hr class="my-4 opacity-10">
+        <hr class="my-4 opacity-10" />
 
         <div class="mb-3">
           <h6 class="fw-bold mb-2 small text-uppercase text-muted">Fiyat Aralığı</h6>
           <div class="d-flex gap-2 mb-2">
-            <input type="number" [(ngModel)]="filter.minPrice" class="form-control form-control-sm" placeholder="En Az">
-            <input type="number" [(ngModel)]="filter.maxPrice" class="form-control form-control-sm" placeholder="En Çok">
+            <input
+              type="number"
+              [(ngModel)]="filter.minPrice"
+              class="form-control form-control-sm"
+              placeholder="En Az"
+            />
+            <input
+              type="number"
+              [(ngModel)]="filter.maxPrice"
+              class="form-control form-control-sm"
+              placeholder="En Çok"
+            />
           </div>
-          <button (click)="applyPriceFilter()" class="btn btn-sm btn-outline-primary w-100">Uygula</button>
+          <button (click)="applyPriceFilter()" class="btn btn-sm btn-outline-primary w-100">
+            Uygula
+          </button>
         </div>
-
       </div>
     </div>
 
     <div class="col-lg-9">
-      
-      <div class="d-flex justify-content-between align-items-center mb-4 bg-white p-3 rounded-4 shadow-sm border">
+      <div
+        class="d-flex justify-content-between align-items-center mb-4 bg-white p-3 rounded-4 shadow-sm border"
+      >
         <span class="fw-bold small">{{ totalCount }} ürün bulundu</span>
-        
+
         <div class="d-flex align-items-center gap-2">
           <label class="small text-muted mb-0 text-nowrap">Sıralama:</label>
-          <select class="form-select form-select-sm border-0 bg-light fw-bold" (change)="onSortChange($event)">
+          <select
+            class="form-select form-select-sm border-0 bg-light fw-bold"
+            (change)="onSortChange($event)"
+          >
             <option value="newest">En Yeniler</option>
             <option value="price_asc">En Düşük Fiyat</option>
             <option value="price_desc">En Yüksek Fiyat</option>
@@ -96,71 +126,127 @@
       </div>
 
       @if (loading) {
-        <div class="text-center py-5">
-          <div class="spinner-border text-primary" role="status"></div>
-        </div>
+      <div class="text-center py-5">
+        <div class="spinner-border text-primary" role="status"></div>
+      </div>
       } @else if (products.length > 0) {
-        
-        <div class="row g-3">
-          @for (product of products; track product.id + '-' + $index) {
-            <div class="col-6 col-md-4 col-lg-3"> <div class="card h-100 border-0 shadow-sm product-card position-relative">
-                
-                @if (product.isFreeShipping) {
-                  <span class="position-absolute top-0 start-0 m-2 badge bg-success" style="font-size: 0.6rem;">Kargo Bedava</span>
-                }
 
-                <div [routerLink]="['/product', product.id]" class="card-img-top p-3 d-flex align-items-center justify-content-center" style="height: 200px; cursor: pointer;">
-                  <img [src]="product.imageUrl" class="img-fluid object-fit-contain" style="max-height: 100%;" [alt]="product.name">
-                </div>
+      <div class="row g-3">
+        @for (product of products; track product.id + '-' + $index) {
+        <div class="col-6 col-md-4 col-lg-3">
+          <div class="card h-100 border-0 shadow-sm product-card position-relative overflow-hidden">
+            <div class="position-absolute top-0 start-0 p-2 z-2 d-flex flex-column gap-1">
+              @if (product.isFreeShipping) {
+              <span
+                class="badge bg-success text-white fw-normal shadow-sm"
+                style="font-size: 0.65rem"
+              >
+                <i class="bi bi-truck me-1"></i>Kargo Bedava
+              </span>
+              } @if (product.isFastDelivery) {
+              <span
+                class="badge bg-warning text-dark fw-normal shadow-sm"
+                style="font-size: 0.65rem"
+              >
+                <i class="bi bi-lightning-fill me-1"></i>Hızlı Gönderi
+              </span>
+              }
+            </div>
 
-                <div class="card-body d-flex flex-column p-3">
-                  <h6 class="card-title small fw-bold text-truncate-2 mb-2" [routerLink]="['/product', product.id]" style="cursor: pointer; height: 36px;">
-                    {{ product.name }}
-                  </h6>
-                  
-                  <div class="mt-auto">
-                    <div class="mb-2">
-                      @if (product.discountPrice) {
-                        <small class="text-decoration-line-through text-muted me-2">{{ product.price }} TL</small>
-                        <span class="text-danger fw-bold">{{ product.discountPrice }} TL</span>
-                      } @else {
-                        <span class="text-primary fw-bold fs-5">{{ product.price }} TL</span>
-                      }
-                    </div>
-                    <button (click)="addToCart(product)" class="btn btn-primary w-100 btn-sm rounded-pill fw-bold">
-                      Sepete Ekle
-                    </button>
-                  </div>
+            <div
+              [routerLink]="['/product', product.id]"
+              class="card-img-top p-4 d-flex align-items-center justify-content-center cursor-pointer position-relative bg-white"
+              style="height: 220px"
+            >
+              <img
+                [src]="product.imageUrl"
+                class="img-fluid object-fit-contain transition-transform"
+                style="max-height: 100%; max-width: 100%"
+                [alt]="product.name"
+              />
+            </div>
+
+            <div class="card-body d-flex flex-column p-3 pt-0">
+              <h6
+                class="card-title small fw-bold text-truncate-2 mb-3 cursor-pointer text-dark"
+                [routerLink]="['/product', product.id]"
+                style="min-height: 38px; line-height: 1.4"
+              >
+                {{ product.name }}
+              </h6>
+
+              <div class="mt-auto">
+                <div class="mb-2">
+                  @if (product.discountPrice) {
+                  <small class="text-decoration-line-through text-muted me-2"
+                    >{{ product.price.toLocaleString('tr-TR') }} TL</small
+                  >
+                  <span class="text-danger fw-bold"
+                    >{{ product.discountPrice.toLocaleString('tr-TR') }} TL</span
+                  >
+                  } @else {
+                  <span class="text-primary fw-bold fs-5"
+                    >{{ product.price.toLocaleString('tr-TR') }}TL</span
+                  >
+                  }
                 </div>
+                <button
+                  (click)="addToCart(product)"
+                  class="btn btn-primary w-100 btn-sm rounded-pill fw-bold py-2 shadow-sm transition-btn"
+                >
+                  Sepete Ekle
+                </button>
               </div>
             </div>
-          }
+          </div>
         </div>
+        }
+      </div>
 
-        <div class="d-flex justify-content-center mt-5">
-          <nav>
-            <ul class="pagination">
-              <li class="page-item" [class.disabled]="filter.pageNumber === 1">
-                <button class="page-link" (click)="changePage((filter.pageNumber || 1) - 1)">Önceki</button>
-              </li>
-              <li class="page-item active">
-                <span class="page-link">{{ filter.pageNumber }}</span>
-              </li>
-              <li class="page-item" [class.disabled]="products.length < (filter.pageSize || 12)">
-                <button class="page-link" (click)="changePage((filter.pageNumber || 1) + 1)">Sonraki</button>
-              </li>
-            </ul>
-          </nav>
-        </div>
+      <div class="d-flex justify-content-center mt-5">
+        <nav aria-label="Page navigation">
+          <ul class="pagination gap-2">
+            <li class="page-item" [class.disabled]="filter.pageNumber === 1">
+              <button
+                class="page-link rounded-circle border-0 shadow-sm d-flex align-items-center justify-content-center"
+                style="width: 40px; height: 40px"
+                (click)="changePage((filter.pageNumber || 1) - 1)"
+              >
+                <i class="bi bi-chevron-left"></i>
+              </button>
+            </li>
+
+            <li class="page-item active">
+              <span
+                class="page-link rounded-circle border-0 shadow-sm d-flex align-items-center justify-content-center fw-bold"
+                style="width: 40px; height: 40px; background-color: var(--color-primary)"
+              >
+                {{ filter.pageNumber }}
+              </span>
+            </li>
+
+            <li class="page-item" [class.disabled]="products.length < (filter.pageSize || 12)">
+              <button
+                class="page-link rounded-circle border-0 shadow-sm d-flex align-items-center justify-content-center"
+                style="width: 40px; height: 40px"
+                (click)="changePage((filter.pageNumber || 1) + 1)"
+              >
+                <i class="bi bi-chevron-right"></i>
+              </button>
+            </li>
+          </ul>
+        </nav>
+      </div>
 
       } @else {
-        <div class="text-center py-5 bg-light rounded-4">
-          <i class="bi bi-search display-1 text-muted opacity-25"></i>
-          <h4 class="mt-3 text-muted">Aradığınız kriterlere uygun ürün bulunamadı.</h4>
-          <button (click)="clearFilters()" class="btn btn-outline-primary mt-3">Filtreleri Temizle</button>
-        </div>
+      <div class="text-center py-5 bg-light rounded-4">
+        <i class="bi bi-search display-1 text-muted opacity-25"></i>
+        <h4 class="mt-3 text-muted">Aradığınız kriterlere uygun ürün bulunamadı.</h4>
+        <button (click)="clearFilters()" class="btn btn-outline-primary mt-3">
+          Filtreleri Temizle
+        </button>
+      </div>
       }
-
     </div>
   </div>
 </div>
