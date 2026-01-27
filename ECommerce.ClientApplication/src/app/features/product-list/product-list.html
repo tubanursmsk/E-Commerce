@@ -102,7 +102,7 @@
       } @else if (products.length > 0) {
         
         <div class="row g-3">
-          @for (product of products; track product.id) {
+          @for (product of products; track product.id + '-' + $index) {
             <div class="col-6 col-md-4 col-lg-3"> <div class="card h-100 border-0 shadow-sm product-card position-relative">
                 
                 @if (product.isFreeShipping) {

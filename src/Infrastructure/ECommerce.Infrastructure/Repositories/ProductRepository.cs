@@ -92,8 +92,8 @@ public async Task<(IEnumerable<Product> Items, int TotalCount)> GetFilteredAsync
     // SQLite için decimal alanlarda (double) dönüşümü yapıyoruz sebeb: SQLite, decimal tipini yerel olarak desteklemez, genellikle double veya string olarak saklar.
     query = filter.SortBy switch
     {
-        "price_asc" => query.OrderBy(p => p.Price),
-        "price_desc" => query.OrderByDescending(p => p.Price),
+        "price_asc" => query.OrderBy(p => (double)p.Price),
+        "price_desc" => query.OrderByDescending(p => (double)p.Price),
         "name_asc" => query.OrderBy(p => p.Name),
         "newest" => query.OrderByDescending(p => p.CreatedDate),
         _ => query.OrderBy(p => p.Name)
