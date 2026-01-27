@@ -108,12 +108,20 @@ public class ProductController : ControllerBase
         return result.Success ? Ok(result) : BadRequest(result);
     }
 
-    
+
     [HttpGet("Featured")]
     [AllowAnonymous]
     public async Task<IActionResult> GetFeaturedProducts()
     {
         var result = await _productService.GetFeaturedProductsAsync();
+        return Ok(result);
+    }
+
+    [HttpGet("Filter")]
+    [AllowAnonymous]
+    public async Task<IActionResult> Filter([FromQuery] ProductFilterDto filter)
+    {
+        var result = await _productService.GetFilteredProductsAsync(filter);
         return Ok(result);
     }
 }

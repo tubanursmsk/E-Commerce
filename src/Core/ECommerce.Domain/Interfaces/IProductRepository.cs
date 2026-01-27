@@ -1,4 +1,5 @@
 using ECommerce.Domain.Entities;
+using ECommerce.Domain.Models;
 
 namespace ECommerce.Domain.Interfaces
 {
@@ -7,7 +8,8 @@ namespace ECommerce.Domain.Interfaces
          Task<IEnumerable<Product>> GetAllWithCategoryAndBrandAsync();
 
          Task<IEnumerable<Product>> GetByCompanyIdListAsync(Guid companyId);
-
-        // Task<IEnumerable<Product>> GetAllWithBrandAsync();
+         Task<(IEnumerable<Product> Items, int TotalCount)> GetFilteredAsync(ProductFilterParams filter);
     }
+
+    
 }

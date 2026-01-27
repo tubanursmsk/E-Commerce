@@ -116,7 +116,7 @@
           <div class="tab-pane fade show active" id="desc" role="tabpanel">
             <h5 class="fw-bold mb-4">Ürün Hakkında</h5>
             <div class="lh-lg text-muted">
-              {{ product?.description }}
+              {{ product.description }}
             </div>
           </div>
 
@@ -208,12 +208,12 @@
                   <tr>
                     <td>Bonus</td>
                     <td>3 Taksit</td>
-                    <td>{{ (product?.price || 0) / 3 | number : '1.2-3' }} TL</td>
+                    <td>{{ (product.price || 0) / 3 | number : '1.2-3' }} TL</td>
                   </tr>
                   <tr>
                     <td>World</td>
                     <td>6 Taksit</td>
-                    <td>{{ (product?.price || 0) / 6 | number : '1.2-3' }} TL</td>
+                    <td>{{ (product.price || 0) / 6 | number : '1.2-3' }} TL</td>
                   </tr>
                 </table>
               </div>

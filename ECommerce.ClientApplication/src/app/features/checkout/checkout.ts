@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit,ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -58,6 +58,7 @@ export class CheckoutComponent implements OnInit {
           this.customerId = profile.id;
           this.address.city = profile.city || '';
           this.address.fullAddress = profile.address || '';
+          this.cdr.detectChanges();
         }
       });
     }

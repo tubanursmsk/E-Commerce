@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
@@ -8,7 +8,8 @@ import { AuthService } from '../../../core/services/authService';
   selector: 'app-register',
   standalone: true,
   imports: [CommonModule, FormsModule, RouterModule],
-  templateUrl: './register.html'
+  templateUrl: './register.html',
+  changeDetection: ChangeDetectionStrategy.Default
 })
 export class Register {
   registerObj = {
@@ -18,7 +19,11 @@ export class Register {
     password: ''
   };
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private cdr: ChangeDetectorRef
+  ) { }
 
   onRegister() {
     if (this.registerObj.firstName && this.registerObj.email && this.registerObj.password) {
@@ -27,6 +32,7 @@ export class Register {
           if (res.success) {
             alert("Kayıt başarılı! Giriş yapabilirsiniz.");
             this.router.navigate(['/login']);
+            this.cdr.detectChanges();
           } else {
             alert(res.message);
           }
@@ -37,5 +43,6 @@ export class Register {
         }
       });
     }
+    this.cdr.detectChanges();
   }
 }

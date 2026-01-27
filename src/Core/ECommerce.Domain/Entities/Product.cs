@@ -17,10 +17,8 @@ public class Product : BaseEntity
     // İlişkiler
     public Guid CategoryId { get; set; }
     public Category Category { get; set; } = null!; 
-
     public Guid CompanyId { get; set; }
     public Company Company { get; set; } = null!;
-
     public Guid BrandId { get; set; }
     public Brand Brand { get; set; } = null!;
 }

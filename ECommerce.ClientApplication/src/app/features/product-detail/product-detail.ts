@@ -15,7 +15,7 @@ import { CustomerService } from '../../core/services/customerService';
   selector: 'app-product-detail',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './product-detail.html',
+  templateUrl:'./product-detail.html',
   styleUrls: ['./product-detail.scss'],
   changeDetection: ChangeDetectionStrategy.Default
 })

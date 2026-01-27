@@ -16,4 +16,5 @@ public interface IProductService
     // Yönerge Gereği: Arama ve Şirket bazlı filtreleme
     Task<ApiResponse<IEnumerable<ProductDto>>> GetByCompanyIdAsync(Guid companyId);
     Task<ApiResponse<IEnumerable<ProductDto>>> GetFeaturedProductsAsync();
-}
+    Task<ApiResponse<ProductListResponseDto>> GetFilteredProductsAsync(ProductFilterDto filter);
+    }
