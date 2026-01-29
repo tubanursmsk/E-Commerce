@@ -41,10 +41,10 @@ export class AuthService {
   logout() {
     localStorage.removeItem('token');
     this.currentUser.set(null);
-    
+
     // ÇIKIŞ YAPILDIĞINDA SEPETİ TEMİZLE
-    this.cartService.clearCart(); 
-    
+    this.cartService.clearCart();
+
     this.router.navigate(['/']);
   }
 
@@ -87,5 +87,40 @@ export class AuthService {
 
   updateProfile(userDto: any) {
     return this.baseService.post<ApiResponse<boolean>>('Auth/UpdateProfile', userDto);
+  }
+
+  // Token'dan UserId'yi çözen yardımcı metod
+  getUserIdFromToken(): string | null {
+    const token = localStorage.getItem('token');
+    if (!token) return null;
+
+    try {
+      const payloadBase64 = token.split('.')[1];
+      const payloadJson = atob(payloadBase64);
+      const payload = JSON.parse(payloadJson);
+      // ClaimTypes.NameIdentifier genelde "sub" veya uzun URL olarak gelir
+      // Backend token üretirken hangi claim'i kullandığına bağlı
+      return payload['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'] || payload['sub'] || null;
+    } catch (error) {
+      return null;
+    }
+  }
+
+  // Şifre Değiştirme Metodu
+  changePassword(data: { currentPassword: string, newPassword: string }) {
+    const userId = this.getUserIdFromToken();
+    if (!userId) {
+      // Kullanıcı ID'si bulunamazsa hata dön veya logout yap
+      throw new Error("Kullanıcı kimliği doğrulanamadı.");
+    }
+
+    // Backend'in beklediği tam DTO formatı
+    const requestBody = {
+      userId: userId,
+      currentPassword: data.currentPassword,
+      newPassword: data.newPassword
+    };
+
+    return this.baseService.post<ApiResponse<boolean>>('Auth/ChangePassword', requestBody);
   }
 }

@@ -12,6 +12,7 @@ import { OrdersComponent } from './features/orders/orders';
 import { OrdersDetail } from './features/orders-detail/orders-detail';
 import { ProductList } from './features/product-list/product-list';
 import { CategoryList } from './features/category-list/category-list';
+import { ChangePassword } from './features/profile/change-password/change-password';
 
 
 export const routes: Routes = [
@@ -24,6 +25,7 @@ export const routes: Routes = [
     { path: 'cart', component: Cart },
     { path: 'favorites', component: Favorites },
     { path: 'profile', component: Profile },
+    { path: 'change-password', component: ChangePassword },
     { path: 'checkout', component: CheckoutComponent },
     { path: 'orders', component: OrdersComponent },
     { path: 'orders/:id', component: OrdersDetail }, // Belirli bir siparişin detayları için
