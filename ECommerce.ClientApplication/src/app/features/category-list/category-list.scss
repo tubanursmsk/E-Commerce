@@ -1,0 +1,38 @@
+.category-card {
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  background: white;
+  
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 1rem 2rem rgba(0,0,0,0.1) !important;
+
+    .category-line {
+      height: 5px; // Alt çizgi görünür olur
+    }
+
+    .icon-circle {
+      transform: scale(1.1);
+    }
+  }
+}
+
+.icon-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: #f8f9fa; // Varsayılan açık gri
+  transition: transform 0.3s ease;
+}
+
+.category-line {
+  height: 0px;
+  transition: height 0.3s ease;
+}
+
+// Renk sınıfları (Bootstrap subtle renkleri yoksa diye manuel tanımlama)
+.bg-primary-subtle { background-color: #cfe2ff; }
+.bg-success-subtle { background-color: #d1e7dd; }
+.bg-warning-subtle { background-color: #fff3cd; }
+.bg-info-subtle { background-color: #cff4fc; }
+.bg-danger-subtle { background-color: #f8d7da; }
+.bg-secondary-subtle { background-color: #e2e3e5; }

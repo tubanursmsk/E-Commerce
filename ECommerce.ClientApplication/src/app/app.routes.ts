@@ -11,6 +11,7 @@ import { CheckoutComponent } from './features/checkout/checkout';
 import { OrdersComponent } from './features/orders/orders';
 import { OrdersDetail } from './features/orders-detail/orders-detail';
 import { ProductList } from './features/product-list/product-list';
+import { CategoryList } from './features/category-list/category-list';
 
 
 export const routes: Routes = [
@@ -25,6 +26,6 @@ export const routes: Routes = [
     { path: 'profile', component: Profile },
     { path: 'checkout', component: CheckoutComponent },
     { path: 'orders', component: OrdersComponent },
-    { path: 'orders/:id', component: OrdersDetail } // Belirli bir siparişin detayları için
-    
+    { path: 'orders/:id', component: OrdersDetail }, // Belirli bir siparişin detayları için
+    { path: 'categories', component: CategoryList}
 ];

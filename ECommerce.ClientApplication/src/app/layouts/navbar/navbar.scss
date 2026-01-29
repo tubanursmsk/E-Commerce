@@ -68,3 +68,46 @@
     background: var(--color-gray-200);
   }
 }
+
+.search-box {
+  background-color: #f8f9fa;
+  border-radius: 50px;
+  padding: 0.5rem 1rem;
+  width: 300px; /* Genişlik */
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+
+  i {
+    color: #6c757d;
+    margin-right: 0.5rem;
+  }
+
+  input {
+    border: none;
+    background: transparent;
+    outline: none;
+    width: 100%;
+    color: #212529;
+    
+    &::placeholder {
+      color: #adb5bd;
+    }
+  }
+
+  // Odaklanınca Vatan stili mavi çerçeve
+  &:focus-within {
+    background-color: #fff;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(var(--color-primary-rgb), 0.1);
+    
+    i {
+      color: var(--color-primary);
+    }
+  }
+}
+
+
+
+

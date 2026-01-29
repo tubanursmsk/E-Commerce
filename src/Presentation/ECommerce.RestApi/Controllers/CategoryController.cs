@@ -20,12 +20,12 @@ public class CategoryController : ControllerBase
         _categoryService = categoryService;
     }
 
-    /*[HttpGet("List")]
-    public async Task<IActionResult> GetAll()
+    [HttpGet("AllList")]
+    public async Task<IActionResult> GetAllList()
     {
         var result = await _categoryService.GetAllAsync();
         return Ok(result);
-    }*/
+    }
 
     [HttpGet("List")]
     [AllowAnonymous] // Kategorileri herkes görebilsin (Katalog amaçlı)
