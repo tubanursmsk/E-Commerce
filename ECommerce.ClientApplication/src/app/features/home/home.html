@@ -88,7 +88,9 @@
             {{ product.name }}
           </h6>
           <div class="price-box mt-2">
-            <span class="new-price text-primary fw-bold fs-5"> {{ product.price.toLocaleString('tr-TR') }} TL </span>
+            <span class="new-price text-primary fw-bold fs-5">
+              {{ product.price.toLocaleString('tr-TR') }} TL
+            </span>
           </div>
         </div>
 
@@ -107,55 +109,30 @@
   </div>
 </div>
 
-<!---------------------Üst Kategoriler-------------------------->
+<!---------------------alttaki dekor amaçlı Kategoriler-------------------------->
 <section class="quick-categories mb-4 mt-5">
   <div class="container">
     <div
       class="d-flex justify-content-between align-items-center bg-white shadow-sm py-3 px-2 rounded-4 overflow-x-auto no-scrollbar"
     >
-      <a href="#" class="cat-item text-center text-decoration-none">
+      @for (cat of categories; track cat.id) {
+      <a
+        [routerLink]="['/products']"
+        [queryParams]="{ categoryId: cat.id }"
+        class="cat-item text-center text-decoration-none"
+      >
         <div class="cat-icon-wrapper mb-2">
-          <i class="bi bi-phone"></i>
+          <i class="bi" [class]="getCategoryIcon(cat.name)"></i>
         </div>
-        <span class="cat-name">Telefon</span>
+        <span class="cat-name">{{ cat.name }}</span>
       </a>
+      }
 
-      <a href="#" class="cat-item text-center text-decoration-none">
-        <div class="cat-icon-wrapper mb-2">
-          <i class="bi bi-laptop"></i>
-        </div>
-        <span class="cat-name">Bilgisayar</span>
-      </a>
-
-      <a href="#" class="cat-item text-center text-decoration-none">
-        <div class="cat-icon-wrapper mb-2">
-          <i class="bi bi-watch"></i>
-        </div>
-        <span class="cat-name">Tv,Görüntü ve Ses</span>
-      </a>
-
-      <a href="#" class="cat-item text-center text-decoration-none">
-        <div class="cat-icon-wrapper mb-2">
-          <i class="bi bi-camera"></i>
-        </div>
-        <span class="cat-name">Ev Aletleri</span>
-      </a>
-
-      <a href="#" class="cat-item text-center text-decoration-none">
-        <div class="cat-icon-wrapper mb-2">
-          <i class="bi bi-fan"></i>
-        </div>
-        <span class="cat-name">Soğutma & Isıtma</span>
-      </a>
-
-      <a href="#" class="cat-item text-center text-decoration-none">
-        <div class="cat-icon-wrapper mb-2">
-          <i class="bi bi-outlet"></i>
-        </div>
-        <span class="cat-name">Outlet</span>
-      </a>
-
-      <a href="#" class="cat-item text-center text-decoration-none">
+      <a
+        [routerLink]="['/products']"
+        [queryParams]="{ discount: true }"
+        class="cat-item text-center text-decoration-none"
+      >
         <div class="cat-icon-wrapper mb-2 text-danger">
           <i class="bi bi-lightning-charge"></i>
         </div>
@@ -168,24 +145,29 @@
 <section class="brand-slider-section py-4 bg-light border-top">
   <div class="container">
     <h5 class="fw-bold mb-3 ps-2 border-start border-4 border-primary">Popüler Markalar</h5>
-    
+
     <div class="brands-wrapper overflow-hidden position-relative">
       <div class="brands-track d-flex align-items-center">
         @for (brand of brands; track $index) {
-          <div class="brand-item px-4">
-            <img [src]="brand.logo" [alt]="brand.name" class="img-fluid" style="max-height: 40px; opacity: 0.7; filter: grayscale(100%); transition: all 0.3s;">
-          </div>
-        }
-        @for (brand of brands; track $index) {
-          <div class="brand-item px-4">
-            <img [src]="brand.logo" [alt]="brand.name" class="img-fluid" style="max-height: 40px; opacity: 0.7; filter: grayscale(100%); transition: all 0.3s;">
-          </div>
+        <div class="brand-item px-4">
+          <img
+            [src]="brand.logo"
+            [alt]="brand.name"
+            class="img-fluid"
+            style="max-height: 40px; opacity: 0.7; filter: grayscale(100%); transition: all 0.3s"
+          />
+        </div>
+        } @for (brand of brands; track $index) {
+        <div class="brand-item px-4">
+          <img
+            [src]="brand.logo"
+            [alt]="brand.name"
+            class="img-fluid"
+            style="max-height: 40px; opacity: 0.7; filter: grayscale(100%); transition: all 0.3s"
+          />
+        </div>
         }
       </div>
     </div>
   </div>
 </section>
-
-
-
-

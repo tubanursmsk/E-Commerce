@@ -13,6 +13,8 @@ import { OrdersDetail } from './features/orders-detail/orders-detail';
 import { ProductList } from './features/product-list/product-list';
 import { CategoryList } from './features/category-list/category-list';
 import { ChangePassword } from './features/profile/change-password/change-password';
+import { Notfound } from './features/error-page/notfound/notfound';
+import { Servererror } from './features/error-page/servererror/servererror';
 
 
 export const routes: Routes = [
@@ -29,5 +31,8 @@ export const routes: Routes = [
     { path: 'checkout', component: CheckoutComponent },
     { path: 'orders', component: OrdersComponent },
     { path: 'orders/:id', component: OrdersDetail }, // Belirli bir siparişin detayları için
-    { path: 'categories', component: CategoryList}
+    { path: 'categories', component: CategoryList},
+    {path: "servererror", component: Servererror},
+    { path: "**", component: Notfound}
+    
 ];

@@ -63,8 +63,4 @@ public class AuthController : ControllerBase
         var result = await _authService.RegisterCustomerAsync(dto);
         return Ok(result);
     }
-
-    
-    
-
 }
