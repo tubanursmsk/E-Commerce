@@ -4,7 +4,6 @@ using System.Text.Json;
 using ECommerce.Application.Responses;
 
 namespace ECommerce.AdminPanel.Services;
-
 public class BaseApiService
 {
     private readonly HttpClient _httpClient;

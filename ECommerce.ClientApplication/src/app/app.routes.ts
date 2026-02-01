@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Routes } from '@angular/router';
-import { HomeComponent } from './features/home/home'; 
+import { HomeComponent } from './features/home/home';
 import { ProductDetail } from './features/product-detail/product-detail';
 import { LoginComponent } from './features/auth/login/login';
 import { Register } from './features/auth/register/register';
@@ -15,6 +15,7 @@ import { CategoryList } from './features/category-list/category-list';
 import { ChangePassword } from './features/profile/change-password/change-password';
 import { Notfound } from './features/error-page/notfound/notfound';
 import { Servererror } from './features/error-page/servererror/servererror';
+import { authGuard } from './auth-guard';
 
 
 export const routes: Routes = [
@@ -22,17 +23,17 @@ export const routes: Routes = [
     { path: 'home', component: HomeComponent },
     { path: 'product/:id', component: ProductDetail }, // Dinamik ID ile rota
     { path: 'products', component: ProductList },
-    { path: 'login', component: LoginComponent},
-    { path: 'register', component: Register},
+    { path: 'login', component: LoginComponent },
+    { path: 'register', component: Register },
     { path: 'cart', component: Cart },
-    { path: 'favorites', component: Favorites },
-    { path: 'profile', component: Profile },
-    { path: 'change-password', component: ChangePassword },
+    { path: 'favorites', component: Favorites, canActivate: [authGuard] },
+    { path: 'profile', component: Profile, canActivate: [authGuard] },
+    { path: 'change-password', component: ChangePassword, canActivate: [authGuard] },
     { path: 'checkout', component: CheckoutComponent },
     { path: 'orders', component: OrdersComponent },
     { path: 'orders/:id', component: OrdersDetail }, // Belirli bir siparişin detayları için
-    { path: 'categories', component: CategoryList},
-    {path: "servererror", component: Servererror},
-    { path: "**", component: Notfound}
-    
+    { path: 'categories', component: CategoryList },
+    { path: "servererror", component: Servererror },
+    { path: "**", component: Notfound }
+
 ];
