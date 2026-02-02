@@ -21,6 +21,10 @@ public class UpdateProductViewModel
     [Required]
     public Guid CompanyId { get; set; } 
     public string? ImageUrl { get; set; }
+    public List<IFormFile>? Files { get; set; }
+
+    // Mevcut Resimlerin URL Listesi (Görüntüleme için)
+    public List<string> ExistingImages { get; set; } = new List<string>();
 
     [Required(ErrorMessage = "Fiyat zorunludur.")]
     [Range(0.01, double.MaxValue, ErrorMessage = "Fiyat 0'dan büyük olmalıdır.")]

@@ -160,6 +160,7 @@ public class ProductController : Controller
         ViewBag.AllBrands = brandResponse?.Data?.ToList() ?? new List<BrandDto>();
     }
 
+    /*
     // ÜRÜN DÜZENLEME (GET)
     [HttpGet]
     public async Task<IActionResult> Update(Guid id)
@@ -195,36 +196,123 @@ public class ProductController : Controller
         };
 
         return View(model);
+    }*/
+    [HttpGet]
+    public async Task<IActionResult> Update(Guid id)
+    {
+        var productResponse = await _apiService.GetAsync<ProductDto>($"Product/GetById/{id}");
+        if (productResponse == null || !productResponse.Success)
+        {
+            TempData["ErrorMessage"] = "Ürün bulunamadı.";
+            return RedirectToAction(nameof(Index));
+        }
+
+        var product = productResponse.Data;
+
+        // ViewBags (Kategori/Marka)
+        await LoadViewBags();
+
+        var model = new UpdateProductViewModel
+        {
+            Id = product.Id,
+            Name = product.Name,
+            Description = product.Description ?? string.Empty,
+            Price = product.Price,
+            Stock = product.Stock,
+            CategoryId = product.CategoryId,
+            BrandId = product.BrandId,
+            CompanyId = product.CompanyId,
+            // YENİ: Mevcut Resimleri DTO'dan alıp ViewModel'e atıyoruz
+            ExistingImages = product.Images ?? new List<string>()
+        };
+
+        // Eğer Images listesi boşsa ama ImageUrl doluysa onu ekle (Eski kayıtlar için)
+        if (!model.ExistingImages.Any() && !string.IsNullOrEmpty(product.ImageUrl))
+        {
+            model.ExistingImages.Add(product.ImageUrl);
+        }
+
+        return View(model);
     }
 
-    // ÜRÜN DÜZENLEME (POST)
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Update(UpdateProductViewModel model)
     {
         if (!ModelState.IsValid)
-            return View(model);
-
-
-        var updateDto = new ProductUpdateDto
         {
-            Name = model.Name,
-            Description = model.Description,
-            Price = model.Price,
-            Stock = model.Stock,
-            CategoryId = model.CategoryId,
-            BrandId = model.BrandId,
-            CompanyId = model.CompanyId // ✔ modelden geliyor
-        };
+            await LoadViewBags();
+            return View(model);
+        }
 
-        var response = await _apiService.PutAsync<ProductUpdateDto, bool>($"Product/Update/{model.Id}", updateDto);//Buraya id ekledik(ve cshtml de hidden input ekledik)
+        // --- MULTIPART FORM DATA HAZIRLIĞI ---
+        using var content = new MultipartFormDataContent();
 
-        if (response.Success)
+        // Text Alanları
+        content.Add(new StringContent(model.Name), nameof(ProductUpdateDto.Name));
+        content.Add(new StringContent(model.Description ?? ""), nameof(ProductUpdateDto.Description));
+        content.Add(new StringContent(model.Price.ToString()), nameof(ProductUpdateDto.Price));
+        content.Add(new StringContent(model.Stock.ToString()), nameof(ProductUpdateDto.Stock));
+        content.Add(new StringContent(model.CategoryId.ToString()), nameof(ProductUpdateDto.CategoryId));
+        content.Add(new StringContent(model.BrandId.ToString()), nameof(ProductUpdateDto.BrandId));
+        content.Add(new StringContent(model.CompanyId.ToString()), nameof(ProductUpdateDto.CompanyId));
+
+        // YENİ: Dosyaları Ekle
+        if (model.Files != null && model.Files.Count > 0)
+        {
+            foreach (var file in model.Files)
+            {
+                var fileContent = new StreamContent(file.OpenReadStream());
+                fileContent.Headers.ContentType = new MediaTypeHeaderValue(file.ContentType);
+                // Backend DTO'daki isim "ImageFiles" olmalı
+                content.Add(fileContent, "ImageFiles", file.FileName);
+            }
+        }
+        // -----------------------------
+
+        // PUT İsteği
+        var response = await _apiService.PutMultipartAsync<bool>($"Product/Update/{model.Id}", content);
+
+        if (response != null && response.Success)
+        {
+            TempData["SuccessMessage"] = "Ürün başarıyla güncellendi.";
             return RedirectToAction("Index");
+        }
 
-        ViewBag.Error = response?.Message ?? "Güncelleme sırasında hata oluştu.";
+        TempData["ErrorMessage"] = response?.Message ?? "Güncelleme sırasında hata oluştu.";
+        await LoadViewBags();
         return View(model);
     }
+
+    /*
+        // ÜRÜN DÜZENLEME (POST)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Update(UpdateProductViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return View(model);
+
+
+            var updateDto = new ProductUpdateDto
+            {
+                Name = model.Name,
+                Description = model.Description,
+                Price = model.Price,
+                Stock = model.Stock,
+                CategoryId = model.CategoryId,
+                BrandId = model.BrandId,
+                CompanyId = model.CompanyId // ✔ modelden geliyor
+            };
+
+            var response = await _apiService.PutAsync<ProductUpdateDto, bool>($"Product/Update/{model.Id}", updateDto);//Buraya id ekledik(ve cshtml de hidden input ekledik)
+
+            if (response.Success)
+                return RedirectToAction("Index");
+
+            ViewBag.Error = response?.Message ?? "Güncelleme sırasında hata oluştu.";
+            return View(model);
+        }*/
 
     // ÜRÜN SİLME
     [HttpPost] // View'dan gelen form isteği POST'tur

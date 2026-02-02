@@ -4,6 +4,7 @@ using System.Text.Json;
 using ECommerce.Application.Responses;
 
 namespace ECommerce.AdminPanel.Services;
+
 public class BaseApiService
 {
     private readonly HttpClient _httpClient;
@@ -85,27 +86,27 @@ public class BaseApiService
 
 
     public async Task<ApiResponse<TResponse>?> PutAsync<TRequest, TResponse>(string endpoint, TRequest dto)
-{
-    AddTokenToHeader();
-    var json = JsonSerializer.Serialize(dto);
-    var data = new StringContent(json, Encoding.UTF8, "application/json");
-
-    var response = await _httpClient.PutAsync(endpoint, data); // PutAsync kullanıyoruz
-    
-    if (!response.IsSuccessStatusCode)
     {
-        return new ApiResponse<TResponse> { Success = false, Message = $"API Hatası: {response.StatusCode}" };
-    }
+        AddTokenToHeader();
+        var json = JsonSerializer.Serialize(dto);
+        var data = new StringContent(json, Encoding.UTF8, "application/json");
 
-    var content = await response.Content.ReadAsStringAsync();
-    return JsonSerializer.Deserialize<ApiResponse<TResponse>>(content, _jsonOptions);
-}
+        var response = await _httpClient.PutAsync(endpoint, data); // PutAsync kullanıyoruz
+
+        if (!response.IsSuccessStatusCode)
+        {
+            return new ApiResponse<TResponse> { Success = false, Message = $"API Hatası: {response.StatusCode}" };
+        }
+
+        var content = await response.Content.ReadAsStringAsync();
+        return JsonSerializer.Deserialize<ApiResponse<TResponse>>(content, _jsonOptions);
+    }
 
     public async Task<ApiResponse<bool>?> DeleteAsync(string endpoint)
     {
         AddTokenToHeader();
         var response = await _httpClient.DeleteAsync(endpoint);
-        
+
         if (!response.IsSuccessStatusCode)
         {
             return new ApiResponse<bool> { Success = false, Message = $"API Hatası: {response.StatusCode}" };
@@ -116,20 +117,36 @@ public class BaseApiService
     }
 
     public async Task<ApiResponse<TResponse>?> PostMultipartAsync<TResponse>(string endpoint, MultipartFormDataContent content)
-{
-    AddTokenToHeader();
-    
-    // JSON değil, Multipart gönderiyoruz
-    var response = await _httpClient.PostAsync(endpoint, content);
-
-    if (!response.IsSuccessStatusCode)
     {
-        return new ApiResponse<TResponse> { Success = false, Message = $"API Hatası: {response.StatusCode}" };
+        AddTokenToHeader();
+
+        // JSON değil, Multipart gönderiyoruz
+        var response = await _httpClient.PostAsync(endpoint, content);
+
+        if (!response.IsSuccessStatusCode)
+        {
+            return new ApiResponse<TResponse> { Success = false, Message = $"API Hatası: {response.StatusCode}" };
+        }
+
+        var responseContent = await response.Content.ReadAsStringAsync();
+        return JsonSerializer.Deserialize<ApiResponse<TResponse>>(responseContent, _jsonOptions);
     }
 
-    var responseContent = await response.Content.ReadAsStringAsync();
-    return JsonSerializer.Deserialize<ApiResponse<TResponse>>(responseContent, _jsonOptions);
-}
+    public async Task<ApiResponse<TResponse>?> PutMultipartAsync<TResponse>(string endpoint, MultipartFormDataContent content)
+    {
+        AddTokenToHeader();
+
+        // JSON değil, Multipart gönderiyoruz
+        var response = await _httpClient.PutAsync(endpoint, content);
+
+        if (!response.IsSuccessStatusCode)
+        {
+            return new ApiResponse<TResponse> { Success = false, Message = $"API Hatası: {response.StatusCode}" };
+        }
+
+        var responseContent = await response.Content.ReadAsStringAsync();
+        return JsonSerializer.Deserialize<ApiResponse<TResponse>>(responseContent, _jsonOptions);
+    }
 }
 
 /*
