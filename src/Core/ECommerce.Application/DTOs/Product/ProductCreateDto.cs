@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
 
 namespace ECommerce.Application.DTOs.Product;
 
@@ -27,5 +28,11 @@ public class ProductCreateDto
 
     [Required(ErrorMessage = "Marka ID zorunludur.")]
     public Guid BrandId { get; set; }
+    // Frontend'den dosya gelirken buraya dolacak
+    public IFormFile? ImageFile { get; set; } 
+
+    // Veritabanına dosya yolu olarak bu kaydedilecek (String olarak)
     public string? ImageUrl { get; set; }
+    // Tekil IFormFile yerine List yapıyoruz
+    public List<IFormFile>? ImageFiles { get; set; }
 }

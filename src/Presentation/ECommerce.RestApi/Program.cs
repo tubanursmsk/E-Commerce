@@ -119,14 +119,6 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-// Configure the HTTP request pipeline.
-/*if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-}*/
-
-
-
 
 // Middleware
 //app.UseHttpsRedirection();
@@ -134,6 +126,7 @@ app.UseMiddleware<ECommerce.RestApi.Middleware.GlobalExceptionHandler>();
 app.UseCors("DefaultCorsPolicy");
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseStaticFiles();
 app.MapControllers();
 
 app.Run();

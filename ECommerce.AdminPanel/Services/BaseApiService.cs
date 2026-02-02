@@ -114,6 +114,22 @@ public class BaseApiService
         var content = await response.Content.ReadAsStringAsync();
         return JsonSerializer.Deserialize<ApiResponse<bool>>(content, _jsonOptions);
     }
+
+    public async Task<ApiResponse<TResponse>?> PostMultipartAsync<TResponse>(string endpoint, MultipartFormDataContent content)
+{
+    AddTokenToHeader();
+    
+    // JSON değil, Multipart gönderiyoruz
+    var response = await _httpClient.PostAsync(endpoint, content);
+
+    if (!response.IsSuccessStatusCode)
+    {
+        return new ApiResponse<TResponse> { Success = false, Message = $"API Hatası: {response.StatusCode}" };
+    }
+
+    var responseContent = await response.Content.ReadAsStringAsync();
+    return JsonSerializer.Deserialize<ApiResponse<TResponse>>(responseContent, _jsonOptions);
+}
 }
 
 /*

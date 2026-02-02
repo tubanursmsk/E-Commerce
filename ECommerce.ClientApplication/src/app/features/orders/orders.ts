@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { OrderService } from '../../core/services/orderService';
 import { CustomerService } from '../../core/services/customerService';
 import { RouterModule } from '@angular/router';
+import { ImageUrlPipe } from '../../core/pipes/image-url-pipe';
 
 @Component({
   selector: 'app-orders',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, ImageUrlPipe],
   templateUrl: './orders.html',
   changeDetection: ChangeDetectionStrategy.Default
 

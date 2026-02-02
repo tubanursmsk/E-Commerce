@@ -76,12 +76,13 @@
           style="cursor: pointer"
         >
           <img
-            [src]="product.imageUrl"
+            [src]="product.imageUrl | imageUrl"
             class="img-fluid"
             [alt]="product.name"
-            style="height: 160px; object-fit: contain"
+            style="height: 180px; object-fit: contain"
           />
         </div>
+        
 
         <div class="product-info">
           <h6 class="product-title text-truncate-2 mb-2" style="font-size: 0.85rem; height: 38px">

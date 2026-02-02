@@ -385,3 +385,4 @@ C:\Users\PC\Documents\E-Commerce\src\Presentation\ECommerce.RestApi\obj\Debug\ne
 C:\Users\PC\Documents\E-Commerce\src\Presentation\ECommerce.RestApi\obj\Debug\net9.0\ECommerce.RestApi.pdb
 C:\Users\PC\Documents\E-Commerce\src\Presentation\ECommerce.RestApi\obj\Debug\net9.0\ECommerce.RestApi.genruntimeconfig.cache
 C:\Users\PC\Documents\E-Commerce\src\Presentation\ECommerce.RestApi\obj\Debug\net9.0\ref\ECommerce.RestApi.dll
+C:\Users\PC\Documents\E-Commerce\src\Presentation\ECommerce.RestApi\bin\Debug\net9.0\ECommerce.RestApi.staticwebassets.runtime.json

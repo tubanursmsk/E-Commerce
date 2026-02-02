@@ -9,6 +9,7 @@ namespace ECommerce.Domain.Interfaces
 
          Task<IEnumerable<Product>> GetByCompanyIdListAsync(Guid companyId);
          Task<(IEnumerable<Product> Items, int TotalCount)> GetFilteredAsync(ProductFilterParams filter);
+         Task<Product?> GetByIdWithImagesAsync(Guid id);
     }
 
     

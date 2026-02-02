@@ -29,9 +29,22 @@ public class ProductService : IProductService
 
         return ApiResponse<IEnumerable<ProductDto>>.SuccessResult(dtos);
     }
-    public async Task<ApiResponse<ProductDto>> GetByIdAsync(Guid id)
+
+    /*public async Task<ApiResponse<ProductDto>> GetByIdAsync(Guid id)
     {
         var product = await _unitOfWork.Products.GetByIdAsync(id);
+        if (product == null) return ApiResponse<ProductDto>.ErrorResult("Ürün bulunamadı.");
+
+        var dto = _mapper.Map<ProductDto>(product);
+        return ApiResponse<ProductDto>.SuccessResult(dto);
+    }*/
+
+    public async Task<ApiResponse<ProductDto>> GetByIdAsync(Guid id)
+    {
+        // Eski: var product = await _unitOfWork.Products.GetByIdAsync(id);
+        // Yeni: Özel metodumuzu çağırıyoruz
+        var product = await _unitOfWork.Products.GetByIdWithImagesAsync(id);
+
         if (product == null) return ApiResponse<ProductDto>.ErrorResult("Ürün bulunamadı.");
 
         var dto = _mapper.Map<ProductDto>(product);
@@ -60,9 +73,54 @@ public class ProductService : IProductService
     public async Task<ApiResponse<Guid>> CreateAsync(ProductCreateDto dto)
     {
         var product = _mapper.Map<Product>(dto);
-        await _unitOfWork.Products.AddAsync(product);
+
+        // --- ÇOKLU RESİM YÜKLEME MANTIĞI ---
+        if (dto.ImageFiles != null && dto.ImageFiles.Count > 0)
+        {
+            var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "products");
+            if (!Directory.Exists(uploadsFolder)) Directory.CreateDirectory(uploadsFolder);
+
+            bool isFirstImage = true;
+
+            foreach (var file in dto.ImageFiles)
+            {
+                if (file.Length > 0)
+                {
+                    // 1. Dosyayı Kaydet
+                    var uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+                    var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await file.CopyToAsync(fileStream);
+                    }
+
+                    var dbPath = $"/images/products/{uniqueFileName}";
+
+                    // 2. Eğer ilk resimse Product tablosundaki ImageUrl'e de yaz (Ana sayfa bozulmasın)
+                    if (isFirstImage)
+                    {
+                        product.ImageUrl = dbPath;
+                    }
+
+                    // 3. ProductImages tablosuna ekle
+                    product.ProductImages.Add(new ProductImage
+                    {
+                        Id = Guid.NewGuid(),
+                        ImageUrl = dbPath,
+                        IsMain = isFirstImage,
+                        Status = true,
+                        CreatedDate = DateTime.UtcNow
+                    });
+
+                    isFirstImage = false;
+                }
+            }
+        }
+        // -----------------------------
+
+        await _unitOfWork.Products.AddAsync(product); // Cascade insert ile resimleri de ekler
         await _unitOfWork.SaveChangesAsync();
-        return ApiResponse<Guid>.SuccessResult(product.Id, "Ürün başarıyla eklendi.");
+        return ApiResponse<Guid>.SuccessResult(product.Id, "Ürün ve görseller başarıyla eklendi.");
     }
 
     public async Task<ApiResponse<bool>> UpdateAsync(Guid id, ProductUpdateDto dto)
@@ -106,46 +164,46 @@ public class ProductService : IProductService
     }
 
 
-      public async Task<ApiResponse<ProductListResponseDto>> GetFilteredProductsAsync(ProductFilterDto dto)
-{
-    // 1. DTO'yu Domain Nesnesine (Params) Çevir
-    var filterParams = new ProductFilterParams
+    public async Task<ApiResponse<ProductListResponseDto>> GetFilteredProductsAsync(ProductFilterDto dto)
     {
-        CategoryId = dto.CategoryId,
-        BrandIds = dto.BrandIds,
-        MinPrice = dto.MinPrice,
-        MaxPrice = dto.MaxPrice,
-        Keyword = dto.Keyword,
-        IsFreeShipping = dto.IsFreeShipping,
-        IsFastDelivery = dto.IsFastDelivery,
-        SortBy = dto.SortBy,
-        PageNumber = dto.PageNumber,
-        PageSize = dto.PageSize
-    };
+        // 1. DTO'yu Domain Nesnesine (Params) Çevir
+        var filterParams = new ProductFilterParams
+        {
+            CategoryId = dto.CategoryId,
+            BrandIds = dto.BrandIds,
+            MinPrice = dto.MinPrice,
+            MaxPrice = dto.MaxPrice,
+            Keyword = dto.Keyword,
+            IsFreeShipping = dto.IsFreeShipping,
+            IsFastDelivery = dto.IsFastDelivery,
+            SortBy = dto.SortBy,
+            PageNumber = dto.PageNumber,
+            PageSize = dto.PageSize
+        };
 
-    // 2. Repository'i çağır
-    var (products, totalCount) = await _unitOfWork.Products.GetFilteredAsync(filterParams);
-    
-    // 3. Marka İstatistiklerini Hesapla (Sol panel için)
-    var brandStats = products
-        .GroupBy(p => p.Brand)
-        .Select(g => new BrandFilterDto 
-        { 
-            Id = g.Key.Id, 
-            Name = g.Key.Name, 
-            Count = g.Count() 
-        }).ToList();
+        // 2. Repository'i çağır
+        var (products, totalCount) = await _unitOfWork.Products.GetFilteredAsync(filterParams);
 
-    // 4. Sonucu Hazırla
-    var result = new ProductListResponseDto
-    {
-        Products = _mapper.Map<IEnumerable<ProductDto>>(products),
-        TotalCount = totalCount,
-        AvailableBrands = brandStats,
-        MinPrice = products.Any() ? products.Min(p => p.Price) : 0,
-        MaxPrice = products.Any() ? products.Max(p => p.Price) : 0
-    };
+        // 3. Marka İstatistiklerini Hesapla (Sol panel için)
+        var brandStats = products
+            .GroupBy(p => p.Brand)
+            .Select(g => new BrandFilterDto
+            {
+                Id = g.Key.Id,
+                Name = g.Key.Name,
+                Count = g.Count()
+            }).ToList();
 
-    return ApiResponse<ProductListResponseDto>.SuccessResult(result);
-}
+        // 4. Sonucu Hazırla
+        var result = new ProductListResponseDto
+        {
+            Products = _mapper.Map<IEnumerable<ProductDto>>(products),
+            TotalCount = totalCount,
+            AvailableBrands = brandStats,
+            MinPrice = products.Any() ? products.Min(p => p.Price) : 0,
+            MaxPrice = products.Any() ? products.Max(p => p.Price) : 0
+        };
+
+        return ApiResponse<ProductListResponseDto>.SuccessResult(result);
+    }
 }

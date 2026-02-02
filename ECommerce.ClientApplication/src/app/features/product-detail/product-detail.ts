@@ -10,11 +10,12 @@ import { FavoriteService } from '../../core/services/favoriteService';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../core/services/authService';
 import { CustomerService } from '../../core/services/customerService';
+import { ImageUrlPipe } from '../../core/pipes/image-url-pipe'; 
 
 @Component({
   selector: 'app-product-detail',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ImageUrlPipe],
   templateUrl:'./product-detail.html',
   styleUrls: ['./product-detail.scss'],
   changeDetection: ChangeDetectionStrategy.Default
@@ -24,6 +25,10 @@ export class ProductDetail implements OnInit {
   reviews: Review[] = [];
   averageRating: number = 0;
   loading = true;
+
+  // --- YENİ EKLENEN: Resim Seçimi ---
+  selectedImage: string | null = null; 
+  // ----------------------------------
 
   // Yorum Formu Verisi
   newReview = {
@@ -62,6 +67,16 @@ export class ProductDetail implements OnInit {
       next: (data) => {
         this.product = data;
 
+        // --- YENİ EKLENEN: Resim Mantığı ---
+        // Ürün geldiği gibi ana resmi seçili yapıyoruz
+        this.selectedImage = this.product.imageUrl;
+
+        // Eğer backend'den gelen images listesi boşsa, ana resmi listeye ekleyelim ki galeri boş durmasın
+        if (!this.product.images || this.product.images.length === 0) {
+           this.product.images = [this.product.imageUrl];
+        }
+        // ------------------------------------
+
         // 2. Ürün geldikten sonra Yorumları Çek
         this.loadReviews(id);
 
@@ -88,6 +103,12 @@ export class ProductDetail implements OnInit {
     });
   }
 
+  // --- YENİ EKLENEN: Resim Değiştirme ---
+  changeImage(img: string) {
+    this.selectedImage = img;
+  }
+  // --------------------------------------
+
   // --- DÜZENLEME VE SİLME İŞLEMLERİ ---
 
   // Düzenleme Modunu Açan Fonksiyon
@@ -102,8 +123,6 @@ export class ProductDetail implements OnInit {
     };
 
     // Modalı aç (Bootstrap JS simülasyonu)
-    // HTML'deki "Yorum Yap" butonuna tıklamak yerine, oluşturduğumuz gizli butona tıklıyoruz.
-    // Böylece "isEditing = false" yapan kod çalışmıyor!
     const modalBtn = document.getElementById('hiddenModalTrigger');
     if (modalBtn) {
       modalBtn.click();
@@ -144,34 +163,16 @@ export class ProductDetail implements OnInit {
           return;
         }
 
-        // Ortak DTO verisi
-        const reviewDto = {
-          productId: this.product?.id,
-          customerId: profileData.id,
-          rating: this.newReview.rating,
-          comment: this.newReview.comment,
-          // DİKKAT: Backend Update DTO'su ID istiyor mu? 
-          // Eğer ReviewUpdateDto içinde Id propertysi yoksa buraya koyma.
-          // Genelde ID URL'den gider: api/Review/Update/{id}
-        };
-
-        // ---------- AYRIM NOKTASI --------
         if (this.isEditing && this.editingReviewId) {
           // *** GÜNCELLEME İŞLEMİ ***
-          console.log("Güncelleniyor...", this.editingReviewId);
-
-          // Update DTO'su genellikle ID istemez (URL'den alır) ve CustomerId/ProductId değişmez.
-          // Sadece değişen alanları gönderelim.
           const updateDto = {
             rating: this.newReview.rating,
             comment: this.newReview.comment,
-            status: true // Backend status bekliyorsa
+            status: true 
           };
 
           this.reviewService.updateReview(this.editingReviewId, updateDto).subscribe({
             next: (res) => {
-              // Backend bool döndüğü için success kontrolü şöyle olabilir:
-              // Eğer ApiResponse<bool> dönüyorsa: res.success
               this.handleSuccess("Yorum başarıyla güncellendi!");
             },
             error: (err) => {
@@ -182,8 +183,6 @@ export class ProductDetail implements OnInit {
 
         } else {
           // *** YENİ KAYIT İŞLEMİ ***
-          console.log("Yeni kayıt oluşturuluyor...");
-
           const createDto = {
             productId: this.product?.id,
             customerId: profileData.id,
@@ -206,25 +205,19 @@ export class ProductDetail implements OnInit {
 
   // --- YARDIMCI METODLAR ---
 
-  // Başarılı işlem sonrası temizlik yapan metod
   handleSuccess(msg: string) {
     alert(msg);
     this.isSubmitting = false;
-
-    // Modu sıfırla
     this.isEditing = false;
     this.editingReviewId = null;
     this.newReview = { rating: 5, comment: '' };
 
-    // Modalı kapat
     const closeBtn = document.getElementById('closeModalBtn');
     if (closeBtn) closeBtn.click();
 
-    // Listeyi yenile
     if (this.product) this.loadReviews(this.product.id);
   }
 
-  // Hata durumunda çalışan metod
   handleError() {
     alert("İşlem sırasında bir hata oluştu.");
     this.isSubmitting = false;

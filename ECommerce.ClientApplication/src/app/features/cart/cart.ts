@@ -2,16 +2,18 @@ import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { CartService, CartItem } from '../../core/services/cartService';
+import { ImageUrlPipe } from '../../core/pipes/image-url-pipe';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, ImageUrlPipe],
   templateUrl: './cart.html',
   styleUrls: ['./cart.scss'],
   changeDetection: ChangeDetectionStrategy.Default
 })
 export class Cart {
+product: any;
   constructor(
     private cdr: ChangeDetectorRef,
     public cartService: CartService

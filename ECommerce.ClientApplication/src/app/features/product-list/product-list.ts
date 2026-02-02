@@ -7,11 +7,12 @@ import { Product, BrandFilter, ProductFilterParams } from '../../core/models/pro
 import { CategoryService } from '../../core/services/categoryService'; // Kategorileri çekmek için
 import { Category } from '../../core/models/category';
 import { CartService } from '../../core/services/cartService';
+import { ImageUrlPipe } from '../../core/pipes/image-url-pipe';
 
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule, ImageUrlPipe],
   templateUrl: './product-list.html',
   styleUrls: ['./product-list.scss'],
   changeDetection: ChangeDetectionStrategy.Default

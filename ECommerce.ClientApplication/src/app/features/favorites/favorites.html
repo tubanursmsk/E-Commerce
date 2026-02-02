@@ -2,42 +2,53 @@
   <h2 class="fw-bold mb-4">Favori Ürünlerim</h2>
 
   @if (favoriteService.favorites().length > 0) {
-    <div class="row g-4">
-      @for (product of favoriteService.favorites(); track product.id) {
-        <div class="col-6 col-md-4 col-lg-3">
-          <div class="card h-100 border-0 shadow-sm rounded-4 position-relative product-card">
-            
-            <button (click)="favoriteService.toggleFavorite(product)" 
-                    class="btn btn-light position-absolute top-0 end-0 m-2 rounded-circle shadow-sm text-danger"
-                    style="width: 35px; height: 35px; z-index: 10;">
-              <i class="bi bi-x-lg" style="font-size: 0.8rem;"></i>
-            </button>
+  <div class="row g-4">
+    @for (product of favoriteService.favorites(); track product.id) {
+    <div class="col-6 col-md-4 col-lg-3">
+      <div class="card h-100 border-0 shadow-sm rounded-4 position-relative product-card">
+        <button
+          (click)="favoriteService.toggleFavorite(product)"
+          class="btn btn-light position-absolute top-0 end-0 m-2 rounded-circle shadow-sm text-danger"
+          style="width: 35px; height: 35px; z-index: 10"
+        >
+          <i class="bi bi-x-lg" style="font-size: 0.8rem"></i>
+        </button>
 
-            <div class="p-3 text-center" style="cursor: pointer" [routerLink]="['/product', product.id]">
-              <img [src]="product.imageUrl" class="img-fluid" style="height: 180px; object-fit: contain;">
-            </div>
+        <div
+          class="p-3 text-center"
+          style="cursor: pointer"
+          [routerLink]="['/product', product.id]"
+        >
+          <img
+            [src]="product.imageUrl | imageUrl"
+            class="img-fluid"
+            [alt]="product.name"
+            style="height: 180px; object-fit: contain"
+          />
+        </div>
 
-            <div class="card-body">
-              <h6 class="card-title text-truncate-2" style="min-height: 40px;">{{ product.name }}</h6>
-              <div class="fs-5 fw-bold text-primary mt-2">{{ product.price | number:'1.2-3' }} TL</div>
-            </div>
-
-            <div class="card-footer bg-white border-0 pb-3">
-              <button (click)="moveToCart(product)" class="btn btn-outline-primary w-100 rounded-pill">
-                <i class="bi bi-cart-plus me-2"></i>Sepete Ekle
-              </button>
-            </div>
-
+        <div class="card-body">
+          <h6 class="card-title text-truncate-2" style="min-height: 40px">{{ product.name }}</h6>
+          <div class="fs-5 fw-bold text-primary mt-2">
+            {{ product.price | number : '1.2-3' }} TL
           </div>
         </div>
-      }
+
+        <div class="card-footer bg-white border-0 pb-3">
+          <button (click)="moveToCart(product)" class="btn btn-outline-primary w-100 rounded-pill">
+            <i class="bi bi-cart-plus me-2"></i>Sepete Ekle
+          </button>
+        </div>
+      </div>
     </div>
+    }
+  </div>
   } @else {
-    <div class="text-center py-5">
-      <i class="bi bi-heart text-muted display-1 opacity-25"></i>
-      <h4 class="mt-4">Favori listeniz boş.</h4>
-      <p class="text-muted">Beğendiğiniz ürünleri kalp ikonuna tıklayarak buraya ekleyebilirsiniz.</p>
-      <a routerLink="/" class="btn btn-outline-primary rounded-pill px-4 mt-2">Ürünleri İncele</a>
-    </div>
+  <div class="text-center py-5">
+    <i class="bi bi-heart text-muted display-1 opacity-25"></i>
+    <h4 class="mt-4">Favori listeniz boş.</h4>
+    <p class="text-muted">Beğendiğiniz ürünleri kalp ikonuna tıklayarak buraya ekleyebilirsiniz.</p>
+    <a routerLink="/" class="btn btn-outline-primary rounded-pill px-4 mt-2">Ürünleri İncele</a>
+  </div>
   }
 </div>
