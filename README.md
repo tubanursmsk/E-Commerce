@@ -153,8 +153,7 @@ Aşağıdaki modüller hem Admin Panel hem de REST API tarafında (ilgili roller
 - Standart response formatı:
   
 ```json
-{ "success": true, "message": "", "data": {} }
-``` :contentReference[oaicite:8]{index=8}
+{ "success": true, "message": "", "data": {} 
 ```
 
 ### Angular Storefront
