@@ -24,9 +24,7 @@ public class AppDbContext : DbContext
     public DbSet<Cargo> Cargoes { get; set; }
     public DbSet<Request> Requests { get; set; }
     public DbSet<Customer> Customers { get; set; }
-
-
-
+    public DbSet<ProductImage> ProductImages { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -36,39 +34,61 @@ public class AppDbContext : DbContext
         // İlişkileri ve kısıtlamaları burada özelleştirebilirsin (Fluent API)
         // Örneğin: UserRole tablosunda UserId ve RoleId birleşimi benzersiz olmalı.
         modelBuilder.Entity<UserRole>()
-            .HasIndex(ur => new { ur.UserId, ur.RoleId })
+            .HasIndex(ur => new { ur.UserId, ur.RoleId }) // bir kullanıcının aynı rolü birden fazla almasını engelle
             .IsUnique();
 
-        // Şirket silindiğinde ürünlerin de silinmesi (Cascade) gibi ayarlar...
 
+        // product-update işlmeinde resim güncellme ---
+        modelBuilder.Entity<ProductImage>()
+            .HasOne(pi => pi.Product)
+            .WithMany(p => p.ProductImages)
+            .HasForeignKey(pi => pi.ProductId)
+            .OnDelete(DeleteBehavior.Cascade); // Ürün silinirse resimleri de silinsin
+                                               
 
-         // Order ve Customer arasındaki ilişkiyi açıkça tanımlıyoruz
-    modelBuilder.Entity<Order>()
-        .HasOne(o => o.Customer)       // Her siparişin bir müşterisi vardır
-        .WithMany(c => c.Orders)      // Her müşterinin birçok siparişi olabilir
-        .HasForeignKey(o => o.CustomerId) // Yabancı anahtar (Foreign Key) budur
-        .OnDelete(DeleteBehavior.Restrict); // İsteğe bağlı: Müşteri silinince siparişler kalsın mı?
-}
+        // Order ve Customer arasındaki ilişkiyi açıkça tanımlıyoruz
+        modelBuilder.Entity<Order>()
+            .HasOne(o => o.Customer)       // Her siparişin bir müşterisi vardır
+            .WithMany(c => c.Orders)      // Her müşterinin birçok siparişi olabilir
+            .HasForeignKey(o => o.CustomerId) // Yabancı anahtar (Foreign Key) budur
+            .OnDelete(DeleteBehavior.Restrict); // İsteğe bağlı: Müşteri silinince siparişler kalsın mı?
     }
+}
 
 
 /*
 
 OnModelCreating metodu, Entity Framework Core (EF Core) tarafında "Fluent API" olarak adlandırılan yapılandırma kısmıdır.
 
-En basit haliyle işlevi şudur: Sınıf (Entity) tanımlarında (Product.cs, User.cs vb.) belirtemediğin veya daha detaylı kurgulamak istediğin veritabanı kurallarını burada belirlersin.
+En basit haliyle işlevi şudur: Sınıf (Entity) tanımlarında (Product.cs, User.cs vb.) belirtemediğin veya daha detaylı
+ kurgulamak istediğin veritabanı kurallarını burada belirlersin.
 
 Peki, senin projen için gerekli mi? Kesinlikle evet. Nedenlerini ve ne işe yaradığını tane tane açıklayayım:
 
 1. Neden Gereklidir?
-C# sınıflarında yazdığın kodlar (örneğin public Guid CompanyId { get; set; }), EF Core'a bazı temel bilgileri verir. Ancak bazı kurallar vardır ki bunları sadece sınıfa bakarak anlayamaz:
+C# sınıflarında yazdığın kodlar (örneğin public Guid CompanyId { get; set; }), EF Core'a bazı temel bilgileri verir.
+ Ancak bazı kurallar vardır ki bunları sadece sınıfa bakarak anlayamaz:
 
-Çoklu Benzersizlik (Composite Index): Bir kullanıcının aynı role iki kez atanmasını engellemek istersen (UserRole tablosu), bunu sadece sınıfta belirtemezsin. OnModelCreating içinde "UserId ve RoleId ikilisi benzersiz olsun" demen gerekir.
+Çoklu Benzersizlik (Composite Index): Bir kullanıcının aynı role iki kez atanmasını engellemek istersen
+ (UserRole tablosu), bunu sadece sınıfta belirtemezsin. OnModelCreating içinde "UserId ve RoleId ikilisi
+  benzersiz olsun" demen gerekir.
+  OnDelete(DeleteBehavior.Restrict) Açıklaması
+.OnDelete(DeleteBehavior.Restrict), Entity Framework Core'da ilişkisel veri bütünlüğü kurallarını tanımlamak için kullanılır. Bu kod, iki tablo arasında bir yabancı anahtar ilişkisinin silinme davranışını kontrol eder.
 
-Silme Davranışları (Cascade Delete): Bir Şirket (Company) silindiğinde, o şirkete ait tüm ürünler (Product) de silinsin mi? Yoksa hata mı versin? Bunu burada yönetirsin.
+DeleteBehavior.Restrict seçeneği, ana tablodan bir kaydı silmeyi engeller eğer bağlantılı bir alt kayıt varsa. Örneğin, bir müşterinin (Customer) silinmesini engellerseniz ve o müşterinin aktif siparişleri (Orders) varsa, sistem müşteriyi silmeye izin vermez. Veritabanı bu işlemi reddeder ve bir hata fırlatır.
 
+Diğer DeleteBehavior seçenekleriyle karşılaştırma:
+
+Restrict: Bağlantılı kayıt varsa silme işlemini engeller (en güvenli)
+Cascade: Ana kayıt silindiğinde bağlantılı alt kayıtları da siler
+SetNull: Ana kayıt silindiğinde ilişkili kayıtlardaki yabancı anahtarı null yapar
+NoAction: Hiçbir işlem yapmaz (veritabanına bırakır)
+
+Silme Davranışları (Cascade Delete): Bir Şirket (Company) silindiğinde, o şirkete ait tüm ürünler (Product)
+ de silinsin mi? Yoksa hata mı versin? Bunu burada yönetirsin.
+
+-----------------
 Hassas Veri Tipleri: Bir decimal alanın veritabanında decimal(18,2) (18 basamak, virgülden sonra 2 basamak) formatında saklanacağını burada garanti altına alırsın.
-
 2. Kodundaki Örneklerin İşlevi
 Senin paylaştığın kod üzerinden gidelim:
 
@@ -79,14 +99,11 @@ modelBuilder.Entity<UserRole>()
     .IsUnique();
 İşlevi: Veritabanında UserRoles tablosuna bir "Index" (indeks) ekler.
 
-Senaryo: Eğer bu kod olmazsa, bir kullanıcıya "Admin" rolünü yanlışlıkla 10 kere ekleyebilirsin. Bu kod sayesinde veritabanı, aynı kullanıcı-rol çiftinin ikinci kez eklenmesine izin vermez, hata fırlatır. Veri tutarlılığını korur.
+Senaryo: Eğer bu kod olmazsa, bir kullanıcıya "Admin" rolünü yanlışlıkla 10 kere ekleyebilirsin.
+ Bu kod sayesinde veritabanı, aynı kullanıcı-rol çiftinin ikinci kez eklenmesine izin vermez, hata fırlatır. Veri tutarlılığını korur.
 
-3. Senin Projen İçin Eklememiz Gereken Önemli Kurallar
-Yönergeye uygun olarak, bu kısmın içine şu tip kuralları da ileride ekleyeceğiz:
-
+3. Proje İçin Eklememiz Gereken Önemli Kurallar
 Fiyat Belirleme: Product içindeki Price alanı için:
-
-C#
 
 modelBuilder.Entity<Product>()
     .Property(p => p.Price)
@@ -94,7 +111,10 @@ modelBuilder.Entity<Product>()
 Şirket Bazlı İlişkiler: Şirket (Company) silindiğinde bağlı olduğu ürünlerin veya siparişlerin durumunu kontrol etmek için.
 
 4. Alternatif: Data Annotations
-Bazı kuralları sınıfların başına [Required], [MaxLength(100)] gibi nitelikler ekleyerek de yapabilirsin. Ancak profesyonel ve Clean Architecture yapısındaki projelerde (arkadaşının projesinde de böyledir), entity'lerin (nesnelerin) "temiz" kalması istenir. Bu yüzden veritabanı ayarlarının tamamı merkezi bir yerden, yani OnModelCreating içinden yönetilir.
+Bazı kuralları sınıfların başına [Required], [MaxLength(100)] gibi nitelikler ekleyerek de yapabilirsin. 
+Ancak profesyonel ve Clean Architecture yapısındaki projelerde entity'lerin (nesnelerin) "temiz" kalması istenir. 
+Bu yüzden veritabanı ayarlarının tamamı merkezi bir yerden, yani OnModelCreating içinden yönetilir.
 
-Özetle: Bu kısım veritabanının "Anayasası" gibidir. Kuralları burada koyarsın ki veritabanın karmaşıklaşmasın ve hatalı veri kabul etmesin.
+Özetle: Bu kısım veritabanının "Anayasası" gibidir. Kuralları burada koyarsın ki veritabanın karmaşıklaşmasın ve hatalı 
+veri kabul etmesin.
 */

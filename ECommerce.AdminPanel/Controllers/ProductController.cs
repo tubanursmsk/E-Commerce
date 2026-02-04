@@ -265,7 +265,7 @@ public class ProductController : Controller
                 var fileContent = new StreamContent(file.OpenReadStream());
                 fileContent.Headers.ContentType = new MediaTypeHeaderValue(file.ContentType);
                 // Backend DTO'daki isim "ImageFiles" olmalı
-                content.Add(fileContent, "ImageFiles", file.FileName);
+                content.Add(fileContent, "ImageFiles", Path.GetFileName(file.FileName));
             }
         }
         // -----------------------------

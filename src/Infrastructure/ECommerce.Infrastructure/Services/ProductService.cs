@@ -124,55 +124,60 @@ public class ProductService : IProductService
     }
 
     public async Task<ApiResponse<bool>> UpdateAsync(Guid id, ProductUpdateDto dto)
+{
+    // tracked entity (AsNoTracking yok) ✅
+    var product = await _unitOfWork.Products.GetByIdWithImagesAsync(id);
+
+    if (product == null)
+        return ApiResponse<bool>.ErrorResult("Güncellenecek ürün bulunamadı.");
+
+    // DTO -> Entity
+    _mapper.Map(dto, product);
+    product.UpdatedDate = DateTime.UtcNow;
+
+    // --- Yeni resimler ---
+    if (dto.ImageFiles is { Count: > 0 })
     {
-        // İlişkili verilerle (Resimler) beraber çekiyoruz
-        var product = await _unitOfWork.Products.GetByIdWithImagesAsync(id);
+        var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "products");
+        if (!Directory.Exists(uploadsFolder))
+            Directory.CreateDirectory(uploadsFolder);
 
-        if (product == null) return ApiResponse<bool>.ErrorResult("Güncellenecek ürün bulunamadı.");
-
-        // AutoMapper ile DTO'yu Entity'e eşle
-        _mapper.Map(dto, product);
-        product.UpdatedDate = DateTime.UtcNow;
-
-        // --- YENİ RESİM YÜKLEME MANTIĞI ---
-        if (dto.ImageFiles != null && dto.ImageFiles.Count > 0)
+        foreach (var file in dto.ImageFiles)
         {
-            var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "products");
-            if (!Directory.Exists(uploadsFolder)) Directory.CreateDirectory(uploadsFolder);
+            if (file == null || file.Length <= 0) continue;
 
-            foreach (var file in dto.ImageFiles)
+            var safeFileName = Path.GetFileName(file.FileName);
+            var uniqueFileName = $"{Guid.NewGuid()}_{safeFileName}";
+            var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+            await using (var fileStream = new FileStream(filePath, FileMode.Create))
             {
-                if (file.Length > 0)
-                {
-                    var uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
-                    var filePath = Path.Combine(uploadsFolder, uniqueFileName);
-
-                    using (var fileStream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await file.CopyToAsync(fileStream);
-                    }
-
-                    var dbPath = $"/images/products/{uniqueFileName}";
-
-                    // Yeni resmi ekle
-                    product.ProductImages.Add(new ProductImage
-                    {
-                        Id = Guid.NewGuid(),
-                        ImageUrl = dbPath,
-                        IsMain = false, // Yeni eklenenler varsayılan olarak yan resim olsun
-                        Status = true,
-                        CreatedDate = DateTime.UtcNow
-                    });
-                }
+                await file.CopyToAsync(fileStream);
             }
+
+            var dbPath = $"/images/products/{uniqueFileName}";
+
+            product.ProductImages.Add(new ProductImage
+            {
+                Id = Guid.NewGuid(),
+                ProductId = product.Id, // ✅ önemli
+                ImageUrl = dbPath,
+                IsMain = false,
+                Status = true,
+                CreatedDate = DateTime.UtcNow,
+                UpdatedDate = DateTime.UtcNow
+            });
         }
-        // -----------------------------
-
-        _unitOfWork.Products.Update(product);
-        await _unitOfWork.SaveChangesAsync();
-
-        return ApiResponse<bool>.SuccessResult(true, "Ürün güncellendi.");
     }
+
+    // ❌ BUNU KULLANMA: graph'ın tamamını Modified yapıyor
+    // _unitOfWork.Products.Update(product);
+
+    await _unitOfWork.SaveChangesAsync();
+
+    return ApiResponse<bool>.SuccessResult(true, "Ürün güncellendi.");
+}
+
 
     public async Task<ApiResponse<bool>> DeleteAsync(Guid id)
     {

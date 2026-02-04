@@ -1,0 +1,3834 @@
+﻿$(document).ready(function () {
+    var library = new Engine();
+    Engine.init();
+
+});
+
+
+function Engine() {
+    Engine.MasterPage();
+}
+
+Engine.init = function () {
+    var module = this.getModul().split(',');
+    for (var i = 0; i < module.length; i++) {
+        this.runModule(module[i]);
+    }
+};
+
+Engine.getModul = function () {
+    var scripts = document.getElementById('engine');
+    var queryString = scripts.getAttribute("data-module");
+    return queryString;
+};
+
+Engine.runModule = function (module) {
+    switch (module) {
+        case "index":
+            this.Index();
+            break;
+        case "productDetail":
+            this.productDetail();
+            break;
+        case "categoryPage":
+            this.categoryPage();
+            break;
+        case "comparePage":
+            this.comparePage();
+            break;
+        case "orders":
+            this.orders();
+            break;
+        case "delivery":
+            this.delivery();
+            break;
+        case "memberMessage":
+            this.memberMessage();
+            break;
+        case "memberAddress":
+            this.memberAddress();
+            break;
+        case "memberInfo":
+            this.memberInfo();
+            break;
+        case "pcBuild":
+            this.pcBuild();
+            break;
+        case "payment":
+            this.payment();
+            break;
+        case "contactForm":
+            this.contactForm();
+            break;
+        case "buyBackPage":
+            this.buyBackPage();
+            break;
+        case "degisTokus":
+            this.degisTokusPage();
+            break;
+        case "unsubscribeEmail":
+            this.unsubscribeEmail();
+            break;
+        case "basket":
+            this.basket();
+            break;
+        case "login":
+            this.login();
+            break;
+        default:
+            break;
+    }
+};
+
+Engine.MasterPage = function () {
+
+    $("#redirectToMobile").click(async function () {
+        const playStoreUrl = "https://play.google.com/store/apps/details?id=com.vatanbilgisayar.vatan&hl=tr";
+        const appStoreUrl = "https://apps.apple.com/tr/app/vatan-bilgisayar/id438309785?l=tr";
+
+        async function getDeviceType() {
+            if (navigator.userAgentData) {
+                const data = await navigator.userAgentData.getHighEntropyValues(["platform"]);
+                const platform = data.platform.toLowerCase();
+
+                const isAndroid = platform.includes("android");
+                const isIOS = platform.includes("ios") || platform.includes("mac");
+
+                return isAndroid ? "android" : isIOS ? "ios" : "unknown";
+            } else {
+                const userAgent = navigator.userAgent.toLowerCase();
+                const isAndroid = /android/.test(userAgent);
+                const isIOS = /iphone|ipad|ipod|Safari/i.test(userAgent);
+
+                return isAndroid ? "android" : isIOS ? "ios" : "unknown";
+            }
+        }
+
+        const deviceType = await getDeviceType();
+        const storeUrl = deviceType === "android" ? playStoreUrl : deviceType === "ios" ? appStoreUrl : null;
+
+        // if (!storeUrl) {
+        // alert("Bu işletim sistemi desteklenmiyor.");
+        // return;
+        // }
+
+        const timeout = setTimeout(() => {
+            window.location.href = storeUrl;
+        }, 2500);
+
+        const currentUrl = window.location.href;
+        const appUrl = currentUrl.replace(/^https?:/, "vatanmobil:");
+
+        window.location.href = appUrl;
+        // const iframe = document.createElement("iframe");
+        // iframe.style.display = "none";
+        // iframe.src = appUrl;
+        // document.body.appendChild(iframe);
+
+        window.addEventListener("visibilitychange", () => {
+            clearTimeout(timeout);
+        });
+    });
+
+
+
+
+    $('.ajax-form').on('submit', function (e) {
+        e.preventDefault();
+
+        const $form = $(this);
+        const url = $form.attr('action');
+        const method = $form.attr('method') || 'post';
+        const data = $form.serialize();
+
+        const onSuccess = $form.data('onsuccess');
+        const onFailure = $form.data('onfailure');
+
+        if (!$(this).valid()) {
+            return
+        }
+        $.ajax({
+            url: url,
+            type: method,
+            data: data,
+            beforeSend: locked,
+            success: function (response) {
+                //if (onSuccess && typeof window[onSuccess] === 'function') {
+                //    window[onSuccess](response);
+                //}
+                callHandler(onSuccess, response);
+
+            },
+            error: function (xhr) {
+                //if (onFailure && typeof window[onFailure] === 'function') {
+                //    window[onFailure](xhr);
+                //}
+                callHandler(onFailure, xhr);
+            },
+            complete: unlocked
+            //complete: function () {
+            //    unlocked()
+            //}
+        });
+        function callHandler(handler, arg) {
+            if (!handler) return;
+
+            // 1) Doğrudan fonksiyon referansı
+            if (typeof handler === 'function') {
+                handler(arg);
+                return;
+            }
+
+            if (typeof handler === 'string') {
+                // "javascript:" önekini temizle
+                const code = handler.replace(/^javascript:/i, '').trim();
+
+                // Global fonksiyon adı mı?
+                if (typeof window[code] === 'function') {
+                    window[code](arg);
+                } else {
+                    // Hem 'response' hem 'data' parametre adıyla çağır
+                    new Function('response', 'data', code)(arg, arg);
+                }
+            }
+        }
+
+    });
+
+}
+
+
+Engine.login = function () {
+
+
+}
+
+Engine.basket = function () {
+
+    //Mobile tamamlanmış sepet temizleme
+    $(document).ready(function () {
+        var basketOk = $(".mobile_TH_OK").val();
+        CompletedMobileBasket(basketOk);
+    });
+
+
+    //Keyifli Garanti Sepet Popup
+
+
+    //function extrawarrantyPopup() {
+    //    var localsApp = localStorage.getItem("extrawarrantypop");
+    //    if (localsApp === null && (IsNullOrUndefined($.cookie("isMobile")))) {
+    //        setTimeout(function () {
+    //            var basketItems;
+
+    //            for (var i = 0; i < dataLayer.length; i++) {
+    //                if (dataLayer[i].BasketProducts) {
+    //                    basketItems = dataLayer[i].BasketProducts;
+    //                }
+    //            }
+
+
+
+    //            if (basketItems.length <= 1 && $("div").hasClass("basket-installment-carousel")) {
+
+    //                if ($(".extrawarrantyPopup").hasClass("hide")) {
+    //                    $("main").addClass("overlay-bg active");
+    //                    $("main").addClass("pRelative");
+    //                    $(".extrawarrantyPopup").removeClass("hide");
+    //                    $("body").css("background-color", "#000");
+    //                    $(".courier").addClass("hide");
+    //                    $("main").css("pointer-events", "none");
+    //                    var arrPrice = new Array();
+    //                    $.each($('.basket-cart__extrawarranty-price'), function () {
+    //                        arrPrice.push($(this).attr('add_prc'));
+    //                    });
+
+    //                    var discountPrice = new Array();
+    //                    $.each($('.basket-cart__extrawarranty-price'), function () {
+    //                        var addPrice = $(this).attr('add_prc');
+    //                        var prcSfs = addPrice.toString().replace('.', '');
+    //                        var prcFloa = parseFloat(prcSfs)
+    //                        var prcStr = prcFloa.toString().replace('.', '');
+    //                        var prcDisc = prcStr * 10 / 100;
+    //                        var prcDiscFloor = Math.floor(prcDisc)
+    //                        var prcDiscount = prcStr - prcDiscFloor;
+    //                        const formatNum = n => Array.from(String(n)).reverse().map((a, i) => {
+    //                            if ((i % 3 == 0) && (i > 0)) return a + "."; return a;
+    //                        }).reverse().join("");
+    //                        var prcFormat = formatNum(prcDiscount);
+    //                        discountPrice.push(prcFormat);
+    //                    });
+
+    //                    for (var b = 0; b < arrPrice.length; b++) {
+    //                        $(".oldPrice_add")[b].prepend(arrPrice[b]);
+
+    //                    }
+    //                    for (var c = 0; c < discountPrice.length; c++) {
+    //                        $(".newPrice_add")[c].prepend(discountPrice[c]);
+    //                    }
+
+
+    //                }
+
+    //            } else {
+
+    //            }
+    //        }, 1000)
+
+
+
+    //        var arrAdd = new Array();
+    //        $.each($('.wrapper-radio-product>input'), function () {
+    //            arrAdd.push($(this));
+    //        });
+
+
+    //        function copyToClipboard(text) {
+    //            var sampleTextarea = document.createElement("textarea");
+    //            document.body.appendChild(sampleTextarea);
+    //            sampleTextarea.value = text;
+    //            sampleTextarea.select();
+    //            document.execCommand("copy");
+    //            document.body.removeChild(sampleTextarea);
+    //        }
+
+    //        $('.extrawarrantyPopup_add').click(function (e) {
+    //            if ($(this).attr('id') == "addplus1") {
+
+    //                var copyText = document.getElementById("extrawarranty_couponCode");
+    //                copyToClipboard(copyText.value);
+    //                $("#closePop").click();
+    //            }
+    //            //else if ($(this).attr('id') == "addplus2") {
+    //            //    arradd[1].click();
+    //            //}
+    //            //else {
+    //            //    arradd[2].click();
+    //            //}
+    //        });
+
+    //        $("#closePop").click(function () {
+    //            $("main").removeClass("overlay-bg active");
+    //            $("body").css("background-color", "#fff");
+    //            $(".extrawarrantyPopup").addClass("hide");
+    //            $(".extrawarrantyPopup_BTN").removeClass("hide");
+    //            $(".courier").removeClass("hide");
+    //            $("main").css("pointer-events", "auto");
+    //            localStorage.setItem("extrawarrantypop", "true");
+    //        });
+
+    //        $(".extrawarrantyPopup_BTN").click(function () {
+    //            $("main").addClass("overlay-bg active");
+    //            $("main").addClass("pRelative");
+    //            $("body").css("background-color", "#000");
+    //            $(".extrawarrantyPopup").removeClass("hide");
+    //            $(".extrawarrantyPopup_BTN").addClass("hide");
+    //            $(".courier").addClass("hide");
+    //            $("main").css("pointer-events", "none");
+    //        });
+
+    //    }
+    //}
+
+
+
+    var ischeckCookie = function () {
+        // $.removeCookie("checkCookie");
+        $.cookie("checkCookie", true);
+        var checkCookie = $.cookie("checkCookie");
+        var currentLocation = location.href;
+        if (currentLocation.indexOf("login") > -1 || currentLocation.indexOf("loginSepet") > -1 || currentLocation.indexOf("uyeBilgi") > -1 || currentLocation.indexOf("siparis") > -1 || currentLocation.indexOf("sepet") > -1 || currentLocation.indexOf("Payment") > -1 || currentLocation.indexOf("AddToBasket") > -1) {
+
+            if (checkCookie != "true") {
+                location.href = "/Error/CookieError";
+            }
+        }
+        return checkCookie == "true" ? true : false;
+
+    };
+
+    var isControlCookie = ischeckCookie();
+
+    //if (isControlCookie == true) {
+    //    extrawarrantyPopup()
+
+    //}
+
+    function extrawarrantyPopupBTN() {
+
+        setTimeout(function () {
+            var basketItems;
+
+            for (var i = 0; i < dataLayer.length; i++) {
+                if (dataLayer[i].BasketProducts) {
+                    basketItems = dataLayer[i].BasketProducts;
+                }
+            }
+
+
+
+            if (basketItems.length <= 1 && $("div").hasClass("basket-installment-carousel")) {
+
+                if ($(".extrawarrantyPopup").hasClass("hide")) {
+                    $(".extrawarrantyPopup_BTN").removeClass("hide");
+                    $("body").css("background-color", "#fff");
+                    $("main").addClass("pRelative");
+                    $(".courier").addClass("hide");
+
+                    var arrPrice = new Array();
+                    $.each($('.basket-cart__extrawarranty-price'), function () {
+                        arrPrice.push($(this).attr('add_prc'));
+                    });
+
+                    var discountPrice = new Array();
+                    $.each($('.basket-cart__extrawarranty-price'), function () {
+                        var addPrice = $(this).attr('add_prc');
+                        var prcSfs = addPrice.toString().replace('.', '');
+                        var prcFloa = parseFloat(prcSfs)
+                        var prcStr = prcFloa.toString().replace('.', '');
+                        var prcDisc = prcStr * 10 / 100;
+                        var prcDiscFloor = Math.floor(prcDisc)
+                        var prcDiscount = prcStr - prcDiscFloor;
+                        const formatNum = n => Array.from(String(n)).reverse().map((a, i) => {
+                            if ((i % 3 == 0) && (i > 0)) return a + "."; return a;
+                        }).reverse().join("");
+                        var prcFormat = formatNum(prcDiscount);
+                        discountPrice.push(prcFormat);
+                    });
+
+                    for (var b = 0; b < arrPrice.length; b++) {
+                        $(".oldPrice_add")[b].prepend(arrPrice[b]);
+
+                    }
+                    for (var c = 0; c < discountPrice.length; c++) {
+                        $(".newPrice_add")[c].prepend(discountPrice[c]);
+                    }
+
+
+                }
+
+            } else {
+
+            }
+        }, 1000)
+
+        var arrAdd = new Array();
+        $.each($('.wrapper-radio-product>input'), function () {
+            arrAdd.push($(this));
+        });
+
+
+        function copyToClipboard(text) {
+            var sampleTextarea = document.createElement("textarea");
+            document.body.appendChild(sampleTextarea);
+            sampleTextarea.value = text;
+            sampleTextarea.select();
+            document.execCommand("copy");
+            document.body.removeChild(sampleTextarea);
+        }
+
+        $('.extrawarrantyPopup_add').click(function (e) {
+            if ($(this).attr('id') == "addplus1") {
+                var copyText = document.getElementById("extrawarranty_couponCode");
+                copyToClipboard(copyText.value);
+                $("#closePop").click();
+            }
+
+            //else if ($(this).attr('id') == "addplus2") {
+            //    arradd[1].click();
+            //}
+            //else {
+            //    arradd[2].click();
+            //}
+        });
+
+        $("#closePop").click(function () {
+            $("main").removeClass("overlay-bg active");
+            $("main").removeClass("pRelative");
+            $("main").css("pointer-events", "auto");
+            $("body").css("background-color", "#fff");
+            $(".extrawarrantyPopup").addClass("hide");
+            $(".extrawarrantyPopup_BTN").removeClass("hide");
+            $(".courier").removeClass("hide");
+            localStorage.setItem("extrawarrantypop", "true");
+
+        });
+
+        $(".extrawarrantyPopup_BTN").click(function () {
+            $("main").addClass("overlay-bg active");
+            $("main").addClass("pRelative");
+            $("main").css("pointer-events", "none");
+            $("body").css("background-color", "#000");
+            $(".overlay-bg").css("background-color", "#fff");
+            $(".extrawarrantyPopup").removeClass("hide");
+            $(".extrawarrantyPopup_BTN").addClass("hide");
+            $(".courier").addClass("hide");
+        });
+    }
+
+    //extrawarrantyPopupBTN();
+
+    function kgModalBtn() {
+
+        $('.kg-text__youtube,.kg-text h6').click(function () {
+
+            //tx = $(this).find('#headingAnswerKG').attr('data-text');
+            //showMessage(tx); 
+            var container = $(this).closest('.kg-text');
+            var tx = container.find('#headingAnswerKG').attr('data-text');
+            showMessage(tx);
+        });
+
+    }
+    kgModalBtn();
+
+
+    function MobileRatingModal() {
+        if (window.location.pathname === '/Payment/Completed') {
+            $.fancybox.open($('#mobile-rating-model'));
+        }
+    }
+
+
+    setTimeout(function () {
+        MobileRatingModal()
+    }, 3000);
+
+}
+
+
+
+Engine.pcBuild = function () {
+    $(document).on('click', '.number-input .btn-plus', function () {
+        var oldValue = parseFloat($(this).parent().find("input").val());
+        var max = parseFloat($(this).parent().find("input").attr("max"));
+        if (oldValue >= max) {
+            newVal = oldValue;
+            showMessage("Bu üründen daha fazla alamazsınız.");
+        } else {
+            var newVal = oldValue + 1;
+        }
+        $(this).parent().find("input").val(newVal);
+    });
+    $(document).on('click', '.number-input .btn-minus', function () {
+        var oldValue = parseFloat($(this).parent().find("input").val());
+        var newVal = oldValue - 1;
+        if (newVal < 1) {
+            newVal = 1;
+            showMessage("Seçilen ürün adeti 1'den az olamaz.\nSeçilen ürün miktarı 1 olarak düzenlenmiştir.");
+        }
+        $(this).parent().find("input").val(newVal);
+    });
+    $(document).on('change', '.number-input input', function () {
+        if ($(this).val() < 1) {
+            $(this).val(1);
+            showMessage("Seçilen ürün adeti 1'den az olamaz.\nSeçilen ürün miktarı 1 olarak düzenlenmiştir.")
+        }
+    });
+
+
+    $(".add-to-cart").click(function () {
+
+        var array = [];
+        var proplist = [];
+        var propertyErrorMessage = "";
+        $(".summary-product-list tr").each(function () {
+            var productId = $(this).attr("data-productid");
+            var limitedStok = ($(this).attr("data-flag") == 1) ? true : false;
+            var campaignId = $(this).attr("data-campaignid");
+            var property = $(this).attr("data-property");
+            proplist.push(property);
+            var qty = $(this).data("count");
+            if (!$.isNumeric(qty) || qty == 0) {
+                qty = 1;
+            }
+            var obj = { ProductId: productId, LimitedStok: limitedStok, CampaignId: campaignId, Quantity: qty };
+            array.push(obj);
+        });
+        if (!proplist.includes("OEMCPU"))
+            propertyErrorMessage = propertyErrorMessage + "İşlemciler, ";
+        if (!proplist.includes("OEMMBD"))
+            propertyErrorMessage = propertyErrorMessage + "AnaKartlar, ";
+        if (!proplist.includes("OEMMEM"))
+            propertyErrorMessage = propertyErrorMessage + "Bellekler, ";
+        if (!proplist.includes("OEMVGA"))
+            propertyErrorMessage = propertyErrorMessage + "Ekran Kartları, ";
+        if (!proplist.includes("OEMCAS"))
+            propertyErrorMessage = propertyErrorMessage + "Kasalar ";
+
+        if (propertyErrorMessage !== "") { showMessage("Lütfen " + propertyErrorMessage + " bölümlerindeki seçimlerinizi tamamlayınız.") }
+        else {
+            if ($(".summary-product-list tr").attr("data-property") === "OEMCPU" && $(".summary-product-list tr").attr("data-cpucool") === "0" && !$(".summary-product-list tr").is("[data-property=OEMCLL]")) {
+
+                showConfirm("Sepetinize eklenecek olan işlemcide soğutucu mevcut değildir. Soğutucu eklemeden alışverişinizi tamamlamak istediğinize emin misiniz?",
+                    function () {
+                        addMultiProductsToBasket(array);
+                    },
+                    function () { }
+                );
+            }
+            else {
+                addMultiProductsToBasket(array);
+            }
+        }
+    });
+    function addMultiProductsToBasket(array) {
+        locked();
+        var token = getRequestToken();
+        $.ajax({
+            url: "/Basket/AddToBasket",
+            data: {
+                __RequestVerificationToken: token,
+                basketMainItemViewModelList: array
+            },
+            dataType: "json",
+            type: "post",
+            success: function (data) {
+                $("body").append(data.dataLayer);
+                if (data.statu == "0" && data.message == "") {
+                    data.message = "Ürünler Eklendi.";
+                }
+                showMessage(data.message);
+                unlocked();
+                RefreshBasketOpen();
+            }
+        });
+
+    }
+}
+
+
+Engine.delivery = function () {
+    $(".chooseAddress").on("checked", function () {
+        var dataId = $(this).attr("data-address");
+        $.ajax({
+            url: this.data("url"),
+            data: { addressId: dataId },
+            dataType: "html",
+            type: "GET",
+            success: function (data) {
+                $("#cargoList").html(data);
+            }
+        });
+    });
+
+
+
+
+
+
+
+
+}
+
+Engine.orders = function () {
+
+    function OnSuccess(response) {
+        if (response.statu == "success") { showMessage(response.message, response.sorun == "0" ? "warning" : "error", location.href); }
+        else {
+            var message = document.getElementById("returnMessage");
+            message.innerText = response.data;
+        }
+    }
+
+    $(document).on("change", "#orderYearList", function () {
+        location.href = window.location.href.split('?')[0] + "?year=" + $(this).val();
+    });
+
+    $(".orders").click(function () {
+        if (!this.hasAttribute("filled")) {
+            $(this).attr("filled", true);
+            var el = $(this);
+            var thid = $(this).data("thid");
+            var mail = $(this).data("email");
+            mail = mail == undefined ? "" : mail;
+            var productReturnCode = $(this).data("returncode");
+            var isReturn = $(this).data("isreturn");
+            if (thid != "" && thid != undefined) {
+                var token = getRequestToken();
+                $.ajax({
+                    url: $(this).data("url"),
+                    data: {
+                        th_id_list: thid,
+                        email: mail,
+                        returnCode: productReturnCode,
+                        isReturn: (isReturn == "True" || isReturn == "true" ? true : false),
+                        __RequestVerificationToken: token
+                    },
+                    dataType: "json",
+                    type: "POST",
+                    success: function (data) {
+                        if (data.productMessage == null || data.productMessage == "") {
+                            el.find(".product_list").html(data.productText);
+                            el.find(".cargoPrice").html(data.cargoPriceText);
+                            el.find(".product-list__price.totalPrice").html(data.totalPrice + "<span class='currencyText'>TL</span>");
+                        }
+                        else {
+                            el.find(".product_list").html(data.productMessage);
+                        }
+                    }
+                });
+            }
+        }
+    });
+
+
+    function downloadBill(url, filename) {
+        fetch(url)
+            .then(response => response.blob())
+            .then(blob => {
+                const link = document.createElement("a");
+                link.href = URL.createObjectURL(blob);
+                link.download = filename;
+                link.click();
+            })
+            .catch(console.error);
+    }
+
+
+
+    var urldownload;
+    $(document).on("click", ".orderbill", function () {
+        var thxref = $(this).data("thxref");
+        if (thxref != "" && thxref != undefined && thxref != null) {
+            var token = getRequestToken();
+            $.ajax({
+                url: $(this).data("url"),
+                data: {
+                    thxref: thxref,
+                    __RequestVerificationToken: token
+                },
+                dataType: "json",
+                type: "POST",
+                success: function (data) {
+                    $(".sendBillToMail").attr("data-thxref", thxref);
+                    var binary_string = atob(data);
+                    var len = data?.length;
+                    var bytes = new Uint8Array(len);
+                    for (var i = 0; i < len; i++) {
+                        bytes[i] = binary_string.charCodeAt(i);
+                    }
+                    var blob = new Blob([bytes.buffer], { type: "application/pdf" });
+                    var url = URL.createObjectURL(blob);
+                    urldownload = url;
+
+                    //var loadingTask = pdfjsLib.getDocument(url);
+                    //loadingTask.promise.then(function (pdf) {
+
+                    //    pdf.getPage(1).then(function (page) {
+                    //        var scale = 1.0;
+                    //        var viewport = page.getViewport({ scale: scale });
+
+                    //        var canvas = document.getElementById('pdfCanvas');
+                    //        var context = canvas.getContext('2d');
+                    //        var deviceWidth = window.innerWidth;
+                    //        scale = deviceWidth / viewport.width;
+                    //        viewport = page.getViewport({ scale: scale });
+
+                    //        canvas.height = viewport.height;
+                    //        canvas.width = viewport.width;
+
+
+                    //        var renderContext = {
+                    //            canvasContext: context,
+                    //            viewport: viewport
+                    //        };
+                    //        page.render(renderContext);
+                    //    });
+                    //});
+
+                    $.fancybox.open($('#orderbillContent'));
+                },
+                error: function (xhr, status, error) {
+                    console.error('AJAX Error:', error);
+                }
+            });
+        }
+    });
+
+
+
+
+    $(".downloadbill").click(function () {
+        downloadBill(urldownload, "FaturaBilgisi.pdf");
+    });
+
+    $(".sendBillToMail").click(function () {
+        var thxref = $(this).data("thxref");
+        if (thxref != "" && thxref != undefined && thxref != null) {
+            var token = getRequestToken();
+            $.ajax({
+                type: "POST",
+                url: '/MemberTransaction/GetToMail',
+                cache: false,
+                data: {
+                    thxref: thxref,
+                    __RequestVerificationToken: token
+                },
+                success: function (data) {
+                    $.fancybox.open($('#orderbillemail__success'));
+                    $(".sendBillToMail").addClass("disabled");
+                    $(".sendBillToMail").attr("disabled", true);
+                },
+                error: function () {
+                    $.fancybox.open($('#orderbillemail__failed'));
+                }
+            });
+        }
+    });
+
+
+    $(document).on("click", "#btn_cancel_order", function () {
+        var thid = $(this).attr("data-thid");
+        $(".btn-cancelOrder").removeAttr("data-thid");
+        $(".btn-cancelOrder").attr("data-thid", thid);
+        $("#cancelModal #cancelModalLabel").text("SPR" + thid.toString() + " Nolu siparişin iptali");
+        $("#cancelModal").modal("show");
+    });
+
+    //Return Order Button
+
+    $(document).on("click", "#btn_return", function () {
+        var thid = $(this).attr("data-thid");
+        $(".btn-returnOrder").removeAttr("data-thid");
+        $(".btn-returnOrder").attr("data-thid", thid);
+        $("#returnModal #returnModalLabel").text("SPR" + thid.toString() + " Nolu siparişin iadesi");
+        $("#returnModal").modal("show");
+        $(".btn-returnOrder").prop('disabled', true);
+    });
+
+
+    $(document).on("click", ".btn-returnOrder", function () {
+        $("#returnModal").modal("hide");
+        $("#btn_return").addClass("hide");
+        $("#returnOrder_message").removeClass("hide");
+    });
+
+    //Return Order Select
+
+    $(document).ready(function () {
+        var $selectElement = $(".returnSelect");
+        var $infoDiv = $(".returninfo");
+        var $otherReasonInput = $("#returnOtherReasonText");
+        $infoDiv.addClass("hide");
+        $selectElement.on("change", function () {
+            if ($selectElement.val() === "Other") {
+                $otherReasonInput.removeClass("hide");
+                $infoDiv.addClass("hide");
+            }
+            else if ($selectElement.val() === "") {
+                $infoDiv.addClass("hide");
+                $(".btn-returnOrder").prop('disabled', true);
+            }
+            else {
+                $otherReasonInput.addClass("hide");
+                $infoDiv.removeClass("hide");
+                $(".btn-returnOrder").prop('disabled', false);
+            }
+
+        });
+
+        $otherReasonInput.on("input", function () {
+            $infoDiv.removeClass("hide");
+        });
+    });
+
+
+    let msg = `
+        Teslim almadığınız siparişlerde Kolay İade işlemi yapılamaz. 
+        Bu durumda iptal veya iade talebiniz için aşağıdaki kanallardan bizimle iletişime geçebilirsiniz.<br>
+        📞 <a href="tel:08502225656" style="color:#007bff;text-decoration:underline;">Çağrı Merkezi: 0850 222 56 56</a><br>
+        💬 <a href="https://wa.me/908502225656" target="_blank" style="color:#007bff;text-decoration:underline;">WhatsApp: 0850 222 56 56</a><br>
+        ✉️ <a href="mailto:info@vatanbilgisayar.com" style="color:#007bff;text-decoration:underline;">info@vatanbilgisayar.com</a>
+        `;
+
+
+    //ürünü teslim almadım seçili ise ikondan modal acma
+    $(document).on("click", "#notReceivedInfo", function (e) {
+        e.preventDefault();
+        showMessage(msg, "error");
+    });
+
+
+
+
+
+    //Yanlıs urun/Kusurlu urun 
+    let currentProductId = null;
+
+    $(document).on("change", ".returnReasonSelect", function () {
+        let selectedText = $(this).find("option:selected").text();
+        let productId = $(this).data("productid");
+        let title = $(this).closest(".returnModal_products_box").find(".returnModal_products_box--title label").text().trim();
+        let $cameraIcon = $(this).siblings(".camera-icon");
+
+        if ($(this).val() == "4" || $(this).val() == "5" ||
+            selectedText === "Yanlış Ürün Geldi" || selectedText === "Kusurlu Ürün Geldi") {
+
+            $("#uploadProductTitle").text(title);
+            $("#returnPhoto").val("");
+            $("#uploadedImagesPreview").empty();
+            //    $("#uploadImageModal").modal("show");                                                                            //fotograf ekleme modalı ıcın burayı acmak gerekıyor
+            $(`.returnReasonSelect[data-productid='${productId}']`).siblings(".camera-icon").removeClass("hide");
+            //   $(this).closest(".returnReason").addClass('flex-center');                                                   //fotograf ekleme modalı ıcın burayı acmak gerekıyor
+            // $cameraIcon.removeClass("hide");                                                                             //fotograf ekleme modalı ıcın burayı acmak gerekıyor
+
+        } else {
+            $(this).siblings(".camera-icon").addClass("hide");
+            //   $(this).closest(".returnReason").removeClass('flex-center');                                                   //fotograf ekleme modalı ıcın burayı acmak gerekıyor
+            //$cameraIcon.addClass("hide");                                                                                  // fotograf ekleme modalı ıcın burayı acmak gerekıyor
+        }
+    });
+
+
+    // kamera ikonuna basınca modal acma
+    $(document).on("click", ".camera-icon", function () {
+        let productId = $(this).siblings(".returnReasonSelect").data("productid");
+        let title = $(this).siblings(".returnReasonSelect").data("title");
+
+        currentProductId = productId;
+        $("#uploadProductTitle").text(title);
+        $("#returnPhoto").val("");
+        $("#uploadedImagesPreview").empty();
+        //    $("#uploadImageModal").modal("show");                                                                                 // fotograf ekleme modalı ıcın burayı acmak gerekıyor
+    });
+
+    // fotoğraf eklendiğinde
+    $(document).on("change", "#returnPhoto", function (e) {
+        let files = e.target.files;
+        let maxFiles = 5;
+        let maxSize = 5 * 1024 * 1024;
+        let previewContainer = $("#uploadedImagesPreview");
+
+        let currentCount = previewContainer.children().length;
+
+        if (currentCount + files.length > maxFiles) {
+            alert(`En fazla ${maxFiles} fotoğraf yükleyebilirsiniz. Şu anda ${currentCount} fotoğraf var.`);
+            $(this).val("");
+            return;
+        }
+
+        Array.from(files).forEach(file => {
+            if (previewContainer.find(`[data-name='${file.name}']`).length > 0) {
+                alert(`${file.name} zaten eklenmiş, tekrar yüklenemez.`);
+                return;
+            }
+
+            if (file.size > maxSize) {
+                alert(`${file.name} boyutu 5MB’dan büyük. Bu dosya yüklenmeyecek.`);
+            } else {
+                let reader = new FileReader();
+                reader.onload = function (e) {
+                    let imgHtml = `
+                  <div style="position:relative; width:80px; height:80px;" data-name="${file.name}">
+                      <img src="${e.target.result}" style="width:100%; height:100%; object-fit:cover; border:1px solid #ddd; border-radius:5px;">
+                      <span class="remove-img" 
+                            style="position:absolute; top:-5px; right:-5px; background:#f00; color:#fff; border-radius:50%; width:20px; height:20px; line-height:20px; text-align:center; cursor:pointer;">×</span>
+                  </div>`;
+                    previewContainer.append(imgHtml);
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        $(this).val("");
+    });
+
+    $(document).on("click", ".remove-img", function () {
+        $(this).parent().remove();
+    });
+
+
+    // Fotoğraf silme
+    $(document).on("click", ".remove-img", function () {
+        $(this).parent().remove();
+    });
+
+
+
+    // fotoğraf silme
+    $(document).on("click", ".remove-img", function () {
+        $(this).parent().remove();
+        if ($("#uploadedImagesPreview").children().length === 0) {
+            let reasonBox = $(`.returnReasonSelect[data-productid='${currentProductId}']`).parent();
+            reasonBox.find(".photo-badge").addClass("hide").text("");
+        }
+    });
+
+    // fotoğraf modalı kapandığında scrollu geri getir
+    $('#uploadImageModal').on('hidden.bs.modal', function () {
+        if ($('.modal.in').length) {
+            $('body').addClass('modal-open');
+        } else {
+            $('body').removeClass('modal-open').css('padding-right', '');
+        }
+    });
+
+    // Fotoğraf modalı açıldığında returnModal geri plana düşsün
+    $('#uploadImageModal').on('show.bs.modal', function () {
+        $("#returnModal").css('z-index', 'unset');
+    });
+
+    // Fotoğraf modalı kapandığında eski haline dönsün
+    $('#uploadImageModal').on('hidden.bs.modal', function () {
+        $("#returnModal").css('z-index', '1050');
+    });
+
+
+    //Dropdown alanı işlemleri
+    $(document).on("change", "#canselReason", function () {
+
+        let selectedText = $(this).children("option").filter(":selected").text();
+
+        //if ($(this).val() == "4" ||
+        //    $(this).val() == "5" ||
+        //    selectedText === "Yanlış Ürün Geldi" ||
+        //    selectedText === "Kusurlu Ürün Geldi") {
+        //    $("#uploadImageModal").modal("show");
+        //}
+
+        if ($(this).val() == "Other" || selectedText == "Diğer" || selectedText == "Other" || selectedText == "Kusurlu Ürün Geldi" || $(this).val() == "5") {
+            $(this).siblings("#cancelOtherReasonText").removeClass("hide"); 
+            $(this)
+                .closest(".returnModal_products_box")   // ürün kartı (örnek class)
+                .find(".product-rebate-message")
+                .removeClass("hide");
+
+        }
+        else {
+            $(this).siblings("#cancelOtherReasonText")   .addClass("hide");
+            $(this)
+                .closest(".returnModal_products_box")   // ürün kartı (örnek class)
+                .find(".product-rebate-message")
+                .addClass("hide");
+        }
+
+        //ürünü teslim almadım secili ise butonu css tarafında sisable etme ve modal gosterme
+        if ($(this).val() == "7" || selectedText == "Ürünü Teslim Almadım") {
+            $("#notReceivedInfo").removeClass("hide");
+            showMessage(msg, "error");
+            $(".startReturnBtn").addClass("disabled");
+        } else {
+            $("#notReceivedInfo").addClass("hide");
+            $(".startReturnBtn").removeClass("disabled");
+        }
+
+    });
+
+
+
+    //Ürünü teslim almadım secılı ıse iade yapılamaması icin buton dısable edıldı
+    $(document).on("change", ".returnModal .returnReason select, #canselReason", function () {
+
+        var anyNotReceived = $(".returnModal .returnReason select, #canselReason").toArray().some(function (el) {
+            var $el = $(el);
+            var val = $el.val();
+            var txt = $el.children("option").filter(":selected").text().trim();
+            return val === "7" || txt === "Ürünü Teslim Almadım";
+        });
+
+        if (anyNotReceived) {
+            $("#notReceivedInfo").removeClass("hide");
+            $(".startReturnBtn").addClass("disabled").attr("aria-disabled", "true");
+        } else {
+            $("#notReceivedInfo").addClass("hide");
+            $(".startReturnBtn").removeClass("disabled").removeAttr("aria-disabled");
+        }
+    });
+
+    //eger dısabled ıse tıklamayı engelle
+    $(document).on("click", ".startReturnBtn.disabled", function (e) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        return false;
+    });
+
+    function toggleReturnButtonByOtherReason(el) {
+        var $box = el.closest(".returnModal_products_box");
+        var $otherText = $box.find("#cancelOtherReasonText");
+        var $btn = $(".startReturnBtn");
+
+        // textbox görünüyorsa kontrol et
+        if ($otherText.length && $otherText.is(":visible")) {
+            var text = $otherText.val().trim();
+            var wordCount = text ? text.split(/\s+/).filter(Boolean).length : 0;
+
+            if (wordCount < 3) {
+                $btn.addClass("disabled").attr("aria-disabled", "true");
+                return;
+            }
+        }
+
+        $btn.removeClass("disabled").removeAttr("aria-disabled");
+    }
+
+    $(document).on("input", "#cancelOtherReasonText", function () {
+        toggleReturnButtonByOtherReason($(this));
+    });
+
+    $(document).on("change", "#canselReason", function () {
+        toggleReturnButtonByOtherReason($(this));
+    });
+
+    $(document).on("click", ".startReturnBtn.disabled", function (e) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        return false;
+    });
+
+
+
+
+
+
+    $(".btn-cancelOrder").click(function () {
+        var thID = $(this).data("thid");
+        var uri = $(this).data("url");
+        var cancelSelected = $("#canselReason option:selected");
+        var orderreason = cancelSelected.text();
+        if ($("#canselReason").val() == undefined || $("#canselReason").val() == "") {
+            showMessage("Lütfen iptal sebebinizi seçiniz.", "warning");
+        }
+        else if ($("#canselReason").val() == "Other") {
+            if ($("#cancelOtherReasonText").val() == "" || $("#cancelOtherReasonText").val() == undefined)//textbox sorgula
+            {
+                showMessage("Lütfen iptal sebebinizi yazınız.", "warning");
+            }
+            else {
+                orderreason = $("#cancelOtherReasonText").val();
+            }
+        }
+        showConfirm("İsteğiniz üzerine iptal kaydı alınacaktır. Devam etmek istiyor musunuz?",
+            function () {
+                if (!IsNullOrUndefined(thID)) {
+                    var token = getRequestToken();
+                    $.ajax({
+                        url: uri,
+                        data: {
+                            th_id: thID,
+                            note: orderreason,
+                            __RequestVerificationToken: token
+                        },
+                        dataType: "json",
+                        type: "POST",
+                        success: function (data) {
+                            $("#cancelModal").modal("hide");
+                            if (data == null || data == "") {
+                                if ($(".cancel_div") != undefined) {
+                                    $(".cancel_div").text("İptal kaydınız alınmıştır.Ortalama 2-3 gün içerisinde ücret iadeniz yapılacaktır.");
+                                }
+                                showMessage("İptal kaydınız alınmıştır.Ortalama 2-3 gün içerisinde ücret iadeniz yapılacaktır.", "success");
+
+                            }
+                            else {
+                                showMessage(data, "error");
+                            }
+
+                        }
+                    });
+                }
+
+            },
+            function () {
+                return false;
+            }
+        )
+    });
+
+    $(document).on("click", ".productReturnBtn", function () {
+        var returnProducts_div = $(this).closest(".order-product").find(".returnProducts");
+        var productsModel = returnProducts_div.attr("data-returnProducts");
+        var trnRef = returnProducts_div.attr("data-TrnRef");
+        var orderId = $(this).attr("data-orderId");
+
+        //var token = getRequestToken();
+
+        $.ajax({
+            type: "POST",
+            url: "/DynamicLandings/_ProductReturn/",
+            data: {
+                products: productsModel,
+                trnRef: trnRef,
+                //__RequestVerificationToken: token,
+            },
+            success: function (data) {
+
+                $(".returnModal").html(data);
+                $(".returnModal #returnModalSipNo span").html(orderId);
+                $(".startReturnBtn").attr("data-TrnRef", trnRef);
+            }
+        })
+
+    });
+    $(document).on("click", ".startReturnBtn", function () {
+        var token = getRequestToken();
+        var returnedProductList = [];
+        var error = false;
+        var TrnRef = $(this).attr("data-TrnRef");
+        var email = "";
+
+        if ($("#Item1_Email").length > 0) {
+            email = $("#Item1_Email").val();
+        }
+        var $container = $(this).closest(".returnModal_products");
+        var selectedProductList = $container.find('input.returnCheck:checked');                             //bu kısım duzenlendi
+        selectedProductList.each(function (index, item) {
+            var count = $(item).parent().parent().find("select.productQty").val();
+            var cancelSelected = $(item).parent().parent().find("#canselReason option:selected");
+            var orderreasonText = "";
+            var orderreasonId = cancelSelected.val();
+            if (orderreasonId == "" || orderreasonId == undefined) {
+                showMessage("Lütfen iade sebebinizi seçiniz.", "warning");
+                error = true;
+            }
+            else {
+                orderreasonText = $(item).parent().parent().find("#cancelOtherReasonText").val();
+                var product_code = $(item).parent().find(".returnModal_products_box--title .code").text();
+                var product_title = $(item).parent().find(".returnModal_products_box--title label").text();
+                var product_price = $(item).parent().find(".returnModal_products_box--title #returModalPrice").text();
+                var product_image = $(item).parent().find(" .returnModal_products_box--image img").attr("src");
+
+                var obj = { productLineId: item.value, count: count, I_ID: orderreasonId, I_Title: orderreasonText, code: product_code, title: product_title, price: product_price, image: product_image };
+                returnedProductList.push(obj);
+            }
+
+        });
+        if (error == false) {
+            if (returnedProductList == "" || returnedProductList.count < selectedProductList.count) {
+                showMessage("Lütfen iade etmek istediğiniz ürünü seçiniz.", "warning");
+            }
+            else {
+                $.ajax({
+                    type: "POST",
+                    url: "/DynamicLandings/SetReturnProductsInfo/",
+                    data: {
+                        requestReturnProductsModel: {
+                            email: email,
+                            trnRef: TrnRef,
+                            productIdListWithReason: returnedProductList
+                        },
+                        __RequestVerificationToken: token,
+                    },
+                    success: function (data) {
+                        if (data.Success) {
+                            $("#returnCodeModal").html(data.partial);
+                            $('#returnModal').modal('hide');
+                            $('#returnCodeModal').modal('show');
+
+                        }
+                        else {
+                            showMessage(data.Message, "error");
+                        }
+
+                    }
+                });
+            }
+        }
+
+
+    });
+    $('#returnCodeModal').on('hidden.bs.modal', function () {
+        location.href = location.href;
+    });
+    $(document).on("click", ".cancelIadeBtn", function () {
+        var email = "";
+        if ($("#Item1_Email").length > 0) {
+            email = $("#Item1_Email").val();
+        }
+        var trnRef = $(this).attr("data-trnRef");
+        var returnedCode = $(this).attr("data-returnedCode");
+        var returnCargoType = $(this).attr("data-return_cargotype");
+        var returnCargoId = $(this).attr("data-return_cargoid");
+        var token = getRequestToken();
+        $.ajax({
+            type: "POST",
+            url: "/DynamicLandings/CancelReturnProducts/",
+            data: {
+                email: email,
+                trnRef: trnRef,
+                cargoKey: returnedCode,
+                cargoType: returnCargoType,
+                cargoId: returnCargoId,
+                __RequestVerificationToken: token,
+            },
+            success: function (data) {
+                if (data.Success) {
+                    showMessage("İşlem başarılı.", "info", location.href);
+                }
+                else {
+                    showMessage(data.Message, "error");
+                }
+
+            }
+        });
+    });
+}
+
+Engine.comparePage = function () {
+
+    $('#compare-search-input').on('blur',
+        function (e) {
+
+            setTimeout(function () {
+                var $tgt = $(e.target);
+                var results = $('.compare-search-results');
+                if (e.target.className !== "compare-search-results") {
+                    results.removeClass('active');
+                }
+            },
+                100);
+
+        });
+
+
+    $(document).ready(function () {
+        $('.spec-label[aria-expanded="true"]').click();
+    });
+
+
+};
+
+Engine.categoryPage = function () {
+
+    // Sayfa bfcache'den geri geldiyse loader'ı kapatma
+    window.addEventListener("pageshow", function (e) {
+        if (e.persisted) {
+            unlocked();
+            scrollToFocusedProduct();
+        }
+
+        // DOM gecikince
+        let tries = 0;
+        const maxTries = 20;
+
+        const timer = setInterval(() => {
+            tries++;
+
+            if (scrollToFocusedProduct()) {
+                clearInterval(timer);
+            }
+
+            if (tries >= maxTries) {
+                clearInterval(timer);
+            }
+        }, 50);
+    });
+
+    document.addEventListener('mousedown', function (event) {
+        if (!event.target.closest('a.product-list-link')) return;
+
+        StoreProductId(event);
+    });
+
+
+    function StoreProductId(event) {
+        const link = event.target.closest('a.product-list-link');
+        if (!link) return;
+
+        const productWrapper = link.closest('.product-list');
+        if (!productWrapper) return;
+
+        const codeEl = productWrapper.querySelector('.product-list__product-code');
+        if (!codeEl) return;
+
+        const productId = codeEl.textContent.trim();
+        if (!productId) return;
+
+        sessionStorage.setItem('focusProductId', productId);
+
+      //  console.log('focusProductId stored:', productId);
+    }
+
+
+    function scrollToFocusedProduct() {
+        const productId = sessionStorage.getItem('focusProductId');
+        if (!productId) return false;
+
+        const codeEls = document.querySelectorAll('.product-list__product-code');
+
+        for (const codeEl of codeEls) {
+            if (codeEl.textContent.trim() === productId) {
+                const productWrapper = codeEl.closest('.product-list');
+                if (!productWrapper) return false;
+
+                const link = productWrapper.querySelector('a.product-list-link');
+                if (!link) return false;
+
+                link.scrollIntoView({
+                    block: 'center',
+                    behavior: 'auto'
+                });
+
+              //  console.log('Scrolled to product:', productId);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
+    var categoryCode = $("#visilabs-categoryId").val();
+    var param = getParameterByName("srt");
+    $("#sortOptionsDesktop > option").each(function () {
+        if (this.value == param) {
+            this.selected = 'selected';
+        }
+    });
+
+    $('#searchwithword').keypress(function (e) {
+        if (e.which == 13) {
+            $('.searchwithword').click();
+        }
+    });
+
+
+    
+
+    $("#FilterBrandSearch").on("keyup", function () {
+        var value = $(this).val().toLowerCase();
+        $(".filter-list__item[data-count='1']").filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+    });
+
+    
+    let loadNextPage;
+    let loadPrevPage;
+
+    (function initLoadMore() {
+        const container = document.getElementById('productContainer');
+        const btnNext = document.getElementById('loadMoreBtn');
+        const btnPrev = document.getElementById('loadPrevBtn');
+        const sentinel = document.getElementById('loadMoreSentinel');
+
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+
+
+        // Eğer gerekli elementler yoksa çık
+        if (!container || !btnNext || !sentinel) return;
+
+        /* ------- ORTAK STATE ------- */
+        let loadingNext = false;
+        const urlPage = parseInt(new URLSearchParams(location.search).get('page') || '1', 10);
+        btnNext.dataset.currentPage = urlPage;
+        let minLoadedPage = Math.max(urlPage, +btnNext.dataset.currentPage);  // ör. 6
+
+        togglePrevBtn = async function () {
+            if (!btnPrev) return;
+            if (minLoadedPage > 1) {
+                btnPrev.classList.remove('hidden');
+                btnPrev.style.display = 'flex';
+                btnPrev.dataset.prevPage = minLoadedPage - 1;   // 6→5, 5→4, …
+            } else {
+                btnPrev.style.display = 'none';
+                btnPrev.classList.add('hidden');
+            }
+        }
+
+        container.addEventListener('click', event => {
+            const link = event.target.closest('.product-list-link');
+            if (!link) return;
+
+            const page = Number(link.dataset.page);
+            if (!Number.isFinite(page)) return;
+
+            updatePageInUrl(page); // Tüm özel serileştirme & ? kaldırma burada
+            scrollToFocusedProduct();
+
+        });
+
+
+      
+
+
+        loadPrevPage = async function () {
+            if (!btnPrev) return;
+            const prev = +btnPrev.dataset.prevPage;         // 6→5→4 …
+            if (prev < 1) return;
+
+            btnPrev.classList.add('is-loading');
+            try {
+                const r = await fetch(buildFetchUrl(prev), { credentials: 'same-origin' });
+                if (!r.ok) throw new Error(r.statusText);
+
+                container.insertAdjacentHTML('afterbegin', await r.text()); // üste ekle
+
+                lazyLoadImages(container);
+
+                lowestPriceControl();
+
+                minLoadedPage = prev;
+                await togglePrevBtn();
+                updatePageInUrl(prev);
+
+            } catch (e) { console.error('LoadMore error', e); }
+            finally {
+                btnPrev.classList.remove('is-loading');
+            }
+        };
+        btnPrev?.addEventListener('click', loadPrevPage);
+
+
+        loadNextPage = async function () {
+            const next = +btnNext.dataset.currentPage + 1;
+            const total = +btnNext.dataset.totalPages;
+            // Eğer yükleme işlemi devam ediyorsa veya son sayfaya ulaşıldıysa çık
+            if (loadingNext || next > total) return;
+
+            loadingNext = true;
+            btnNext.classList.add('is-loading');
+
+            try {
+                const resp = await fetch(buildFetchUrl(next), { credentials: 'same-origin' });
+                if (!resp.ok) throw new Error(resp.statusText);
+
+                //Seçilen elemanın sonuna HTML olarak yeni ürünleri ekle
+                container.insertAdjacentHTML('beforeend', await resp.text());
+
+                //Görseller yüklendiğinde lazy loading işlemi yap
+                lazyLoadImages(container);
+
+
+                //Ürün kartlarında indirim kontrolü
+                lowestPriceControl();
+
+                btnNext.dataset.currentPage = next;
+
+                //URL'yi güncelle
+                updatePageInUrl(next);
+
+                // Eğer son sayfaya ulaşıldıysa butonu kaldır
+                if (next >= total) btnNext.remove();
+
+            } catch (err) {
+                console.error('LoadMore error', err);
+            } finally {
+                loadingNext = false;
+                btnNext.classList.remove('is-loading');
+                container.dispatchEvent(new Event('loadMoreDone'));
+            }
+        };
+
+        function updatePageInUrl(page) {
+            const url = new URL(location.href);
+            const params = url.searchParams;
+
+            // opf varsa sondaki /'ları temizle
+            if (params.has('opf')) {
+                params.set('opf', params.get('opf').replace(/\/+$/, ''));
+            }
+
+            // page doğrulama
+            const p = Number(page);
+            if (Number.isFinite(p) && p > 1) {
+                params.set('page', String(Math.floor(p)));
+            } else {
+                params.delete('page');
+            }
+
+            // Özel serileştirme: opf'te , kodlanmasın; diğerleri normal encode
+            const parts = [];
+            for (const [k, v] of params.entries()) {
+                const key = encodeURIComponent(k);
+                let val = encodeURIComponent(v);
+                if (k === 'opf') {
+                    // sadece virgülü aç, diğer kodlamalara dokunma
+                    val = val.replace(/%2C/gi, ',');
+                }
+                parts.push(`${key}=${val}`);
+            }
+
+
+            url.search = parts.length ? `?${parts.join('&')}` : '';
+            history.replaceState({ productPage: page }, '', url.toString());
+
+        }
+
+        function buildFetchUrl(page) {
+            const params = new URLSearchParams(location.search);
+            params.set('page', page);
+            params.set('href', removePageParam(location.href));
+            return `/Category/LoadMoreProducts?${params.toString()}`;
+        }
+        function removePageParam(url) {
+            // URL mutlak değilse base ver (gerekirse):
+            const u = url.startsWith('http') ? new URL(url) : new URL(url, 'http://localhost');
+            u.searchParams.delete('page');         // "page" paramını çıkar
+            return u.toString();                   // Gerekirse '?' otomatik kaldırılır
+        }
+
+        function lazyLoadImages(container) {
+            if (window.lazySizes) {
+                lazySizes.loader.unveilDom(container);
+            } else if (window.lazyLoadInstance) {
+                window.lazyLoadInstance.update();
+            } else {
+                container.querySelectorAll('img.lazyimg[data-src]')
+                    .forEach(img => {
+                        img.src = img.dataset.src;
+                        img.classList.remove('lazyimg');
+                    });
+
+                //badge'ler için güncelleme
+                container.querySelectorAll('.prd-badge img[data-src]')
+                    .forEach(img => {
+                        if (!img.src || img.src.trim() === '') {
+                            img.src = img.dataset.src;
+                        }
+                        img.removeAttribute('data-src');
+                    });
+
+            }
+        }
+
+        btnNext.addEventListener('click', loadNextPage);
+
+        //İzlenen div ekrana 400px yaklaştığında loadNextPage (Yeni ürünleri getir) fonksiyonunu çağır
+        new IntersectionObserver(
+            entries => { if (entries[0].isIntersecting) loadNextPage(); },
+            { rootMargin: '200px' }
+        ).observe(sentinel);
+    })();
+
+    togglePrevBtn();
+}
+
+Engine.memberMessage = function () {
+    $("#SelectedMainTypeId").change(function () {
+        locked();
+        $.ajax({
+            url: $("#messageType").attr("data-url"),
+            data: {
+                Id: $(this).val()
+            },
+            success: function (data) {
+                unlocked();
+                $('#SelectedSubTypeId').empty();
+                $.each(data, function (index, data) {
+                    $('#SelectedSubTypeId').append($('<option/>', {
+                        value: data.ID,
+                        text: data.Name
+                    }));
+                });
+            }
+        });
+    });
+
+    $("#SelectOrderId").change(function () {
+        var thid = $('option:selected', this).attr('data-thid');
+        if (!thid) {
+            $('#selectedOrderIdList').empty();
+        }
+        else {
+            locked();
+            $.ajax({
+                url: $("#orders").attr("data-url"),
+                data: {
+                    TH_ID: thid
+                },
+                success: function (data) {
+                    unlocked();
+                    $('#selectedOrderIdList').empty();
+                    $.each(data, function (index, data) {
+                        console.log(data);
+                        $('#selectedOrderIdList').append($('<option/>', {
+                            value: data.I_ID,
+                            text: data.I_Title
+                        }));
+                    });
+                }
+            });
+        }
+
+    });
+    $("#sendNewMessage").click(function () {
+        $("#messageSendForm").removeClass("hide");
+    });
+}
+
+
+Engine.memberAddress = function () {
+    $(document).ready(function () {
+        if (window.location.search.indexOf('?adr=') !== -1) {
+            $('.addressForm').removeClass('hide');
+            $('.callNewAddressForm').addClass('hide');
+
+        }
+        $('.callNewAddressForm').on('click', function () {
+            $('.addressForm').removeClass('hide');
+        });
+    });
+}
+
+Engine.memberInfo = function () {
+    $(document).on("click", ".cancel-membership", function () {
+
+        showConfirm("Üyeliğinizi iptal etme işlemine devam etmek istediğinize emin misiniz?", function () {
+            var token = getRequestToken();
+            $.ajax({
+                type: "POST",
+                url: "/MemberTransaction/CancelMemberShip",
+                data: { __RequestVerificationToken: token },
+                success: function (data) {
+                    if (IsNullOrUndefined(data) || data == "") {
+                        const args = "True";
+                        showMessage("Üyelik iptal işleminiz gerçekleştirilmiştir. Giriş yapmak isterseniz tekrar kayıt olmanız gerekmektedir.");
+                        setTimeout(function () {
+                            window.location.reload();
+                        }, 2000);
+
+                    }
+                    else {
+                        showMessage(data);
+                    }
+                }
+            });
+        },
+            function () {
+                return false;
+            })
+
+    });
+
+}
+
+Engine.productDetail = function () {
+
+    // function detailAjaxWorks(){
+    //     CheckFavourites();
+    //     function _runLazyImg(){
+    //         var lazyimg = $("[data-src!=''][data-src]")
+    //         lazyload(lazyimg);
+    //     }
+
+    //     detailScrolAddBasket();
+    //     $('[data-toggle="tooltip"]').tooltip();
+    //     _runLazyImg() 
+    //     _sliderProductDetail()
+    productDetailVideos();
+
+    OutletProductModal();
+    /*  icecatOverview();*/
+    //     countdownCargo() 
+    //     commentLoginControl()
+    //     detailPropertyGrid()
+    //     detailInstallmentGrid()
+    // }
+
+
+    // $(document).on("click", ".choose__group a", function () {
+    //     var productId = $(this).attr("data-productId");
+    //     var href = $(this).attr("data-href");
+
+    //     $.ajax({
+    //         type: "GET",
+    //         url: $(this).attr("data-url"),
+    //         data: { "id": productId },
+    //         success: function (data) {
+    //             $(".detailPartialPage").html(data);
+    //             detailAjaxWorks()
+    //             history.pushState(productId,null,href)
+    //         }
+    //     });
+    // });
+
+
+
+    $(document).ready(function () {
+        var hrefToCopy = $(".breadcrumb li:eq(1) a").attr("href");
+
+        $(".compare-category-link").attr("href", hrefToCopy);
+    });
+
+
+    //FLİX MEDİA CONTROL
+    $(document).ready(function () {
+        setTimeout(function () {
+            if ($('#flix-inpage').attr('alt')) {
+                $('.spanTabUrunAciklama').addClass('hide');
+            } else {
+
+                $('.spanTabUrunAciklama').removeClass('hide');
+            }
+
+        }, 2000);
+
+
+    });
+
+
+
+    //// BUGÜN KAPINDA BADGE
+    //$(document).ready(function () {
+    //    function isUserInIstanbul(latitude, longitude) {
+    //        var istanbulLatitudeMin = 40.8027;
+    //        var istanbulLatitudeMax = 41.3132;
+    //        var istanbulLongitudeMin = 28.6329;
+    //        var istanbulLongitudeMax = 29.4771;
+
+    //        return latitude >= istanbulLatitudeMin && latitude <= istanbulLatitudeMax &&
+    //            longitude >= istanbulLongitudeMin && longitude <= istanbulLongitudeMax;
+    //    }
+
+    //    var containsKlimalar = false;
+    //    var breadcrumbItems = $("#goinstore_key").attr("data-k3");
+
+    //    if (breadcrumbItems == "Klimalar") {
+    //        containsKlimalar = true;
+    //        return;
+    //    }
+
+    //    if ($('.yarin-kapinda').length) {
+    //        if (navigator.geolocation) {
+    //            navigator.geolocation.getCurrentPosition(function (position) {
+    //                var latitude = position.coords.latitude;
+    //                var longitude = position.coords.longitude;
+
+    //                if (isUserInIstanbul(latitude, longitude)) {
+    //                    $('.yarin-kapinda').removeClass('hide');
+    //                    $('.yarin-kargoda').addClass('hide');
+    //                }
+    //            });
+    //        } else {
+    //            console.log("Tarayıcınız konum özelliğini desteklemiyor.");
+    //        }
+    //    } else if ($('.bugun-kapinda').length) {
+    //        if (navigator.geolocation) {
+    //            navigator.geolocation.getCurrentPosition(function (position) {
+    //                var latitude = position.coords.latitude;
+    //                var longitude = position.coords.longitude;
+
+    //                if (isUserInIstanbul(latitude, longitude)) {
+    //                    $('.bugun-kapinda').removeClass('hide');
+    //                    $('.bugun-kargoda').addClass('hide');
+    //                }
+    //            });
+    //        } else {
+    //            console.log("Tarayıcınız konum özelliğini desteklemiyor.");
+    //        }
+    //    }
+    //});
+
+
+
+
+    var productCode = $(".product-id").attr("data-productcode");
+    var categoryCode = $("#visilabs-categoryId").val();
+
+    $(document).on("click", ".bundleProcess", function (e) {
+
+        if ($(this).hasClass('disabled')) {
+            return;
+        }
+
+        var ForcedControl = $(this).attr('data-forced');
+        if (ForcedControl == "False") {
+            var check = $(this).attr('checked')
+            if (check) $(this).removeAttr('checked').prop('checked', false)
+            else $(this).attr('checked', true).prop('checked', true)
+            $(this).next('label').text('Seçildi');
+        }
+
+
+        var ubn_kodlist = "";
+        $("input[id*='hdnUBN_KOD']").each(function () {
+            chkBndURNId = "#chkBndURN_" + $(this).val();
+            rdnBndURNId = "#rdnBndURN_" + $(this).val();
+
+            if (($(chkBndURNId).val() != undefined && $(chkBndURNId).is(':checked')) ||
+                ($(rdnBndURNId).val() != undefined && $(rdnBndURNId).is(':checked'))) {
+                ubn_kodlist = ubn_kodlist + "," + $(this).val();
+
+            }
+
+        });
+
+
+
+        setUrlParam("ubn", (ubn_kodlist == "" ? 0 : ubn_kodlist + ","));
+
+    });
+
+
+    //$(document).on("click", ".basketModalGaranti", function (e) {
+    //    /* $(".basketModalGaranti").not(this).prop('checked', false);*/
+    //    var ForcedControl = $(this).attr('data-forced');
+    //    if (ForcedControl == "False") {
+    //        var check = $(this).attr('checked')
+    //        if (check) $(this).removeAttr('checked').prop('checked', false)
+    //        else $(this).attr('checked', true).prop('checked', true)
+    //    }
+
+    //    $('.basketModalGaranti').each(function () {
+    //        var ids3 = $(this).attr('data-giid');
+    //        if ($(this).prop('checked') == true) {
+    //            $('button[data-attr=' + ids3 + ']').text('Seçildi'); i
+    //            console.log("$(this).prop('checked') == true");
+    //        }
+    //        else if ($(this).prop('checked') == false) {
+    //            $('button[data-attr=' + ids3 + ']').text('Seç');
+    //            console.log("$(this).prop('checked') == false")
+    //        }
+    //        else {
+    //            $('button[data-attr=' + ids3 + ']').text('Seç');
+    //            console.log("else")
+    //        }
+    //    });
+
+
+    $(".page-number").click(function () {
+
+        var page = parseInt($(this).html());
+
+        $.ajax({
+            url: $(this).attr("data-url"),
+            data: { "page": page, "isPositive": false },
+            success: function (data) {
+                $("#comment-list").html(data);
+            }
+        });
+    });
+
+    $(function () {
+        $(document).on("click", ".review-footer .comment_vote", function () {
+
+            var $this = $(this);
+            var _url = $this.attr("data-url");
+            var type = $this.attr("data-type");
+            var id = $this.attr("data-commentId");
+            var isActive = $this.hasClass("active");
+
+
+
+            if ($.cookie('userIDKey') !== undefined) {
+                $.ajax({
+                    type: "POST",
+                    url: _url,
+                    data: {
+                        value: type,
+                        ID: id
+                    },
+                    success: function () {
+                        showMessage("Teşekkür Ederiz", "success");
+
+                        if (isActive) {
+                            $this.removeClass("active");
+                        } else {
+                            const oppositeType = type === "true" ? "false" : "true";
+                            $(`.comment_vote[data-commentId="${id}"][data-type="${oppositeType}"]`).removeClass("active");
+                            $this.addClass("active");
+                        }
+                    }
+                });
+            } else {
+                showMessage("Yorum Beğenebilmek İçin Giriş Yapınız.");
+            }
+        });
+    });
+
+    CheckFavourites();
+    function CheckFavourites() {
+        if ($.cookie('userIDKey') !== undefined) {
+            var dataid = parseInt($(".favoriteButton").attr("data-productId"), 10) || 0;
+
+            if (dataid > 0) {
+                var token = getRequestToken();
+                $.ajax({
+                    url: "/ProductDetail/CheckFavorites",
+                    data: JSON.stringify({ productId: dataid }),
+                    contentType: "application/json;charset=utf-8",
+                    dataType: "json",
+                    type: "Post",
+                    success: function (data) {
+                        if (data) {
+                            $(".favoriteButton").addClass("active").addClass("isFavorite")
+                            $("#favoriteButtonIcon").removeClass("icon-heart").addClass("icon-heart-alt").css("color", "#003277");
+                            $(".icon-heart-alt").css("color", "#003277");
+                        }
+                        else {
+                            $(".favoriteButton").removeClass("active").removeClass("isFavorite")
+                            $("#favoriteButtonIcon").removeClass("icon-heart-alt").addClass("icon-heart").css("color", "")
+                            $(".icon-heart-alt").css("color", "");
+                        }
+
+                    }
+                });
+            }
+        }
+    }
+
+
+    function commentLoginControl() {
+        if ($.cookie('userIDKey') !== undefined) {
+            $("#comment-with-login").show();
+            $("#comment-without-login").hide();
+            $("#question-with-login").show();
+            $("#question-without-login").hide();
+
+        } else {
+            $("#comment-with-login").hide();
+            $("#comment-without-login").show();
+            $("#question-with-login").hide();
+            $("#question-without-login").show();
+        }
+    }
+
+    commentLoginControl()
+
+
+
+
+    gauge()
+
+    $(document).on("click", ".favoriteButton", function () {
+        var url = $(this).attr("data-url");
+        var ids = $(this).attr("data-productId");
+        var type = $(this).attr("data-type");
+        var message = $(this).attr("data-message");
+        var producttitle = $(this).attr("data-productTitle");
+        var token = getRequestToken();
+        locked();
+        if ($(this).hasClass("active")) {
+            favoriteAdd();
+        }
+        else {
+            $.ajax({
+                url: '/MemberTransaction/CheckForAcceptCampaignMail/',
+                type: 'POST',
+                success: function (data) {
+                    if (data === false) {
+                        mailConfirm();
+                    } else {
+                        favoriteAdd();
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(ajaxOptions);
+                    unlocked();
+                }
+            });
+        }
+
+        function mailConfirm(e) {
+            $.fancybox.open($('#subbforstock'));
+            $.ajax({
+                url: url,
+                data: {
+                    "productId": ids,
+                    "type": type,
+                    __RequestVerificationToken: token
+                },
+                type: "Post",
+                success: function (data) {
+                    unlocked();
+                    if (data.statu) {
+                        if (data.added) {
+                            $(e).addClass("active").addClass("isFavorite")
+                            $("#favoriteButtonIcon").removeClass("icon-heart").addClass("icon-heart-alt").css("color", "#003277");
+                            $(".icon-heart-alt").css("color", "#003277");
+                        } else {
+                            showMessage("Ürün, favori listenizden çıkarıldı.");
+                            $(e).removeClass("active").removeClass("isFavorite")
+                            $("#favoriteButtonIcon").removeClass("icon-heart-alt").addClass("icon-heart").css("color", "")
+                            $(".icon-heart-alt").css("color", "");
+                            $(".product-list__description").trigger("click");
+                            CheckFavourites();
+                        }
+                    } else {
+                        showMessage(data.message);
+                    }
+                }
+
+            });
+            unlocked()
+
+            //$("#smsComfirmYesInPopUp").click(function () {
+            //    if (document.getElementById('TermsAndConditions').checked) {
+            //        locked();
+            //        $.ajax({
+            //            url: '/MemberTransaction/SetTrueForAcceptCampaignMail/',
+            //            type: 'POST',
+            //            success: function (data) {
+            //                $.fancybox.close();
+            //                favoriteAdd();
+            //            } 
+            //        });
+            //    } else {
+
+            //    }
+            //})
+
+            $("#TermsAndConditions").click(function () {
+                if ($(this).prop("checked")) {
+                    $.ajax({
+                        url: '/MemberTransaction/SetTrueForAcceptCampaignMail/',
+                        type: 'POST',
+                        success: function (data) {
+                            $.fancybox.close();
+                            showMessage("Bu ürünün fiyatı düştüğünde size haber vereceğiz.");
+                        }
+                    });
+                } else {
+
+                }
+            });
+        }
+
+
+
+
+        function favoriteAdd(e) {
+            $.ajax({
+                url: url,
+                data: {
+                    "productId": ids,
+                    "type": type,
+                    __RequestVerificationToken: token
+                },
+                type: "Post",
+                success: function (data) {
+                    unlocked();
+                    if (data.statu) {
+                        if (data.added) {
+                            $(e).addClass("active").addClass("isFavorite")
+                            $("#favoriteButtonIcon").removeClass("icon-heart").addClass("icon-heart-alt").css("color", "#003277");
+                            $(".icon-heart-alt").css("color", "#003277");
+                            getPopup.favorite(producttitle, message,
+                                "Size haber verilmesini istediğiniz ürünleri favori listem sayfasından takip edebilirsiniz.",
+                                "Favori Listem",
+                                "/uyeBilgi/favorilistem/");
+                        } else {
+                            showMessage("Ürün, favori listenizden çıkarıldı.");
+                            $(e).removeClass("active").removeClass("isFavorite")
+                            $("#favoriteButtonIcon").removeClass("icon-heart-alt").addClass("icon-heart").css("color", "")
+                            $(".icon-heart-alt").css("color", "");
+                            $(".product-list__description").trigger("click");
+                            CheckFavourites();
+                        }
+                    } else {
+                        showMessage(data.message);
+                    }
+                }
+
+            });
+        }
+
+
+    });
+
+    $("#stockButton").click(function () {
+        $.ajax({
+            url: $(this).attr("data-url"),
+            data: { "productId": $(this).attr("data-productId") },
+            success: function (data) {
+                // console.log((data));
+            }
+        });
+    });
+
+
+
+
+
+    $(document).on("click", "#prdCommentsButton", function () {
+        // Mevcut click fonksiyonu kodu buraya
+        $.ajax({
+            url: $(this).attr("data-url"),
+            data: { "productId": $(this).attr("data-productId") },
+            success: function (data) {
+
+                $(".comment-section").html(data);
+                //$(".comment-photo-item").fancybox();
+                //commentFilter();
+
+                $("productDetail__comment .comment-section").html(data);
+                //$(".comment-photo-item").fancybox();
+                //commentFilter();
+
+                dateReplace();
+                if ($("#itemContainer").length) {
+                    var comment = document.querySelectorAll(".commetPrd");
+
+                    var ps5 = [];
+                    var ps4 = [];
+                    var ps3 = [];
+                    var ps2 = [];
+                    var ps1 = [];
+
+                    comment.forEach(function (item) {
+                        var at = Number(item.getAttribute("data-rank"));
+                        if (at === 5) {
+                            ps5.push(at)
+                        } else if (at === 4) {
+                            ps4.push(at)
+                        } else if (at === 3) {
+                            ps3.push(at)
+                        } else if (at === 2) {
+                            ps2.push(at)
+                        } else if (at === 1) {
+                            ps1.push(at)
+                        }
+                    })
+
+                    var globalSum = comment.length;
+
+                    var sum = (5 * ps5.length) +
+                        (4 * ps4.length) +
+                        (3 * ps3.length) +
+                        (2 * ps2.length) +
+                        (1 * ps1.length);
+
+                    var itm = sum / globalSum;
+                    //console.log(itm, sum, globalSum)
+
+                    document.getElementById("averageRankNum").innerText = (sum / globalSum).toString().substr(0, 3);
+
+                    $("#topAverageRank").css("width", itm * 20 + "%");
+                    $("#averageRank").css("width", itm * 20 + "%");
+
+
+                    document.getElementById("5star").setAttribute("style",
+                        "width:" + Math.round(((ps5.length / globalSum) * 100)) + "%");
+                    document.querySelector(".starTxt5").textContent =
+                        "%" + Math.round(((ps5.length / globalSum) * 100));
+
+                    document.getElementById("4star").setAttribute("style",
+                        "width:" + Math.round(((ps4.length / globalSum) * 100)) + "%");
+                    document.querySelector(".starTxt4").textContent =
+                        "%" + Math.round(((ps4.length / globalSum) * 100));
+
+                    document.getElementById("3star").setAttribute("style",
+                        "width:" + Math.round(((ps3.length / globalSum) * 100)) + "%");
+                    document.querySelector(".starTxt3").textContent =
+                        "%" + Math.round(((ps3.length / globalSum) * 100));
+
+                    document.getElementById("2star").setAttribute("style",
+                        "width:" + Math.round(((ps2.length / globalSum) * 100)) + "%");
+                    document.querySelector(".starTxt2").textContent =
+                        "%" + Math.round(((ps2.length / globalSum) * 100));
+
+                    document.getElementById("1star").setAttribute("style",
+                        "width:" + Math.round(((ps1.length / globalSum) * 100)) + "%");
+                    document.querySelector(".starTxt1").textContent =
+                        "%" + Math.round(((ps1.length / globalSum) * 100));
+
+                }
+
+                $(".comment-items").hide();
+
+                $(".productDetail__comment .comment-items").show();
+                // $(".loadMoreCommet").addClass("hide")
+
+                $(".comment-items:hidden").slice(0, 14).show();
+
+
+
+                if ($(".comment-items:hidden").length < 1) {
+                    $(".loadMoreCommet").addClass("hide");
+                }
+
+                $(".loadMoreCommet").click(function (e) {
+                    $(".comment-items:hidden").slice(0, 14).slideDown();
+                    if ($(".comment-items:hidden").length == 0) {
+                        $(".loadMoreCommet").addClass("hide");
+                    }
+
+                    e.preventDefault();
+                });
+            }
+        });
+    });
+
+
+
+
+    $(document).on("click", "#prdInstallmentsButton", function () {
+        $.ajax({
+            url: $(this).attr("data-url"),
+            data: { "productId": $(this).attr("data-productId"), "productPrice": parseFloat($(this).attr("data-productPrice")) },
+            success: function (data) {
+                $(".creditInstallment").html(data);
+                activeFirstTab();
+            }
+        });
+    });
+
+    (function ($) {
+        $.fn.simpleLoadMore = function (options) {
+            // Settings.
+            var settings = $.extend({
+                count: 5,
+                btnHTML: '',
+                item: ''
+            },
+                options);
+
+            // Variables
+            var $loadMore = $(this);
+            var $items = $loadMore.find(settings.item);
+            var btnHTML = settings.btnHTML
+                ? settings.btnHTML
+                : '<a href="#" class="load-more__btn">View More <i class="fas fa-angle-down"></i></a>';
+            var $btnHTML = $(btnHTML);
+
+            // Add classes.
+            $loadMore.addClass('load-more');
+            $items.addClass('load-more__item');
+
+            // Add button.
+            if (!$loadMore.find('.load-more__btn').length && $items.length > 5) {
+                $loadMore.append($btnHTML);
+            }
+
+            $btn = $loadMore.find('.load-more__btn');
+
+            if (!$btn.length) {
+                $btn = $btnHTML;
+            }
+
+            if ($items.length > settings.count) {
+                $items.slice(settings.count).hide();
+            }
+
+            // Add click event on button.
+            $btn.on('click',
+                function (e) {
+                    e.preventDefault();
+
+                    var $this = $(this),
+                        $updatedItems = $items.filter(':hidden').slice(0, settings.count);
+
+                    // Show the selected elements.
+                    if ($updatedItems.length > 0) {
+                        $updatedItems.fadeIn();
+                    }
+
+                    // Hide the 'View More' button
+                    // if the elements lenght is less than 5.
+                    if ($updatedItems.length < settings.count) {
+                        $this.remove();
+                    }
+                });
+        }
+    }(jQuery));
+
+    $('#itemContainer').simpleLoadMore({
+        item: 'div',
+        count: 2
+    });
+
+    //#region goinsstore code area ###########################################
+
+    var lis = $(".dropdown-menu-basket .basket-lists li");
+    var mdl = $("#modal-basket");
+    var gsk = $("#goinstore_key");
+    var stt = false;
+
+    if (gsk.length) {
+        if (gsk.attr("data-l2") === "PC_POR" && gsk.attr("data-k3") === "Notebook" && gsk.attr("data-br") !== "APPLE") {
+            //    $("body").append('<script src="https://gis.goinstore.com/gis/script/835e68d1-0e56-489a-9c5c-b3dcff9defe0" defer></script>');
+        }
+    }
+
+
+    if (mdl.attr("data-l2") === "PC_POR" && mdl.attr("data-k3") === "Notebook" && mdl.attr("data-br") !== "APPLE") {
+        stt = true;
+        if (lis.length) {
+            lis.each(function () {
+                if (
+                    $(this).attr("data-l2") != "KIRAKS" &&
+                    $(this).attr("data-l2") != "AKSSTD" &&
+                    $(this).attr("data-l2") != "AKSKLT" &&
+                    $(this).attr("data-l2") != "AKSMPD" &&
+                    $(this).attr("data-l2") != "AKSKAB" &&
+                    $(this).attr("data-l2") != "AKSKUL" &&
+                    $(this).attr("data-l2") != "AKSCNT" &&
+                    $(this).attr("data-l2") != "AKSCDA" &&
+                    $(this).attr("data-l2") != "AKSBCH" &&
+                    $(this).attr("data-l2") != "KABAKS" &&
+                    $(this).attr("data-l2") != "PC_POR"
+                ) {
+                    stt = false
+                } else {
+                    stt = true
+                }
+            })
+        }
+    }
+
+    if (stt === true) {
+        //  $("body").append('<script src="https://gis.goinstore.com/gis/script/835e68d1-0e56-489a-9c5c-b3dcff9defe0" defer></script>');
+    }
+
+
+
+    //#endregion
+
+    //#region buyback campaign by productId
+    $(document).ready(function () {
+        var dataid = parseInt($(".product-id").attr("data-productid"), 10) || 0;
+        var dataCat = $(".addProductToCompare").attr("data-category");
+        var dataBr = $("#goinstore_key").attr("data-br");
+        if ((dataCat == "CELCEP" || dataCat == "PC_POR" || dataCat == "PC_TAB") && dataid > 0) {
+            $.ajax({
+                url: "/Landing/GetBuybackCampaignByProductId/",
+                data: JSON.stringify({ ProductId: dataid }),
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                type: "POST",
+                success: function (data) {
+                    if (data != null) {
+                        buybackAmount = data?.Amount;
+                        buybackAmounts = parseFloat(buybackAmount);
+                        buybackAmounts.toFixed(2);
+                        var buybackinfo = document.getElementById('degistokus');
+                        var buybackicon = document.getElementById('buybackicon');
+                        var buybacktext;
+                        var url = "https://www.vatanbilgisayar.com/eskiyi-getir-yeniyi-gotur-telefon/";
+                        if (dataCat == "CELCEP") {
+                            /*     url = dataBr == "APPLE" ? "/degis-tokus" : "/eskiyi-getir-yeniyi-gotur-telefon";*/
+                            buybacktext = dataBr == "APPLE" ? 'Degiş Tokuş kampanyası ile ' + buybackAmounts + '  TL ek indirim fırsatı' : 'Eskiyi Getir Yeniyi Götür ile ' + buybackAmounts + ' TL ek indirim fırsatı';
+                            buybackinfo.innerHTML = buybacktext;
+                            //buybackinfo.innerHTML = `<a target="_blank" href="` + url + `">` + buybacktext +` </a> &nbsp (` + buybackAmounts + ` TL ek ödeme)`;
+                            //buybackicon.setAttribute('title', 'Geri alım kampanyası kapsamında bu ürünü satın alıp eski cihazınızı gönderdiğinizde, cihazınız için belirlenen geri alım bedeline ek ' + buybackAmounts + ' TL ödeme yapılacaktır.');
+                            //buybackicon.setAttribute('data-original-title', 'Geri alım kampanyası kapsamında bu ürünü satın alıp eski cihazınızı gönderdiğinizde, cihazınız için belirlenen geri alım bedeline ek ' + buybackAmounts + ' TL ödeme yapılacaktır.');
+                            //buybackicon.classList.remove("hide");
+                        }
+                        else if (dataCat == "PC_POR") {
+                            url = url + "?type=macbook";
+                            buybackinfo.innerHTML = `<a target="_blank" href="` + url + `">Geri alım kampanyası ile satın al </a> &nbsp (` + buybackAmounts + ` TL ek ödeme)`;
+                            buybackicon.setAttribute('title', 'Geri alım kampanyası kapsamında bu ürünü satın alıp eski cihazınızı gönderdiğinizde, cihazınız için belirlenen geri alım bedeline ek ' + buybackAmounts + ' TL ödeme yapılacaktır.');
+                            buybackicon.setAttribute('data-original-title', 'Geri alım kampanyası kapsamında bu ürünü satın alıp eski cihazınızı gönderdiğinizde, cihazınız için belirlenen geri alım bedeline ek ' + buybackAmounts + ' TL ödeme yapılacaktır.');
+                            buybackicon.classList.remove("hide");
+                        }
+                        else if (dataCat == "PC_TAB") {
+                            url = url + "?type=tablet";
+                            buybackinfo.innerHTML = `<a target="_blank" href="` + url + `">Geri alım kampanyası ile satın al </a> &nbsp (` + buybackAmounts + ` TL ek ödeme)`;
+                            buybackicon.setAttribute('title', 'Geri alım kampanyası kapsamında bu ürünü satın alıp eski cihazınızı gönderdiğinizde, cihazınız için belirlenen geri alım bedeline ek ' + buybackAmounts + ' TL ödeme yapılacaktır.');
+                            buybackicon.setAttribute('data-original-title', 'Geri alım kampanyası kapsamında bu ürünü satın alıp eski cihazınızı gönderdiğinizde, cihazınız için belirlenen geri alım bedeline ek ' + buybackAmounts + ' TL ödeme yapılacaktır.');
+                            buybackicon.classList.remove("hide");
+                        }
+                    }
+
+                }
+            });
+        }
+
+    });
+
+    //#endregion
+};
+
+
+Engine.Index = function () {
+
+
+    closeOpenApp();
+
+};
+
+Engine.contactForm = function () {
+
+    var urlParams = new URLSearchParams(window.location.search);
+    if (urlParams != null && urlParams.toString() != "") {
+        document.getElementById("noneForm").classList.remove("hide");
+        document.getElementById("form").classList.add("hide");
+    }
+
+
+};
+
+Engine.payment = function () {
+    // $(".nav-justified li").first().find("a").trigger("click");
+
+    $("#cardnumber").keyup(function () {
+        var myLength = $(this).val().length;
+        if (myLength > 8) {
+            $.ajax({
+                url: $(this).attr("data-url"),
+                data: { "bin": $(this).val() },
+                success: function (data) {
+                    $(".installments").html(data);
+               //     $('input[name=installment]:first').attr('checked', true); //İlk taksit seçeneğini check'leyen js
+               //     reloadBasketSummary();
+                }
+            });
+        }
+    });
+    // Credit Function
+    payCredit();
+    paymentCartMp();
+
+    $(".checkout-payment input").click(function () {
+        if ($(this).attr("value") != "pay-with-card") {
+            $(".threeD-section").hide();
+        } else {
+            $(".threeD-section").show();
+        }
+    });
+    //#region submitPayment
+
+
+    $("#submitPayment").click(function () {
+        //InquireScore();
+        if (validChc(".basket-ordersummary") == true) {
+            if ($("#pay-with-card").hasClass("active")) {
+                var userRewardAmount = "";
+                if ($(".newCardPay .installments .checkout-payment__installment-list").attr("data-bank") == "Garanti") {
+                    var rewardBNS = $('input[name=UserRewardAmountBNS]:checked').val();
+                    var rewardFBB = $('input[name=UserRewardAmountFBB]:checked').val();
+                    var userRewardAmount = !IsNullOrUndefined(rewardFBB) ? rewardFBB : "";
+                    userRewardAmount += IsNullOrUndefined(rewardBNS) ? "" : ("-" + rewardBNS);
+                }
+                if (Valid() == undefined) {
+                    locked();
+                    var token = getRequestToken();
+                    $.ajax({
+                        url: $(this).attr("data-url"),
+                        type: "POST",
+                        data: {
+                            "NameSurname": $("#cardholder").val(),
+                            "CardNumber": $("#cardnumber").val(),
+                            "Month": $("#cardexpiredatemonth").val(),
+                            "Year": $("#cardexpiredateyear").val(),
+                            "Cvc": $("#cardcvv2").val(),
+                            "Installment": $('input[name=installment]:checked').val(),
+                            "ThreeD": $('.threeD').is(':checked'),
+                            "Aggrement": $('#aggrementButton').is(':checked'),
+                            "MasterPass": $('#saveMyCard').is(':checked'),
+                            "PhoneNumberPass": $('#phoneForMaster').val(),
+                            "CardNamePass": $('#cardNameForMaster').val(),
+                            "RegisteredCardNamePass": $('input[name=accountAliasName]:checked').attr("data-cardname"),
+                            "CardNoPass": $('input[name=accountAliasName]:checked').attr("data-value"),
+                            "CardUniqueIdPass": $('input[name=accountAliasName]:checked').attr("data-id"),
+                            "BankIcaPass": $('input[name=accountAliasName]:checked').attr("data-bankica"),
+                            "UserRewardAmount": userRewardAmount,
+                            __RequestVerificationToken: token
+                        },
+                        success: function (data) {
+                            if (data.masterpass) {
+                                if (data.statu) {
+                                    if (data.register) {
+                                        $("#paymentform").empty();
+                                        $("#paymentform").append(data.form);
+                                        MFS.purchaseAndRegister($("#masterPassForm"), mfsResponseHandler);
+                                        return false;
+                                    } else {
+                                        $("#paymentform").empty();
+                                        $("#paymentform").append(data.form);
+                                        MFS.purchase($("#masterPassForm"), mfsResponseHandler);
+                                        return false;
+                                    }
+
+                                }
+                            }
+                            else if (data.threeD) {
+                                if (data.statu) {
+                                    if (data.httpPost) {
+
+                                        $("body").append(data.form);
+                                        downloadForm.submit();
+                                        //$("#threeDSServerWebFlowStartForm").submit();
+
+                                    }
+                                    else {
+                                        $("#paymentform").empty();
+                                        $("#paymentform").append(data.form);
+                                        $("#redirectForm").submit();
+                                    }
+                                }
+                            } else {
+                                if (data.statu) {
+                                    location.href = data.redirect;
+                                } else if (data.redirect !== "") {
+                                    location.href = data.redirect;
+                                } else {
+                                    unlocked();
+                                    showMessage(data.message);
+                                }
+
+                            }
+                        }
+                    });
+                } else
+                    showMessage(Valid());
+            }
+            else if ($("#pay-with-transfer").hasClass("active")) {
+                var checkedBank = $('input[name=transfer-type]:checked').val();
+                if (checkedBank !== undefined) {
+                    if ($('input[name=transfer-type]:checked').val().indexOf("AKBANK") !== -1) { akbankDirekt(false); }
+                    else if ($('input[name=transfer-type]:checked').val().indexOf("FIBABANK") !== -1) { fibaBankPay(false); }
+                    else {
+                        locked();
+                        var token = getRequestToken();
+                        $.ajax({
+                            url: $(this).attr("data-transferPay"),
+                            type: "POST",
+                            data: {
+                                "BankIBAN": $('input[name=transfer-type]:checked').val(),
+                                __RequestVerificationToken: token
+                            },
+                            success: function (data) {
+                                if (data.statu) {
+                                    location.href = data.redirect;
+                                } else {
+                                    unlocked();
+                                    showMessage(data.message, "error", data.redirect);
+                                }
+                            }
+                        });
+                    }
+
+                } else
+                    showMessage("Banka Seçimi Yapınız.");
+            }
+            else if ($("#pay-with-digitalbanks").hasClass("active")) {
+
+                if ($('#bkm').is(':checked')) {
+                    $.ajax({
+                        type: 'GET',
+                        url: '/Payment/ReInitTicket',
+                        timeout: 10000,
+                        beforeSend: locked(),
+                        success: function (data) {
+                            var ticket = JSON.parse(data);
+                            bexInit(ticket);
+                            unlocked();
+                        }
+                    });
+                }
+                else if ($('#akbankAxess').is(':checked')) {
+                    locked();
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Payment/PayWithAxessMobile',
+                        success: function (data) {
+                            location.href = data;
+                        }
+                    });
+                }
+                else if ($('#garantiPay').is(':checked')) {
+                    locked();
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Payment/PayWithGarantiPay',
+                        success: function (data) {
+                            $("#paymentform").empty();
+                            $("#paymentform").append(data);
+                            showConfirm("GARANTİ PAY İŞLEMLERİNDE GARANTİ UYGULAMASINDA ÖDEME ÇEKİLDİKTEN SONRA, VATAN BİLGİSAYAR UYGULAMASI VEYA WEB SİTESİ İÇERİSİNDE SİPARİŞ SONUÇLANDI SAYFASINA YÖNLENMEDEN <strong>VATAN BİLGİSAYAR SAYFASINI (VATAN BİLGİSAYAR UYGULAMASINI) KAPATMAYINIZ. YA DA GERİ TUŞUNA BASMAYINIZ</strong>!", function () {
+                                $("#redirectForm").submit();
+                            },
+                                function () {
+                                    unlocked();
+                                    return false;
+                                });
+                        }
+                    });
+                }
+                else if ($('#wordPay').is(':checked')) {
+                    locked();
+                    $.ajax({
+                        url: "/Payment/PayWithWorldPay/",
+                        type: "POST",
+                        success: function (data) {
+                            if (data !== undefined) {
+                                post('https://apm.yapikredi.com.tr/web/prePayment', { token: data, merchantLogoUrl: 'https://cdn.vatanbilgisayar.com/images/frontend/assets/vatanlogo.svg', technicalErrorReturnUrl: 'http://localhost:57003/' });
+                            }
+                            else
+                                unlocked();
+                        },
+                        error: function (ajaxContext) {
+                            unlocked();
+                        }
+                    });
+                }
+            }
+            else if ($("#pay-with-credit").hasClass("active")) {
+                if ($('#fibabankCredit').is(':checked')) {
+                    fibaBankPay(true);
+                }
+                else if ($('#akbankCredit').is(':checked')) {
+                    akbankDirekt(true);
+                }
+                else if ($('#yapıkrediCredit').is(':checked')) {
+                    locked();
+                    $.ajax({
+                        url: "/Payment/PayWithYapıkrediCreditAndTransfer/",
+                        type: "POST",
+                        success: function (data) {
+                            if (data !== undefined)
+                                location.href = data;
+                            else
+                                unlocked();
+                        },
+                        error: function (ajaxContext) {
+                            unlocked();
+                        }
+                    });
+                }
+                else if ($('#isbankasiCredit').is(':checked')) {
+                    locked();
+                    $.ajax({
+                        url: "/Payment/PayWithIsBankCreditAndTransfer/",
+                        type: "POST",
+                        success: function (data) {
+                            if (data !== undefined)
+                                location.href = data;
+                            else
+                                unlocked();
+                        },
+                        error: function (ajaxContext) {
+                            unlocked();
+                        }
+                    });
+                }
+                else if ($('#garantiCredit').is(':checked')) {
+                    locked();
+                    $.ajax({
+                        url: "/Payment/PayWithGarantiCreditAndTransfer/",
+                        type: "POST",
+                        success: function (data) {
+                            if (data !== undefined)
+                                location.href = data;
+                            else
+                                unlocked();
+                        },
+                        error: function (ajaxContext) {
+                            unlocked();
+                        }
+                    });
+                }
+                else if ($('#masterCredit').is(':checked')) {
+                    locked();
+                    sendMasterPass();
+
+                }
+                else
+                    showMessage("Banka Seçimi Yapınız.");
+            }
+
+        }
+    });
+
+    //#endregion
+
+    $(".payOptions li a").click(function () {
+        var id = $(this).attr("href");;
+        if ($(this).hasClass("bkmTab")) {
+            $("#submitPayment").html('BKM Express İle Öde <span class="icon-angle-right"></span>');
+        }
+        else if ($(this).hasClass("multiplecard")) {
+            $("#submitPayment").addClass("nobtn disabled");
+        }
+        else {
+            $("#submitPayment").html('Siparişi Onayla <span class="icon-angle-right"></span>');
+        }
+        if (!$(this).hasClass("multiplecard")) {
+            $("#submitPayment").removeClass("disabled");
+        }
+        if ($(id).find(".nobtn").length) {
+            $("#submitPayment").addClass("disabled");
+        }
+
+
+    });
+
+    function bexInit(ticket) {
+        Bex.init(ticket, "modal", {
+            container: "payment-dropin",
+            buttonSize: [135, 70],
+            skipButton: true,
+            onCancel: function () {
+                console.info("User canceled the payment");
+            },
+            onComplete: function (status) {
+                if (status == "success") {
+                    locked();
+                    location.href = "/Payment/Completed/";
+                } else {
+                    unlocked();
+                    showMessage("Hata Oluştu.");
+                }
+            }
+        });
+    }
+
+    $("#pay-with-credit").click(function () {
+        $.ajax({
+            url: "/Payment/CompayInstallments",
+            success: function (data) {
+                $(".fibaInstallments").html(data);
+            }
+        });
+    });
+
+
+
+    $(document).on("click", ".checkout-payment__installment-list tr", function (e) {
+
+        
+        if ($(e.target).is("input")) return;
+
+        let radio = $(this).find("input[name='installment']");
+
+        if (radio.length) {
+            radio.prop("checked", true).trigger("click"); 
+        }
+    });
+
+
+    $(document).on("click", ".checkout-payment__installment-list input[name='installment']", function () {
+        var pyId = $(this).attr("data-pyId");
+        var oldimgSrc = $(this).attr("data-oldimg");
+        var cbid = $(this).attr("data-cbid");
+        var img = $(this).attr("data-img");
+        reloadBasketSummary(pyId, oldimgSrc, cbid);
+        $(".checkout-payment__installment-list img").attr('src', img);
+    });
+
+
+    function reloadBasketSummary(pyId, oldimgSrc, cbid) {
+        locked();
+        $.ajax({
+            url: "/Payment/_GetSummarywithInstallment/",
+            data: {
+                pyid: pyId
+            },
+            type: "POST",
+            success: function (data) {
+                unlocked();
+                $(".payment-summary .payment-summary-partial").html(data.summaryForPayment);
+                $(".aggremantBasketSummary").html(data.summaryForAggremant);
+                $(".aggrementButton").prop("checked", false);
+
+            }
+        });
+
+        //finans pesin ikon değiştirme
+        //if (pyId == 70 && cbid==2) {
+        //    $(".checkout-payment__installment-list img").attr('src', 'https://cdn.vatanbilgisayar.com/Upload/BANKA/3/3.png');
+        //}
+        //else if (cbid == 1) {
+        //    $(".checkout-payment__installment-list img").attr('src', oldimgSrc);
+        //}
+    }
+
+    $(".payOptions li a").click(function () {
+        if ($(this).attr("data-type") != "creditCard" && $('input[name=installment]:checked').val() > 1) {
+            reloadBasketSummary(0);
+            $('input[name=installment]').prop("checked", false);
+        }
+    })
+
+    //#region Garanti bonus ile ödeme
+    $('.newCardPay input[type=text]').each(function () {
+        $(this).change(function () {
+            bonusCardControl();
+        });
+    });
+    $(document).on("change", ".newCardPay select", function () {
+        bonusCardControl();
+    });
+    $(document).on("change", "#saveMyCard", function () {
+        if ($(this).is(':checked')) {
+            $("#userRewardArea").addClass("hide");
+        }
+        else {
+
+            bonusCardControl();
+        }
+    });
+    function bonusCardControl() {
+
+        if ($(".newCardPay .installments .checkout-payment__installment-list").attr("data-bank") == "Garanti" && !$(".newCardPay .card-entry-main").hasClass("hide") && !$('#saveMyCard').is(':checked')) {
+            var cardNumber = $("#cardnumber").val();
+            var cardHolder = $("#cardholder").val();
+            var month = $('select[name=cardexpiredatemonth] option').filter(':selected').val();
+            var year = $('select[name=cardexpiredateyear] option').filter(':selected').val();
+            var cvc = $("#cardcvv2").val();
+            if (cardNumber.length == 16 && cardHolder.length > 2
+                && month != ""
+                && year != "" && cvc.replaceAll('_', '').length == 3) {
+                var token = getRequestToken();
+                $.ajax({
+                    url: "/Payment/UserReward",
+                    data: {
+                        'cardNumber': cardNumber,
+                        'cardHolder': cardHolder,
+                        'month': month,
+                        'year': year,
+                        'cvc': cvc,
+                        __RequestVerificationToken: token,
+                    },
+                    type: "POST",
+                    success: function (data) {
+                        $(".newCardPay form #userRewardArea").remove();
+                        $(".newCardPay form").append("<div id='userRewardArea' style='padding:10px;'></div>")
+                        if (!IsNullOrUndefined(data.FBBAmount) && parseFloat(data.FBBAmount) > 0) {
+                            $(".newCardPay form #userRewardArea").append('<div class="form-group"><label class="wrapper-checkbox"><input id="useUserRewardTotalAmountFBB" type="checkbox" name="UserRewardAmountFBB" value="FBB' + data.FBBAmount + '" >' +
+                                ' <span class="checkmark"style="width: 19px;height:19px"></span><strong>' + data.FBBAmount + ' TL</strong> değerinde Vatan Bilgisayar bonusunuz var. Ödemenizde kullanmak ister misiniz? </label></div>');
+                        }
+                        if (!IsNullOrUndefined(data.BNSAmount) && parseFloat(data.BNSAmount) > 0) {
+                            $(".newCardPay form #userRewardArea").append('<div class="form-group"><label class="wrapper-checkbox"><input id="useUserRewardTotalAmountBNS" type="checkbox" name="UserRewardAmountBNS" value="BNS' + data.BNSAmount + '" >' +
+                                ' <span class="checkmark" style="width: 19px;height:19px"></span><strong>' + data.BNSAmount + ' TL</strong> değerinde bonusunuz var. Ödemenizde kullanmak ister misiniz? </label></div>');
+
+                        }
+                    }
+                });
+            }
+        }
+        else {
+            $(".newCardPay form #userRewardArea").remove();
+        }
+    }
+
+    //#endregion
+
+
+    $('.threeD').change(function () {
+        let threeD = $('.threeD').is(':checked');
+        if (threeD == false) {
+            alert("3D siz verilen siparişlerde güvenliğiniz için teyit almamız gerekebilir ve siparişin gönderim süresi uzayabilir. Siparişinizin daha hızlı size ulaşması için 3D Secure kullanarak sipariş vermenizi öneririz.");
+        }
+    });
+};
+
+
+
+
+Engine.degisTokusPage = function () {
+
+    $(document).ready(GetBuyBackItemList());
+
+    function GetBuyBackItemList() {
+        $.ajax({
+            url: "/Landing/GetBuyBackItemList/",
+            type: "POST",
+            success: function (data) {
+
+                function renderProducts(products, tbodySelector) {
+                    products.forEach(function (product) {
+                        var productHTML = `
+            <div class="tr row2">
+                <p class="product-copy">${product.ModelName}</p>
+                <p class="pricing-copy">${product.Amount} TL’ye kadar</p>
+            </div>
+        `;
+                        $(tbodySelector).append(productHTML);
+                    });
+                }
+
+                function PhoneProduct() {
+                    if (!data || !data.BuybackProducts) return;
+
+                    var applePhoneProducts = data.BuybackProducts.filter(function (product) {
+                        return product.BrandName === "Apple" && product.ProductGroupName === "Cep Telefonu";
+                    });
+
+                    var preferredOrder = [
+                        "iPhone 11 64 GB", "iPhone 12 64 GB", "iPhone 13 128 GB",
+                        "iPhone 14 128 GB", "iPhone 15 256 GB", "iPhone 15 Pro 256 GB",
+                        "iPhone 15 Pro 512 GB"
+                    ];
+
+                    applePhoneProducts.sort(function (a, b) {
+                        var indexA = preferredOrder.indexOf(a.ModelName) === -1 ? preferredOrder.length : preferredOrder.indexOf(a.ModelName);
+                        var indexB = preferredOrder.indexOf(b.ModelName) === -1 ? preferredOrder.length : preferredOrder.indexOf(b.ModelName);
+                        return indexA - indexB;
+                    });
+
+                    var nonApplePhoneProducts = data.BuybackProducts.filter(function (product) {
+                        return product.BrandName !== "Apple" && product.ProductGroupName === "Cep Telefonu";
+                    });
+
+                    nonApplePhoneProducts.sort(function (a, b) {
+                        return (b.Amount || 0) - (a.Amount || 0);
+                    });
+
+                    var top7ApplePhoneProducts = applePhoneProducts.slice(0, 7);
+                    var top7NonApplePhoneProducts = nonApplePhoneProducts.slice(0, 7);
+
+                    renderProducts(top7ApplePhoneProducts, '#iphone-content .content-1 .tbody');
+                    renderProducts(top7NonApplePhoneProducts, '#iphone-content .content-2 .tbody');
+                }
+
+                function macProduct() {
+                    if (!data || !data.BuybackProducts) return;
+
+                    var appleMacProducts = data.BuybackProducts.filter(function (product) {
+                        return product.BrandName === "Apple" && product.ProductGroupName === "Mac";
+                    });
+
+                    appleMacProducts.sort(function (a, b) {
+                        return b.Amount - a.Amount;
+                    });
+
+                    var top7AppleMacProducts = appleMacProducts.slice(0, 7);
+
+                    renderProducts(top7AppleMacProducts, '#mac-content .content-1 .tbody');
+                }
+
+                PhoneProduct();
+                macProduct();
+
+
+            }
+        });
+    }
+}
+
+Engine.buyBackPage = function () {
+
+    //$(document).ready(GetBuybackCampaignProducts());
+    //function GetBuybackCampaignProducts() {
+    //    $.ajax({
+    //        url: "/Landing/GetAllBuybackCampaignProducts/",
+    //        type: "POST",
+    //        success: function (data) {
+
+    //            //var newInput = document.createElement("input");
+    //            //newInput.setAttribute("id", "datainput");
+    //            //document.body.append(newInput);
+    //            //var dataInput = document.getElementById("datainput");
+    //            //var json = JSON.stringify(data);
+    //            //dataInput.setAttribute("value", json);
+
+
+
+
+    //        }
+    //    });
+    //}
+    //var urlParams = new URLSearchParams(location.search);
+    //if (!IsNullOrUndefined(urlParams.get('requestId')) && $.cookie("RequestIdBuyBackOk") == urlParams.get('requestId')) {
+
+    //    $("#buyback_message").text("Geri alım işleminiz tamamlanmıştır. Alışverişinize devam edebilirsiniz.").removeClass("hide");
+    //}
+
+
+    //document.getElementById("buyback").addEventListener("click", RedirectToBuyBack);
+    //function RedirectToBuyBack() {
+    //    if ($("#buyback_ok").is(':checked')) {
+    //        var cookieRequestId = null;//$.cookie("RequestId");
+    //        if (IsNullOrUndefined(cookieRequestId)) {
+    //            locked();
+    //            var newRequestId = parseInt(Math.random() * 10000000);
+    //            $.cookie("RequestId", newRequestId);
+    //            location.href = "https://dev.fintegre.com/onlinebuyback/apple?id=2589&productgroupid=1&guid=63bfacbe-1a6c-dd8d-7bfc-447e0f853422&requestId=" + newRequestId;
+    //        }
+    //        else {
+    //            locked();
+    //            location.href = "https://dev.fintegre.com/onlinebuyback/apple?id=2589&productgroupid=1&guid=63bfacbe-1a6c-dd8d-7bfc-447e0f853422&requestId=" + cookieRequestId;
+    //        }
+    //    }
+    //    else {
+    //        $(".form-group .wrapper-checkbox").attr("style", "color:darkred")
+    //    }
+
+
+    //}
+
+
+    var buybackTotal;
+    var returnPrice;
+    var price;
+    var phoneModel;
+    var listPrice;
+
+    function updateVisibility() {
+        const deviceCampaignDivHidden = $(".new_phoneSelect").hasClass("hide");
+        const shouldShow = (deviceCampaignDivHidden && returnPrice) || (!deviceCampaignDivHidden && price && returnPrice);
+
+        const elementsToToggle = ['#priceTotal', '#card-text', '#supportPrice', '#totalRefund'];
+
+        elementsToToggle.forEach(selector => {
+            if (shouldShow) {
+                $(selector).removeClass('hide');
+            } else {
+                $(selector).addClass('hide');
+            }
+        });
+    }
+
+
+    function updateTotals() {
+
+        updateVisibility();
+
+        var paidAmountConvert = parseFloat(price) || 0;
+        var returnPriceConvert = parseFloat(returnPrice) || 0;
+
+        buybackTotal = paidAmountConvert + returnPriceConvert;
+
+        $('#priceTotal').html(
+            '<p id="Pricetotal">' + phoneModel + ' Güncel Fiyat: <b>' + listPrice + '</b> <b><span id="totaltl">TL</span></b></p>'
+        );
+        $('#supportPrice').html(
+            '<p id="Pricetotal"><b>' + paidAmountConvert + '</b> <b><span id="totaltl">TL</span></b></p>'
+        );
+        $('#totalRefund').html(
+            '<p id="Pricetotal" style="background: #062665; width: 125px; text-indent: 5px; color: #fff; border-radius: 3px;"><b>' + buybackTotal + '</b> <b><span id="totaltl">TL</span></b></p>'
+        );
+    }
+
+    $('#geriAlim').on('change', function () {
+        returnPrice = $(this).val();
+        var selectedText = $(this).find('option:selected').text();
+
+        $('#card-text').html(
+            '<b>' + returnPrice +
+            '<span> TL</span></b>'
+        );
+
+        updateTotals();
+    });
+
+    $('#campaignProduct').on('change', function () {
+        price = $(this).val();
+        listPrice = $(this).find('option:selected').attr("data-value");
+        phoneModel = $(this).find('option:selected').text();
+
+        $('#alinan-telefon').html(
+            'Satın Alacağınız Telefon: <b>' + phoneModel + '</b><br>' +
+            'Ek Ödeme Tutarı: <b>' + price + 'TL</b>'
+        );
+
+        updateTotals();
+    });
+
+
+    $('#buybackSteps').on('click', function (e) {
+        e.preventDefault();
+
+        $('html, body').animate({
+            scrollTop: $('.buyback-steps').offset().top
+        }, 800);
+    });
+
+    $('#basvur').on('click', function (e) {
+        e.preventDefault();
+
+        $('html, body').animate({
+            scrollTop: $('.buyback-info').offset().top
+        }, 800);
+    });
+
+
+    // SELECT2
+    $('#geriAlim').select2({
+        placeholder: "Cihazınızı seçin",
+        allowClear: true,
+        templateResult: formatOption,
+        templateSelection: formatOption
+    });
+    $('#campaignProduct').select2({
+        placeholder: "Cihazınızı seçin",
+        allowClear: true,
+        templateResult: formatOption,
+        templateSelection: formatOption
+
+    });
+
+
+    function formatOption(option) {
+        if (!option.id) {
+            return option.text;
+        }
+
+        var $option = $(
+            '<span><i class="' + $(option.element).data('icon') + '"></i> ' + option.text + '</span>'
+        );
+
+        return $option;
+    }
+
+
+};
+
+Engine.unsubscribeEmail = function () {
+
+    $("#account-cancel-no").click(function () {
+        var email = $("#account-cancel-no").attr("data-email");
+        var token = getRequestToken();
+        locked();
+        $.ajax({
+            url: "/DynamicLandings/UnsubscribeFromEmailPost/",
+            data: {
+                encryptedEmail: email,
+                __RequestVerificationToken: token,
+            },
+            type: "POST",
+            success: function (data) {
+                if (data == "success") {
+                    $(".cancel-question").addClass("hide");
+                    $(".cancel-error").addClass("hide");
+                    $(".cancel-success").removeClass("hide");
+                    unlocked();
+                }
+                else {
+                    $(".cancel-question").addClass("hide");
+                    $(".cancel-error").removeClass("hide");
+                    unlocked();
+                }
+
+            },
+            error: function (ajaxContext) {
+                unlocked();
+            }
+        });
+    });
+};
+
+//#region Methods
+function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, '\\$&');
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+
+function setUrlParam(key, value) {
+    var queryParameters = {}, queryString = location.search.substring(1),
+        re = /([^&=]+)=([^&]*)/g, m;
+    while (m = re.exec(queryString)) {
+        queryParameters[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
+    }
+    queryParameters[key] = value;
+    bundleList = value;
+    location.hash = "";
+    //location.search = $.param(queryParameters);
+
+    var productId = $(".product-id").attr("data-productId");
+    locked();
+
+    $.ajax({
+        type: "GET",
+        url: "/ProductDetail/DetailPagePartial",
+        data: { "id": productId, "ubn": value },
+        success: function (data) {
+            $(".detailPartialPage").html(data);
+            detailAjaxWorks()
+            //history.pushState(productId, null, href)
+            $(".wrapper-product-detail-").hide();
+            $(".wrapper-product--visit").hide();
+            detailUI.init();
+            unlocked();
+            cpSidebarContent();
+            gauge();
+        }
+    });
+
+
+
+
+}
+
+function mfsResponseHandler(status, response) {
+    unlocked();
+    if (response.responseCode == "0000" || response.responseCode == "") { // Register Success
+
+        alert("Register & Purchase Success");
+
+        $.ajax({
+            url: "/Payment/MasterPassCommit",
+            data: JSON.stringify(
+                {//missing brackets
+                    OrderNo: "123456",
+                    Token: response.token, //kesin 
+                    Phone: $('#phoneForMaster').val(),
+                    Amount: 1,
+                    RefNo: 123456
+                }
+            ),
+            type: 'POST',
+            success: function (data) {
+                alert(data);
+            }
+            ,
+            contentType: 'application/json; charset=utf-8'
+        });
+
+    } else {
+        mpass.register.sendCardStep(response);
+    }
+}
+
+function luhnCheck(cardNum) {
+    var numericDashRegex = /^[\d\-\s]+$/;
+    if (!numericDashRegex.test(cardNum)) return false;
+    var nCheck = 0, nDigit = 0, bEven = false;
+    var strippedField = cardNum.replace(/\D/g, "");
+    for (var n = strippedField.length - 1; n >= 0; n--) {
+        var cDigit = strippedField.charAt(n);
+        nDigit = parseInt(cDigit, 10);
+        if (bEven) {
+            if ((nDigit *= 2) > 9) nDigit -= 9;
+        }
+        nCheck += nDigit;
+        bEven = !bEven;
+    }
+    return (nCheck % 10) === 0;
+}
+
+function Valid() {
+    var cardHolder = $("#cardholder").val();
+    var cardNumber = $("#cardnumber").val();
+    var cardmonth = $("#cardexpiredatemonth").val();
+    var expiredDate = $("#cardexpiredateyear").val();
+    var cvc = $("#cardcvv2").val();
+    var installment = $('input[name=installment]:checked').val();
+    var mpassCheck = $("#saveMyCard");
+    var mpassCardName = $("#cardNameForMaster").val();
+
+
+    if (!$('input[name=accountAliasName]:checked').length) {
+
+        if (cardNumber.length != 16 || cardNumber == undefined || !luhnCheck(cardNumber)) {
+            return "Geçersiz Kart Numarası";
+        }
+        if (cardHolder == '') {
+            return "Geçersiz Kart Adı";
+        }
+        if (cardmonth == '') {
+            return "Geçersiz Tarih";
+        }
+        if (expiredDate == '') {
+            return "Geçersiz Tarih";
+        }
+        if (cvc == '') {
+            return "Geçersiz Cvc No";
+        }
+    }
+    if (installment == undefined) {
+        return "Geçersiz Taksit Seçimi";
+    }
+
+    if (mpassCheck.prop('checked') === true && mpassCardName === "" && !$('input[name=accountAliasName]:checked').length) {
+        return "Lütfen Masterpass Kart Adı Giriniz";
+    }
+
+
+}
+
+function akbankDirekt(fromcredit) {
+    debugger;
+    if (fromcredit) {
+        akbankDirektPay();
+    }
+    else {
+        $.fancybox.open($('#akbankModal'));
+        $("#akbankDirektOption").click(function () {
+            debugger;
+            akbankDirektPay();
+        });
+        $("#akbankIbanOption").click(function () {
+            debugger;
+            locked();
+            var token = getRequestToken();
+            $.ajax({
+                url: "/Payment/PayWithTransfer/",
+                type: "POST",
+                data: {
+                    "BankIBAN": $('input[name=transfer-type]:checked').val(),
+                    __RequestVerificationToken: token
+                },
+                success: function (data) {
+                    if (data.statu) {
+                        location.href = data.redirect;
+                    } else {
+                        unlocked();
+                        showMessage(data.message, "error", data.redirect);
+                    }
+                }
+            });
+        });
+    }
+    function akbankDirektPay() {
+        locked();
+        $.ajax({
+            url: "/Payment/PayWithAkbankCreditAndTransfer/",
+            type: "POST",
+            success: function (data) {
+                if (data !== undefined)
+                    location.href = data;
+                else
+                    unlocked();
+            },
+            error: function (ajaxContext) {
+                unlocked();
+            }
+        });
+    }
+}
+//#endregion
+function fibaBankPay(fromcredit) {
+    locked();
+    $.ajax({
+        url: $("#submitPayment").attr("data-comPayCreditPay"),
+        type: "POST",
+        data: { "fromcredit": fromcredit },
+        success: function (data) {
+            if (data.statu) {
+                $("#paymentform").empty();
+                $("#paymentform").append(data.form);
+                $("#redirectForm").submit();
+            } else {
+                unlocked();
+                showMessage(data.message, "error", data.redirect);
+            }
+        }
+    });
+}
+
+function sendMasterPass() {
+    var bankIca = $('input[name=payment-type-radio]:checked').val();
+    $.ajax({
+        url: "/payment/MasterPassCreditForm",
+        type: "POST",
+        data: { "bankIca": bankIca },
+        success: function (data) {
+            $("#masterpasscreditformappend").append(data);
+            console.log($('#checkCredit-form'));
+            MFS.getDigitalLoanUrl($('#checkCredit-form'), chkMPCreditResponseHandler);
+            return false;
+        }
+    });
+}
+
+
+$("#hffgf_1").click(function () {
+    //$.fancybox.open({
+    //    src: '#masterpasscreditModal',
+    //    'showCloseButton': false,
+    //    'hideOnOverlayClick': false,
+    //    showCloseButton: 'hide'
+
+    //});
+
+    //$.fancybox.open($('#masterpasscreditModal'), {
+    //    touch: false,
+    //    showCloseButton: false,
+    //});
+
+    //$("#masterpasscreditModal").fancybox({
+    //    clickSlide: false,
+    //    clickOutside: false
+    //});
+
+
+
+});
+
+
+
+
+function chkMPCreditResponseHandler(status, response) {
+    console.log(response);
+    if (response.responseCode == "5009") {
+        var loandigital = $("#LoanDigital").val();
+        var mspassOrderno = $("#MpassOrderNo").val();
+        var resultCreditUrl = $("#creditResultUrl").val();
+        var urlSource = response.urlLoan + '&iframeSignature=' + loandigital + '&returnUrl=' + resultCreditUrl;
+        console.log(urlSource);
+        document.getElementById('masterPassLoanFrame').src = urlSource;
+        $.fancybox.open({
+            src: "#masterpasscreditModal",
+            type: "inline",
+            clickSlide: 'false',
+            clickOutside: 'false',
+            showCloseButton: 'false',
+            "touch": false,
+            smallBtn: false,
+            toolbar: false,
+            modal: true
+        });
+
+
+
+    } else {
+        console.log(response.responseDescription);
+    }
+    unlocked();
+}
+
+function post(path, params, method = 'post') {
+    const form = document.createElement('form');
+    form.method = method;
+    form.action = path;
+    for (const key in params) {
+        if (params.hasOwnProperty(key)) {
+            const hiddenField = document.createElement('input');
+            hiddenField.type = 'hidden';
+            hiddenField.name = key;
+            hiddenField.value = params[key];
+
+            form.appendChild(hiddenField);
+        }
+    }
+    document.body.appendChild(form);
+    form.submit();
+}
+
+//document.addEventListener("DOMContentLoaded", function () {
+//    const submitBtn = document.getElementById("registerSubmitButton");
+//    const btnText = document.getElementById("registerBtnText");
+//    const loader = document.getElementById("registerBtnLoader");
+//    const returnMessage = document.getElementById("returnMessage");
+
+//    let recaptchaErrorCount = 0;
+
+//    function handleRecaptchaWait(waitTime = 35) {
+//        submitBtn.disabled = true;
+//        loader.style.display = "inline-block";
+
+//        const originalText = btnText.innerText;
+//        let countdown = waitTime;
+
+//        btnText.innerText = `Lütfen bekleyin... (${countdown})`;
+
+//        const interval = setInterval(() => {
+//            countdown--;
+//            btnText.innerText = `Lütfen bekleyin... (${countdown})`;
+
+//            if (countdown <= 0) {
+//                clearInterval(interval);
+//                loader.style.display = "none";
+//                btnText.innerText = originalText;
+//                submitBtn.disabled = false;
+//            }
+//        }, 1000);
+//    }
+
+//    document.querySelector('.registerForm').addEventListener('submit', function (e) {
+
+//        const phoneVerified = $("#btn_Verification").text().trim() === "Doğrulandı";
+//        const hasValidationErrors = $(".registerForm .input-validation-error").length > 0 || $(".registerForm .field-validation-error").length > 0
+
+//        if (!phoneVerified) {
+//            e.preventDefault();
+//            $(".phone-number-input").addClass("input-validation-error");
+//            $("span[data-valmsg-for='PhoneNumber']").html(
+//                "<span id='PhoneNumber-error'>Telefon numaranızı doğrulamanız gerekmektedir.</span>"
+//            );
+//            return;
+//        }
+
+//        if (hasValidationErrors) {
+//            e.preventDefault();
+//            return;
+//        }
+
+//        const recaptchaInput = document.querySelector('.g-recaptcha-response');
+//        const recaptchaResponse = recaptchaInput?.value;
+//        const recaptchaReady = recaptchaInput && recaptchaInput.offsetHeight > 0;
+
+//        if (!recaptchaResponse || !recaptchaReady) {
+//            e.preventDefault();
+//            if (!phoneVerified || !hasValidationErrors) {
+//                recaptchaErrorCount++;
+//            }
+//            if (recaptchaErrorCount >= 2) {
+//                handleRecaptchaWait(35);
+//            }
+//        } else {
+//            returnMessage.innerText = "";
+//        }
+//    });
+//});
+
+
+
+
+
+
+
+function gauge() {
+    var gua = $("#scoreGauage");
+
+
+
+
+
+    if (gua.length) {
+
+        var mingua = Number(gua.attr("data-min"));
+        var maxgua = Number(gua.attr("data-max"));
+        var centergua = Math.floor((mingua + maxgua) / 2);
+
+
+        var scoreGua = gua.attr("data-score");
+        var opts = {
+            angle: 0.20, // The span of the gauge arc
+            lineWidth: 0.09, // The line thickness
+            radiusScale: .4, // Relative radius
+            pointer: {
+                length: 0.30, // // Relative to gauge radius
+                strokeWidth: 0.018, // The thickness
+                color: '#003177' // Fill color
+            },
+
+            staticLabels: {
+                font: "10px Roboto, Arial, sans-serif", // Specifies font
+                labels: [minpcgua, centerpcgua, maxpcgua], // Print labels at these values
+                color: "#333", // Optional: Label text color
+                fractionDigits: 0 // Optional: Numerical precision. 0=round off.
+            },
+
+            renderTicks: {
+                divWidth: 3,
+            },
+
+
+            limitMax: true, // If false, max value increases automatically if value > maxValue
+            limitMin: true, // If true, the min value of the gauge will be fixed
+            colorStart: '#6FADCF', // Colors
+            colorStop: '#1bc078', // just experiment with them
+            strokeColor: '#E0E0E0', // to see which ones work best for you
+            generateGradient: true,
+            highDpiSupport: true, // High resolution support
+
+        };
+        var target = document.getElementById('scoreGauage'); // your canvas element
+        var gauge = new Gauge(target).setOptions(opts); // create sexy gauge!
+        gauge.maxValue = maxgua; // set max gauge value
+        gauge.setMinValue(mingua);  // Prefer setter over gauge.minValue = 0
+        gauge.animationSpeed = 10; // set animation speed (32 is default value)
+        gauge.set(scoreGua); // set actual value
+    }
+
+    var pcmark = $("#pcmark-scoreGauage");
+    if (pcmark.length) {
+
+        var minpcgua = Number(pcmark.attr("data-min"));
+        var maxpcgua = Number(pcmark.attr("data-max"));
+        var centerpcgua = Math.floor((minpcgua + maxpcgua) / 2);
+
+
+        var scorepcGua = pcmark.attr("data-score");
+        var opts = {
+            angle: 0.20, // The span of the gauge arc
+            lineWidth: 0.09, // The line thickness
+            radiusScale: .3, // Relative radius
+            pointer: {
+                length: 0.30, // // Relative to gauge radius
+                strokeWidth: 0.018, // The thickness
+                color: '#003177' // Fill color
+            },
+
+            staticLabels: {
+                font: "10px Roboto, Arial, sans-serif", // Specifies font
+                labels: [minpcgua, centerpcgua, maxpcgua], // Print labels at these values
+                color: "#333", // Optional: Label text color
+                fractionDigits: 0 // Optional: Numerical precision. 0=round off.
+            },
+
+            renderTicks: {
+                divWidth: 3,
+            },
+
+
+            limitMax: true, // If false, max value increases automatically if value > maxValue
+            limitMin: true, // If true, the min value of the gauge will be fixed
+            colorStart: '#6FADCF', // Colors
+            colorStop: '#1bc078', // just experiment with them
+            strokeColor: '#E0E0E0', // to see which ones work best for you
+            generateGradient: true,
+            highDpiSupport: true, // High resolution support
+
+        };
+        var targetpc = document.getElementById('pcmark-scoreGauage'); // your canvas element
+        var gauge = new Gauge(targetpc).setOptions(opts); // create sexy gauge!
+        gauge.maxValue = maxpcgua; // set max gauge value
+        gauge.setMinValue(minpcgua); // Prefer setter over gauge.minValue = 0
+        gauge.animationSpeed = 10; // set animation speed (32 is default value)
+        gauge.set(scorepcGua); // set actual value
+    }
+
+    var pcmark = $("#sysmark-scoreGauage");
+    if (pcmark.length) {
+
+        var minpcgua = Number(pcmark.attr("data-min"));
+        var maxpcgua = Number(pcmark.attr("data-max"));
+        var centerpcgua = Math.floor((minpcgua + maxpcgua) / 2);
+
+
+        var scorepcGua = pcmark.attr("data-score");
+        var opts = {
+            angle: 0.20, // The span of the gauge arc
+            lineWidth: 0.09, // The line thickness
+            radiusScale: .3, // Relative radius
+            pointer: {
+                length: 0.30, // // Relative to gauge radius
+                strokeWidth: 0.018, // The thickness
+                color: '#003177' // Fill color
+            },
+
+            staticLabels: {
+                font: "10px Roboto, Arial, sans-serif", // Specifies font
+                labels: [minpcgua, centerpcgua, maxpcgua], // Print labels at these values
+                color: "#333", // Optional: Label text color
+                fractionDigits: 0 // Optional: Numerical precision. 0=round off.
+            },
+
+            renderTicks: {
+                divWidth: 3,
+            },
+
+
+            limitMax: true, // If false, max value increases automatically if value > maxValue
+            limitMin: true, // If true, the min value of the gauge will be fixed
+            colorStart: '#6FADCF', // Colors
+            colorStop: '#1bc078', // just experiment with them
+            strokeColor: '#E0E0E0', // to see which ones work best for you
+            generateGradient: true,
+            highDpiSupport: true, // High resolution support
+
+        };
+        var targetpc = document.getElementById('sysmark-scoreGauage'); // your canvas element
+        var gauge = new Gauge(targetpc).setOptions(opts); // create sexy gauge!
+        gauge.maxValue = maxpcgua; // set max gauge value
+        gauge.setMinValue(minpcgua); // Prefer setter over gauge.minValue = 0
+        gauge.animationSpeed = 10; // set animation speed (32 is default value)
+        gauge.set(scorepcGua); // set actual value
+    }
+
+
+    var crossmark = $("#crossmark-scoreGauage");
+    if (crossmark.length) {
+
+        var minpcgua = Number(crossmark.attr("data-min"));
+        var maxpcgua = Number(crossmark.attr("data-max"));
+        var centerpcgua = Math.floor((minpcgua + maxpcgua) / 2);
+
+
+        var scorepcCross = crossmark.attr("data-score");
+        var opts = {
+            angle: 0.20, // The span of the gauge arc
+            lineWidth: 0.09, // The line thickness
+            radiusScale: .3, // Relative radius
+            pointer: {
+                length: 0.30, // // Relative to gauge radius
+                strokeWidth: 0.018, // The thickness
+                color: '#003177' // Fill color
+            },
+
+            staticLabels: {
+                font: "10px Roboto, Arial, sans-serif", // Specifies font
+                labels: [minpcgua, centerpcgua, maxpcgua], // Print labels at these values
+                color: "#333", // Optional: Label text color
+                fractionDigits: 0 // Optional: Numerical precision. 0=round off.
+            },
+
+            renderTicks: {
+                divWidth: 3,
+            },
+
+
+            limitMax: true, // If false, max value increases automatically if value > maxValue
+            limitMin: true, // If true, the min value of the gauge will be fixed
+            colorStart: '#6FADCF', // Colors
+            colorStop: '#1bc078', // just experiment with them
+            strokeColor: '#E0E0E0', // to see which ones work best for you
+            generateGradient: true,
+            highDpiSupport: true, // High resolution support
+
+        };
+        var targetpc = document.getElementById('crossmark-scoreGauage'); // your canvas element
+        var gauge = new Gauge(targetpc).setOptions(opts); // create sexy gauge!
+        gauge.maxValue = maxpcgua; // set max gauge value
+        gauge.setMinValue(minpcgua); // Prefer setter over gauge.minValue = 0
+        gauge.animationSpeed = 10; // set animation speed (32 is default value)
+        gauge.set(scorepcCross); // set actual value
+    }
+
+    var cinebench = $("#cinebench-scoreGauage");
+    if (cinebench.length) {
+
+        var minpcgua = Number(cinebench.attr("data-min"));
+        var maxpcgua = Number(cinebench.attr("data-max"));
+        var centerpcgua = Math.floor((minpcgua + maxpcgua) / 2);
+
+
+        var scorepcCine = cinebench.attr("data-score");
+        var opts = {
+            angle: 0.20, // The span of the gauge arc
+            lineWidth: 0.09, // The line thickness
+            radiusScale: .3, // Relative radius
+            pointer: {
+                length: 0.30, // // Relative to gauge radius
+                strokeWidth: 0.018, // The thickness
+                color: '#003177' // Fill color
+            },
+
+            staticLabels: {
+                font: "10px Roboto, Arial, sans-serif", // Specifies font
+                labels: [minpcgua, centerpcgua, maxpcgua], // Print labels at these values
+                color: "#333", // Optional: Label text color
+                fractionDigits: 0 // Optional: Numerical precision. 0=round off.
+            },
+
+            renderTicks: {
+                divWidth: 3,
+            },
+
+
+            limitMax: true, // If false, max value increases automatically if value > maxValue
+            limitMin: true, // If true, the min value of the gauge will be fixed
+            colorStart: '#6FADCF', // Colors
+            colorStop: '#1bc078', // just experiment with them
+            strokeColor: '#E0E0E0', // to see which ones work best for you
+            generateGradient: true,
+            highDpiSupport: true, // High resolution support
+
+        };
+        var targetpc = document.getElementById('cinebench-scoreGauage'); // your canvas element
+        var gauge = new Gauge(targetpc).setOptions(opts); // create sexy gauge!
+        gauge.maxValue = maxpcgua; // set max gauge value
+        gauge.setMinValue(minpcgua); // Prefer setter over gauge.minValue = 0
+        gauge.animationSpeed = 10; // set animation speed (32 is default value)
+        gauge.set(scorepcCine); // set actual value
+    }
+
+
+
+    var gamingGua = $("#gaming-scoreGauage");
+    if (gamingGua.length) {
+
+        var minpcgua = Number(gamingGua.attr("data-min"));
+        var maxpcgua = Number(gamingGua.attr("data-max"));
+        var centerpcgua = Math.floor((minpcgua + maxpcgua) / 2);
+
+
+        var scorepcGua = gamingGua.attr("data-score");
+        var opts = {
+
+            angle: -0.15, // The span of the gauge arc
+            lineWidth: 0.03, // The line thickness
+            radiusScale: 1, // Relative radius
+            pointer: {
+                length: 0.6, // // Relative to gauge radius
+                strokeWidth: 0.035, // The thickness
+                color: '#fff' // Fill color
+            },
+            limitMax: false,     // If false, max value increases automatically if value > maxValue
+            limitMin: false,     // If true, the min value of the gauge will be fixed
+            colorStart: '#F5954C',   // Colors
+            colorStop: '#F5954C',    // just experiment with them
+            strokeColor: '#EEEEEE',  // to see which ones work best for you
+            generateGradient: true,
+            highDpiSupport: true,     // High resolution support
+        };
+        var targetpc = document.getElementById('gaming-scoreGauage'); // your canvas element
+        var gauge = new Donut(targetpc).setOptions(opts); // create sexy gauge!
+        gauge.maxValue = maxpcgua; // set max gauge value
+        gauge.setMinValue(minpcgua); // Prefer setter over gauge.minValue = 0
+        gauge.animationSpeed = 10; // set animation speed (32 is default value)
+        gauge.set(scorepcGua); // set actual value
+    }
+}

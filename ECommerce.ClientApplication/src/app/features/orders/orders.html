@@ -19,7 +19,7 @@
                 <div class="d-flex align-items-center gap-2">
                   @if (order.orderItems.length > 0) {
                     <div  class="border rounded-3 p-1 d-flex align-items-center justify-content-center bg-white" style="width: 70px; height: 70px;">
-                      <img [routerLink]="['/product', order.orderItems[0].productId]" [src]="order.orderItems[0].productImageUrl || 'assets/placeholder.png'" 
+                      <img [routerLink]="['/product', order.orderItems[0].productId]" [src]="order.orderItems[0].productImageUrl || 'assets/placeholder.png' |imageUrl" 
                            class="img-fluid object-fit-contain" 
                            style="max-height: 100%;">
                     </div>

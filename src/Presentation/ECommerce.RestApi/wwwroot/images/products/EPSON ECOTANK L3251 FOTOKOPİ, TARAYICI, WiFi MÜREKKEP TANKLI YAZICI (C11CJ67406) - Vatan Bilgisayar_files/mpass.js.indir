@@ -1,0 +1,538 @@
+﻿var control = false;
+var mpass = function () {
+    // masterpass ui works 
+    var _ui = function () {
+
+        function loadWorks() {
+
+            if ($('input[name=validationCode]').length > 0) {
+                $('input[name=validationCode]').inputmask({
+                    'mask': '999999'
+                });
+            }
+
+            // what is masterpass popup 
+            $('#whatisMasterpassButton').on('click', function (e) {
+                e.preventDefault();
+                $.fancybox.open($('#whatisMasterpass'));
+            });
+
+            // I want to save my card
+            $("input[name='saveMyCard']").on("change", function () {
+                if ($(this).prop("checked")) {
+                    $("#mpassCardNameArea").removeClass("hide")
+                } else {
+                    $("#mpassCardNameArea").addClass("hide")
+                }
+            });
+
+            $(".next-another-card").on("click", function () {
+                _gobackCard();
+            })
+        }
+
+        function _showCardList(data) {
+            console.log(data);
+            control = true;
+            _notHaveCard();
+            _haveCardWithVatan();
+
+            var listArea = $("#cardList");
+            listArea.find(".ms-card-list-item").remove();
+
+            $.each(data, function (i, el) {
+                var obj = '<div class="ms-card-list-item"> <label class="wrapper-radio" for="' + el.UniqueId.substring(5, 10) + '"> <div class="ms-list-cell"> <input type="radio" id="' + el.UniqueId.substring(5, 10) + '" name="accountAliasName" value="' + el.Name + '" data-cardname="' + el.Name + '" data-value="' + el.Value1 + '" data-bankica="' + el.BankIca + '" data-id="' + el.UniqueId + '"> <span class="checkmark"></span> <span class="msp-card-name">' + el.Name + '</span> </div> <div class="ms-list-cell"> <span class="msp-card-no">' + el.Value1 + '</span> </div> <div class="ms-list-cell"> <a data-card="' + el.Name + '" class="msp-card-del-btn">Kartı Sil</a> </div> </label> </div>';
+                listArea.append(obj);
+            });
+
+            mpass.installments.load();
+        }
+
+        function _gobackCard() {
+            _otherSite()
+
+            var texts = '<div class="checkout-payment__installment"> <div class="checkout-payment__installment-info"> <span>Taksit seçenekleri kart bilgilerini<br>girdikten sonra görüntülenecektir.</span></div></div>';
+            $("#saveMyCard").prop("checked", false);
+            $("input[name=accountAliasName]:checked").prop("checked", false);
+            $(".card-entry-main").removeClass("hide");
+            $(".ms-addcard-check").removeClass("hide");
+            $(".masterpass-card-list-main").addClass("hide");
+            $(".col-sm-6.installments").removeClass("col-sm-offset-3 widthMasterPass").find(".checkout-payment__installment").removeAttr("style");
+            $(".installments").html(texts);
+
+        }
+
+
+        function _showCodeMain(status, site) {
+
+            if (status === false) {
+                if (site == "other") {
+                    $('#linkCardToClient-form').submit(function (event) {
+                        locked();
+                        MFS.linkCardToClient($(this), mfsResponseHandler);
+                        return false;
+                    });
+
+                    $("#linkCardToClient-form").submit();
+
+                    // $(".ms-phonecode-main").removeClass("hide");
+                } else if (site == "userid") {
+                    function mfsResponseHandlerGuest(status, response) {
+                        unlocked();
+                        if (response.responseCode == "0000" || response.responseCode == "") {
+                            alert("Update basarili");
+                        } else {
+                            $('#updateUser-form, #otp-form').hide();
+                            if (response.responseCode == "5001") {
+                                $('#masterpassCardSaveMain').hide();
+                                $("input[name=validationCode]").val("");
+                                $('#otpFormMain').show();
+                                $('#otp-form3').show();
+                                goToOffset("#otpFormMain");
+                                console.log(response);
+
+                            } else if (response.responseCode == "5008") {
+                                $('#otp-form1').show();
+                            } else {
+                                alert(response.responseDescription);
+                            }
+                        }
+                    }
+
+
+                    $('#updateUser-form').submit(function (event) {
+                        MFS.updateUser($(this), mfsResponseHandlerGuest);
+                        locked();
+                        return false;
+                    });
+
+                    $("#updateUser-form").submit();
+                }
+
+            } else {
+                $(".ms-phonecode-main").addClass("hide");
+            }
+        }
+
+        function _haveCardWithVatan() {
+            $("#haveMasterPassCardMain .wrapper-checkbox").addClass("hide");
+            $("#haveMasterPassCardMain").removeClass("hide");
+            $(".card-entry-main").addClass("hide");
+            $(".col-sm-6.installments").addClass("widthMasterPass");
+            $(".ms-addcard-check").addClass("hide");
+            $(".masterpass-card-list-main").removeClass("hide");
+            $(".col-sm-6.installments").addClass("col-sm-offset-3").find(".checkout-payment__installment").css("border", "none");
+        }
+
+        function _notHaveCard() {
+            $("#haveMasterPassCardMain").addClass("hide");
+        }
+
+        function getMasterPassBtn() {
+            if ($('input[name="getmasterpass"]').is(':checked')) {
+                $('.getMasterPassBtn').hide();
+            } else {
+                $('.getMasterPassBtn').show();
+            }
+
+            // Butona tıklandığında input'u checked hale getir
+            $('.getMasterPassBtn').click(function () {
+                $('input[name="getmasterpass"]').prop('checked', true);
+
+                // Butonu gizle
+                $(this).hide();
+            });
+        }
+
+        function _otherSite(site) {
+            console.log(site);
+            $("#haveMasterPassCardMain").removeClass("hide");
+            $("#haveMasterPassCardMain .wrapper-checkbox").removeClass("hide");
+
+            $("input[name=getmasterpass]").on("change", function () {
+
+                if ($(this).prop("checked") === true) {
+
+                    if (control === true) {
+                        _haveCardWithVatan();
+                        $(this).prop("checked", false);
+                    } else {
+                        _showCodeMain(false, site);
+                    }
+                }
+            })
+        }
+
+
+        // you are have card on masterpass
+        function _haveMasterCard(status, site, message) {
+            if (status === true) {
+
+                if (site === "vatanbilgisayar") {
+                    _showCardList();
+                } else {
+                    if (message === true) {
+                        _showCardList();
+                    } else {
+                        _otherSite(site);
+                    }
+                }
+            } else {
+                _notHaveCard();
+            }
+
+        }
+
+        function init() {
+            loadWorks();
+        }
+
+        return {
+            init: init,
+            showCodeMain: _showCodeMain,
+            showCardList: _showCardList,
+            haveCard: _haveMasterCard
+        }
+
+    }();
+
+    var _register = function () {
+
+        function mfsResponseHandlerLink(status, response) {
+            unlocked();
+            if (response.responseCode == "0000" || response.responseCode == "") {
+
+                location.reload();
+
+            } else if (response.responseCode == "1409") {
+                showMessage("Hatalı Şifre Girdiniz");
+                $('#masterpassCardSaveMain').hide();
+                $("input[name=validationCode]").val("");
+                $('#otpFormMain').show();
+                $('#otp-form2').show();
+                $('#otpStep2').show();
+                goToOffset("#otpFormMain");
+
+                console.log(response.responseCode);
+
+
+            } else {
+                mpass.register.sendCardStep(response);
+            }
+        }
+
+        function _sendCardStep(response) {
+            $('#registerPurchase-form, #optFormMain, #otp-form, #otp-form2, #mpin-form, #rta-form').hide();
+
+            if (response.responseCode == "5001") {
+                $('#masterpassCardSaveMain').hide();
+                $("input[name=validationCode]").val("");
+                $('#otpFormMain').show();
+                $('#otp-form2').show();
+                goToOffset("#otpFormMain");
+                console.log(response);
+
+            } else if (response.responseCode == "5008") {
+                $('#masterpassCardSaveMain').hide();
+                $("input[name=validationCode]").val("");
+                $('#otpFormMain').show();
+                $('#otp-form').show();
+                $('#otpStep1').show();
+                goToOffset("#otpFormMain");
+
+                console.log(response.responseCode);
+
+
+            } else if (response.responseCode == "5010") { // Ask 3D Secure
+                var retunrurl = $("#mpassReturn").val();
+                locked();
+                window.location.assign(response.url3D + "&returnUrl=" + retunrurl);
+                console.log(response.responseCode);
+
+            } else if (response.responseCode == "5015") {
+                $('#mpin-form').show();
+                $('#mpin-define-label').show();
+                console.log(response.responseCode);
+
+            } else if (response.responseCode == "5000") {
+                $('#rta-form').show();
+                console.log(response.responseCode);
+
+            } else if (response.responseCode == "1409") {
+                showMessage("Hatalı Şifre Girdiniz");
+                $('#masterpassCardSaveMain').hide();
+                $("input[name=validationCode]").val("");
+                $('#otpFormMain').show();
+                $('#otp-form').show();
+                $('#otpStep1').show();
+                goToOffset("#otpFormMain");
+
+                console.log(response.responseCode);
+
+
+            } else if (response.responseCode == "1429") {
+                showMessage("Şifre Boş Gönderilemez");
+                $('#masterpassCardSaveMain').hide();
+                $("input[name=validationCode]").val("");
+                $('#otpFormMain').show();
+                $('#otp-form').show();
+                $('#otpStep1').show();
+                goToOffset("#otpFormMain");
+                console.log(response.responseCode);
+            } else if (response.responseCode == "5196") {
+                showMessage("Bu kart zaten Masterpass altyapısına kayıtlı.");
+            } else if (response.responseCode == "1999") {
+                showMessage("Bir hata oluştu daha sonra deneyiniz.");
+                $('#masterpassCardSaveMain').hide();
+                console.log(response.responseCode);
+            } else {
+                console.log(response.responseCode);
+
+                alert(response.responseDescription);
+            }
+        }
+
+
+        // register step 2 otp validation 
+        function _validationSendStep() {
+
+            $('#otp-form, #mpin-form, #rta-form').submit(function (event) {
+                if ($(this).find("input[name=validationCode]").val() === "") {
+                    showMessage("Şifre Boş Gönderilemez")
+
+                } else {
+                    locked();
+                    MFS.validateTransaction($(this), mfsResponseHandler);
+                    return false;
+                }
+                event.preventDefault();
+            });
+
+            $('#otp-form2').submit(function (event) {
+                if ($(this).find("input[name=validationCode]").val() === "") {
+                    showMessage("Şifre Boş Gönderilemez")
+
+                } else {
+                    locked();
+                    MFS.validateTransaction($(this), mfsResponseHandlerLink);
+                    return false;
+                }
+                event.preventDefault();
+            });
+
+            $('#otp-form3').submit(function (event) {
+                if ($(this).find("input[name=validationCode]").val() === "") {
+                    showMessage("Şifre Boş Gönderilemez")
+
+                } else {
+                    locked();
+                    MFS.validateTransaction($(this), mfsResponseHandlerLink);
+                    return false;
+                }
+                event.preventDefault();
+            });
+
+        }
+
+
+
+
+        return {
+            sendCardStep: _sendCardStep,
+            valitaionStep: _validationSendStep
+        }
+
+    }();
+
+    var _checkcard = function () {
+
+        //CheckMasterPass
+        function chkMPResponseHandler(status, response) {
+            if (response.responseCode == "0000" || response.responseCode == "") {
+                if (response.accountStatus.substring(0, 6) == "000000") {
+                    //no master pass
+                    console.log("hic masterpass kart yok")
+                } else if (response.accountStatus.substring(1, 5) == "1100") {
+                    // LinkCards();
+                    console.log("masterpass var ama vatan değil")
+                    mpass.ui.haveCard(true, "other");
+                } else if (response.accountStatus.substring(1, 5) == "1110") {
+                    // ListCards();
+                    console.log("masterpass card var ve vatan ile kayıtlı");
+                    mpass.list.listCard();
+                }
+                
+            }
+            else if (response.responseCode == 1442) {
+                console.log(response);
+                console.log(response.responseDescription)
+            }
+            else {
+                console.log(response);
+                console.log(response.responseCode)
+                showMessage(response.responseDescription);
+            }
+        };
+
+        function _checkForm(element) {
+            function check(event) {
+                MFS.checkMasterPass($("#checkMP-form"), chkMPResponseHandler);
+                return false;
+            };
+
+            if ($("#checkMP-form").length) {
+                check();
+            }
+        }
+
+
+        return {
+            checkForm: _checkForm
+        }
+    }();
+
+    var _listCard = function () {
+
+        function _listCard() {
+
+            function getCardsResponseHandler(status, response) {
+                if (response.responseCode != "0000" && response.responseCode != "") {
+                    // alert(response.responseDescription);
+                    // console.log(response.responseCode);
+                    if (response.responseCode == "1078") {
+                        mpass.ui.haveCard(true, "userid");
+                    } else {
+                        return;
+                    }
+                } else {
+                    mpass.ui.showCardList(response.cards);
+                }
+
+            }
+
+            function _list() {
+
+                var id = $('#list-form input[name="userId"]').val();
+                var token = $('#list-form input[name="token"]').val();
+                MFS.listCards(id, token, getCardsResponseHandler);
+                return false;
+            }
+            _list();
+        }
+
+        return {
+            listCard: _listCard
+        }
+    }();
+
+    var _delete = function () {
+
+        function _deleteCard() {
+            function mfsDeleteResponseHandler(status, response) {
+                if (response.responseCode == "0000" || response.responseCode == "") {
+
+                    location.reload();
+
+                    //showMessage("Kartınız Başarıyla Silindi.","success");
+                    //console.log(response);
+                    //mpass.check.checkForm();
+                    //unlocked();
+                }
+            }
+
+            $(document).on("click", ".msp-card-del-btn", function () {
+                var alerts = confirm('Seçilen kart silinsin mi?');
+                if (alerts === true) {
+                    locked();
+                    var item = $(this).parents("label").find("input");
+                    $("#delete-form").append(item);
+                    $("#delete-form").submit();
+                } else {
+                    unlocked();
+                }
+            });
+
+            $('#delete-form').submit(function (event) {
+                MFS.deleteCard($(this), mfsDeleteResponseHandler);
+                return false;
+            });
+        }
+
+        return {
+            deleteCard: _deleteCard
+        }
+    }();
+
+    var _installments = function () {
+        function _load() {
+            var cards = $("input[name=accountAliasName]");
+            cards.change(function () {
+                $("#cardnumber").val("");
+                $("#cardholder").val("");
+                $("#cardcvv2").val("");
+                $("#cardexpiredatemonth").prop("selectedIndex", 0);
+                $("#cardexpiredateyear").prop("selectedIndex", 0);
+                $("#saveMyCard").prop("checked", true);
+
+                var valu = $(this).parents("label").find(".msp-card-no").text().substring(0, 6);
+
+                $.ajax({
+                    url: "/Payment/GetInstallments",
+                    data: {
+                        "bin": valu
+                    },
+                    success: function (data) {
+                        $(".installments").html(data);
+                    }
+                });
+            })
+        }
+
+        return {
+            load: _load
+        }
+    }();
+
+
+    return {
+        ui: _ui,
+        register: _register,
+        check: _checkcard,
+        list: _listCard,
+        delete: _delete,
+        installments: _installments
+    }
+}();
+
+function mpassClosed() {
+
+    var havecard = $("#haveMasterPassCardMain");
+    var usemain = $("#mpassRegisterArea");
+
+    havecard.remove();
+    usemain.remove();
+}
+
+
+$(document).ready(function () {
+
+    var mpassData = $("#mpassReturn").attr("data-mPass");
+
+    if (mpassData == "True") {
+        mpass.ui.init();
+        mpass.delete.deleteCard();
+        mpass.register.valitaionStep();
+        mpass.check.checkForm();
+    } else {
+        mpassClosed();
+    }
+
+
+})
+
+
+
+
+// document
+
+// for register
