@@ -110,7 +110,7 @@ modelBuilder.Entity<Product>()
     .HasPrecision(18, 2); // Kuruş hesaplamaları için hassasiyet
 Şirket Bazlı İlişkiler: Şirket (Company) silindiğinde bağlı olduğu ürünlerin veya siparişlerin durumunu kontrol etmek için.
 
-4. Alternatif: Data Annotations
+< 4. Alternatif: Data Annotations
 Bazı kuralları sınıfların başına [Required], [MaxLength(100)] gibi nitelikler ekleyerek de yapabilirsin. 
 Ancak profesyonel ve Clean Architecture yapısındaki projelerde entity'lerin (nesnelerin) "temiz" kalması istenir. 
 Bu yüzden veritabanı ayarlarının tamamı merkezi bir yerden, yani OnModelCreating içinden yönetilir.

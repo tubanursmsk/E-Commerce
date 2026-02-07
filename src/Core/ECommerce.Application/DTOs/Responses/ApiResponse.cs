@@ -1,5 +1,4 @@
 namespace ECommerce.Application.Responses;
-
 public class ApiResponse<T>
 {
     public bool Success { get; set; }
