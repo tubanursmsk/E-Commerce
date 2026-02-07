@@ -10,6 +10,8 @@ public class CargoDto
     [Required(ErrorMessage = "Ürün adı zorunludur.")]
     [MaxLength(150)]
     public string Name { get; set; } = string.Empty; 
+
+    [Required(ErrorMessage = "Tracking URL prefix is required.")]
     public string? TrackingUrlPrefix { get; set; } // Örn: https://kargo.com/track?id=
 
     [Required(ErrorMessage = "Fiyat zorunludur.")]

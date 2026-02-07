@@ -17,6 +17,8 @@ public class OrderItemDto
     [Required(ErrorMessage = "Fiyat zorunludur.")]
     [Range(0.01, double.MaxValue, ErrorMessage = "Fiyat 0'dan büyük olmalıdır.")]
     public decimal Price { get; set; }
+
+    [Required(ErrorMessage = "Toplam tutar zorunludur.")]
     public decimal TotalPrice => Quantity * Price;
 
      // BaseEntity

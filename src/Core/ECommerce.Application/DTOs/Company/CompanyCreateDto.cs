@@ -16,8 +16,9 @@ public class CompanyCreateDto
     [Phone(ErrorMessage = "Geçersiz telefon formatı.")]
     public string Phone { get; set; } = string.Empty;
 
+    [Required(ErrorMessage = "Tam adres zorunludur.")]
     public string FullAddress { get; set; } = string.Empty;
 }
 
 // ApiKey'yi genelde backend üretir; dışarıdan set ettirmemek daha güvenli.
- // IsApproved da genelde admin onayıyla değişir; create'te false kalmalı.
+// IsApproved da genelde admin onayıyla değişir; create'te false kalmalı.

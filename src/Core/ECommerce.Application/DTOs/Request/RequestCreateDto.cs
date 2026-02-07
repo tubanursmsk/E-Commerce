@@ -11,9 +11,9 @@ namespace ECommerce.Application.DTOs.Request;
         [Required, MinLength(5)]
         public string Message { get; set; } = string.Empty;
 
-        [Required]
+        [Required (ErrorMessage = "User ID is required.")]
         public Guid UserId { get; set; }
 
-        [Required]
+        [Required (ErrorMessage = "Company ID is required.")]
         public Guid CompanyId { get; set; }
     }

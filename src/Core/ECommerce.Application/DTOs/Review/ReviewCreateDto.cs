@@ -12,9 +12,9 @@ public class ReviewCreateDto
     [Range(1, 5, ErrorMessage = "Puan 1 ile 5 arasında olmalıdır.")]
     public int Rating { get; set; }
 
-    [Required]
+    [Required (ErrorMessage = "Product ID is required.")]
     public Guid ProductId { get; set; }
 
-    [Required]
+    [Required (ErrorMessage = "Customer ID is required.")]
     public Guid CustomerId { get; set; }
 }

@@ -14,6 +14,8 @@ public class CompanyUpdateDto
     [Required, MinLength(10)]
     public string Phone { get; set; } = string.Empty;
     public bool Status { get; set; } = true;
+
+    [Required(ErrorMessage = "Tax number is required.")]
     public string TaxNumber { get; set; } = string.Empty;
     //public string ApiKey { get; set; } = string.Empty;
 }

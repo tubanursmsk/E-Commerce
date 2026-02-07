@@ -6,6 +6,5 @@ public class OrderItemDeleteDto
 { 
     [Required]
     public Guid Id { get; set; }
-
     public bool IsDeleted { get; set; } = true;
  }
