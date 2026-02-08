@@ -319,9 +319,18 @@ graph TB
 ---
 
 ## 🖼️ Ekran Görüntüleri / Videolar
-Buraya GitHub “user-attachments” linkleriyle ekran görüntülerini eklenecek
 
-### 👩‍💻 Admin Panel
+### Swagger - Rest API Dokümantasyonu
+<img width="683" height="369" alt="image" src="https://github.com/user-attachments/assets/e49b5ad0-ee0c-4bad-8d3f-b1cc82758b77" />
+
+<img width="683" height="369" alt="image" src="https://github.com/user-attachments/assets/c054ec8a-0641-4839-a5a1-62661741d20f" />
+
+<img width="683" height="369" alt="image" src="https://github.com/user-attachments/assets/6ae323f0-e455-4887-86ba-69a6fe414802" />
+
+
+---
+
+### 👩‍💻 Admin Panel 
 - Dashboard
 - Brand / Category / Product CRUD
 - Orders / Customers / Reviews
