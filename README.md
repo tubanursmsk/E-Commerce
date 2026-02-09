@@ -342,9 +342,11 @@ graph TB
 > ### Ürün Yönetimi (listeleme, ekleme, güncelleme, silme, marka/kategori bağlama)
 
 <img width="1920" height="1032" alt="image" src="https://github.com/user-attachments/assets/008e2a32-86a2-41de-994b-d037b3f89f17" />
-
+  
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/9db492c5-f785-4bbe-bbf6-601ce8cacc8c" />
 
+- Patron veya muhasebeci "Stok listesini bana at" dediğinde veritabanına gitmeye gerek kalmadan, tek tuşla (.xsln formatında) profesyonel bir rapor sunma imkanı! 🚀
+  
 <img width="683" height="369" alt="image" src="https://github.com/user-attachments/assets/35f0562c-79c2-40a0-8e09-274dcf798513" />
 
 <img width="683" height="369" alt="image" src="https://github.com/user-attachments/assets/77bd549e-c98e-4bd3-9eb6-6f35092d0350" />
