@@ -125,11 +125,12 @@ Bu yaklaşım; güvenlik, ölçeklenebilirlik ve bakım kolaylığı sağlar.
 
 ---
 
-## 🧩 Modüller & Özellikler
+# 🧩 Modüller & Özellikler
 
 Aşağıdaki modüller hem Admin Panel hem de REST API tarafında (ilgili rollere göre) kurgulanmıştır: 
 
 ### Admin Panel (Şirket Yönetimi)
+
 - Dashboard (toplam ürün/kullanıcı/sipariş/yorum)
 - Ürün Yönetimi (listeleme, ekleme, güncelleme, silme, marka/kategori bağlama)
 - Kategori Yönetimi (CRUD)
@@ -318,6 +319,7 @@ graph TB
 
 ---
 
+
 ## 🖼️ Ekran Görüntüleri / Videolar
 
 ### Swagger - Rest API Dokümantasyonu
@@ -330,18 +332,136 @@ graph TB
 
 ---
 
-### 👩‍💻 Admin Panel 
-- Dashboard
-- Brand / Category / Product CRUD
-- Orders / Customers / Reviews
-- Angular Storefront
-- Home + Slider
-- Product Listing + Search + Pagination
-- Product Detail + Cart + Checkout
-- Orders + Profile
 
-### 🧪 Postman Collection
-postman_collection.json dosyaları gelecek!!!!!!!!
+## 👩‍💻 Admin Panel 
+
+### Dashboard (toplam ürün/kullanıcı/sipariş/yorum)
+  
+### Ürün Yönetimi (listeleme, ekleme, güncelleme, silme, marka/kategori bağlama)
+
+<img width="683" height="369" alt="image" src="https://github.com/user-attachments/assets/435a8b5a-01df-4910-b93f-c49a190c8306" />
+
+<img width="683" height="369" alt="image" src="https://github.com/user-attachments/assets/35f0562c-79c2-40a0-8e09-274dcf798513" />
+
+<img width="683" height="369" alt="image" src="https://github.com/user-attachments/assets/77bd549e-c98e-4bd3-9eb6-6f35092d0350" />
+
+### Kategori Yönetimi (CRUD)
+
+<img width="683" height="369" alt="image" src="https://github.com/user-attachments/assets/66a9e100-e0a9-450b-af08-aec6fed4f772" />
+
+### Marka Yönetimi (CRUD)
+
+<img width="683" height="369" alt="image" src="https://github.com/user-attachments/assets/90870260-91c2-4cf9-b4b0-90f1e61c18fb" />
+
+### Sipariş Yönetimi (durum güncelleme, iptal/iade/kargo)
+
+<img width="1920" height="1032" alt="image" src="https://github.com/user-attachments/assets/069d3a18-7778-4908-81d1-18d62e2331f5" />
+
+<img width="1920" height="1032" alt="image" src="https://github.com/user-attachments/assets/ff46da99-23c1-4cbc-8acd-b4e7415bc59b" />
+
+
+### Müşteri Yönetimi
+
+<img width="1920" height="1032" alt="image" src="https://github.com/user-attachments/assets/a4a46262-9790-4169-89ff-48b9d2d7312b" />
+
+<img width="1920" height="1032" alt="image" src="https://github.com/user-attachments/assets/047e2661-dbe7-4105-bb44-821d50c47086" />
+
+### Yorum Yönetimi
+
+<img width="1920" height="1032" alt="image" src="https://github.com/user-attachments/assets/26730f68-c0fc-4507-b548-0144627b4423" />
+
+### Kargo Ayarları
+
+<img width="1920" height="1032" alt="image" src="https://github.com/user-attachments/assets/6a3d21a5-0f78-41d0-a964-a556507084aa" />
+
+<img width="1920" height="1032" alt="image" src="https://github.com/user-attachments/assets/ae4ec7a7-4472-49e5-b4a1-f62834a203cf" />
+
+### Kullanıcı & Rol Yönetimi
+
+<img width="1920" height="1032" alt="image" src="https://github.com/user-attachments/assets/35ff2b94-6810-4477-bee8-95ff0aa0ef8e" />
+
+<img width="1920" height="1032" alt="image" src="https://github.com/user-attachments/assets/4c9cb668-c208-4211-8742-022f96b2df00" />
+
+
+### Banner/Slider, ürün görsel yönetimi
+
+<img width="1920" height="1032" alt="image" src="https://github.com/user-attachments/assets/c2464c2c-3fd6-4353-bdfa-fed9c83064cd" />
+
+<img width="1920" height="1032" alt="image" src="https://github.com/user-attachments/assets/8f8f7661-02d6-478e-8d3b-9e5f6ccc3fcf" />
+
+### Şirket Ayarları
+
+<img width="1920" height="1032" alt="image" src="https://github.com/user-attachments/assets/8c2e5275-27d3-42fa-9e2f-a84c2590b7a5" />
+
+<img width="1920" height="1032" alt="image" src="https://github.com/user-attachments/assets/398ef1fc-5737-4ef7-a10f-0c2207defdc7" />
+
+### Profil Ayarları
+
+<img width="1920" height="1032" alt="image" src="https://github.com/user-attachments/assets/a01908f3-a1dd-4abc-9c33-c763bcbbc6e0" />
+
+<img width="1920" height="1032" alt="image" src="https://github.com/user-attachments/assets/7f9b58d0-ebaf-46bc-840c-099b05f8811c" 
+
+
+---
+
+
+## 🧩 Angular Client
+
+### Anasayfa + slider
+[Macbook-Air-localhost-yy_8cjr47hc7_n.webm](https://github.com/user-attachments/assets/2eae17c9-14fa-4139-81ed-beb4aa70dc83)
+
+[Macbook-Air-localhost-5943v4ms2e1a5y.webm](https://github.com/user-attachments/assets/b407c5de-fa0c-4fe6-a92f-1fa5df5e5f4f)
+
+### Kategoriye göre ürün listeleme
+
+[Macbook-Air-localhost-tdr7wo63q2hy6z.webm](https://github.com/user-attachments/assets/6f2cfcfd-e898-44e3-850d-2f6f1e17991c)
+
+### Ürün detay
+
+<img width="1920" height="1032" alt="image" src="https://github.com/user-attachments/assets/118292a8-abc4-4ae7-9176-ab686dc597a7" />
+
+[Macbook-Air-localhost-a0mcx42v2-k0s9.webm](https://github.com/user-attachments/assets/fbe286b6-1eb3-478d-8d63-75685dbbb274)
+
+### Sepet yönetimi
+
+<img width="1920" height="1032" alt="image" src="https://github.com/user-attachments/assets/9dafbda1-a708-48a5-8693-95e61619fedc" />
+
+### Üye kayıt & giriş (JWT)
+
+<img width="1920" height="1032" alt="image" src="https://github.com/user-attachments/assets/81beb9c8-9f49-4645-a15f-95ca707ebbb8" />
+
+<img width="1920" height="1032" alt="image" src="https://github.com/user-attachments/assets/42edd46d-637e-45c7-85bb-ffbe7d1b975c" />
+
+### Profil & adres yönetimi
+
+<img width="1920" height="1032" alt="image" src="https://github.com/user-attachments/assets/3876743e-149c-4316-a177-088fa94d619e" />
+
+### Checkout / sipariş oluşturma
+
+<img width="1920" height="1032" alt="image" src="https://github.com/user-attachments/assets/a16b373f-bc9d-49ca-85aa-8a35ad9153e1" />
+
+<img width="1920" height="1032" alt="image" src="https://github.com/user-attachments/assets/4f65b61f-1df4-4f0e-a81c-5206cc82bdfd" />
+
+
+### Sipariş geçmişi
+
+<img width="1920" height="1032" alt="image" src="https://github.com/user-attachments/assets/50c3aeb9-4864-42b3-8353-5b587c658302" />
+
+<img width="1920" height="1032" alt="image" src="https://github.com/user-attachments/assets/8462ab89-c3d0-42b1-a598-8ac1b1fcc7a5" />
+
+### Yorum ekleme
+
+<img width="1920" height="1032" alt="image" src="https://github.com/user-attachments/assets/11031c4f-c494-45f1-ad10-dbe667e0dbb6" />
+
+### 404 / 500 hata sayfaları
+
+<img width="1920" height="1032" alt="image" src="https://github.com/user-attachments/assets/71a71d32-b258-4432-916e-1061d99156b1" />
+
+<img width="1920" height="1032" alt="image" src="https://github.com/user-attachments/assets/07652906-ad11-4ea9-8bd6-a7ada7610166" />
+
+
+---
+
 
 ### 🎓 Öğrenme Kazanımları
 - Katmanlı mimariyi (Core/Application/Domain + Infrastructure + Presentation) gerçek proje üstünde uygulama
