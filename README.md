@@ -336,6 +336,8 @@ graph TB
 ## 👩‍💻 Admin Panel 
 
 > ### Dashboard (toplam ürün/kullanıcı/sipariş/yorum)
+
+<img width="1920" height="1032" alt="image" src="https://github.com/user-attachments/assets/3f4ce33f-ad59-43be-aef9-40b476bb0d19" />
   
 > ### Ürün Yönetimi (listeleme, ekleme, güncelleme, silme, marka/kategori bağlama)
 
