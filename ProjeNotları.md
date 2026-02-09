@@ -2,9 +2,9 @@
 
  ## 🧠 Neyi, nasıl yaptık?
  
-> **Mimari Yapı:** Clean Architecture prensiplerine göre katmanlı (Domain, Application, Infrastructure, Presentation) yapı kuruldu.
-> **Veri Erişimi:** Generic Repository ve Unit of Work desenleri kullanılarak veritabanı bağımsızlığı ve işlem (Transaction) güvenliği sağlandı.
-> **Güvenlik (Layer 1):** JWT (JSON Web Token) tabanlı yetkilendirme ve Role-Based Access Control (RBAC) uygulandı.
+- **Mimari Yapı:** Clean Architecture prensiplerine göre katmanlı (Domain, Application, Infrastructure, Presentation) yapı kuruldu.
+- **Veri Erişimi:** Generic Repository ve Unit of Work desenleri kullanılarak veritabanı bağımsızlığı ve işlem (Transaction) güvenliği sağlandı.
+- **Güvenlik (Layer 1):** JWT (JSON Web Token) tabanlı yetkilendirme ve Role-Based Access Control (RBAC) uygulandı.
 - **Güvenlik (Layer 2):** API Key koruması (Custom Attribute/Filter ile) eklenerek sadece izinli istemcilerin erişimi sağlandı.
 - **Çoklu Kiracı (Multi-Tenancy):** Company Isolation (Şirket İzolasyonu) mantığıyla her şirketin sadece kendi verilerini görmesi/yönetmesi sağlandı.
 - **Hata Yönetimi:** Global Exception Middleware ile hatalar merkezi bir noktada yakalanıp standart bir ApiResponse formatında döndürüldü.
@@ -13,7 +13,7 @@
 
 
 
-### 1. "Neden Unit of Work ve Generic Repository kullandık?" 
+> ### 1. "Neden Unit of Work ve Generic Repository kullandık?" 
 - Veritabanı işlemlerini merkezi bir noktadan yönetmek ve kod tekrarını önlemek için Generic Repository kullandım. Unit of Work ise özellikle Sipariş (Order) oluşturma gibi birden fazla tablonun güncellendiği durumlarda, tüm işlemlerin tek bir 'transaction' içinde gerçekleşmesini sağlıyor. Eğer stok düşerken hata olursa, sipariş kaydı da yapılmıyor. Bu da veritabanı bütünlüğünü (Data Integrity) koruyor.
 
 
