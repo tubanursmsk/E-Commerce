@@ -2,9 +2,9 @@
 
  ## 🧠 Neyi, nasıl yaptık?
  
-- **Mimari Yapı:** Clean Architecture prensiplerine göre katmanlı (Domain, Application, Infrastructure, Presentation) yapı kuruldu.
-- **Veri Erişimi:** Generic Repository ve Unit of Work desenleri kullanılarak veritabanı bağımsızlığı ve işlem (Transaction) güvenliği sağlandı.
-- **Güvenlik (Layer 1):** JWT (JSON Web Token) tabanlı yetkilendirme ve Role-Based Access Control (RBAC) uygulandı.
+> **Mimari Yapı:** Clean Architecture prensiplerine göre katmanlı (Domain, Application, Infrastructure, Presentation) yapı kuruldu.
+> **Veri Erişimi:** Generic Repository ve Unit of Work desenleri kullanılarak veritabanı bağımsızlığı ve işlem (Transaction) güvenliği sağlandı.
+> **Güvenlik (Layer 1):** JWT (JSON Web Token) tabanlı yetkilendirme ve Role-Based Access Control (RBAC) uygulandı.
 - **Güvenlik (Layer 2):** API Key koruması (Custom Attribute/Filter ile) eklenerek sadece izinli istemcilerin erişimi sağlandı.
 - **Çoklu Kiracı (Multi-Tenancy):** Company Isolation (Şirket İzolasyonu) mantığıyla her şirketin sadece kendi verilerini görmesi/yönetmesi sağlandı.
 - **Hata Yönetimi:** Global Exception Middleware ile hatalar merkezi bir noktada yakalanıp standart bir ApiResponse formatında döndürüldü.
@@ -30,7 +30,7 @@
 
 
 ### 5. "API ve MVC projelerini neden aynı solution içinde ama ayrı projeler olarak tutmayı tercih ettik?"
-** Sistem mimarisini Loose Coupling (Gevşek Bağlılık) prensibine göre tasarladım. Bu sayede sunucu (Server) tarafındaki iş mantığı ile kullanıcı arayüzü (UI) katmanını birbirinden ayırdım. API'miz şu an sadece MVC projesine değil, istenildiği an bir mobil uygulamaya veya React/Angular gibi farklı bir frontend projesine de hizmet verebilir durumdadır.
+- Sistem mimarisini Loose Coupling (Gevşek Bağlılık) prensibine göre tasarladım. Bu sayede sunucu (Server) tarafındaki iş mantığı ile kullanıcı arayüzü (UI) katmanını birbirinden ayırdım. API'miz şu an sadece MVC projesine değil, istenildiği an bir mobil uygulamaya veya React/Angular gibi farklı bir frontend projesine de hizmet verebilir durumdadır.
 
 
 ### 6. "MVC Admin Panelde Neden HttpClientFactory kullandık?"
