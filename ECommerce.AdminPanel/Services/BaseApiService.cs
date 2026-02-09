@@ -33,21 +33,10 @@ public class BaseApiService
         if (!string.IsNullOrEmpty(token))
         {
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
         }
     }
-
-    // CS8603 Çözümü: Geri dönüş tipini '?' ile nullable yaparak veya null gelirse yeni nesne dönerek çözüyoruz
-    /*public async Task<ApiResponse<T>?> GetAsync<T>(string endpoint)
-    {
-        AddTokenToHeader();
-        var response = await _httpClient.GetAsync(endpoint);
-        var content = await response.Content.ReadAsStringAsync();
-        
-        return JsonSerializer.Deserialize<ApiResponse<T>>(content, _jsonOptions);
-    }*/
-
-
-
+    
     public async Task<ApiResponse<T>?> GetAsync<T>(string endpoint)
     {
         AddTokenToHeader();
