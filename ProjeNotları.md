@@ -18,15 +18,15 @@
 
 
 ### 2. "API Güvenliğini nasıl sağladık?"
--- İki aşamalı bir güvenlik kurguladım. İlk olarak X-Api-Key kontrolü ile istemciyi doğruluyorum. İkinci aşamada ise JWT kullanarak kullanıcı kimliğini ve rollerini kontrol ediyorum. Ayrıca yazdığım CompanyIsolationFilter sayesinde, bir Admin'in veya kullanıcının sadece kendi yetki alanındaki (Şirket ID'sine bağlı) verilere erişmesini garanti altına alarak veri sızıntısını önledim.
+- İki aşamalı bir güvenlik kurguladım. İlk olarak X-Api-Key kontrolü ile istemciyi doğruluyorum. İkinci aşamada ise JWT kullanarak kullanıcı kimliğini ve rollerini kontrol ediyorum. Ayrıca yazdığım CompanyIsolationFilter sayesinde, bir Admin'in veya kullanıcının sadece kendi yetki alanındaki (Şirket ID'sine bağlı) verilere erişmesini garanti altına alarak veri sızıntısını önledim.
 
 
 ### 3. "Global Exception Handling kullanmamızın avantajı nedir?" 
-"Controller'lar içinde try-catch blokları yazarak kod kirliliği yaratmak yerine, merkezi bir Middleware yazdım. Bu sayede uygulama genelinde fırlatılan her türlü hatayı yakalayıp, kullanıcıya teknik detay vermeden (security best practice) anlamlı bir hata mesajı dönüyorum. Aynı zamanda bu hataları Serilog ile arka planda loglayarak debug sürecini kolaylaştırıyorum."
+- Controller'lar içinde try-catch blokları yazarak kod kirliliği yaratmak yerine, merkezi bir Middleware yazdım. Bu sayede uygulama genelinde fırlatılan her türlü hatayı yakalayıp, kullanıcıya teknik detay vermeden (security best practice) anlamlı bir hata mesajı dönüyorum. Aynı zamanda bu hataları Serilog ile arka planda loglayarak debug sürecini kolaylaştırıyorum.
 
 
 ### 4. "Neden MVC içinden doğrudan veritabanına bağlanmadık da API kullandık?"
-"Sistemi Decoupled (Bağımsız) tasarladım. Yarın bir mobil uygulama yazmak istediğimizde veya sistemi mikroservislere bölmek istediğimizde API hazır. MVC burada sadece bir 'Client' (istemci) görevi görüyor. Bu sayede sunucu tarafı mantığı ile kullanıcı arayüzünü birbirinden tamamen ayırarak (Separation of Concerns) güvenliği ve ölçeklenebilirliği artırdım."
+* Sistemi Decoupled (Bağımsız) tasarladım. Yarın bir mobil uygulama yazmak istediğimizde veya sistemi mikroservislere bölmek istediğimizde API hazır. MVC burada sadece bir 'Client' (istemci) görevi görüyor. Bu sayede sunucu tarafı mantığı ile kullanıcı arayüzünü birbirinden tamamen ayırarak (Separation of Concerns) güvenliği ve ölçeklenebilirliği artırdım.
 
 
 ### 5. "API ve MVC projelerini neden aynı solution içinde ama ayrı projeler olarak tutmayı tercih ettik?"
