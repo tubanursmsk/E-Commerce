@@ -14,11 +14,11 @@
 
 
 ### 1. "Neden Unit of Work ve Generic Repository kullandık?" 
-"Veritabanı işlemlerini merkezi bir noktadan yönetmek ve kod tekrarını önlemek için Generic Repository kullandım. Unit of Work ise özellikle Sipariş (Order) oluşturma gibi birden fazla tablonun güncellendiği durumlarda, tüm işlemlerin tek bir 'transaction' içinde gerçekleşmesini sağlıyor. Eğer stok düşerken hata olursa, sipariş kaydı da yapılmıyor. Bu da veritabanı bütünlüğünü (Data Integrity) koruyor."
+- Veritabanı işlemlerini merkezi bir noktadan yönetmek ve kod tekrarını önlemek için Generic Repository kullandım. Unit of Work ise özellikle Sipariş (Order) oluşturma gibi birden fazla tablonun güncellendiği durumlarda, tüm işlemlerin tek bir 'transaction' içinde gerçekleşmesini sağlıyor. Eğer stok düşerken hata olursa, sipariş kaydı da yapılmıyor. Bu da veritabanı bütünlüğünü (Data Integrity) koruyor.
 
 
 ### 2. "API Güvenliğini nasıl sağladık?"
-"İki aşamalı bir güvenlik kurguladım. İlk olarak X-Api-Key kontrolü ile istemciyi doğruluyorum. İkinci aşamada ise JWT kullanarak kullanıcı kimliğini ve rollerini kontrol ediyorum. Ayrıca yazdığım CompanyIsolationFilter sayesinde, bir Admin'in veya kullanıcının sadece kendi yetki alanındaki (Şirket ID'sine bağlı) verilere erişmesini garanti altına alarak veri sızıntısını önledim."
+-- İki aşamalı bir güvenlik kurguladım. İlk olarak X-Api-Key kontrolü ile istemciyi doğruluyorum. İkinci aşamada ise JWT kullanarak kullanıcı kimliğini ve rollerini kontrol ediyorum. Ayrıca yazdığım CompanyIsolationFilter sayesinde, bir Admin'in veya kullanıcının sadece kendi yetki alanındaki (Şirket ID'sine bağlı) verilere erişmesini garanti altına alarak veri sızıntısını önledim.
 
 
 ### 3. "Global Exception Handling kullanmamızın avantajı nedir?" 
