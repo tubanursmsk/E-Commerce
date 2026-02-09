@@ -401,6 +401,12 @@ graph TB
 
 <img width="1920" height="1032" alt="image" src="https://github.com/user-attachments/assets/7f9b58d0-ebaf-46bc-840c-099b05f8811c" />
 
+### Müşteri kayıt & giriş (JWT)
+
+<img width="1920" height="1032" alt="image" src="https://github.com/user-attachments/assets/b2e7fb97-6327-42df-854f-8dc4a3b7089d" />
+
+<img width="1920" height="1032" alt="image" src="https://github.com/user-attachments/assets/f74b88af-60ca-499d-9512-272bb39c0225" />
+
 
 ---
 
