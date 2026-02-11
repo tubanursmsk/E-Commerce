@@ -88,3 +88,12 @@ Aslında en büyük kafa karışıklığı burada yaşanıyor: "Madem Infrastruc
 
 > ### 15. "Order-Detail sayfasının çalışma kurgusunu nasıl yaptık?" 
 - "Müşteri detay sayfasında Micro-FrontEnd mantığıyla hareket ettim. Sayfayı yüklerken önce ana müşteri bilgilerini, ardından asenkron olarak o müşteriye ait siparişleri çektim. OrderService katmanında yaptığım şirket bazlı filtreleme sayesinde, bir mağaza yöneticisinin müşterinin başka bir mağazadan verdiği siparişleri görmesini engelleyerek Veri Gizliliği (Data Privacy) standartlarını korudum."
+
+  ```C#
+  // Örnek: GetByCustomerIdAsync içinde
+var orders = await _context.Orders
+    .Include(o => o.Customer)       // Müşteriyi dahil et
+        .ThenInclude(c => c.User)   // Müşterinin User bilgilerini (Ad-Soyad burada) dahil et
+    .Where(o => o.CustomerId == customerId)
+    .ToListAsync();
+  ```
