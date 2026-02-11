@@ -231,3 +231,11 @@ C:\Users\PC\Documents\E-Commerce\ECommerce.AdminPanel\obj\Debug\net9.0\refint\EC
 C:\Users\PC\Documents\E-Commerce\ECommerce.AdminPanel\obj\Debug\net9.0\ECommerce.AdminPanel.pdb
 C:\Users\PC\Documents\E-Commerce\ECommerce.AdminPanel\obj\Debug\net9.0\ECommerce.AdminPanel.genruntimeconfig.cache
 C:\Users\PC\Documents\E-Commerce\ECommerce.AdminPanel\obj\Debug\net9.0\ref\ECommerce.AdminPanel.dll
+C:\Users\PC\Documents\E-Commerce\ECommerce.AdminPanel\bin\Debug\net9.0\ClosedXML.dll
+C:\Users\PC\Documents\E-Commerce\ECommerce.AdminPanel\bin\Debug\net9.0\ClosedXML.Parser.dll
+C:\Users\PC\Documents\E-Commerce\ECommerce.AdminPanel\bin\Debug\net9.0\DocumentFormat.OpenXml.dll
+C:\Users\PC\Documents\E-Commerce\ECommerce.AdminPanel\bin\Debug\net9.0\DocumentFormat.OpenXml.Framework.dll
+C:\Users\PC\Documents\E-Commerce\ECommerce.AdminPanel\bin\Debug\net9.0\ExcelNumberFormat.dll
+C:\Users\PC\Documents\E-Commerce\ECommerce.AdminPanel\bin\Debug\net9.0\RBush.dll
+C:\Users\PC\Documents\E-Commerce\ECommerce.AdminPanel\bin\Debug\net9.0\SixLabors.Fonts.dll
+C:\Users\PC\Documents\E-Commerce\ECommerce.AdminPanel\bin\Debug\net9.0\System.IO.Packaging.dll

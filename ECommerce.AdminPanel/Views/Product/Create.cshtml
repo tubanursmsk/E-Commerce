@@ -4,6 +4,7 @@
     ViewData["Title"] = "Yeni Ürün Ekle";
 }
 
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 
@@ -28,7 +29,7 @@
 
                         <div class="mb-3">
                             <label asp-for="Description" class="form-label fw-bold">Açıklama</label>
-                            <textarea asp-for="Description" class="form-control" rows="5" placeholder="Ürün özelliklerini detaylıca yazınız..."></textarea>
+                            <textarea asp-for="Description" id="Description" class="form-control" rows="5"></textarea>
                             <span asp-validation-for="Description" class="text-danger"></span>
                         </div>
                     </div>
@@ -124,27 +125,23 @@
         transition: all 0.3s ease;
         cursor: pointer;
     }
-
     .upload-area:hover, .upload-area.dragover {
-        border-color: var(--bs-primary);
-        background-color: rgba(var(--bs-primary-rgb), 0.05);
+        border-color: #0d6efd;
+        background-color: rgba(13, 110, 253, 0.05);
     }
-
     .preview-item {
         position: relative;
         border-radius: 8px;
         overflow: hidden;
-        aspect-ratio: 1; /* Kare olması için */
+        aspect-ratio: 1;
         border: 1px solid #dee2e6;
         box-shadow: 0 2px 5px rgba(0,0,0,0.05);
     }
-
     .preview-item img {
         width: 100%;
         height: 100%;
         object-fit: cover;
     }
-
     .remove-btn {
         position: absolute;
         top: 5px;
@@ -162,7 +159,6 @@
         cursor: pointer;
         transition: transform 0.2s;
     }
-
     .remove-btn:hover {
         transform: scale(1.1);
         background-color: #dc3545;
@@ -172,9 +168,27 @@
 @section Scripts {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
     <script>
         $(document).ready(function () {
+            // Summernote Başlat
+            $('#Description').summernote({
+                placeholder: 'Ürün özelliklerini buraya giriniz...',
+                tabsize: 2,
+                height: 200,
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link', 'picture', 'video']],
+                    ['view', ['fullscreen', 'codeview', 'help']]
+                ]
+            });
+
+            // Resim Yükleme Başlat
             initFileUpload();
         });
 
@@ -182,17 +196,14 @@
             const uploadArea = document.getElementById('uploadArea');
             const fileInput = document.getElementById('fileInput');
             const previewArea = document.getElementById('previewArea');
-            let selectedFiles = []; // Seçilen dosyaları hafızada tutar
+            let selectedFiles = []; 
 
-            // Tıklama ile dosya seç
             uploadArea.addEventListener('click', () => fileInput.click());
 
-            // Dosya seçilince tetiklenir
             fileInput.addEventListener('change', (e) => {
                 handleFiles(e.target.files);
             });
 
-            // Sürükle-Bırak Olayları
             uploadArea.addEventListener('dragover', (e) => {
                 e.preventDefault();
                 uploadArea.classList.add('dragover');
@@ -210,55 +221,33 @@
 
             function handleFiles(files) {
                 const fileArray = Array.from(files);
-
                 if (selectedFiles.length + fileArray.length > 5) {
                     toastr.warning('En fazla 5 görsel yükleyebilirsiniz.');
                     return;
                 }
-
                 fileArray.forEach(file => {
-                    // Tip Kontrolü
-                    if (!file.type.startsWith('image/')) {
-                        toastr.error(`${file.name} geçerli bir görsel değil.`);
-                        return;
-                    }
-                    // Boyut Kontrolü (5MB)
-                    if (file.size > 5 * 1024 * 1024) {
-                        toastr.error(`${file.name} 5MB'dan büyük olamaz.`);
-                        return;
-                    }
-                    // Mükerrer Kontrolü (İsteğe bağlı)
-                    if(!selectedFiles.some(f => f.name === file.name && f.size === file.size)){
+                    if (file.type.startsWith('image/')) {
                          selectedFiles.push(file);
                     }
                 });
-
                 updatePreview();
-                updateInputFiles(); // Input'u güncellemek çok önemli!
+                updateInputFiles();
             }
 
             function updatePreview() {
                 previewArea.innerHTML = '';
-                
                 if (selectedFiles.length === 0) return;
 
                 selectedFiles.forEach((file, index) => {
                     const reader = new FileReader();
                     reader.onload = (e) => {
                         const col = document.createElement('div');
-                        col.className = 'col-6 col-md-4 col-lg-3'; // Responsive grid
-                        
-                        // İlk resim için "Ana Görsel" etiketi
-                        const badge = index === 0 
-                            ? '<span class="badge bg-primary position-absolute bottom-0 start-0 m-2 shadow-sm">Ana Görsel</span>' 
-                            : '';
-
+                        col.className = 'col-6 col-md-4 col-lg-3';
+                        const badge = index === 0 ? '<span class="badge bg-primary position-absolute bottom-0 start-0 m-2 shadow-sm">Ana Görsel</span>' : '';
                         col.innerHTML = `
                             <div class="preview-item">
                                 <img src="${e.target.result}" alt="${file.name}">
-                                <button type="button" class="remove-btn" onclick="removeFile(${index})">
-                                    <i class="fas fa-times"></i>
-                                </button>
+                                <button type="button" class="remove-btn" onclick="removeFile(${index})"><i class="fas fa-times"></i></button>
                                 ${badge}
                             </div>
                         `;
@@ -266,19 +255,15 @@
                     };
                     reader.readAsDataURL(file);
                 });
-
                 $('#summaryImages').text(`${selectedFiles.length} adet`);
             }
 
-            // Kritik Fonksiyon: Seçilen dosyaları <input> içine geri yazar
-            // Böylece Form Submit olduğunda dosyalar gider.
             function updateInputFiles() {
                 const dt = new DataTransfer();
                 selectedFiles.forEach(file => dt.items.add(file));
                 fileInput.files = dt.files;
             }
 
-            // Global fonksiyon yaptık ki HTML içinden çağrılabilsin
             window.removeFile = function(index) {
                 selectedFiles.splice(index, 1);
                 updatePreview();

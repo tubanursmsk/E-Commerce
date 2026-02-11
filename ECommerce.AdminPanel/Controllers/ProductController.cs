@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Http.Headers;
 using System.Security.Claims;
+using ClosedXML.Excel;
 
 namespace ECommerce.AdminPanel.Controllers;
 
@@ -19,38 +20,6 @@ public class ProductController : Controller
     {
         _apiService = apiService;
     }
-
-
-
-    /*[HttpGet] //ürünler listelenirken companyıd ile filtrleme bu işlemi restapi tarafında(daha güvenli) yaptığımız için bu yöntem askıda
-    public async Task<IActionResult> Index(int page = 1, int pageSize = 10)
-    {
-        var companyIdStr =
-            User.FindFirst("CompanyId")?.Value
-            ?? HttpContext.Session.GetString("CompanyId");
-        if (!Guid.TryParse(companyIdStr, out var companyId) || companyId == Guid.Empty)
-        {
-            // CompanyId yoksa login/şirket seçimi akışına yönlendir
-            TempData["ErrorMessage"] = "Company bilgisi bulunamadı. Lütfen tekrar giriş yapın.";
-            return RedirectToAction("Login", "Auth");
-        }
-        // DİKKAT: {companyId} yazmıyoruz, gerçek değeri koyuyoruz
-        var endpoint = $"Product/List/{companyId}";
-        var response = await _apiService.GetAsync<IEnumerable<ProductDto>>(endpoint);
-        var items = response?.Data?.ToList() ?? new List<ProductDto>();
-        var model = new ProductListViewModel
-        {
-            Products = new PagedResult<ProductDto>
-            {
-                Items = items,
-                TotalCount = items.Count,
-                PageNumber = page,
-                PageSize = pageSize
-            },
-            CompanyId = companyId
-        };
-        return View(model);
-    }*/
 
     // ÜRÜN LİSTESİ
     [HttpGet]
@@ -160,43 +129,6 @@ public class ProductController : Controller
         ViewBag.AllBrands = brandResponse?.Data?.ToList() ?? new List<BrandDto>();
     }
 
-    /*
-    // ÜRÜN DÜZENLEME (GET)
-    [HttpGet]
-    public async Task<IActionResult> Update(Guid id)
-    {
-        // 1. Ürün bilgilerini API'den getir
-        var productResponse = await _apiService.GetAsync<ProductDto>($"Product/GetById/{id}");
-        if (productResponse == null || !productResponse.Success)
-        {
-            TempData["ErrorMessage"] = "Ürün bulunamadı.";
-            return RedirectToAction(nameof(Index));
-        }
-
-        var product = productResponse.Data;
-
-        // 2. Kategori ve Marka listelerini yükle
-        var categoryResponse = await _apiService.GetAsync<IEnumerable<CategoryDto>>("Category/List");
-        var brandResponse = await _apiService.GetAsync<IEnumerable<BrandDto>>("Brand/List");
-
-        ViewBag.AllCategories = categoryResponse?.Data?.ToList() ?? new List<CategoryDto>();
-        ViewBag.AllBrands = brandResponse?.Data?.ToList() ?? new List<BrandDto>();
-
-        // 3. DTO'yu ViewModel'e eşle
-        var model = new UpdateProductViewModel
-        {
-            Id = product.Id,
-            Name = product.Name,
-            Description = product.Description ?? string.Empty,
-            Price = product.Price,
-            Stock = product.Stock,
-            CategoryId = product.CategoryId,
-            BrandId = product.BrandId,
-            CompanyId = product.CompanyId
-        };
-
-        return View(model);
-    }*/
     [HttpGet]
     public async Task<IActionResult> Update(Guid id)
     {
@@ -284,36 +216,6 @@ public class ProductController : Controller
         return View(model);
     }
 
-    /*
-        // ÜRÜN DÜZENLEME (POST)
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Update(UpdateProductViewModel model)
-        {
-            if (!ModelState.IsValid)
-                return View(model);
-
-
-            var updateDto = new ProductUpdateDto
-            {
-                Name = model.Name,
-                Description = model.Description,
-                Price = model.Price,
-                Stock = model.Stock,
-                CategoryId = model.CategoryId,
-                BrandId = model.BrandId,
-                CompanyId = model.CompanyId // ✔ modelden geliyor
-            };
-
-            var response = await _apiService.PutAsync<ProductUpdateDto, bool>($"Product/Update/{model.Id}", updateDto);//Buraya id ekledik(ve cshtml de hidden input ekledik)
-
-            if (response.Success)
-                return RedirectToAction("Index");
-
-            ViewBag.Error = response?.Message ?? "Güncelleme sırasında hata oluştu.";
-            return View(model);
-        }*/
-
     // ÜRÜN SİLME
     [HttpPost] // View'dan gelen form isteği POST'tur
     [ValidateAntiForgeryToken]
@@ -333,5 +235,61 @@ public class ProductController : Controller
         }
 
         return RedirectToAction(nameof(Index));
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> ExportExcel()
+    {
+        // 1. Verileri API'den Çek (Tüm listeyi istiyoruz)
+        // Eğer CompanyId bazlı çalışıyorsan, Session'dan CompanyId alıp ona göre filtreli endpoint'i de çağırabilirsin.
+        var response = await _apiService.GetAsync<IEnumerable<ProductDto>>("Product/List");
+        var products = response?.Data?.ToList() ?? new List<ProductDto>();
+
+        // 2. Excel Dosyasını Oluştur (ClosedXML)
+        using (var workbook = new XLWorkbook())
+        {
+            var worksheet = workbook.Worksheets.Add("Ürün Listesi");
+
+            // --- Başlık Satırı ---
+            worksheet.Cell(1, 1).Value = "Ürün Adı";
+            worksheet.Cell(1, 2).Value = "Marka";
+            worksheet.Cell(1, 3).Value = "Kategori";
+            worksheet.Cell(1, 4).Value = "Fiyat";
+            worksheet.Cell(1, 5).Value = "Stok";
+            worksheet.Cell(1, 6).Value = "Oluşturulma Tarihi";
+
+            // Başlıkları Kalın Yap ve Arka Plan Rengi Ver
+            var headerRange = worksheet.Range("A1:F1");
+            headerRange.Style.Font.Bold = true;
+            headerRange.Style.Fill.BackgroundColor = XLColor.LightGray;
+            headerRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+            // --- Verileri Doldur ---
+            int row = 2;
+            foreach (var item in products)
+            {
+                worksheet.Cell(row, 1).Value = item.Name;
+                worksheet.Cell(row, 2).Value = item.BrandName ?? "-";
+                worksheet.Cell(row, 3).Value = item.CategoryName ?? "-";
+                worksheet.Cell(row, 4).Value = item.Price; // Sayısal değer
+                worksheet.Cell(row, 5).Value = item.Stock;
+                row++;
+            }
+
+            // --- Sütun Genişliklerini Otomatik Ayarla ---
+            worksheet.Columns().AdjustToContents();
+
+            // --- Dosyayı İndir ---
+            using (var stream = new MemoryStream())
+            {
+                workbook.SaveAs(stream);
+                var content = stream.ToArray();
+                
+                // Dosya adı: Urunler_10022026.xlsx
+                var fileName = $"Urunler_{DateTime.Now:ddMMyyyy}.xlsx";
+                
+                return File(content, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
+            }
+        }
     }
 }
