@@ -89,11 +89,18 @@ Aslında en büyük kafa karışıklığı burada yaşanıyor: "Madem Infrastruc
 > ### 15. "Order-Detail sayfasının çalışma kurgusunu nasıl yaptık?" 
 - "Müşteri detay sayfasında Micro-FrontEnd mantığıyla hareket ettim. Sayfayı yüklerken önce ana müşteri bilgilerini, ardından asenkron olarak o müşteriye ait siparişleri çektim. OrderService katmanında yaptığım şirket bazlı filtreleme sayesinde, bir mağaza yöneticisinin müşterinin başka bir mağazadan verdiği siparişleri görmesini engelleyerek Veri Gizliliği (Data Privacy) standartlarını korudum."
 
-  ```C#
-  // Örnek: GetByCustomerIdAsync içinde
+
+> ### 16. "Order Modeldosyası içinde FirstName, LastName değerlerini tanımlamak yerine OrderRepository kısmında FullName değerine olan ihtiyacımı  user üzerinden, include yöntemi ile çekme nedenimiz neydi, bu teknik kod maliyetini nasıl etkiledi?"
+
+  **OrderRepository - GetByCustomerIdAsync içinden alıntı:**
+  ```
 var orders = await _context.Orders
     .Include(o => o.Customer)       // Müşteriyi dahil et
         .ThenInclude(c => c.User)   // Müşterinin User bilgilerini (Ad-Soyad burada) dahil et
     .Where(o => o.CustomerId == customerId)
     .ToListAsync();
   ```
+
+- "AutoMapper kullanarak Flattening (Düzleştirme) tekniğini uyguladım. Karmaşık ve iç içe geçmiş (Nested) nesne yapısındaki (Order.Customer.User) verileri, UI tarafında kolayca sergileyebilmek için tek bir string alanda (CustomerFullName) topladım. Bu sayede View tarafında karmaşık mantık yürütmekten kaçınarak Separation of Concerns (Sorumlulukların Ayrılması) prensibine sadık kaldım."
+
+> ### 17.
