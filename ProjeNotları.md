@@ -125,3 +125,5 @@ var orders = await _context.Orders
 
 > ### 20. "Yorum yönetimini nasıl kurguladık?"
 - "Yorum sisteminde Server-Side Validation uygulayarak puanların 1-5 arasında olmasını sağladım. Moderasyon panelinde ise Soft Delete mantığını kullandım; böylece silinen yorumlar veritabanından tamamen yok olmaz, sadece yayından kalkar. Ayrıca Mağaza Yöneticilerinin sadece kendi ürünlerine gelen yorumları görmesi için Şirket Bazlı Filtreleme (Multi-Tenancy) uyguladım."
+
+> ### 21. 
