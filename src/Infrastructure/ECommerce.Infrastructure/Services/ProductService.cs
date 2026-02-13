@@ -29,16 +29,6 @@ public class ProductService : IProductService
 
         return ApiResponse<IEnumerable<ProductDto>>.SuccessResult(dtos);
     }
-
-    /*public async Task<ApiResponse<ProductDto>> GetByIdAsync(Guid id)
-    {
-        var product = await _unitOfWork.Products.GetByIdAsync(id);
-        if (product == null) return ApiResponse<ProductDto>.ErrorResult("Ürün bulunamadı.");
-
-        var dto = _mapper.Map<ProductDto>(product);
-        return ApiResponse<ProductDto>.SuccessResult(dto);
-    }*/
-
     public async Task<ApiResponse<ProductDto>> GetByIdAsync(Guid id)
     {
         // Eski: var product = await _unitOfWork.Products.GetByIdAsync(id);
@@ -62,7 +52,7 @@ public class ProductService : IProductService
 
         if (products == null || !products.Any())
         {
-            // Başarılı ama sonuç yok mesajı (İstersen ErrorResult da dönebilirsin)
+            // Başarılı ama sonuç yok mesajı döndürüyoruz (Hata değil, sadece arama sonucu yok)
             return ApiResponse<IEnumerable<ProductDto>>.SuccessResult(new List<ProductDto>(), $"'{keyword}' aramasıyla eşleşen ürün bulunamadı.");
         }
 
@@ -116,7 +106,7 @@ public class ProductService : IProductService
                 }
             }
         }
-        // -----------------------------
+        
 
         await _unitOfWork.Products.AddAsync(product); // Cascade insert ile resimleri de ekler
         await _unitOfWork.SaveChangesAsync();
@@ -169,9 +159,6 @@ public class ProductService : IProductService
             });
         }
     }
-
-    // ❌ BUNU KULLANMA: graph'ın tamamını Modified yapıyor
-    // _unitOfWork.Products.Update(product);
 
     await _unitOfWork.SaveChangesAsync();
 

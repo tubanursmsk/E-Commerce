@@ -12,7 +12,7 @@ export class ImageUrlPipe implements PipeTransform {
   transform(value: string | undefined | null): string {
     // 1. Resim yoksa placeholder göster
     if (!value) {
-      return 'assets/placeholder.png'; // assets klasörüne bir tane placeholder.png atabilirsin
+      return 'assets/placeholder.png'; // assets klasörüne bir tane placeholder.png atabiliriz
     }
 
     // 2. Eğer resim zaten tam bir URL ise (Amazon, Vatan linkleri gibi) olduğu gibi döndür

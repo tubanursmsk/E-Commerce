@@ -53,7 +53,6 @@ export class Navbar {
       this.cdr.detectChanges();
     }
   }
-  // navbar.component.ts içine ekleyin
   getCategoryIcon(name: string): string {
     const lowerName = name.toLowerCase();
     if (lowerName.includes('telefon')) return 'bi-phone';

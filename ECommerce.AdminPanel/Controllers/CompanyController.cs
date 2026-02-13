@@ -9,7 +9,6 @@ using System.Security.Claims;
 
 namespace ECommerce.AdminPanel.Controllers;
 
-// AdminPanel / Controllers / CompanyController.cs
 [Authorize]
 public class CompanyController : Controller
 {
@@ -40,7 +39,8 @@ public class CompanyController : Controller
         var response = await _apiService.GetAsync<CompanyDto>($"Company/GetById/{id}");
         if (response == null || !response.Success) return NotFound();
 
-        var model = new CompanyUpdateViewModel {
+        var model = new CompanyUpdateViewModel
+        {
             Id = response.Data.Id,
             Name = response.Data.Name,
             TaxNumber = response.Data.TaxNumber, // Readonly olacak
@@ -52,7 +52,7 @@ public class CompanyController : Controller
         return View(model);
     }
 
-    
+
     // SİLME İŞLEMİ
     [HttpPost]
     public async Task<IActionResult> Delete(Guid id)
@@ -60,7 +60,7 @@ public class CompanyController : Controller
         var response = await _apiService.DeleteAsync($"Company/Delete/{id}");
         if (response != null && response.Success)
             TempData["SuccessMessage"] = "Şirket kaldırıldı.";
-        
+
         return RedirectToAction(nameof(Index));
     }
 }

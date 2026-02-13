@@ -27,8 +27,7 @@ public class CreateProductViewModel
     [Required(ErrorMessage = "Stok zorunludur.")]
     [Range(0, int.MaxValue, ErrorMessage = "Stok negatif olamaz.")]
     public int Stock { get; set; }
-
-   
+    
     // Dosya yükleme desteği
     public List<IFormFile>? Files { get; set; }
 }

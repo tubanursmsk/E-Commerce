@@ -1,7 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
 namespace ECommerce.AdminPanel.Models.Brands;
-
 public class UpdateBrandViewModel
 {
     [Required]

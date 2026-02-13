@@ -124,9 +124,7 @@ public class CustomerService : ICustomerService
 }
 public async Task<ApiResponse<CustomerDto>> GetProfileByUserIdAsync(Guid userId)
 {
-    // ESKİ HATALI KOD: GetByIdWithUserAsync(userId) -> Yanlış! Bu CustomerId bekler.
-    
-    // YENİ DOĞRU KOD: FindWithUserAsync ile UserId'ye göre arıyoruz.
+    //FindWithUserAsync ile UserId'ye göre arıyoruz.
     var customers = await _unitOfWork.Customers.FindWithUserAsync(c => c.UserId == userId);
     var customer = customers.FirstOrDefault();
 

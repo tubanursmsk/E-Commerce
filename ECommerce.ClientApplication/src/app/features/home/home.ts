@@ -64,7 +64,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
     }
 
-    // Navbar'daki ikon fonksiyonunun aynısını buraya koyuyoruz
+    // Navbar'daki ikon fonksiyonunun aynısını buraya koydum, böylece kategorilere uygun ikonlar gösterebiliriz.
     getCategoryIcon(name: string): string {
         const lowerName = name.toLowerCase();
         if (lowerName.includes('telefon')) return 'bi-phone';
@@ -79,7 +79,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     addToCart(product: Product) {
         if (product) {
             this.cartService.addToCart(product);
-            alert("Ürün sepete eklendi!"); // Şimdilik basit alert, sonra Toast ekleriz
+            alert("Ürün sepete eklendi!");
         }
     }
 
@@ -99,7 +99,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit(): void { }
-    // Dummy Marka Logoları (Gerçek logolar yerine placeholder veya CDN linkleri kullanılabilir)
+    // Dummy Marka Logoları
     // Şimdilik temsili logolar kullanıyorum.
     brands = [
         { name: 'Apple', logo: 'https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg' },

@@ -31,7 +31,7 @@ public class AppDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
-        // İlişkileri ve kısıtlamaları burada özelleştirebilirsin (Fluent API)
+        // İlişkileri ve kısıtlamaları burada özelleştirebiliriz (Fluent API)
         // Örneğin: UserRole tablosunda UserId ve RoleId birleşimi benzersiz olmalı.
         modelBuilder.Entity<UserRole>()
             .HasIndex(ur => new { ur.UserId, ur.RoleId }) // bir kullanıcının aynı rolü birden fazla almasını engelle

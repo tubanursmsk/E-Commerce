@@ -21,7 +21,7 @@ public class BrandController : Controller
 
     public async Task<IActionResult> Index()
     {
-        // Manager ise sadece kendi şirketinin markaları gelir (API'de filtrelediysen)
+        // Manager ise sadece kendi şirketinin markaları gelir
         var response = await _apiService.GetAsync<IEnumerable<BrandDto>>("Brand/List");
         var model = new BrandListViewModel { Brands = response?.Data ?? new List<BrandDto>() };
         return View(model);
@@ -107,7 +107,7 @@ public class BrandController : Controller
         {
             Name = model.Name,
             LogoUrl = model.LogoUrl,
-            CompanyId = model.CompanyId //modelden aldık (BrandUpdateDto)
+            CompanyId = model.CompanyId
         };
 
         var response = await _apiService.PutAsync<BrandUpdateDto, bool>($"Brand/Update/{model.Id}", updateDto);
@@ -123,12 +123,10 @@ public class BrandController : Controller
     }
 
     // ÜRÜN SİLME
-    [HttpPost] // View'dan gelen form isteği POST'tur
+    [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Delete(Guid id)
     {
-        // API'ye DELETE isteği gönderiyoruz
-        // BaseApiService içindeki DeleteAsync metodunu çağırmalıyız
         var response = await _apiService.DeleteAsync($"Brand/Delete/{id}");
 
         if (response != null && response.Success)

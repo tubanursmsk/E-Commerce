@@ -40,7 +40,7 @@ public class AuthService : IAuthService
         var token = JwtTokenHelper.GenerateToken(
             user.Id,
             user.Email,
-            fullName, // YENİ: Parametre olarak gönderiyoruz
+            fullName, 
             user.CompanyId ?? Guid.Empty,
             new List<string> { user.Role }
         );
@@ -77,7 +77,7 @@ public class AuthService : IAuthService
             Email = dto.Email,
             PasswordHash = PasswordHasher.HashPassword(dto.Password),
             Role = "Staff", // Kayıt olan kişi artık Customer değil Staff
-            CompanyId = newCompany.Id // İşte kritik nokta burası!
+            CompanyId = newCompany.Id 
         };
 
         await _unitOfWork.Users.AddAsync(user);
@@ -113,8 +113,6 @@ public class AuthService : IAuthService
 
         return ApiResponse<Guid>.SuccessResult(user.Id, "Şirket personeli kaydı başarılı.");
     }
-
-    // ECommerce.Infrastructure / Services / AuthService.cs
 
     public async Task<ApiResponse<bool>> ChangePasswordAsync(ChangePasswordDto dto)
     {

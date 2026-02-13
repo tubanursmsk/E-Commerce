@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BaseService } from './baseService';
 import { Observable, map } from 'rxjs';
 import { Banner } from '../models/banner';
-import { ApiResponse } from '../models/apiResponse'; // ApiResponse tipini daha önce tanımladığını varsayıyorum
+import { ApiResponse } from '../models/apiResponse'; 
 
 @Injectable({
   providedIn: 'root'

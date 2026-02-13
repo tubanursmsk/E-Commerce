@@ -13,7 +13,7 @@ export interface Product {
   companyId: string;
   categoryName?: string;
   brandName?: string;
-  
+
 }
 
 // Sol paneldeki Marka filtreleri için (Örn: Apple (15))

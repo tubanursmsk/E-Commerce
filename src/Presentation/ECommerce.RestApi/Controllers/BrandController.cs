@@ -21,14 +21,6 @@ public class BrandController : ControllerBase
         _brandService = brandService;
     }
 
-    /*[HttpGet("List")]
-    [AllowAnonymous] // Markaları herkes görebilsin (Katalog amaçlı)
-    public async Task<IActionResult> GetAll()
-    {
-        var result = await _brandService.GetAllAsync();
-        return Ok(result);
-    }*/
-
     [HttpGet("List")]
     [AllowAnonymous] // Markaları herkes görebilsin (Katalog amaçlı)
     public async Task<IActionResult> GetAll()

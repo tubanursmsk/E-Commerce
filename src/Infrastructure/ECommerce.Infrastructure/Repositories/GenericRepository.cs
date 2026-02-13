@@ -21,7 +21,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
     public void Update(T entity) => _dbSet.Update(entity);
     public void Delete(T entity)
     {
-        // Gerçekten silmek yerine IsDeleted'ı işaretledik (Yönergeye göre)
+        // Gerçekten silmek yerine IsDeleted'ı işaretledik
         entity.IsDeleted = true;
         _dbSet.Update(entity);
     }

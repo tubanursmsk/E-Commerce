@@ -19,7 +19,6 @@ public class ProductController : ControllerBase
         _productService = productService;
     }
 
-
     [HttpGet("ListAll")] //Ürünleri giriş yapmayanlarda görebilsin diye olan metod
     [AllowAnonymous]
     public async Task<IActionResult> GetAllProduct()
@@ -81,7 +80,6 @@ public class ProductController : ControllerBase
 
     [HttpPost("Create")]
     [Authorize(Roles = "Admin,CompanyManager")]
-    // [FromBody] YERİNE [FromForm] KULLANIYORUZ
     public async Task<IActionResult> Create([FromForm] ProductCreateDto dto)
     {
         var result = await _productService.CreateAsync(dto);
@@ -100,7 +98,6 @@ public class ProductController : ControllerBase
     [HttpDelete("Delete/{id}")]
     [Authorize(Roles = "Admin,CompanyManager")]
     [Authorize(Policy = "CompanyIsolation")]
-    //[ApiKey]
     public async Task<IActionResult> Delete(Guid id)
     {
         var result = await _productService.DeleteAsync(id);

@@ -81,7 +81,6 @@ builder.Services.AddApplicationServices();// Application katmanındaki tüm serv
 builder.Services.AddHttpContextAccessor(); // Handler içinde HttpContext'e erişmek için şart.
 builder.Services.AddOpenApi();
 
-
 var app = builder.Build();
 
 
@@ -93,7 +92,6 @@ using (var scope = app.Services.CreateScope())
     try
     {
         var context = services.GetRequiredService<AppDbContext>();
-        // Veritabanı yoksa oluştur (Migration varsa MigrateAsync kullanmak daha iyidir)
         await context.Database.MigrateAsync(); 
         
         // Verileri ekle
@@ -105,7 +103,6 @@ using (var scope = app.Services.CreateScope())
         logger.LogError(ex, "Veritabanı doldurulurken bir hata oluştu.");
     }
 }
-// ----------------------------------
 
 
 // Swagger UI Active

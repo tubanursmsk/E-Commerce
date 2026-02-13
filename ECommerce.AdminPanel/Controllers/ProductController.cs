@@ -12,7 +12,7 @@ using ClosedXML.Excel;
 
 namespace ECommerce.AdminPanel.Controllers;
 
-[Authorize] // Sadece giriş yapanlar erişebilir
+[Authorize] 
 public class ProductController : Controller
 {
     private readonly BaseApiService _apiService;
@@ -25,13 +25,11 @@ public class ProductController : Controller
     [HttpGet]
     public async Task<IActionResult> Index(int page = 1, int pageSize = 10)
     {
-        // Not: API tarafındaki GetAll metodun sayfalama desteklemiyorsa düz liste çekebiliriz
-        // Şablonun beklediği 'ProductListViewModel' yapısını dolduruyoruz
         var response = await _apiService.GetAsync<IEnumerable<ProductDto>>("Product/List");
 
         var model = new ProductListViewModel
         {
-            Products = new PagedResult<ProductDto> // Şablondaki yapıya uygun sarmalıyoruz
+            Products = new PagedResult<ProductDto> 
             {
                 Items = response?.Data ?? new List<ProductDto>(),
                 TotalCount = response?.Data?.Count() ?? 0,
@@ -43,15 +41,14 @@ public class ProductController : Controller
         return View(model);
     }
 
-
     [HttpGet]
     public async Task<IActionResult> Create()
     {
-        // 1. Kategorileri Çek API'den veri gelmezse boş liste gönder ki View patlamasın
+        // 1. Kategorileri Çekince API'den veri gelmezse boş liste gönderelim ki View patlamasın
         var categoryResponse = await _apiService.GetAsync<IEnumerable<CategoryDto>>("Category/List");
         ViewBag.AllCategories = categoryResponse?.Data?.ToList() ?? new List<CategoryDto>();
 
-        // 2. Markaları Çek (Eksik olan kısım burasıydı)
+        // 2. Markaları Çek 
         var brandResponse = await _apiService.GetAsync<IEnumerable<BrandDto>>("Brand/List"); // API endpoint'inin doğruluğundan emin ol
         ViewBag.AllBrands = brandResponse?.Data?.ToList() ?? new List<BrandDto>();
 
@@ -60,7 +57,7 @@ public class ProductController : Controller
             TempData["ErrorMessage"] = "Veriler yüklenirken bir sorun oluştu.";
         }
 
-        // CompanyId'yi Claims veya Session'dan alıp modele ekliyoruz
+        // CompanyId'yi Claims veya Session'dan alarak ViewModel'e atayalım 
         var companyIdStr = User.FindFirst("CompanyId")?.Value ?? HttpContext.Session.GetString("CompanyId");
         Guid.TryParse(companyIdStr, out var companyId);
 
@@ -97,7 +94,6 @@ public class ProductController : Controller
             {
                 var fileContent = new StreamContent(file.OpenReadStream());
                 fileContent.Headers.ContentType = new MediaTypeHeaderValue(file.ContentType);
-                // DİKKAT: Backend DTO'daki isim "ImageFiles" (Çoğul) olmalı
                 content.Add(fileContent, "ImageFiles", file.FileName);
             }
         }
@@ -114,7 +110,7 @@ public class ProductController : Controller
         // --- 4. Hata Durumu ---
         // API'den hata döndüyse (400, 500 vb.) sayfayı tekrar yükle ama Listeleri de doldur!
         TempData["ErrorMessage"] = response?.Message ?? "API tarafında bir hata oluştu.";
-        await LoadViewBags(); // Krtik Nokta: Listeleri tekrar yüklemezsen "Value cannot be null" hatası alırsın.
+        await LoadViewBags(); // Krtik Nokta: Listeleri tekrar yüklemezsek "Value cannot be null" hatası alırız çünkü dropdown'lar boş kalır.
 
         return View(model);
     }
@@ -154,7 +150,6 @@ public class ProductController : Controller
             CategoryId = product.CategoryId,
             BrandId = product.BrandId,
             CompanyId = product.CompanyId,
-            // YENİ: Mevcut Resimleri DTO'dan alıp ViewModel'e atıyoruz
             ExistingImages = product.Images ?? new List<string>()
         };
 
@@ -200,7 +195,6 @@ public class ProductController : Controller
                 content.Add(fileContent, "ImageFiles", Path.GetFileName(file.FileName));
             }
         }
-        // -----------------------------
 
         // PUT İsteği
         var response = await _apiService.PutMultipartAsync<bool>($"Product/Update/{model.Id}", content);
@@ -217,12 +211,10 @@ public class ProductController : Controller
     }
 
     // ÜRÜN SİLME
-    [HttpPost] // View'dan gelen form isteği POST'tur
+    [HttpPost] 
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Delete(Guid id)
     {
-        // API'ye DELETE isteği gönderiyoruz
-        // BaseApiService içindeki DeleteAsync metodunu çağırmalıyız
         var response = await _apiService.DeleteAsync($"Product/Delete/{id}");
 
         if (response != null && response.Success)
@@ -241,7 +233,6 @@ public class ProductController : Controller
     public async Task<IActionResult> ExportExcel()
     {
         // 1. Verileri API'den Çek (Tüm listeyi istiyoruz)
-        // Eğer CompanyId bazlı çalışıyorsan, Session'dan CompanyId alıp ona göre filtreli endpoint'i de çağırabilirsin.
         var response = await _apiService.GetAsync<IEnumerable<ProductDto>>("Product/List");
         var products = response?.Data?.ToList() ?? new List<ProductDto>();
 
@@ -258,7 +249,7 @@ public class ProductController : Controller
             worksheet.Cell(1, 5).Value = "Stok";
             worksheet.Cell(1, 6).Value = "Oluşturulma Tarihi";
 
-            // Başlıkları Kalın Yap ve Arka Plan Rengi Ver
+            // Başlıkları Kalın yapıp ve Arka Plan Rengi Ver
             var headerRange = worksheet.Range("A1:F1");
             headerRange.Style.Font.Bold = true;
             headerRange.Style.Fill.BackgroundColor = XLColor.LightGray;
@@ -271,7 +262,7 @@ public class ProductController : Controller
                 worksheet.Cell(row, 1).Value = item.Name;
                 worksheet.Cell(row, 2).Value = item.BrandName ?? "-";
                 worksheet.Cell(row, 3).Value = item.CategoryName ?? "-";
-                worksheet.Cell(row, 4).Value = item.Price; // Sayısal değer
+                worksheet.Cell(row, 4).Value = item.Price; 
                 worksheet.Cell(row, 5).Value = item.Stock;
                 row++;
             }
@@ -284,10 +275,10 @@ public class ProductController : Controller
             {
                 workbook.SaveAs(stream);
                 var content = stream.ToArray();
-                
+
                 // Dosya adı: Urunler_10022026.xlsx
                 var fileName = $"Urunler_{DateTime.Now:ddMMyyyy}.xlsx";
-                
+
                 return File(content, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
             }
         }

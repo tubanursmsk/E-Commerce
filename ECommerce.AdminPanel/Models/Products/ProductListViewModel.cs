@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
 
 namespace ECommerce.AdminPanel.Models.Products;
+
 public class ProductListViewModel
 {
     public PagedResult<ECommerce.Application.DTOs.Product.ProductDto> Products { get; set; } = new();

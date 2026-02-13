@@ -24,7 +24,7 @@ public class CategoryController : Controller
 
     public async Task<IActionResult> Index()
     {
-        // Manager ise sadece kendi şirketinin kategorileri gelir (API'de filtrelediysen)
+        // Manager ise sadece kendi şirketinin kategorileri gelir
         var response = await _apiService.GetAsync<IEnumerable<CategoryDto>>("Category/List");
         var model = new CategoryListViewModel { Categories = response?.Data ?? new List<CategoryDto>() };
         return View(model);
@@ -126,12 +126,10 @@ public class CategoryController : Controller
     }
 
     // ÜRÜN SİLME
-    [HttpPost] // View'dan gelen form isteği POST'tur
+    [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Delete(Guid id)
     {
-        // API'ye DELETE isteği gönderiyoruz
-        // BaseApiService içindeki DeleteAsync metodunu çağırmalıyız
         var response = await _apiService.DeleteAsync($"Category/Delete/{id}");
 
         if (response != null && response.Success)

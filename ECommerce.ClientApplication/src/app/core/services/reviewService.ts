@@ -20,7 +20,6 @@ export class ReviewService {
     return this.baseService.post<ApiResponse<string>>('Review/Create', reviewData);
   }
 
-
   updateReview(id: string, reviewData: any): Observable<ApiResponse<boolean>> {
     return this.baseService.post<ApiResponse<boolean>>(`Review/Update/${id}`, reviewData);
   }

@@ -4,7 +4,7 @@ using ECommerce.Application.Interfaces;
 using ECommerce.Application.Responses;
 using ECommerce.Domain.Entities;
 using ECommerce.Domain.Interfaces;
-using Microsoft.EntityFrameworkCore; // ToListAsync için gerekli (Eğer EF Core kullanıyorsan)
+using Microsoft.EntityFrameworkCore;
 using System.Linq; // OrderBy ve filtreleme için
 
 namespace ECommerce.Infrastructure.Services;

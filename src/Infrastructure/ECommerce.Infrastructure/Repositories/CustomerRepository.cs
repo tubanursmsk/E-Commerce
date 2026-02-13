@@ -22,7 +22,6 @@ public class CustomerRepository : GenericRepository<Customer>, ICustomerReposito
             .Where(c => !c.IsDeleted)
             .ToListAsync();
     }
-
     public async Task<IEnumerable<Customer>> FindWithUserAsync(Expression<Func<Customer, bool>> predicate)
     {
         return await _context.Customers
@@ -31,8 +30,6 @@ public class CustomerRepository : GenericRepository<Customer>, ICustomerReposito
             .Where(c => !c.IsDeleted)
             .ToListAsync();
     }
-
-
     public async Task<IEnumerable<Customer>> GetCustomersByCompanyIdAsync(Guid companyId)
     {
         return await _context.Customers
@@ -41,7 +38,6 @@ public class CustomerRepository : GenericRepository<Customer>, ICustomerReposito
             .AsNoTracking()
             .ToListAsync();
     }
-
 
     public async Task<Customer?> GetByIdWithUserAsync(Guid id)
     {

@@ -3,7 +3,6 @@ using ECommerce.Application.DTOs.Cargo;
 
 namespace ECommerce.AdminPanel.Models.Cargo;
 
-
 public class UpdateCargoViewModel
 {
     public Guid Id { get; set; }
@@ -13,6 +12,5 @@ public class UpdateCargoViewModel
     [Required(ErrorMessage = "Fiyat zorunludur.")]
     public decimal BasePrice { get; set; }
     public bool Status { get; set; }
-
     public Guid CompanyId { get; set; }
 }

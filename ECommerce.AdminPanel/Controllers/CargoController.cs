@@ -49,67 +49,66 @@ public class CargoController : Controller
         return View(model);
     }
 
-    
+
 
     [HttpGet]
-public async Task<IActionResult> Update(Guid id)
-{
-    // Rota: api/Cargo/{id} çağrısı yapar
-    var response = await _apiService.GetAsync<CargoDto>($"Cargo/GetById/{id}");
-    
-    if (response == null || !response.Success || response.Data == null) 
-        return NotFound();
-
-    // DTO'yu ViewModel'e manuel veya mapper ile aktaralım
-    var model = new UpdateCargoViewModel {
-        Id = response.Data.Id,
-        Name = response.Data.Name,
-        BasePrice = response.Data.BasePrice,
-        TrackingUrlPrefix = response.Data.TrackingUrlPrefix,
-        Status = response.Data.Status
-    };
-
-    return View(model);
-}
-
-  [HttpPost]
-public async Task<IActionResult> Update(UpdateCargoViewModel model)
-{
-     // CompanyId'yi sadece Session'dan al
-    var companyIdStr = HttpContext.Session.GetString("companyId");
-
-    if (string.IsNullOrWhiteSpace(companyIdStr) || !Guid.TryParse(companyIdStr, out Guid companyId))
+    public async Task<IActionResult> Update(Guid id)
     {
-        TempData["ErrorMessage"] = "Firma bilgisi bulunamadı. Lütfen tekrar giriş yapın.";
-        return RedirectToAction("Login", "Auth");
-    }
+        var response = await _apiService.GetAsync<CargoDto>($"Cargo/GetById/{id}");
 
-    model.CompanyId = companyId;
+        if (response == null || !response.Success || response.Data == null)
+            return NotFound();
 
-    if (!ModelState.IsValid)
+        var model = new UpdateCargoViewModel
+        {
+            Id = response.Data.Id,
+            Name = response.Data.Name,
+            BasePrice = response.Data.BasePrice,
+            TrackingUrlPrefix = response.Data.TrackingUrlPrefix,
+            Status = response.Data.Status
+        };
+
         return View(model);
-
-    var updateDto = new CargoUpdateDto
-    {
-        
-        Name = model.Name,
-        BasePrice = model.BasePrice,
-        TrackingUrlPrefix = model.TrackingUrlPrefix,
-        Status = model.Status,
-        CompanyId = model.CompanyId
-    };
-
-    var response = await _apiService.PutAsync<CargoUpdateDto, bool>($"Cargo/Update/{model.Id}", updateDto);
-
-    if (response is { Success: true })
-    {
-        TempData["SuccessMessage"] = "Kargo firması başarıyla güncellendi.";
-        return RedirectToAction(nameof(Index));
     }
 
-    ViewBag.Error = response?.Message ?? "Güncelleme sırasında hata oluştu.";
-    return View(model);
-}
+    [HttpPost]
+    public async Task<IActionResult> Update(UpdateCargoViewModel model)
+    {
+        // CompanyId'yi sadece Session'dan al
+        var companyIdStr = HttpContext.Session.GetString("companyId");
+
+        if (string.IsNullOrWhiteSpace(companyIdStr) || !Guid.TryParse(companyIdStr, out Guid companyId))
+        {
+            TempData["ErrorMessage"] = "Firma bilgisi bulunamadı. Lütfen tekrar giriş yapın.";
+            return RedirectToAction("Login", "Auth");
+        }
+
+        model.CompanyId = companyId;
+
+        if (!ModelState.IsValid)
+            return View(model);
+
+        var updateDto = new CargoUpdateDto
+        {
+
+            Name = model.Name,
+            BasePrice = model.BasePrice,
+            TrackingUrlPrefix = model.TrackingUrlPrefix,
+            Status = model.Status,
+            CompanyId = model.CompanyId
+        };
+
+        var response = await _apiService.PutAsync<CargoUpdateDto, bool>($"Cargo/Update/{model.Id}", updateDto);
+
+        if (response is { Success: true })
+        {
+            TempData["SuccessMessage"] = "Kargo firması başarıyla güncellendi.";
+            return RedirectToAction(nameof(Index));
+        }
+
+        ViewBag.Error = response?.Message ?? "Güncelleme sırasında hata oluştu.";
+        return View(model);
+    }
 
     [HttpPost]
     [ValidateAntiForgeryToken]

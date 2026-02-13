@@ -37,8 +37,8 @@ public class OrderRepository : GenericRepository<Order>, IOrderRepository
         var query = _context.Orders
             .Include(o => o.Customer)
                 .ThenInclude(c => c.User)
-            .Include(o => o.OrderItems)          // <--- EKLE: Sipariş kalemlerini bağla
-                .ThenInclude(oi => oi.Product)   // <--- EKLE: Kalemlerin içindeki ürünleri bağla
+            .Include(o => o.OrderItems)          //  Sipariş kalemlerini bağla
+                .ThenInclude(oi => oi.Product)   // Kalemlerin içindeki ürünleri bağla
             .Where(o => o.CustomerId == customerId && !o.IsDeleted);
 
         if (companyId.HasValue)

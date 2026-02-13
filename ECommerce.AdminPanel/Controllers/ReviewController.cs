@@ -15,8 +15,7 @@ public class ReviewController : Controller
 
     public async Task<IActionResult> Index()
     {
-        // API tarafında GetAllWithDetails metodunun sonucunu çektiğini varsayıyoruz
-        var response = await _apiService.GetAsync<IEnumerable<ReviewDto>>("Review/ListAll"); 
+        var response = await _apiService.GetAsync<IEnumerable<ReviewDto>>("Review/ListAll");
         return View(response?.Data ?? new List<ReviewDto>());
     }
 

@@ -19,7 +19,7 @@ public class BaseApiService
         _httpContextAccessor = httpContextAccessor;
         _jsonOptions = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
 
-        // CS8604 Çözümü: Null kontrolü ekliyoruz veya varsayılan değer veriyoruz
+        // Null kontrolü ekliyoruz veya varsayılan değer veriyoruz
         var baseUrl = _configuration["ApiSettings:BaseUrl"] ?? "https://localhost:5271/api/";
         _httpClient.BaseAddress = new Uri(baseUrl);
 
@@ -36,7 +36,7 @@ public class BaseApiService
 
         }
     }
-    
+
     public async Task<ApiResponse<T>?> GetAsync<T>(string endpoint)
     {
         AddTokenToHeader();

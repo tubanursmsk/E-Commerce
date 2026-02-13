@@ -14,71 +14,73 @@
                 <form asp-action="Update" method="post">
                     <input type="hidden" asp-for="Id" />
                     <input type="hidden" asp-for="CompanyId" />
-                    
+
                     <div class="row g-3">
                         <div class="col-md-12">
                             <label asp-for="Title" class="form-label fw-bold"></label>
                             <input asp-for="Title" class="form-control">
-                            <span asp-validation-for="Title" class="text-danger small"></span>
-                        </div>
+                                <span asp-validation-for="Title" class="text-danger small"></span>
+                            </div>
 
-                        <div class="col-md-8">
-                            <label asp-for="ImageUrl" class="form-label fw-bold"></label>
-                            <input asp-for="ImageUrl" id="imageUrlInput" class="form-control">
-                            <span asp-validation-for="ImageUrl" class="text-danger small"></span>
-                        </div>
+                            <div class="col-md-8">
+                                <label asp-for="ImageUrl" class="form-label fw-bold"></label>
+                                <input asp-for="ImageUrl" id="imageUrlInput" class="form-control">
+                                    <span asp-validation-for="ImageUrl" class="text-danger small"></span>
+                                </div>
 
-                        <div class="col-md-4">
-                            <label asp-for="Order" class="form-label fw-bold"></label>
-                            <input asp-for="Order" type="number" class="form-control">
-                        </div>
+                                <div class="col-md-4">
+                                    <label asp-for="Order" class="form-label fw-bold"></label>
+                                    <input asp-for="Order" type="number" class="form-control">
+                                    </div>
 
-                        <div class="col-md-12">
-                            <label asp-for="TargetUrl" class="form-label fw-bold"></label>
-                            <input asp-for="TargetUrl" class="form-control">
-                        </div>
+                                    <div class="col-md-12">
+                                        <label asp-for="TargetUrl" class="form-label fw-bold"></label>
+                                        <input asp-for="TargetUrl" class="form-control">
+                                        </div>
 
-                        <div class="col-12 mt-4">
-                            <div class="p-3 bg-light rounded text-center border border-dashed">
-                                <p class="text-muted small mb-2">Mevcut / Yeni Resim Önizleme</p>
-                                <img id="previewImage" src="@(Model.ImageUrl ?? "#")" 
-                                     alt="Önizleme" 
-                                     style="max-height: 200px; display: @(string.IsNullOrEmpty(Model.ImageUrl) ? "none" : "block"); border-radius: 10px;" 
-                                     class="shadow-sm mx-auto">
-                                <div id="noPreview" class="py-4 text-muted" style="display: @(string.IsNullOrEmpty(Model.ImageUrl) ? "block" : "none")">URL girildiğinde burada görünecek</div>
+                                        <div class="col-12 mt-4">
+                                            <div class="p-3 bg-light rounded text-center border border-dashed">
+                                                <p class="text-muted small mb-2">Mevcut / Yeni Resim Önizleme</p>
+                                                <img id="previewImage" src="@(Model.ImageUrl ?? "#")"   alt="Önizleme"
+                                                     style="max-height: 200px; display: @(string.IsNullOrEmpty(Model.ImageUrl) ? "none" : "block"); border-radius: 10px;"
+                                                     class="shadow-sm mx-auto">
+                                                <div id="noPreview" class="py-4 text-muted"
+                                                     style="display: @(string.IsNullOrEmpty(Model.ImageUrl) ? "block" : "none")">URL
+                                                    girildiğinde burada görünecek</div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 mt-4 d-flex gap-2">
+                                                <button type="submit" class="btn btn-success px-4 py-2 flex-grow-1"
+                                                        style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); border:none;">
+                                                    <i class="fas fa-check me-2"></i>Değişiklikleri Kaydet
+                                                </button>
+                                                <a asp-action="Index" class="btn btn-light px-4 py-2 border">İptal</a>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
-
-                        <div class="col-12 mt-4 d-flex gap-2">
-                            <button type="submit" class="btn btn-success px-4 py-2 flex-grow-1" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); border:none;">
-                                <i class="fas fa-check me-2"></i>Değişiklikleri Kaydet
-                            </button>
-                            <a asp-action="Index" class="btn btn-light px-4 py-2 border">İptal</a>
-                        </div>
                     </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-    <script>
-        // URL değiştikçe önizlemeyi güncelleyen JS
-        document.getElementById('imageUrlInput').addEventListener('input', function () {
-            const preview = document.getElementById('previewImage');
-            const placeholder = document.getElementById('noPreview');
-            const url = this.value;
+                    @section Scripts {
+                        <partial name="_ValidationScriptsPartial" />
+                        <script>
+                                // URL değiştikçe önizlemeyi güncelleyen JS
+                                document.getElementById('imageUrlInput').addEventListener('input', function () {
+                                    const preview = document.getElementById('previewImage');
+                                    const placeholder = document.getElementById('noPreview');
+                                    const url = this.value;
 
-            if (url && url.length > 5) {
-                preview.src = url;
-                preview.style.display = 'block';
-                placeholder.style.display = 'none';
-            } else {
-                preview.style.display = 'none';
-                placeholder.style.display = 'block';
-            }
-        });
-    </script>
-}
+                                    if (url && url.length > 5) {
+                                        preview.src = url;
+                                        preview.style.display = 'block';
+                                        placeholder.style.display = 'none';
+                                    } else {
+                                        preview.style.display = 'none';
+                                        placeholder.style.display = 'block';
+                                    }
+                                });
+                        </script>
+                    }

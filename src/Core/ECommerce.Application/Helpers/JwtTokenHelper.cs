@@ -9,7 +9,7 @@ namespace ECommerce.Application.Helpers
 {
     public static class JwtTokenHelper
     {
-        // Config değerleri (appsettings.json’dan alabilirsin)
+        // Config değerleri (appsettings.json’dan okunabilir hale getirilebilir)
         private static readonly string SecretKey = "MySuperSecretKeyForJwt123456!MySuperSecretKeyForJwt123456!"; // bu kısımda proje geliştime aşamasında old. için scretkey yazımı  statik ve görünür oldu  eğer daha güvenli hale getirmek istersek DI ile program.cs içindeki Jwt configrasyonu ile düzenleye biliriz 
         private static readonly string Issuer = "ECommerceApp"; //yayıncı
         private static readonly string Audience = "ECommerceUsers"; //izleyici
@@ -21,8 +21,8 @@ namespace ECommerce.Application.Helpers
             {
                 new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
                 //new Claim(ClaimTypes.Name, username),
-                new Claim(ClaimTypes.Name, email), // Email'i Name claim'inde tutmaya devam edelim
-                new Claim("fullName", fullName),   // YENİ: Tam Adı buraya ekliyoruz
+                new Claim(ClaimTypes.Name, email), 
+                new Claim("fullName", fullName),   
                 new Claim("companyId", companyId.ToString())
             };
 

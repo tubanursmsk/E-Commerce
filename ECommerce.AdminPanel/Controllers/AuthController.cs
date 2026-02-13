@@ -26,7 +26,7 @@ public class AuthController : Controller
     {
         if (!ModelState.IsValid) return View(model);
 
-        // API'ye gidiyoruz (Senin LoginDto yapına uygun gönderiyoruz)
+        // API'ye gidiyoruz LoginDto yapına uygun yaptım
         var loginRequest = new { Email = model.EmailOrUserName, Password = model.Password };
         var response = await _apiService.PostAsync<object, string>("Auth/Login", loginRequest);
 
@@ -41,24 +41,24 @@ public class AuthController : Controller
             var companyId = jwtToken.Claims.FirstOrDefault(c => c.Type == "companyId")?.Value;
             var role = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
             var userId = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-            
 
-            // 1. Session Set Et (Layout'taki @Context.Session.GetString kodları için)
+
+            // 1. Session Set Ettik (Layout'taki @Context.Session.GetString kodları için)
             HttpContext.Session.SetString("UserName", userName);
             if (companyId != null) HttpContext.Session.SetString("companyId", companyId);
 
             // 2. Cookie Auth (Yetkilendirme için)
-            var claims = new List<Claim> {    
+            var claims = new List<Claim> {
             new Claim(ClaimTypes.Name, userName),
             new Claim(ClaimTypes.Role, role ?? "Customer"),
-            new Claim("companyId", companyId ?? string.Empty), // CompanyId'yi Cookie'ye ekliyoruz
+            new Claim("companyId", companyId ?? string.Empty),
             new Claim(ClaimTypes.NameIdentifier, userId ?? string.Empty)
-            
+
         };
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
 
-            // 3. API Token'ı Cookie'ye yaz (BaseApiService için)
+            // 3. API Token'ı Cookie'ye yazdık (BaseApiService için)
             Response.Cookies.Append("JwtToken", token, new CookieOptions { HttpOnly = true });
 
             TempData["SuccessMessage"] = "Hoş geldiniz, giriş başarılı!";
@@ -87,7 +87,7 @@ public class AuthController : Controller
         if (!ModelState.IsValid) return View(model);
 
         // API'nin beklediği Register DTO formatına dönüştürüyoruz
-        // Not: API tarafındaki Register metodunun hem user hem company bilgilerini aldığını varsayıyoruz
+        // Not: API tarafındaki Register metodunun hem user hem company bilgilerini alıyor
         var result = await _apiService.PostAsync<RegisterCompanyViewModel, string>("Auth/Register", model);
 
         if (result != null && result.Success)
@@ -99,21 +99,14 @@ public class AuthController : Controller
         ViewBag.Error = result?.Message ?? "Kayıt işlemi sırasında bir hata oluştu.";
         return View(model);
     }
-
-    
-
 }
 /* 
 
 Özetle Mantık Şöyle İşler:
-Giriş: Kullanıcı MVC'ye yazar -> MVC API'ye sorar.
-
+Giriş: Kllanıcı MVC'ye yazar -> MVC API'ye sorar.
 Yanıt: API bir JWT verir.
-
 Parselleme: MVC bu JWT'yi açar; "Ha bu adam Admin'miş, şirketi de X'miş" der ve bunu kendi Cookie'sine yazar.
-
 Kullanım: Sen yarın bir sayfaya [Authorize(Roles="Admin")] yazdığında, MVC API'ye gitmez, kendi Cookie'sine bakar.
-
 Servis: Bir veri istediğinde BaseApiService devreye girer, "Dur, şu JWT'yi de yanıma alayım da API beni tanısın" der.
 
 */

@@ -78,4 +78,6 @@ public class CompanyController : ControllerBase
 }
 
 
-//Silme işleminin (Soft Delete) başarılı olması çok iyi. Veritabanına gidip baktığında IsDeleted alanının 1 (true) olduğunu, ancak verinin hala orada durduğunu görebilirsin. Bu, e-ticaret sistemlerinde veri kaybını önlemek için profesyonel bir yaklaşımdır.
+//Silme işleminin (Soft Delete) başarılı olması çok iyi. Veritabanına gidip baktığında
+// IsDeleted alanının 1 (true) olduğunu, ancak verinin hala orada durduğunu görebilirsin. 
+//Bu, e-ticaret sistemlerinde veri kaybını önlemek için profesyonel bir yaklaşımdır.

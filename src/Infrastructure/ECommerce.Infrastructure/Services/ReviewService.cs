@@ -31,14 +31,6 @@ public class ReviewService : IReviewService
         return ApiResponse<IEnumerable<ReviewDto>>.SuccessResult(dtos);
     }
 
-    /*public async Task<ApiResponse<IEnumerable<ReviewDto>>> GetByProductIdAsync(Guid productId)
-    {
-        // Belirli bir ürüne ait silinmemiş yorumları getir
-        var reviews = await _unitOfWork.Reviews.FindAsync(r => r.ProductId == productId);
-        var dtos = _mapper.Map<IEnumerable<ReviewDto>>(reviews);
-        return ApiResponse<IEnumerable<ReviewDto>>.SuccessResult(dtos);
-    }*/
-
     public async Task<ApiResponse<IEnumerable<ReviewDto>>> GetByProductIdAsync(Guid productId)
     {
         // Include ile Customer bilgisini de çekmeliyiz ki isim görünsün

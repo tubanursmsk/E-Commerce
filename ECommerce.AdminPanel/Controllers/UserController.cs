@@ -14,7 +14,6 @@ public class UserController : Controller
 {
     private readonly BaseApiService _apiService;
     public UserController(BaseApiService apiService) => _apiService = apiService;
-
     public async Task<IActionResult> Index()
     {
         var role = User.FindFirstValue(ClaimTypes.Role);
@@ -45,7 +44,7 @@ public class UserController : Controller
         var companyIdStr = User.FindFirstValue("companyId");
         Guid? companyId = string.IsNullOrEmpty(companyIdStr) ? null : Guid.Parse(companyIdStr);
 
-        // API'ye gidecek Register DTO'su (veya UserCreateDto)
+        // API'ye gidecek UserCreateDto)
         var dto = new UserCreateDto
         {
             FirstName = model.FirstName,

@@ -15,21 +15,16 @@ namespace ECommerce.AdminPanel.Controllers;
 [Authorize]
 public class CustomerController : Controller
 {
-
     private readonly BaseApiService _apiService;
-
     public CustomerController(BaseApiService apiService)
     {
         _apiService = apiService;
     }
-
-
-        public async Task<IActionResult> Index()
-        {
-            var response = await _apiService.GetAsync<IEnumerable<CustomerDto>>("Customer");
-            return View(response?.Data ?? new List<CustomerDto>());
-        }
-    
+    public async Task<IActionResult> Index()
+    {
+        var response = await _apiService.GetAsync<IEnumerable<CustomerDto>>("Customer");
+        return View(response?.Data ?? new List<CustomerDto>());
+    }
 
     [HttpPost]
     public async Task<IActionResult> ToggleStatus(Guid id)
@@ -42,44 +37,24 @@ public class CustomerController : Controller
 
         return RedirectToAction(nameof(Index));
     }
-
-
-/*
     public async Task<IActionResult> Details(Guid id)
-{
-    // 1. Müşteri bilgilerini çek (CustomerController üzerinden GetById endpoint'in olduğunu varsayıyoruz)
-    var customerResponse = await _apiService.GetAsync<CustomerDto>($"Customer/{id}");
-    
-    // 2. Müşterinin bu şirketteki siparişlerini çek
-    var ordersResponse = await _apiService.GetAsync<IEnumerable<OrderDto>>($"Order/ByCustomer/{id}");
-
-    if (customerResponse == null || !customerResponse.Success) return NotFound();
-
-    ViewBag.Orders = ordersResponse?.Data ?? new List<OrderDto>();
-    return View(customerResponse.Data);
-}
-*/
-
-public async Task<IActionResult> Details(Guid id)
-{
-    // 1. Müşteri bilgilerini çek
-    var customerResponse = await _apiService.GetAsync<CustomerDto>($"Customer/{id}");
-    
-    // API'den müşteri gelmediyse veya hata oluştuysa
-    if (customerResponse == null || !customerResponse.Success || customerResponse.Data == null)
     {
-        TempData["ErrorMessage"] = "Müşteri bilgileri alınamadı.";
-        return RedirectToAction(nameof(Index));
+        // 1. Müşteri bilgilerini çek
+        var customerResponse = await _apiService.GetAsync<CustomerDto>($"Customer/{id}");
+
+        // API'den müşteri gelmediyse veya hata oluştuysa
+        if (customerResponse == null || !customerResponse.Success || customerResponse.Data == null)
+        {
+            TempData["ErrorMessage"] = "Müşteri bilgileri alınamadı.";
+            return RedirectToAction(nameof(Index));
+        }
+
+        // 2. Müşterinin siparişlerini çek
+        var ordersResponse = await _apiService.GetAsync<IEnumerable<OrderDto>>($"Order/ByCustomer/{id}");
+
+        // View'a null gitmemesi için garantiye alıyoruz
+        ViewBag.Orders = ordersResponse?.Data ?? new List<OrderDto>();
+
+        return View(customerResponse.Data);
     }
-
-    // 2. Müşterinin siparişlerini çek
-    var ordersResponse = await _apiService.GetAsync<IEnumerable<OrderDto>>($"Order/ByCustomer/{id}");
-
-    // View'a null gitmemesi için garantiye alıyoruz
-    ViewBag.Orders = ordersResponse?.Data ?? new List<OrderDto>();
-    
-    return View(customerResponse.Data);
-}
-
-
 }

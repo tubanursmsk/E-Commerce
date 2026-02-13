@@ -10,12 +10,10 @@ namespace ECommerce.AdminPanel.Controllers;
 public class OrderController : Controller
 {
     private readonly BaseApiService _apiService;
-
     public OrderController(BaseApiService apiService)
     {
         _apiService = apiService;
     }
-
     public async Task<IActionResult> Index()
     {
         var response = await _apiService.GetAsync<IEnumerable<OrderDto>>("Order/List");
@@ -27,11 +25,10 @@ public class OrderController : Controller
 
         return View(new List<OrderDto>());
     }
-
     public async Task<IActionResult> Details(Guid id)
     {
         var response = await _apiService.GetAsync<OrderDto>($"Order/{id}");
-        
+
         if (response == null || !response.Success)
             return NotFound();
 

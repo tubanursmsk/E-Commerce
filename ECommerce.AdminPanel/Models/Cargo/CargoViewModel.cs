@@ -2,7 +2,6 @@ using System.ComponentModel.DataAnnotations;
 using ECommerce.Application.DTOs.Cargo;
 
 namespace ECommerce.AdminPanel.Models.Cargo;
-
 public class CargoViewModel
 {
     public Guid Id { get; set; }
@@ -17,11 +16,9 @@ public class CargoViewModel
     [Required(ErrorMessage = "Sabit fiyat zorunludur.")]
     [Display(Name = "Standart Kargo Ücreti")]
     public decimal BasePrice { get; set; }
-
     public Guid CompanyId { get; set; }
 
 }
-
 
 public class CargoListViewModel
 {

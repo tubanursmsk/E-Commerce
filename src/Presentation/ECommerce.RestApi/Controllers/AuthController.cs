@@ -18,7 +18,7 @@ public class AuthController : ControllerBase
         _authService = authService;
     }
 
-    [HttpPost("Login")] //async de hata olursa hocanın yaptığına bak
+    [HttpPost("Login")] 
     public async Task<IActionResult> Login(LoginDto userLogindto)
     {
         var authResponseDto = await _authService.LoginAsync(userLogindto);
