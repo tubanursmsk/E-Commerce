@@ -1,4 +1,4 @@
-# 🛠️ RestAPI Teknik Kontrol Listesi (Checklist)
+# 🛠️ RestAPI & MVC Admin Panel Teknik Kontrol Listesi (Checklist)
 
  ## 🧠 Neyi, nasıl yaptık?
  
@@ -47,5 +47,83 @@
 <img width="683" height="369" alt="image" src="https://github.com/user-attachments/assets/a8106fb5-c1aa-4ff1-9fbe-45b3d8c77692" />
 
 
-> ### 8. 
+> ### 8. "Neden MVC içinde de servis var?" 
 
+-> **MVC İçindeki Servislerin İş Akışı (Neden Servis Yazıyoruz?)**
+Aslında en büyük kafa karışıklığı burada yaşanıyor: "Madem Infrastructure katmanında servislerim var, neden MVC içinde tekrar servis yazıyorum?"
+
+- MVC projesindeki servisler, Infrastructure katmanındaki servislerle aynı işi yapmaz.
+- Infrastructure Servisleri (API Tarafı): Veritabanına gider, SQL çalıştırır, veriyi ham halde getirir.
+- MVC Servisleri (Web Tarafı): Veritabanını tanımaz. Tek işi HTTP isteği atmaktır. Yani BaseApiService'i kullanarak API'ye "Bana ürünleri ver" der, gelen JSON'u alır ve View'a gönderir.
+
+**İş Akışı Şöyledir:**
+- MVC Controller: "Bana ürün listesi lazım" der ve kendi içindeki IProductWebService'i çağırır.
+- MVC WebService: BaseApiService aracılığıyla API'deki ProductController'a bir GET isteği gönderir.
+- RestAPI: İstek API'ye ulaşır, oradaki ProductService (Infrastructure) veritabanından veriyi çeker ve JSON olarak döner.
+- MVC WebService: Gelen JSON'u DTO'ya dönüştürür ve Controller'a paslar.
+
+
+> ### 9. "MVC'de Neden Session ve Cookie'yi Aynı Anda Kullandık?"
+- Cookie: Sayfa koruması için gereklidir ([Authorize]).
+- Session: Layout'un sağ üst köşesinde "Kullanıcı Adı" veya "Şirket ID" gibi bilgileri hızlıca string olarak okuyabilmek için çok pratiktir.
+- BaseApiService: API'ye giderken token'ı çerezden (JwtToken) okuyacak şekilde kurguladık.
+
+ **Özetle Kullanıcı bilgisini neden hem Cookie hem Session'da tuttuk sorusuna daha net cevap vermek gerekirse:**
+- "Kimlik doğrulama ve yetkilendirme (Auth) için tarayıcı bazlı Cookie (JWT) kullanıyorum. Ancak Layout gibi arayüz bileşenlerinde kullanıcı adını veya profil resmini her seferinde DB'den veya API'den çekip performansı düşürmemek için, sunucu taraflı bir cache mekanizması olan Session'ı tercih ettim. Böylece UI ihtiyaçlarını hızlıca karşılıyorum."
+
+> ### 10. Neden hem Register hem RegisterWithCompany metodu var?"
+- "Sistemde iki farklı kayıt akışı var. Standart bir müşteri (Customer) sadece email ve şifre ile kaydolurken; bir şirket yöneticisi (CompanyManager), şirket tüzel kişilik bilgilerini de vermek zorunda. Bu, Single Responsibility (Tek Sorumluluk) prensibi gereği farklı DTO'lar ve metotlar gerektirir. Ayrıca şirket kaydı bir Transaction (İşlem) gerektirir; şirket oluşmazsa kullanıcı da oluşmamalıdır."
+
+> ### 11. "Veriyi veritabanından tamamen siliyor muyuz?"
+- "Hayır, veritabanında Soft Delete (Mantıksal Silme) uyguluyorum. Entity yapımda bulunan IsDeleted bayrağını (flag) true çekiyorum. Bu sayede veri güvenliğini sağlıyor ve geçmişe dönük sipariş verilerinin tutarlılığını koruyorum. API katmanındaki Repository seviyesinde global bir filtre (HasQueryFilter) kullanarak, silinmiş ürünlerin listeleme sorgularına dahil edilmesini engelliyorum."
+
+> ### 12. "Neden URL yerine Token kullandın?"
+- "Şirket bazlı filtrelemede companyId parametresini URL'den (QueryString veya Route) almak yerine doğrudan kullanıcının JWT (Claim) bilgilerinden okumayı tercih ettim. Bu yaklaşım Insecure Direct Object Reference (IDOR) açıklarını önler. Kullanıcı URL'deki ID'yi değiştirse bile, sistem arka planda Token içindeki gerçek kimliğine baktığı için asla yetkisi olmayan veriyi göremez. Bu, sunucu taraflı güvenliğin (Server-Side Security) bir gereğidir."
+
+> ### 13. "Neden Generic Repository dışına çıkıp özel metot yazmayı tercih ettik?"
+- "Generic Repository temel CRUD işlemleri için yeterli olsa da, ilişkili tabloların (Include) ve özel iş kurallarının (Company bazlı filtreleme) gerektiği durumlarda mimariyi bozmadan Specific Repository (Örn: ProductRepository) kullandım. Böylece servis katmanını karmaşık LINQ sorgularından arındırıp iş mantığına odaklanmasını sağladım."
+
+> ### 14. "Kategorilerdeki alt-üst ilişkisini veritabanında nasıl kurguladık?"
+- "Self-referencing (kendi kendine referans veren) bir yapı kullandım. Category tablosunda ParentId adında bir kolon var ve bu kolon yine Category tablosunun Id kolonuna (Primary Key) işaret eden bir Foreign Key'dir. Bu sayede sonsuz derinlikte alt kategori oluşturabiliyoruz."
+
+> ### 15. "Order-Detail sayfasının çalışma kurgusunu nasıl yaptık?" 
+- "Müşteri detay sayfasında Micro-FrontEnd mantığıyla hareket ettim. Sayfayı yüklerken önce ana müşteri bilgilerini, ardından asenkron olarak o müşteriye ait siparişleri çektim. OrderService katmanında yaptığım şirket bazlı filtreleme sayesinde, bir mağaza yöneticisinin müşterinin başka bir mağazadan verdiği siparişleri görmesini engelleyerek Veri Gizliliği (Data Privacy) standartlarını korudum."
+
+
+> ### 16. "Order Modeldosyası içinde FirstName, LastName değerlerini tanımlamak yerine OrderRepository kısmında FullName değerine olan ihtiyacımı  user üzerinden, include yöntemi ile çekme nedenimiz neydi, bu teknik kod maliyetini nasıl etkiledi?"
+
+  **OrderRepository - GetByCustomerIdAsync içinden alıntı:**
+  ```
+var orders = await _context.Orders
+    .Include(o => o.Customer)       // Müşteriyi dahil et
+        .ThenInclude(c => c.User)   // Müşterinin User bilgilerini (Ad-Soyad burada) dahil et
+    .Where(o => o.CustomerId == customerId)
+    .ToListAsync();
+  ```
+
+- "AutoMapper kullanarak Flattening (Düzleştirme) tekniğini uyguladım. Karmaşık ve iç içe geçmiş (Nested) nesne yapısındaki (Order.Customer.User) verileri, UI tarafında kolayca sergileyebilmek için tek bir string alanda (CustomerFullName) topladım. Bu sayede View tarafında karmaşık mantık yürütmekten kaçınarak Separation of Concerns (Sorumlulukların Ayrılması) prensibine sadık kaldım."
+  
+
+> ### 17. "Sipariş listesinde müşteri adını nasıl gösterdik?"
+
+ **OrderRepository - GetByCustomerIdAsync içinden alıntı:**
+  ```
+var orders = await _context.Orders
+    .Include(o => o.Customer)       // Müşteriyi dahil et
+        .ThenInclude(c => c.User)   // Müşterinin User bilgilerini (Ad-Soyad burada) dahil et
+    .Where(o => o.CustomerId == customerId)
+    .ToListAsync();
+  ```
+
+"Sipariş nesnesi doğrudan müşterinin ismini tutmaz, müşterinin ID'sini tutar. İsme ulaşmak için Order -> Customer -> User şeklinde iki seviyeli bir ilişkiyi takip etmem gerekiyordu. Entity Framework Core kullanarak Eager Loading yöntemiyle Include ve ardından ThenInclude metodlarını kullandım. Bu sayede veritabanına atılan tek bir sorgu ile tüm ilişkili verileri performanslı bir şekilde çektim ve AutoMapper ile bu karmaşık yapıyı düzleştirerek (Flattening) DTO'ya aktardım. Özetle UI tarafında iç içe geçmiş nesnelerle uğraşmak yerine CustomerFullName gibi düz bir string kullanmak performansı ve kod okunabilirliğini artırır."
+
+> ### 18. "Kargo yönetimini nasıl kurguladık?"
+- "Sistemde kargo firmalarını dinamik olarak yönettik. Her firma için bir TrackingUrlPrefix tanımlayarak, sipariş kargolandığında üretilen takip numarasını bu URL'in sonuna ekliyoruz. Bu sayede müşteriye gönderdiğimiz linke tıklandığında otomatik olarak kargo firmasının kendi sitesindeki sorgulama ekranına yönlendirme yaparak kullanıcı deneyimini (UX) artırıyoruz."
+
+> ### 19. "RestApi'de put ile tanımlanan metodda MVC admin Panelde put yerine post tanımlaması yaptığım için 405 hatası aldım. Bu sorunun çözüm adımları nasıldı:"
+"405 Method Not Allowed hatası aldığımda ilk olarak API'nin beklediği HTTP fiilini (GET, POST, PUT, DELETE) kontrol ettim. Logları inceleyerek istemcinin hangi fiille istek attığını saptayıp, Bu vakada sunucu PUT beklerken istemci POST attığı için hata oluştuğunu fark ettim. BaseApiService üzerindeki isteği HttpPut olarak revize ederek sorunu giderdim."
+
+> ### 20. "Yorum yönetimini nasıl kurguladık?"
+- "Yorum sisteminde Server-Side Validation uygulayarak puanların 1-5 arasında olmasını sağladım. Moderasyon panelinde ise Soft Delete mantığını kullandım; böylece silinen yorumlar veritabanından tamamen yok olmaz, sadece yayından kalkar. Ayrıca Mağaza Yöneticilerinin sadece kendi ürünlerine gelen yorumları görmesi için Şirket Bazlı Filtreleme (Multi-Tenancy) uyguladım."
+
+> ### 21. 
