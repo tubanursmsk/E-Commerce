@@ -16,3 +16,4 @@
 
 # Eğer HTML'in oranını tamamen düşürmek istersen (Tüm HTML'leri yoksayar)
  *.html linguist-vendored
+*.cshtml linguist-vendored
