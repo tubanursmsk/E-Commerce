@@ -20,4 +20,4 @@
 # Eğer HTML'in oranını tamamen düşürmek istersen (Tüm HTML'leri yoksayar)
 # Not: Angular component HTML'lerini de gizler ama C#/TS oranını zirveye çıkarır.
 # İstiyorsan aşağıdaki satırın başındaki '#' işaretini kaldır.
-# *.html linguist-vendored
+ *.html linguist-vendored
