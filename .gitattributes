@@ -1,6 +1,23 @@
 # Auto detect text files and perform LF normalization
 * text=auto
 
-# Angular tarafındaki node_modules veya dist klasörleri yanlışlıkla gittiyse 
+# Tüm minified (sıkıştırılmış) dosyaları yoksay
+**/*.min.js linguist-vendored
+**/*.min.css linguist-vendored
+**/*.bundle.js linguist-vendored
+**/*.bundle.css linguist-vendored
+
+# wwwroot içindeki kütüphaneleri yoksay (ASP.NET Core için)
+**/wwwroot/lib/** linguist-vendored
+**/wwwroot/vendor/** linguist-vendored
+**/wwwroot/plugins/** linguist-vendored
+
+# Angular / Node.js klasörlerini yoksay
 **/node_modules/** linguist-vendored
-**/dist/** linguist-generated
+**/dist/** linguist-vendored
+**/.angular/** linguist-vendored
+
+# Eğer HTML'in oranını tamamen düşürmek istersen (Tüm HTML'leri yoksayar)
+# Not: Angular component HTML'lerini de gizler ama C#/TS oranını zirveye çıkarır.
+# İstiyorsan aşağıdaki satırın başındaki '#' işaretini kaldır.
+# *.html linguist-vendored
