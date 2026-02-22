@@ -14,6 +14,6 @@
 **/dist/** linguist-vendored
 **/.angular/** linguist-vendored
 
-# Eğer HTML'in oranını tamamen düşürmek istersen (Tüm HTML'leri yoksayar)
- *.html linguist-vendored
-*.cshtml linguist-vendored
+# Tüm alt klasörlerdeki HTML ve CSHTML dosyalarını yoksay
+**/*.html linguist-vendored
+**/*.cshtml linguist-vendored
