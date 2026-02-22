@@ -1,3 +1,0 @@
-window.Adform.Tracking.TrackingPointId = 171403863;
-window.Adform.Tracking.TrackingPointName = "All_Pages_Visitors";
-(function(c,b){var x="https://c1.adform.net/imatch/pixels?bt=0&uid=4224352248191827649&agencyId=9964&advertiserId=2230739&src=tp&rnd=394702";var a=c.Adform&&c.Adform.ADFUtilInstance;a?a.loadTrackingIframes([x]):(a=b.createElement("div"),b.getElementById("adformtrackingiframe")||(a.innerHTML='<iframe src="'+x+'" allowtransparency="true" webkitallowfullscreen mozallowfullscreen allowfullscreen marginwidth="0" marginheight="0" scrolling="no" style="display:none;border:none;" id="adformtrackingiframe"></iframe>',b.body.appendChild(a.removeChild(a.firstChild))))})(window,document);
