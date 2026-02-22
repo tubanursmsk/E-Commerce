@@ -1,2 +1,6 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Angular tarafındaki node_modules veya dist klasörleri yanlışlıkla gittiyse 
+**/node_modules/** linguist-vendored
+**/dist/** linguist-generated
