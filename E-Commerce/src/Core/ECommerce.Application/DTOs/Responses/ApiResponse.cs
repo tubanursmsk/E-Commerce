@@ -10,6 +10,5 @@ public class ApiResponse<T>
 
     public static ApiResponse<T> ErrorResult(string message) 
         => new() { Success = false, Message = message }; //Yönergede API'den dönecek cevabın standart bir
-          // formatta olması isteniyordu: { "success": true, "message": "", "data": {} } 
-          // Bunu karşılamak için generic bir sınıf oluşturalım.
+          
 }

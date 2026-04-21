@@ -1,6 +1,8 @@
-using System.ComponentModel.DataAnnotations;namespace ECommerce.Application.DTOs.Customer;
-
 using System.ComponentModel.DataAnnotations;
+
+namespace ECommerce.Application.DTOs.Customer;
+
+
 public class CustomerDeleteDto
 {
     [Required]

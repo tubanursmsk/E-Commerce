@@ -15,7 +15,6 @@ public interface IUnitOfWork
     IGenericRepository<Brand> Brands { get; }
     IGenericRepository<Banner> Banners { get; }
     IGenericRepository<User> Users { get; }
-    IGenericRepository<Role> Roles { get; }
     IGenericRepository<Request> Requests { get; }
     IGenericRepository<Cargo> Cargoes { get; }
   
